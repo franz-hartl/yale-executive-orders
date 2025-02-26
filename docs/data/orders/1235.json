@@ -1,0 +1,42 @@
+{
+  "id": 1235,
+  "order_number": "2025-02406",
+  "title": "Imposing Duties To Address the Flow of Illicit Drugs Across Our Northern Border",
+  "signing_date": "2025-02-07",
+  "publication_date": null,
+  "president": "Unknown",
+  "summary": "This executive order focuses on addressing the flow of illicit drugs across the United States' northern border, likely with Canada. It may involve increased border security measures, interdiction efforts, and collaboration with international partners to disrupt drug trafficking networks.",
+  "full_text": "While the order does not directly target universities, it could lead to increased federal funding for border security and drug interdiction efforts. This could indirectly impact universities like Yale by diverting resources away from other areas of federal spending, such as research grants or student financial aid.",
+  "url": "https://www.federalregister.gov/documents/2025/02/07/2025-02406/imposing-duties-to-address-the-flow-of-illicit-drugs-across-our-northern-border",
+  "impact_level": "Medium",
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-02-26 15:06:51",
+  "last_updated": "2025-02-26 15:06:51",
+  "plain_language_summary": null,
+  "categories": [
+    "Immigration"
+  ],
+  "impact_areas": [
+    "Operational"
+  ],
+  "university_impact_areas": [
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
+    },
+    {
+      "name": "Workforce & Employment Policy",
+      "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity",
+      "notes": null
+    },
+    {
+      "name": "Public-Private Partnerships",
+      "description": "Changes affecting university-industry collaborations, tech transfer, and economic development initiatives",
+      "notes": null
+    }
+  ],
+  "compliance_actions": [],
+  "has_plain_language_summary": false
+}

@@ -1,0 +1,142 @@
+{
+  "impactLevels": [
+    {
+      "impact_level": "Critical",
+      "count": 1
+    },
+    {
+      "impact_level": "High",
+      "count": 9
+    },
+    {
+      "impact_level": "Medium",
+      "count": 16
+    },
+    {
+      "impact_level": "Low",
+      "count": 9
+    },
+    {
+      "impact_level": null,
+      "count": 17
+    }
+  ],
+  "universityImpactAreas": [
+    {
+      "name": "Administrative Compliance",
+      "count": 32
+    },
+    {
+      "name": "Workforce & Employment Policy",
+      "count": 10
+    },
+    {
+      "name": "Research Funding",
+      "count": 3
+    },
+    {
+      "name": "Student Aid & Higher Education Finance",
+      "count": 2
+    },
+    {
+      "name": "Public-Private Partnerships",
+      "count": 2
+    }
+  ],
+  "categories": [
+    {
+      "name": "Technology",
+      "count": 25
+    },
+    {
+      "name": "Immigration",
+      "count": 8
+    },
+    {
+      "name": "Education",
+      "count": 8
+    },
+    {
+      "name": "Finance",
+      "count": 4
+    },
+    {
+      "name": "National Security",
+      "count": 2
+    },
+    {
+      "name": "Healthcare",
+      "count": 2
+    },
+    {
+      "name": "Environment",
+      "count": 2
+    },
+    {
+      "name": "Research",
+      "count": 1
+    }
+  ],
+  "timeline": [
+    {
+      "month": "2011-07",
+      "count": 1
+    },
+    {
+      "month": "2012-07",
+      "count": 1
+    },
+    {
+      "month": "2017-02",
+      "count": 1
+    },
+    {
+      "month": "2018-08",
+      "count": 1
+    },
+    {
+      "month": "2020-01",
+      "count": 1
+    },
+    {
+      "month": "2020-11",
+      "count": 1
+    },
+    {
+      "month": "2021-01",
+      "count": 1
+    },
+    {
+      "month": "2021-02",
+      "count": 1
+    },
+    {
+      "month": "2021-05",
+      "count": 1
+    },
+    {
+      "month": "2021-12",
+      "count": 2
+    },
+    {
+      "month": "2022-03",
+      "count": 1
+    },
+    {
+      "month": "2023-10",
+      "count": 2
+    },
+    {
+      "month": "2024-02",
+      "count": 5
+    },
+    {
+      "month": "2025-01",
+      "count": 14
+    },
+    {
+      "month": "2025-02",
+      "count": 19
+    }
+  ]
+}

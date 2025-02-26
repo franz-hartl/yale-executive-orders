@@ -1,0 +1,32 @@
+{
+  "id": 1230,
+  "order_number": "2025-02513",
+  "title": "Keeping Men Out of Women's Sports",
+  "signing_date": "2025-02-11",
+  "publication_date": null,
+  "president": "Unknown",
+  "summary": "This executive order aims to prohibit transgender women from participating in women's sports at the collegiate and high school level, claiming that their participation would unfairly disadvantage cisgender women athletes.",
+  "full_text": "Universities like Yale could face potential legal challenges and loss of federal funding if they do not comply with the order, leading to significant financial burdens and operational disruptions.",
+  "url": "https://www.federalregister.gov/documents/2025/02/11/2025-02513/keeping-men-out-of-womens-sports",
+  "impact_level": "Critical",
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-02-26 15:06:51",
+  "last_updated": "2025-02-26 15:06:51",
+  "plain_language_summary": null,
+  "categories": [
+    "Technology"
+  ],
+  "impact_areas": [
+    "Operational"
+  ],
+  "university_impact_areas": [
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
+    }
+  ],
+  "compliance_actions": [],
+  "has_plain_language_summary": false
+}

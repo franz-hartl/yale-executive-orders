@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "order_number": "EO 14110",
+    "title": "Addressing the Risks and Harnessing the Benefits of Artificial Intelligence",
+    "signing_date": "2023-10-30",
+    "publication_date": "2023-10-30",
+    "president": "Biden",
+    "summary": "Establishes new standards for AI safety and security.",
+    "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2023/10/30/executive-order-on-the-safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence/",
+    "impact_level": "High",
+    "status": "Active",
+    "categories": ["Technology", "Education"],
+    "impact_areas": ["Research", "Compliance"],
+    "university_impact_areas": ["Research Funding", "Administrative Compliance"]
+  },
+  {
+    "id": 2,
+    "order_number": "EO 14028",
+    "title": "Improving the Nation's Cybersecurity",
+    "signing_date": "2021-05-12", 
+    "publication_date": "2021-05-12",
+    "president": "Biden",
+    "summary": "Enhances cybersecurity practices and protects federal networks.",
+    "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2021/05/12/executive-order-on-improving-the-nations-cybersecurity/",
+    "impact_level": "Critical",
+    "status": "Active",
+    "categories": ["Technology", "National Security"],
+    "impact_areas": ["IT Operations", "Research Security"],
+    "university_impact_areas": ["Research Funding", "Administrative Compliance"]
+  },
+  {
+    "id": 3,
+    "order_number": "EO 14075",
+    "title": "Advancing Economy, Efficiency, and Effectiveness in Federal Contracting",
+    "signing_date": "2022-06-17",
+    "publication_date": "2022-06-17",
+    "president": "Biden",
+    "summary": "Promotes project labor agreements in federal construction projects.",
+    "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2022/06/17/executive-order-on-advancing-economy-efficiency-and-effectiveness-in-federal-contracting-by-promoting-pay-equity-and-transparency/",
+    "impact_level": "Medium",
+    "status": "Active",
+    "categories": ["Finance", "Education"],
+    "impact_areas": ["Funding", "Compliance"],
+    "university_impact_areas": ["Public-Private Partnerships", "Administrative Compliance"]
+  }
+]

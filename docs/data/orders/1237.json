@@ -1,0 +1,33 @@
+{
+  "id": 1237,
+  "order_number": "2025-02407",
+  "title": "Imposing Duties To Address the Situation at Our Southern Border",
+  "signing_date": "2025-02-07",
+  "publication_date": null,
+  "president": "Unknown",
+  "summary": "This executive order focuses on addressing the situation at the U.S. southern border, including directing the allocation of resources and personnel to border security operations. While the order does not directly address universities, it could have indirect implications related to funding and operations.",
+  "full_text": "Universities like Yale may potentially face financial impacts if the order results in the redirection of federal funding or resources away from higher education programs and initiatives. This could affect research grants, student aid, and other university budgets.",
+  "url": "https://www.federalregister.gov/documents/2025/02/07/2025-02407/imposing-duties-to-address-the-situation-at-our-southern-border",
+  "impact_level": "Medium",
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-02-26 15:06:51",
+  "last_updated": "2025-02-26 15:06:51",
+  "plain_language_summary": null,
+  "categories": [
+    "Immigration"
+  ],
+  "impact_areas": [
+    "Funding",
+    "Operational"
+  ],
+  "university_impact_areas": [
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
+    }
+  ],
+  "compliance_actions": [],
+  "has_plain_language_summary": false
+}

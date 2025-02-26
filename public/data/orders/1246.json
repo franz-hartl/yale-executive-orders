@@ -1,0 +1,32 @@
+{
+  "id": 1246,
+  "order_number": "2025-02096",
+  "title": "Restoring Names That Honor American Greatness",
+  "signing_date": "2025-01-31",
+  "publication_date": null,
+  "president": "Unknown",
+  "summary": "This executive order requires federal agencies to review and consider renaming or removing references to individuals or events that do not represent American greatness. It aims to promote the recognition of individuals and events that better reflect the country's values and achievements.",
+  "full_text": "Universities like Yale may need to allocate resources to review and potentially rename campus buildings, programs, or other entities named after individuals or events that do not align with the order's criteria. This could result in unexpected costs related to legal reviews, community engagement, and physical changes.",
+  "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02096/restoring-names-that-honor-american-greatness",
+  "impact_level": "Medium",
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-02-26 15:06:51",
+  "last_updated": "2025-02-26 15:06:51",
+  "plain_language_summary": null,
+  "categories": [
+    "Technology"
+  ],
+  "impact_areas": [
+    "Operational"
+  ],
+  "university_impact_areas": [
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
+    }
+  ],
+  "compliance_actions": [],
+  "has_plain_language_summary": false
+}

@@ -1,0 +1,32 @@
+{
+  "id": 10,
+  "order_number": "13579",
+  "title": "Executive Order on Regulation and Independent Regulatory Agencies",
+  "signing_date": "2011-07-11",
+  "publication_date": "2011-07-14",
+  "president": "Barack Obama",
+  "summary": "Encouraged independent regulatory agencies to follow principles for improving regulation and regulatory review, affecting financial regulatory agencies.",
+  "full_text": null,
+  "url": null,
+  "impact_level": null,
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-02-26 12:34:10",
+  "last_updated": "2025-02-26 12:34:10",
+  "plain_language_summary": "\n        <h2>Streamlining Regulations for Federal Agencies</h2>\n        <p><strong>Overview:</strong> This executive order encourages independent regulatory agencies to improve how they develop and review regulations.</p>\n        \n        <h3>Key Impacts on Yale:</h3>\n        <ul>\n          <li>Provides guidance on regulatory review processes for Yale's administrative compliance efforts</li><li>Encourages more transparent and efficient regulation development by federal agencies that impact Yale</li><li>May lead to changes in how Yale interacts with federal regulators on compliance matters</li>\n        </ul>\n        \n        <p><strong>Action Needed:</strong> Yes</p>\n        <p><strong>Important Dates:</strong> 07/11/2011: Executive Order signed by President Obama</p>\n        \n        <p><strong>Affected Departments:</strong> Office of the General Counsel, Office of Compliance, Department of Finance and Administration</p>\n        \n        <h3>What Changed</h3>\n        <p>The executive order asks independent federal agencies to follow principles for improving how they create and review regulations.</p>\n        \n        <h3>Why Yale Cares</h3>\n        <p>As a university, Yale must comply with many federal regulations. This order could impact how Yale interacts with and responds to those regulatory agencies.</p>\n        \n        <h3>Action Steps</h3>\n        <ul>\n          <li>Review the executive order and identify any potential impacts on Yale's compliance efforts</li><li>Coordinate with relevant departments to understand changes in federal agency processes</li><li>Update policies and procedures as needed to adapt to new regulatory review approaches</li>\n        </ul>\n        \n        <h3>Resource Needs</h3>\n        <p>Staff time to analyze the order, communicate with federal agencies, and revise compliance programs as necessary</p>\n      ",
+  "categories": [],
+  "impact_areas": [
+    "Compliance",
+    "Funding",
+    "Regulatory"
+  ],
+  "university_impact_areas": [
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
+    }
+  ],
+  "compliance_actions": [],
+  "has_plain_language_summary": true
+}

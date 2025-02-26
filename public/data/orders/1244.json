@@ -1,0 +1,32 @@
+{
+  "id": 1244,
+  "order_number": "2025-02097",
+  "title": "Ending Illegal Discrimination and Restoring Merit-Based Opportunity",
+  "signing_date": "2025-01-31",
+  "publication_date": null,
+  "president": "Unknown",
+  "summary": "This executive order aims to end illegal discrimination in university admissions and restore merit-based opportunities. It prohibits the use of race, sex, or other protected characteristics in the university admissions process, and requires institutions to focus solely on academic qualifications and achievements.",
+  "full_text": "The order could have a significant financial impact on universities like Yale, as it may require them to overhaul their admissions policies and potentially face legal challenges or loss of federal funding if they do not comply. This could lead to increased legal and administrative costs, as well as potential enrollment changes that affect tuition revenue.",
+  "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02097/ending-illegal-discrimination-and-restoring-merit-based-opportunity",
+  "impact_level": "High",
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-02-26 15:06:51",
+  "last_updated": "2025-02-26 15:06:51",
+  "plain_language_summary": null,
+  "categories": [
+    "Education"
+  ],
+  "impact_areas": [
+    "Operational"
+  ],
+  "university_impact_areas": [
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
+    }
+  ],
+  "compliance_actions": [],
+  "has_plain_language_summary": false
+}

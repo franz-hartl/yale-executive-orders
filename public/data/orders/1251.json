@@ -1,0 +1,36 @@
+{
+  "id": 1251,
+  "order_number": "2025-01956",
+  "title": "Unleashing American Energy",
+  "signing_date": "2025-01-29",
+  "publication_date": null,
+  "president": "Unknown",
+  "summary": "The 'Unleashing American Energy' executive order aims to promote the development and use of domestic energy resources, including fossil fuels, to increase American energy independence and economic growth. It directs federal agencies to review regulations and policies that may impede domestic energy production.",
+  "full_text": "This order could have a moderate financial impact on universities like Yale, as it may affect their research funding and endowment investments related to energy and environmental sectors. However, the overall impact on university budgets is likely to be limited, as Yale and similar institutions have diversified investment portfolios.",
+  "url": "https://www.federalregister.gov/documents/2025/01/29/2025-01956/unleashing-american-energy",
+  "impact_level": "Medium",
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-02-26 15:06:51",
+  "last_updated": "2025-02-26 15:06:51",
+  "plain_language_summary": null,
+  "categories": [
+    "Technology"
+  ],
+  "impact_areas": [
+    "Compliance",
+    "Funding",
+    "Economic Development",
+    "Regulatory",
+    "Operational"
+  ],
+  "university_impact_areas": [
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
+    }
+  ],
+  "compliance_actions": [],
+  "has_plain_language_summary": false
+}

@@ -1,0 +1,33 @@
+{
+  "id": 1248,
+  "order_number": "2025-02103",
+  "title": "Designation of Ansar Allah as a Foreign Terrorist Organization",
+  "signing_date": "2025-01-31",
+  "publication_date": null,
+  "president": "Unknown",
+  "summary": "This executive order designates Ansar Allah, also known as the Houthis, as a Foreign Terrorist Organization. This designation imposes additional sanctions and restrictions on the group, including prohibitions on the provision of material support or resources to Ansar Allah.",
+  "full_text": "Universities like Yale may need to review their financial and operational ties to any entities or individuals associated with Ansar Allah to ensure compliance with the new designations and sanctions. This could potentially impact research collaborations, contracts, or financial transactions involving the designated group.",
+  "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02103/designation-of-ansar-allah-as-a-foreign-terrorist-organization",
+  "impact_level": "Medium",
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-02-26 15:06:51",
+  "last_updated": "2025-02-26 15:06:51",
+  "plain_language_summary": null,
+  "categories": [
+    "Immigration"
+  ],
+  "impact_areas": [
+    "Funding",
+    "Policy"
+  ],
+  "university_impact_areas": [
+    {
+      "name": "Workforce & Employment Policy",
+      "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity",
+      "notes": null
+    }
+  ],
+  "compliance_actions": [],
+  "has_plain_language_summary": false
+}

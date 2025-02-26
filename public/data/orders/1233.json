@@ -1,0 +1,32 @@
+{
+  "id": 1233,
+  "order_number": "2025-02479",
+  "title": "Progress on the Situation at Our Southern Border",
+  "signing_date": "2025-02-10",
+  "publication_date": null,
+  "president": "Unknown",
+  "summary": "This executive order titled \"Progress on the Situation at Our Southern Border\" may affect university operations.",
+  "full_text": "Financial impact is currently under assessment.",
+  "url": "https://www.federalregister.gov/documents/2025/02/10/2025-02479/progress-on-the-situation-at-our-southern-border",
+  "impact_level": "Low",
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-02-26 15:06:51",
+  "last_updated": "2025-02-26 15:06:51",
+  "plain_language_summary": null,
+  "categories": [
+    "Education"
+  ],
+  "impact_areas": [
+    "Operational"
+  ],
+  "university_impact_areas": [
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
+    }
+  ],
+  "compliance_actions": [],
+  "has_plain_language_summary": false
+}

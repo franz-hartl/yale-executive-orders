@@ -1,0 +1,35 @@
+{
+  "id": 1253,
+  "order_number": "2025-02003",
+  "title": "Declaring a National Energy Emergency",
+  "signing_date": "2025-01-29",
+  "publication_date": null,
+  "president": "Unknown",
+  "summary": "This executive order declares a national energy emergency, granting the federal government broad powers to intervene in energy markets and production in order to address supply shortages and price volatility. It aims to ensure reliable and affordable energy for American consumers and businesses.",
+  "full_text": "Universities like Yale rely heavily on stable and affordable energy sources to power their campuses, fund research laboratories, and maintain operations. This executive order could lead to increased energy costs and disruptions, which would significantly impact university budgets and strain financial resources.",
+  "url": "https://www.federalregister.gov/documents/2025/01/29/2025-02003/declaring-a-national-energy-emergency",
+  "impact_level": "High",
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-02-26 15:06:51",
+  "last_updated": "2025-02-26 15:06:51",
+  "plain_language_summary": null,
+  "categories": [
+    "Technology"
+  ],
+  "impact_areas": [
+    "Funding",
+    "Student Aid",
+    "Economic Development",
+    "Operational"
+  ],
+  "university_impact_areas": [
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
+    }
+  ],
+  "compliance_actions": [],
+  "has_plain_language_summary": false
+}

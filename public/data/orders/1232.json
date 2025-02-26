@@ -1,0 +1,40 @@
+{
+  "id": 1232,
+  "order_number": "2025-02477",
+  "title": "A Plan for Establishing a United States Sovereign Wealth Fund",
+  "signing_date": "2025-02-10",
+  "publication_date": null,
+  "president": "Unknown",
+  "summary": "This executive order outlines a plan to establish a United States Sovereign Wealth Fund, which would be a government-owned investment fund aimed at generating long-term returns to support the country's fiscal and economic objectives. The fund would be financed through various sources, including the sale of federal assets and revenue from natural resource extraction.",
+  "full_text": "For universities like Yale, this executive order could have a significant financial impact. The sale of federal assets and revenue from natural resource extraction could potentially reduce government funding and research grants available to universities, which rely on such sources of funding to support their operations and research activities.",
+  "url": "https://www.federalregister.gov/documents/2025/02/10/2025-02477/a-plan-for-establishing-a-united-states-sovereign-wealth-fund",
+  "impact_level": "High",
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-02-26 15:06:51",
+  "last_updated": "2025-02-26 15:06:51",
+  "plain_language_summary": null,
+  "categories": [
+    "Finance"
+  ],
+  "impact_areas": [
+    "Funding",
+    "Policy",
+    "Economic Development",
+    "Operational"
+  ],
+  "university_impact_areas": [
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
+    },
+    {
+      "name": "Workforce & Employment Policy",
+      "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity",
+      "notes": null
+    }
+  ],
+  "compliance_actions": [],
+  "has_plain_language_summary": false
+}

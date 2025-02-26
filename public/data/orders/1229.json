@@ -1,0 +1,38 @@
+{
+  "id": 1229,
+  "order_number": "2025-02611",
+  "title": "Eradicating Anti-Christian Bias",
+  "signing_date": "2025-02-12",
+  "publication_date": null,
+  "president": "Unknown",
+  "summary": "This executive order aims to address perceived anti-Christian bias in higher education by requiring universities to establish policies and programs that promote Christian beliefs and practices on campus.",
+  "full_text": "The order could have significant financial implications for universities like Yale, as they may need to allocate resources to implement new programs and policies, potentially diverting funds from other priorities. There could also be legal and compliance costs associated with ensuring adherence to the order.",
+  "url": "https://www.federalregister.gov/documents/2025/02/12/2025-02611/eradicating-anti-christian-bias",
+  "impact_level": "High",
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-02-26 15:06:51",
+  "last_updated": "2025-02-26 15:06:51",
+  "plain_language_summary": null,
+  "categories": [
+    "Technology"
+  ],
+  "impact_areas": [
+    "Policy",
+    "Operational"
+  ],
+  "university_impact_areas": [
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
+    },
+    {
+      "name": "Workforce & Employment Policy",
+      "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity",
+      "notes": null
+    }
+  ],
+  "compliance_actions": [],
+  "has_plain_language_summary": false
+}

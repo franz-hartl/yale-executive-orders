@@ -1,0 +1,32 @@
+{
+  "id": 1250,
+  "order_number": "2025-02006",
+  "title": "Protecting the American People Against Invasion",
+  "signing_date": "2025-01-29",
+  "publication_date": null,
+  "president": "Unknown",
+  "summary": "This executive order titled \"Protecting the American People Against Invasion\" may affect university operations.",
+  "full_text": "Financial impact is currently under assessment.",
+  "url": "https://www.federalregister.gov/documents/2025/01/29/2025-02006/protecting-the-american-people-against-invasion",
+  "impact_level": "Low",
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-02-26 15:06:51",
+  "last_updated": "2025-02-26 15:06:51",
+  "plain_language_summary": null,
+  "categories": [
+    "Technology"
+  ],
+  "impact_areas": [
+    "Operational"
+  ],
+  "university_impact_areas": [
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
+    }
+  ],
+  "compliance_actions": [],
+  "has_plain_language_summary": false
+}

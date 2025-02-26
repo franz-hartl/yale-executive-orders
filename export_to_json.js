@@ -1,0 +1,329 @@
+/**
+ * export_to_json.js
+ * 
+ * This script exports data from the SQLite database to JSON files for use in a static GitHub Pages site.
+ */
+
+const sqlite3 = require('sqlite3').verbose();
+const fs = require('fs').promises;
+const path = require('path');
+
+// Database file path
+const dbPath = path.join(__dirname, 'executive_orders.db');
+const outputDir = path.join(__dirname, 'public', 'data');
+
+// Connect to database
+const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
+  if (err) {
+    console.error('Error opening database:', err.message);
+    process.exit(1);
+  }
+  console.log('Connected to the SQLite database.');
+});
+
+// Promisify database queries
+function dbAll(query, params = []) {
+  return new Promise((resolve, reject) => {
+    db.all(query, params, (err, rows) => {
+      if (err) reject(err);
+      else resolve(rows);
+    });
+  });
+}
+
+// Ensure output directory exists
+async function ensureOutputDir() {
+  try {
+    await fs.mkdir(outputDir, { recursive: true });
+    console.log(`Created output directory: ${outputDir}`);
+  } catch (err) {
+    if (err.code !== 'EEXIST') {
+      console.error('Error creating output directory:', err);
+      throw err;
+    }
+  }
+}
+
+// Export categories
+async function exportCategories() {
+  try {
+    const categories = await dbAll('SELECT * FROM categories ORDER BY name');
+    const outputPath = path.join(outputDir, 'categories.json');
+    await fs.writeFile(outputPath, JSON.stringify(categories, null, 2));
+    console.log(`Exported ${categories.length} categories to ${outputPath}`);
+    return categories;
+  } catch (err) {
+    console.error('Error exporting categories:', err);
+    throw err;
+  }
+}
+
+// Export impact areas
+async function exportImpactAreas() {
+  try {
+    const impactAreas = await dbAll('SELECT * FROM impact_areas ORDER BY name');
+    const outputPath = path.join(outputDir, 'impact_areas.json');
+    await fs.writeFile(outputPath, JSON.stringify(impactAreas, null, 2));
+    console.log(`Exported ${impactAreas.length} impact areas to ${outputPath}`);
+    return impactAreas;
+  } catch (err) {
+    console.error('Error exporting impact areas:', err);
+    throw err;
+  }
+}
+
+// Export university impact areas
+async function exportUniversityImpactAreas() {
+  try {
+    const universityImpactAreas = await dbAll('SELECT * FROM university_impact_areas ORDER BY name');
+    const outputPath = path.join(outputDir, 'university_impact_areas.json');
+    await fs.writeFile(outputPath, JSON.stringify(universityImpactAreas, null, 2));
+    console.log(`Exported ${universityImpactAreas.length} university impact areas to ${outputPath}`);
+    return universityImpactAreas;
+  } catch (err) {
+    console.error('Error exporting university impact areas:', err);
+    throw err;
+  }
+}
+
+// Export executive orders with all related data
+async function exportExecutiveOrders() {
+  try {
+    // Get all executive orders
+    const orders = await dbAll(`
+      SELECT eo.*
+      FROM executive_orders eo
+      ORDER BY signing_date DESC
+    `);
+    
+    // For each order, get categories, impact areas, and university impact areas
+    const fullOrders = await Promise.all(orders.map(async (order) => {
+      // Get categories
+      const categories = await dbAll(`
+        SELECT c.id, c.name, c.description
+        FROM categories c
+        JOIN order_categories oc ON c.id = oc.category_id
+        WHERE oc.order_id = ?
+      `, [order.id]);
+      
+      // Get impact areas
+      const impactAreas = await dbAll(`
+        SELECT ia.id, ia.name, ia.description
+        FROM impact_areas ia
+        JOIN order_impact_areas oia ON ia.id = oia.impact_area_id
+        WHERE oia.order_id = ?
+      `, [order.id]);
+      
+      // Get university impact areas
+      const universityImpactAreas = await dbAll(`
+        SELECT uia.id, uia.name, uia.description, ouia.notes
+        FROM university_impact_areas uia
+        JOIN order_university_impact_areas ouia ON uia.id = ouia.university_impact_area_id
+        WHERE ouia.order_id = ?
+      `, [order.id]);
+      
+      // Get compliance actions if any
+      const complianceActions = await dbAll(`
+        SELECT *
+        FROM compliance_actions
+        WHERE order_id = ?
+        ORDER BY deadline ASC
+      `, [order.id]);
+      
+      // Check if plain language summary exists
+      let hasPlainSummary = false;
+      try {
+        if (order.plain_language_summary && order.plain_language_summary.trim() !== '') {
+          hasPlainSummary = true;
+        }
+      } catch (e) {
+        console.log(`No plain summary for order ${order.id}`);
+      }
+      
+      // Return enriched order
+      return {
+        ...order,
+        categories: categories.map(c => c.name),
+        impact_areas: impactAreas.map(ia => ia.name),
+        university_impact_areas: universityImpactAreas.map(uia => ({
+          name: uia.name,
+          description: uia.description,
+          notes: uia.notes
+        })),
+        compliance_actions: complianceActions,
+        has_plain_language_summary: hasPlainSummary
+      };
+    }));
+    
+    // Write complete orders to file
+    const outputPath = path.join(outputDir, 'executive_orders.json');
+    await fs.writeFile(outputPath, JSON.stringify(fullOrders, null, 2));
+    console.log(`Exported ${fullOrders.length} executive orders to ${outputPath}`);
+    
+    // Also save individual orders for direct access
+    const individualDir = path.join(outputDir, 'orders');
+    await fs.mkdir(individualDir, { recursive: true });
+    
+    for (const order of fullOrders) {
+      const orderPath = path.join(individualDir, `${order.id}.json`);
+      await fs.writeFile(orderPath, JSON.stringify(order, null, 2));
+    }
+    console.log(`Exported ${fullOrders.length} individual order files to ${individualDir}`);
+    
+    // Export plain language summaries separately if they exist
+    const summariesDir = path.join(outputDir, 'summaries');
+    await fs.mkdir(summariesDir, { recursive: true });
+    
+    for (const order of fullOrders) {
+      if (order.has_plain_language_summary) {
+        const summaryPath = path.join(summariesDir, `${order.id}.html`);
+        await fs.writeFile(summaryPath, order.plain_language_summary || '');
+      }
+    }
+    console.log(`Exported plain language summaries to ${summariesDir}`);
+    
+    return fullOrders;
+  } catch (err) {
+    console.error('Error exporting executive orders:', err);
+    throw err;
+  }
+}
+
+// Export statistics
+async function exportStatistics() {
+  try {
+    // Impact level stats
+    const impactLevels = await dbAll(`
+      SELECT impact_level, COUNT(*) as count
+      FROM executive_orders
+      GROUP BY impact_level
+      ORDER BY 
+        CASE 
+          WHEN impact_level = 'Critical' THEN 1
+          WHEN impact_level = 'High' THEN 2
+          WHEN impact_level = 'Medium' THEN 3
+          WHEN impact_level = 'Low' THEN 4
+          ELSE 5
+        END
+    `);
+    
+    // University impact area stats
+    const universityImpactAreas = await dbAll(`
+      SELECT uia.name, COUNT(*) as count
+      FROM university_impact_areas uia
+      JOIN order_university_impact_areas ouia ON uia.id = ouia.university_impact_area_id
+      GROUP BY uia.name
+      ORDER BY count DESC
+    `);
+    
+    // Category stats
+    const categories = await dbAll(`
+      SELECT c.name, COUNT(*) as count
+      FROM categories c
+      JOIN order_categories oc ON c.id = oc.category_id
+      GROUP BY c.name
+      ORDER BY count DESC
+    `);
+    
+    // Timeline stats
+    const timeline = await dbAll(`
+      SELECT 
+        strftime('%Y-%m', signing_date) as month,
+        COUNT(*) as count
+      FROM executive_orders
+      WHERE signing_date IS NOT NULL
+      GROUP BY month
+      ORDER BY month
+    `);
+    
+    // Combine all stats
+    const stats = {
+      impactLevels,
+      universityImpactAreas,
+      categories,
+      timeline
+    };
+    
+    // Write to file
+    const outputPath = path.join(outputDir, 'statistics.json');
+    await fs.writeFile(outputPath, JSON.stringify(stats, null, 2));
+    console.log(`Exported statistics to ${outputPath}`);
+    
+    return stats;
+  } catch (err) {
+    console.error('Error exporting statistics:', err);
+    throw err;
+  }
+}
+
+// Create system info file
+async function exportSystemInfo() {
+  try {
+    const orderCount = (await dbAll('SELECT COUNT(*) as count FROM executive_orders'))[0].count;
+    
+    const systemInfo = {
+      topicName: 'Yale Executive Order Analysis',
+      topicDescription: 'Analysis of executive orders and their impact on Yale University operations and compliance',
+      orderCount: orderCount,
+      version: '1.0.0',
+      lastUpdated: new Date().toISOString(),
+      isStaticVersion: true,
+      notes: 'This is a static version of the Yale Executive Order Analysis system, deployed on GitHub Pages'
+    };
+    
+    const outputPath = path.join(outputDir, 'system_info.json');
+    await fs.writeFile(outputPath, JSON.stringify(systemInfo, null, 2));
+    console.log(`Exported system info to ${outputPath}`);
+    
+    return systemInfo;
+  } catch (err) {
+    console.error('Error exporting system info:', err);
+    throw err;
+  }
+}
+
+// Export metadata (categories, impact areas, etc.) as a single file
+async function exportMetadata(categories, impactAreas, universityImpactAreas) {
+  try {
+    const metadata = {
+      categories,
+      impactAreas,
+      universityImpactAreas
+    };
+    
+    const outputPath = path.join(outputDir, 'metadata.json');
+    await fs.writeFile(outputPath, JSON.stringify(metadata, null, 2));
+    console.log(`Exported combined metadata to ${outputPath}`);
+    
+    return metadata;
+  } catch (err) {
+    console.error('Error exporting metadata:', err);
+    throw err;
+  }
+}
+
+// Main export function
+async function exportAll() {
+  try {
+    await ensureOutputDir();
+    
+    // Export all data
+    const categories = await exportCategories();
+    const impactAreas = await exportImpactAreas();
+    const universityImpactAreas = await exportUniversityImpactAreas();
+    await exportMetadata(categories, impactAreas, universityImpactAreas);
+    
+    await exportExecutiveOrders();
+    await exportStatistics();
+    await exportSystemInfo();
+    
+    console.log('All data successfully exported to JSON files.');
+  } catch (err) {
+    console.error('Error exporting data:', err);
+  } finally {
+    db.close();
+  }
+}
+
+// Run the export
+exportAll();

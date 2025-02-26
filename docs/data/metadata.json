@@ -1,0 +1,123 @@
+{
+  "categories": [
+    {
+      "id": 8,
+      "name": "Diversity",
+      "description": "Initiatives related to diversity, equity, inclusion, and civil rights"
+    },
+    {
+      "id": 2,
+      "name": "Education",
+      "description": "Orders specifically addressing educational institutions, pedagogy, and academic programs"
+    },
+    {
+      "id": 9,
+      "name": "Environment",
+      "description": "Climate policy, environmental regulations, and sustainability initiatives"
+    },
+    {
+      "id": 3,
+      "name": "Finance",
+      "description": "Orders affecting financial regulations, funding mechanisms, and economic policy"
+    },
+    {
+      "id": 4,
+      "name": "Healthcare",
+      "description": "Healthcare policy, medical research, and public health directives"
+    },
+    {
+      "id": 6,
+      "name": "Immigration",
+      "description": "Immigration policies affecting international students, scholars, and academic mobility"
+    },
+    {
+      "id": 10,
+      "name": "Industry",
+      "description": "Business relations, economic development, and industry partnerships"
+    },
+    {
+      "id": 7,
+      "name": "National Security",
+      "description": "Security policies, export controls, and sensitive research protections"
+    },
+    {
+      "id": 5,
+      "name": "Research",
+      "description": "Scientific research priorities, research security, and innovation policy"
+    },
+    {
+      "id": 1,
+      "name": "Technology",
+      "description": "Executive orders related to technology policy, digital infrastructure, and tech regulation"
+    }
+  ],
+  "impactAreas": [
+    {
+      "id": 2,
+      "name": "Compliance",
+      "description": "Regulatory compliance and legal requirements"
+    },
+    {
+      "id": 6,
+      "name": "Economic Development",
+      "description": "Business growth and economic initiatives"
+    },
+    {
+      "id": 3,
+      "name": "Funding",
+      "description": "Financial impacts and funding mechanisms"
+    },
+    {
+      "id": 8,
+      "name": "Operational",
+      "description": "Day-to-day operations and administrative functions"
+    },
+    {
+      "id": 4,
+      "name": "Policy",
+      "description": "Policy development and governance implications"
+    },
+    {
+      "id": 7,
+      "name": "Regulatory",
+      "description": "Regulatory framework and oversight"
+    },
+    {
+      "id": 1,
+      "name": "Research",
+      "description": "Impacts on research activities and scholarly work"
+    },
+    {
+      "id": 5,
+      "name": "Student Aid",
+      "description": "Financial assistance and support for students"
+    }
+  ],
+  "universityImpactAreas": [
+    {
+      "id": 3,
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
+    },
+    {
+      "id": 5,
+      "name": "Public-Private Partnerships",
+      "description": "Changes affecting university-industry collaborations, tech transfer, and economic development initiatives"
+    },
+    {
+      "id": 1,
+      "name": "Research Funding",
+      "description": "Impacts on federal research grants, funding priorities, and research administration"
+    },
+    {
+      "id": 2,
+      "name": "Student Aid & Higher Education Finance",
+      "description": "Changes to student financial aid, federal student loans, and university funding mechanisms"
+    },
+    {
+      "id": 4,
+      "name": "Workforce & Employment Policy",
+      "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity"
+    }
+  ]
+}
