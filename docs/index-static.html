@@ -445,12 +445,18 @@
                     </p>
                     
                     <!-- Tabs -->
-                    <div class="flex border-b border-gray-200">
-                        <button class="tab-button active" data-tab="summary">
-                            <i class="far fa-file-alt mr-2"></i>Original Summary
+                    <div class="flex border-b border-gray-200 flex-wrap">
+                        <button class="tab-button active" data-tab="summary" aria-selected="true" role="tab" aria-controls="summary-tab">
+                            <i class="far fa-file-alt mr-2" aria-hidden="true"></i>Original Summary
                         </button>
-                        <button class="tab-button" data-tab="plain-summary">
-                            <i class="fas fa-file-alt mr-2"></i>Plain Language Summary
+                        <button class="tab-button" data-tab="executive-brief" aria-selected="false" role="tab" aria-controls="executive-brief-tab">
+                            <i class="fas fa-bolt mr-2" aria-hidden="true"></i>Executive Brief
+                        </button>
+                        <button class="tab-button" data-tab="plain-summary" aria-selected="false" role="tab" aria-controls="plain-summary-tab">
+                            <i class="fas fa-file-alt mr-2" aria-hidden="true"></i>Standard Summary
+                        </button>
+                        <button class="tab-button" data-tab="comprehensive-analysis" aria-selected="false" role="tab" aria-controls="comprehensive-analysis-tab">
+                            <i class="fas fa-search-plus mr-2" aria-hidden="true"></i>Comprehensive Analysis
                         </button>
                     </div>
                 </div>
@@ -495,13 +501,37 @@
                         </div>
                     </div>
                     
-                    <!-- Plain Language Summary Tab -->
-                    <div id="plain-summary-tab" class="tab-content hidden">
+                    <!-- Executive Brief Tab -->
+                    <div id="executive-brief-tab" class="tab-content hidden" role="tabpanel" aria-labelledby="executive-brief-tab">
+                        <div id="executive-brief-content" class="mb-6">
+                            <div class="flex justify-center items-center py-8">
+                                <div class="flex flex-col items-center">
+                                    <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
+                                    <p class="text-gray-500">Loading executive brief...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Standard Summary Tab -->
+                    <div id="plain-summary-tab" class="tab-content hidden" role="tabpanel" aria-labelledby="plain-summary-tab">
                         <div id="plain-summary-content" class="mb-6">
                             <div class="flex justify-center items-center py-8">
                                 <div class="flex flex-col items-center">
                                     <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
-                                    <p class="text-gray-500">Loading plain language summary...</p>
+                                    <p class="text-gray-500">Loading standard summary...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Comprehensive Analysis Tab -->
+                    <div id="comprehensive-analysis-tab" class="tab-content hidden" role="tabpanel" aria-labelledby="comprehensive-analysis-tab">
+                        <div id="comprehensive-analysis-content" class="mb-6">
+                            <div class="flex justify-center items-center py-8">
+                                <div class="flex flex-col items-center">
+                                    <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
+                                    <p class="text-gray-500">Loading comprehensive analysis...</p>
                                 </div>
                             </div>
                         </div>
@@ -659,14 +689,63 @@
             }
             
             // Fetch and display the plain language summary
+            // Fetch and display the executive brief
+            async function fetchExecutiveBrief(orderId) {
+                try {
+                    const executiveBriefContent = document.getElementById('executive-brief-content');
+                    executiveBriefContent.innerHTML = `
+                        <div class="flex justify-center items-center py-8">
+                            <div class="flex flex-col items-center" aria-live="polite">
+                                <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
+                                <p class="text-gray-500">Loading executive brief...</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Fetch the executive brief HTML file
+                    const response = await fetch(`data/executive_briefs/${orderId}.html`);
+                    
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            // No brief available
+                            executiveBriefContent.innerHTML = `
+                                <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+                                    <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
+                                    <h3 class="text-lg font-medium text-gray-800 mb-2">No Executive Brief Available</h3>
+                                    <p class="text-gray-500">An executive brief has not been generated for this executive order yet.</p>
+                                </div>
+                            `;
+                            return;
+                        }
+                        throw new Error(`Status: ${response.status}`);
+                    }
+                    
+                    const htmlContent = await response.text();
+                    
+                    // Display the executive brief (which is already HTML formatted)
+                    executiveBriefContent.innerHTML = htmlContent;
+                    
+                } catch (error) {
+                    console.error('Error fetching executive brief:', error);
+                    document.getElementById('executive-brief-content').innerHTML = `
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center" role="alert">
+                            <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
+                            <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Brief</h3>
+                            <p class="text-red-500">There was an error loading the executive brief. Please try again later.</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Fetch and display the plain language summary (standard summary)
             async function fetchPlainLanguageSummary(orderId) {
                 try {
                     const plainSummaryContent = document.getElementById('plain-summary-content');
                     plainSummaryContent.innerHTML = `
                         <div class="flex justify-center items-center py-8">
-                            <div class="flex flex-col items-center">
-                                <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
-                                <p class="text-gray-500">Loading plain language summary...</p>
+                            <div class="flex flex-col items-center" aria-live="polite">
+                                <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
+                                <p class="text-gray-500">Loading standard summary...</p>
                             </div>
                         </div>
                     `;
@@ -679,9 +758,9 @@
                             // No summary available
                             plainSummaryContent.innerHTML = `
                                 <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
-                                    <i class="fas fa-file-alt text-gray-400 text-4xl mb-4"></i>
-                                    <h3 class="text-lg font-medium text-gray-800 mb-2">No Plain Language Summary Available</h3>
-                                    <p class="text-gray-500">A plain language summary has not been generated for this executive order yet.</p>
+                                    <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
+                                    <h3 class="text-lg font-medium text-gray-800 mb-2">No Standard Summary Available</h3>
+                                    <p class="text-gray-500">A standard summary has not been generated for this executive order yet.</p>
                                 </div>
                             `;
                             return;
@@ -691,16 +770,64 @@
                     
                     const htmlContent = await response.text();
                     
-                    // Display the plain language summary (which is already HTML formatted)
+                    // Display the standard summary (which is already HTML formatted)
                     plainSummaryContent.innerHTML = htmlContent;
                     
                 } catch (error) {
-                    console.error('Error fetching plain language summary:', error);
+                    console.error('Error fetching standard summary:', error);
                     document.getElementById('plain-summary-content').innerHTML = `
-                        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-                            <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4"></i>
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center" role="alert">
+                            <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
                             <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Summary</h3>
-                            <p class="text-red-500">There was an error loading the plain language summary. Please try again later.</p>
+                            <p class="text-red-500">There was an error loading the standard summary. Please try again later.</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Fetch and display the comprehensive analysis
+            async function fetchComprehensiveAnalysis(orderId) {
+                try {
+                    const comprehensiveAnalysisContent = document.getElementById('comprehensive-analysis-content');
+                    comprehensiveAnalysisContent.innerHTML = `
+                        <div class="flex justify-center items-center py-8">
+                            <div class="flex flex-col items-center" aria-live="polite">
+                                <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
+                                <p class="text-gray-500">Loading comprehensive analysis...</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Fetch the comprehensive analysis HTML file
+                    const response = await fetch(`data/comprehensive_analyses/${orderId}.html`);
+                    
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            // No analysis available
+                            comprehensiveAnalysisContent.innerHTML = `
+                                <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+                                    <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
+                                    <h3 class="text-lg font-medium text-gray-800 mb-2">No Comprehensive Analysis Available</h3>
+                                    <p class="text-gray-500">A comprehensive analysis has not been generated for this executive order yet.</p>
+                                </div>
+                            `;
+                            return;
+                        }
+                        throw new Error(`Status: ${response.status}`);
+                    }
+                    
+                    const htmlContent = await response.text();
+                    
+                    // Display the comprehensive analysis (which is already HTML formatted)
+                    comprehensiveAnalysisContent.innerHTML = htmlContent;
+                    
+                } catch (error) {
+                    console.error('Error fetching comprehensive analysis:', error);
+                    document.getElementById('comprehensive-analysis-content').innerHTML = `
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center" role="alert">
+                            <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
+                            <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Analysis</h3>
+                            <p class="text-red-500">There was an error loading the comprehensive analysis. Please try again later.</p>
                         </div>
                     `;
                 }
@@ -978,6 +1105,38 @@
                     const truncatedSummary = order.summary 
                         ? (order.summary.length > 120 ? order.summary.substring(0, 120) + '...' : order.summary)
                         : '';
+                        
+                    // Create summary format indicators
+                    let summaryFormatsHtml = '';
+                    if (order.summary_formats_available && order.summary_formats_available.length > 0) {
+                        summaryFormatsHtml = `
+                            <div class="mt-1 flex gap-1">
+                                ${order.summary_formats_available.map(format => {
+                                    let badgeClass = '';
+                                    let label = '';
+                                    let icon = '';
+                                    
+                                    if (format === 'executive_brief') {
+                                        badgeClass = 'bg-yellow-100 text-yellow-800';
+                                        label = 'Brief';
+                                        icon = 'bolt';
+                                    } else if (format === 'standard') {
+                                        badgeClass = 'bg-blue-100 text-blue-800';
+                                        label = 'Standard';
+                                        icon = 'file-alt';
+                                    } else if (format === 'comprehensive') {
+                                        badgeClass = 'bg-green-100 text-green-800';
+                                        label = 'Comprehensive';
+                                        icon = 'search-plus';
+                                    }
+                                    
+                                    return `<span class="inline-flex items-center text-xs px-2 py-0.5 rounded ${badgeClass}">
+                                        <i class="fas fa-${icon} mr-1" aria-hidden="true"></i>${label}
+                                    </span>`;
+                                }).join('')}
+                            </div>
+                        `;
+                    }
                     
                     // Create table row
                     row.innerHTML = `
@@ -990,6 +1149,7 @@
                                     ${order.title || 'N/A'}
                                 </div>
                                 <p class="text-xs text-gray-500 mt-1">${truncatedSummary}</p>
+                                ${summaryFormatsHtml}
                             </div>
                         </td>
                         <td class="text-gray-600 whitespace-nowrap">
@@ -1157,10 +1317,30 @@
                     document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
                     document.getElementById('summary-tab').classList.remove('hidden');
                     
-                    // Fetch plain language summary if available
-                    if (order.has_plain_language_summary) {
-                        fetchPlainLanguageSummary(order.id);
-                    }
+                    // Check which summary formats are available and set tab visibility
+                    document.querySelectorAll('.tab-button').forEach(tabButton => {
+                        const tabName = tabButton.getAttribute('data-tab');
+                        
+                        // Always show the original summary tab
+                        if (tabName === 'summary') {
+                            return;
+                        }
+                        
+                        // For other tabs, check if the format is available
+                        if (order.summary_formats_available && order.summary_formats_available.includes(tabName === 'plain-summary' ? 'standard' : tabName)) {
+                            tabButton.style.display = 'block';
+                            // Load the summary for this tab
+                            if (tabName === 'executive-brief') {
+                                fetchExecutiveBrief(order.id);
+                            } else if (tabName === 'plain-summary') {
+                                fetchPlainLanguageSummary(order.id);
+                            } else if (tabName === 'comprehensive-analysis') {
+                                fetchComprehensiveAnalysis(order.id);
+                            }
+                        } else {
+                            tabButton.style.display = 'none';
+                        }
+                    });
                     
                     // Show detail view
                     detailView.classList.remove('hidden');
