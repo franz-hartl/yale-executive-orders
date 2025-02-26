@@ -7,12 +7,42 @@
     <meta name="keywords" content="higher education, executive orders, university impact, academia, compliance, research funding">
     <title>Higher Education Executive Order Tracker</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📜</text></svg>">
+    <!-- Accessibility enhancement -->
+    <script>
+        // Add focus outline script - ensures focus visibility for keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                document.body.classList.add('user-is-tabbing');
+            }
+        });
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('user-is-tabbing');
+        });
+    </script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Accessibility styles */
+        .user-is-tabbing :focus {
+            outline: 2px solid #2563eb !important;
+            outline-offset: 2px !important;
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
         :root {
             --primary: #1a56db;
             --primary-hover: #1e429f;
@@ -335,7 +365,7 @@
             </div>
             <div class="flex gap-3">
                 <span id="last-updated" class="text-sm text-gray-500 flex items-center">
-                    <i class="far fa-clock mr-1"></i>
+                    <i class="far fa-clock mr-1" aria-hidden="true"></i>
                     Last updated: <span id="update-date">Loading...</span>
                 </span>
             </div>
@@ -375,8 +405,8 @@
                             <!-- Populated dynamically -->
                         </select>
                         
-                        <button id="clear-filters-btn" class="btn-secondary py-2 px-3 flex items-center">
-                            <i class="fas fa-times mr-2"></i>Reset
+                        <button id="clear-filters-btn" class="btn-secondary py-2 px-3 flex items-center" aria-label="Reset all filters">
+                            <i class="fas fa-times mr-2" aria-hidden="true"></i>Reset
                         </button>
                     </div>
                 </div>
@@ -390,25 +420,29 @@
                             <th scope="col" data-sort="order_number" class="cursor-pointer">
                                 <div class="flex items-center">
                                     <span>Order #</span>
-                                    <i class="fas fa-sort ml-1 text-gray-400"></i>
+                                    <i class="fas fa-sort ml-1 text-gray-400" aria-hidden="true"></i>
+                                    <span class="sr-only">Sort by order number</span>
                                 </div>
                             </th>
                             <th scope="col" data-sort="title" class="cursor-pointer">
                                 <div class="flex items-center">
                                     <span>Title</span>
-                                    <i class="fas fa-sort ml-1 text-gray-400"></i>
+                                    <i class="fas fa-sort ml-1 text-gray-400" aria-hidden="true"></i>
+                                    <span class="sr-only">Sort by title</span>
                                 </div>
                             </th>
                             <th scope="col" data-sort="signing_date" class="cursor-pointer">
                                 <div class="flex items-center">
                                     <span>Date</span>
-                                    <i class="fas fa-sort-down ml-1 text-blue-700"></i>
+                                    <i class="fas fa-sort-down ml-1 text-blue-700" aria-hidden="true"></i>
+                                    <span class="sr-only">Sort by date, sorted descending</span>
                                 </div>
                             </th>
                             <th scope="col" data-sort="impact_level" class="cursor-pointer">
                                 <div class="flex items-center">
                                     <span>Impact</span>
-                                    <i class="fas fa-sort ml-1 text-gray-400"></i>
+                                    <i class="fas fa-sort ml-1 text-gray-400" aria-hidden="true"></i>
+                                    <span class="sr-only">Sort by impact level</span>
                                 </div>
                             </th>
                             <th scope="col">Areas</th>
@@ -418,8 +452,8 @@
                     <tbody id="eo-table-body">
                         <tr>
                             <td colspan="6" class="text-center py-12">
-                                <div class="flex flex-col items-center">
-                                    <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
+                                <div class="flex flex-col items-center" aria-live="polite">
+                                    <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
                                     <p class="text-gray-500">Loading executive orders...</p>
                                 </div>
                             </td>
@@ -436,8 +470,8 @@
                 <div class="modal-header p-6">
                     <div class="flex justify-between items-center">
                         <h3 id="detail-title" class="text-xl font-semibold text-gray-900"></h3>
-                        <button id="close-detail-btn" class="close-button" aria-label="Close">
-                            <i class="fas fa-times"></i>
+                        <button id="close-detail-btn" class="close-button" aria-label="Close details view">
+                            <i class="fas fa-times" aria-hidden="true"></i>
                         </button>
                     </div>
                     <p class="text-sm text-gray-500 mt-1 mb-3">
@@ -448,19 +482,19 @@
                     
                     <!-- Tabs -->
                     <div class="flex border-b border-gray-200">
-                        <button class="tab-button active" data-tab="summary">
-                            <i class="far fa-file-alt mr-2"></i>Original Summary
+                        <button class="tab-button active" data-tab="summary" aria-selected="true" role="tab" aria-controls="summary-tab">
+                            <i class="far fa-file-alt mr-2" aria-hidden="true"></i>Original Summary
                         </button>
-                        <button class="tab-button" data-tab="plain-summary">
-                            <i class="fas fa-file-alt mr-2"></i>Plain Language Summary
+                        <button class="tab-button" data-tab="plain-summary" aria-selected="false" role="tab" aria-controls="plain-summary-tab">
+                            <i class="fas fa-file-alt mr-2" aria-hidden="true"></i>Plain Language Summary
                         </button>
                     </div>
                 </div>
                 
                 <!-- Modal Body -->
-                <div id="tab-content" class="p-6">
+                <div id="tab-content" class="p-6" role="tabpanel">
                     <!-- Summary Tab (active by default) -->
-                    <div id="summary-tab" class="tab-content">
+                    <div id="summary-tab" class="tab-content" role="tabpanel" aria-labelledby="summary-tab">
                         <div class="flex flex-col md:flex-row gap-6">
                             <!-- Main summary content -->
                             <div class="flex-grow">
@@ -489,7 +523,7 @@
                                     
                                     <div class="mt-6 pt-4 border-t border-gray-100">
                                         <a id="detail-url" href="#" target="_blank" class="btn-primary w-full py-2 px-4 flex items-center justify-center">
-                                            <i class="fas fa-external-link-alt mr-2"></i>View Full Text
+                                            <i class="fas fa-external-link-alt mr-2" aria-hidden="true"></i>View Full Text
                                         </a>
                                     </div>
                                 </div>
@@ -498,7 +532,7 @@
                     </div>
                     
                     <!-- Plain Language Summary Tab -->
-                    <div id="plain-summary-tab" class="tab-content hidden">
+                    <div id="plain-summary-tab" class="tab-content hidden" role="tabpanel" aria-labelledby="plain-summary-tab">
                         <div id="plain-summary-content" class="mb-6">
                             <div class="flex justify-center items-center py-8">
                                 <div class="flex flex-col items-center">
@@ -513,7 +547,7 @@
                 <!-- Modal Footer -->
                 <div class="modal-footer p-4 flex justify-between items-center border-t border-gray-200">
                     <span class="text-xs text-gray-500">Analyzed with Claude AI</span>
-                    <button class="btn-secondary px-4 py-2" onclick="document.getElementById('detail-view').classList.add('hidden')">
+                    <button class="btn-secondary px-4 py-2" onclick="document.getElementById('detail-view').classList.add('hidden')" aria-label="Close details view">
                         Close
                     </button>
                 </div>
@@ -525,7 +559,7 @@
             <div class="card p-4">
                 <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">Total Orders</h3>
                 <div class="flex items-baseline">
-                    <span id="total-orders-count" class="text-2xl font-semibold">--</span>
+                    <span id="total-orders-count" class="text-2xl font-semibold" aria-live="polite">--</span>
                     <span class="text-sm text-gray-500 ml-2">executive orders</span>
                 </div>
             </div>
@@ -533,20 +567,20 @@
             <div class="card p-4">
                 <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">Critical Impact</h3>
                 <div class="flex items-baseline">
-                    <span id="critical-impact-count" class="text-2xl font-semibold text-red-600">--</span>
+                    <span id="critical-impact-count" class="text-2xl font-semibold text-red-600" aria-live="polite">--</span>
                     <span class="text-sm text-gray-500 ml-2">require immediate action</span>
                 </div>
             </div>
             
             <div class="card p-4">
                 <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">Top Impact Area</h3>
-                <div id="top-impact-area" class="text-2xl font-semibold truncate">--</div>
+                <div id="top-impact-area" class="text-2xl font-semibold truncate" aria-live="polite">--</div>
             </div>
             
             <div class="card p-4">
                 <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">Recent Activity</h3>
                 <div class="flex items-baseline">
-                    <span id="recent-orders-count" class="text-2xl font-semibold">--</span>
+                    <span id="recent-orders-count" class="text-2xl font-semibold" aria-live="polite">--</span>
                     <span class="text-sm text-gray-500 ml-2">in last 90 days</span>
                 </div>
             </div>
@@ -619,17 +653,25 @@
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
                     // Remove active class from all tabs
-                    tabs.forEach(t => t.classList.remove('active'));
+                    tabs.forEach(t => {
+                        t.classList.remove('active');
+                        t.setAttribute('aria-selected', 'false');
+                    });
                     
                     // Add active class to clicked tab
                     tab.classList.add('active');
+                    tab.setAttribute('aria-selected', 'true');
                     
                     // Hide all tab contents
                     tabContents.forEach(content => content.classList.add('hidden'));
                     
                     // Show selected tab content
                     const tabName = tab.getAttribute('data-tab');
-                    document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+                    const tabContent = document.getElementById(`${tabName}-tab`);
+                    tabContent.classList.remove('hidden');
+                    
+                    // Update ARIA attributes for accessibility
+                    document.getElementById('tab-content').setAttribute('aria-labelledby', tabName);
                 });
             });
             
@@ -666,8 +708,8 @@
                     const plainSummaryContent = document.getElementById('plain-summary-content');
                     plainSummaryContent.innerHTML = `
                         <div class="flex justify-center items-center py-8">
-                            <div class="flex flex-col items-center">
-                                <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
+                            <div class="flex flex-col items-center" aria-live="polite">
+                                <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
                                 <p class="text-gray-500">Loading plain language summary...</p>
                             </div>
                         </div>
@@ -681,7 +723,7 @@
                             // No summary available
                             plainSummaryContent.innerHTML = `
                                 <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
-                                    <i class="fas fa-file-alt text-gray-400 text-4xl mb-4"></i>
+                                    <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
                                     <h3 class="text-lg font-medium text-gray-800 mb-2">No Plain Language Summary Available</h3>
                                     <p class="text-gray-500">A plain language summary has not been generated for this executive order yet.</p>
                                 </div>
@@ -699,8 +741,8 @@
                 } catch (error) {
                     console.error('Error fetching plain language summary:', error);
                     document.getElementById('plain-summary-content').innerHTML = `
-                        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-                            <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4"></i>
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center" role="alert">
+                            <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
                             <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Summary</h3>
                             <p class="text-red-500">There was an error loading the plain language summary. Please try again later.</p>
                         </div>
@@ -1016,11 +1058,11 @@
                         </td>
                         <td class="whitespace-nowrap">
                             <div class="flex gap-2">
-                                <button class="btn-primary py-1 px-3 text-xs view-details" data-id="${order.id}">
-                                    <i class="fas fa-eye"></i>
+                                <button class="btn-primary py-1 px-3 text-xs view-details" data-id="${order.id}" aria-label="View details for ${order.title}">
+                                    <i class="fas fa-eye" aria-hidden="true"></i>
                                 </button>
-                                <a href="${order.url || '#'}" target="_blank" class="btn-secondary py-1 px-3 text-xs" title="View original source">
-                                    <i class="fas fa-external-link-alt"></i>
+                                <a href="${order.url || '#'}" target="_blank" class="btn-secondary py-1 px-3 text-xs" title="View original source" aria-label="View original source for ${order.title}">
+                                    <i class="fas fa-external-link-alt" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </td>
