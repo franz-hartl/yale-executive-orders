@@ -14,6 +14,8 @@
   "added_date": "2025-02-26 15:06:51",
   "last_updated": "2025-02-26 15:06:51",
   "plain_language_summary": null,
+  "executive_brief": null,
+  "comprehensive_analysis": null,
   "categories": [
     "Immigration"
   ],
@@ -38,5 +40,8 @@
     }
   ],
   "compliance_actions": [],
-  "has_plain_language_summary": false
+  "has_plain_language_summary": false,
+  "has_executive_brief": false,
+  "has_comprehensive_analysis": false,
+  "summary_formats_available": []
 }

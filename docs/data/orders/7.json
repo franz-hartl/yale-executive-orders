@@ -14,6 +14,8 @@
   "added_date": "2025-02-26 12:34:10",
   "last_updated": "2025-02-26 12:34:10",
   "plain_language_summary": "\n        <h2>Restored Iran Sanctions for Universities</h2>\n        <p><strong>Overview:</strong> The U.S. government reimposed economic and financial sanctions on Iran that affect universities.</p>\n        \n        <h3>Key Impacts on Yale:</h3>\n        <ul>\n          <li>Restrictions on research and educational collaborations with Iranian partners</li><li>Limits on financial transactions and procurement related to Iran</li><li>Increased compliance requirements for Iran-related activities</li>\n        </ul>\n        \n        <p><strong>Action Needed:</strong> Yes</p>\n        <p><strong>Important Dates:</strong> 08/06/2018: Executive Order 13846 issued</p>\n        \n        <p><strong>Affected Departments:</strong> Office of Research Administration, Office of General Counsel, Procurement Services, International Affairs</p>\n        \n        <h3>What Changed</h3>\n        <p>The U.S. government reinstated sanctions on Iran that were previously lifted under the Iran nuclear deal.</p>\n        \n        <h3>Why Yale Cares</h3>\n        <p>Yale has research, educational, and financial ties to Iran that are now subject to new restrictions and compliance requirements.</p>\n        \n        <h3>Action Steps</h3>\n        <ul>\n          <li>Review all current and planned activities related to Iran</li><li>Implement processes to ensure compliance with the restored sanctions</li><li>Communicate the changes to relevant faculty, staff, and students</li>\n        </ul>\n        \n        <h3>Resource Needs</h3>\n        <p>Additional staff time and legal expertise to manage compliance</p>\n      ",
+  "executive_brief": null,
+  "comprehensive_analysis": null,
   "categories": [
     "Technology"
   ],
@@ -23,5 +25,10 @@
   ],
   "university_impact_areas": [],
   "compliance_actions": [],
-  "has_plain_language_summary": true
+  "has_plain_language_summary": true,
+  "has_executive_brief": false,
+  "has_comprehensive_analysis": false,
+  "summary_formats_available": [
+    "standard"
+  ]
 }

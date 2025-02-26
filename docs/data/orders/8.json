@@ -14,6 +14,8 @@
   "added_date": "2025-02-26 12:34:10",
   "last_updated": "2025-02-26 12:34:10",
   "plain_language_summary": "\n        <h2>Financial System Regulation Review</h2>\n        <p><strong>Overview:</strong> The president ordered a review of financial regulations to align with core principles for regulating the U.S. financial system.</p>\n        \n        <h3>Key Impacts on Yale:</h3>\n        <ul>\n          <li>Potential changes to administrative compliance requirements for Yale's financial operations</li><li>Possible revisions to Yale's financial regulations and policies</li><li>Need to monitor for new or modified federal financial regulations applicable to the university</li>\n        </ul>\n        \n        <p><strong>Action Needed:</strong> Yes</p>\n        <p><strong>Important Dates:</strong> N/A</p>\n        \n        <p><strong>Affected Departments:</strong> Office of the President, Office of the Provost, Office of General Counsel, Office of Finance and Administration</p>\n        \n        <h3>What Changed</h3>\n        <p>The president ordered a review of existing financial regulations to ensure they align with new core principles for regulating the U.S. financial system.</p>\n        \n        <h3>Why Yale Cares</h3>\n        <p>As a large university with significant financial operations, Yale must comply with federal financial regulations. Any changes to these regulations could impact Yale's administrative processes and policies.</p>\n        \n        <h3>Action Steps</h3>\n        <ul>\n          <li>Monitor for updates on the review of financial regulations</li><li>Assess the potential impact of any regulatory changes on Yale's financial operations</li><li>Revise university policies and procedures as needed to maintain compliance</li>\n        </ul>\n        \n        <h3>Resource Needs</h3>\n        <p>Staff time to review new regulations, update policies, and implement any necessary changes</p>\n      ",
+  "executive_brief": null,
+  "comprehensive_analysis": null,
   "categories": [],
   "impact_areas": [
     "Compliance",
@@ -28,5 +30,10 @@
     }
   ],
   "compliance_actions": [],
-  "has_plain_language_summary": true
+  "has_plain_language_summary": true,
+  "has_executive_brief": false,
+  "has_comprehensive_analysis": false,
+  "summary_formats_available": [
+    "standard"
+  ]
 }

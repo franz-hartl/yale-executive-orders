@@ -130,14 +130,23 @@ async function exportExecutiveOrders() {
         ORDER BY deadline ASC
       `, [order.id]);
       
-      // Check if plain language summary exists
+      // Check which summary types exist
       let hasPlainSummary = false;
+      let hasExecutiveBrief = false;
+      let hasComprehensiveAnalysis = false;
+      
       try {
         if (order.plain_language_summary && order.plain_language_summary.trim() !== '') {
           hasPlainSummary = true;
         }
+        if (order.executive_brief && order.executive_brief.trim() !== '') {
+          hasExecutiveBrief = true;
+        }
+        if (order.comprehensive_analysis && order.comprehensive_analysis.trim() !== '') {
+          hasComprehensiveAnalysis = true;
+        }
       } catch (e) {
-        console.log(`No plain summary for order ${order.id}`);
+        console.log(`Error checking summaries for order ${order.id}: ${e.message}`);
       }
       
       // Return enriched order
@@ -151,7 +160,14 @@ async function exportExecutiveOrders() {
           notes: uia.notes
         })),
         compliance_actions: complianceActions,
-        has_plain_language_summary: hasPlainSummary
+        has_plain_language_summary: hasPlainSummary,
+        has_executive_brief: hasExecutiveBrief,
+        has_comprehensive_analysis: hasComprehensiveAnalysis,
+        summary_formats_available: [
+          ...(hasExecutiveBrief ? ['executive_brief'] : []),
+          ...(hasPlainSummary ? ['standard'] : []),
+          ...(hasComprehensiveAnalysis ? ['comprehensive'] : [])
+        ]
       };
     }));
     
@@ -170,17 +186,38 @@ async function exportExecutiveOrders() {
     }
     console.log(`Exported ${fullOrders.length} individual order files to ${individualDir}`);
     
-    // Export plain language summaries separately if they exist
+    // Export all summary types separately if they exist
     const summariesDir = path.join(outputDir, 'summaries');
+    const executiveBriefsDir = path.join(outputDir, 'executive_briefs');
+    const comprehensiveAnalysesDir = path.join(outputDir, 'comprehensive_analyses');
+    
     await fs.mkdir(summariesDir, { recursive: true });
+    await fs.mkdir(executiveBriefsDir, { recursive: true });
+    await fs.mkdir(comprehensiveAnalysesDir, { recursive: true });
     
     for (const order of fullOrders) {
+      // Export standard summaries
       if (order.has_plain_language_summary) {
         const summaryPath = path.join(summariesDir, `${order.id}.html`);
         await fs.writeFile(summaryPath, order.plain_language_summary || '');
       }
+      
+      // Export executive briefs
+      if (order.has_executive_brief) {
+        const briefPath = path.join(executiveBriefsDir, `${order.id}.html`);
+        await fs.writeFile(briefPath, order.executive_brief || '');
+      }
+      
+      // Export comprehensive analyses
+      if (order.has_comprehensive_analysis) {
+        const analysisPath = path.join(comprehensiveAnalysesDir, `${order.id}.html`);
+        await fs.writeFile(analysisPath, order.comprehensive_analysis || '');
+      }
     }
-    console.log(`Exported plain language summaries to ${summariesDir}`);
+    
+    console.log(`Exported standard summaries to ${summariesDir}`);
+    console.log(`Exported executive briefs to ${executiveBriefsDir}`);
+    console.log(`Exported comprehensive analyses to ${comprehensiveAnalysesDir}`);
     
     return fullOrders;
   } catch (err) {

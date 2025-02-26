@@ -14,9 +14,14 @@
   "added_date": "2025-02-26 17:45:30",
   "last_updated": "2025-02-26 17:45:30",
   "plain_language_summary": null,
+  "executive_brief": null,
+  "comprehensive_analysis": null,
   "categories": [],
   "impact_areas": [],
   "university_impact_areas": [],
   "compliance_actions": [],
-  "has_plain_language_summary": false
+  "has_plain_language_summary": false,
+  "has_executive_brief": false,
+  "has_comprehensive_analysis": false,
+  "summary_formats_available": []
 }

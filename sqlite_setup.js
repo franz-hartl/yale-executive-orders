@@ -34,7 +34,10 @@ function setupDatabase() {
         status TEXT DEFAULT 'Active',
         implementation_phase TEXT,
         added_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        plain_language_summary TEXT,
+        executive_brief TEXT,
+        comprehensive_analysis TEXT
       )
     `);
     

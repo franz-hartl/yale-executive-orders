@@ -14,7 +14,7 @@ require('dotenv').config();
 const dbPath = path.join(__dirname, 'executive_orders.db');
 const db = new sqlite3.Database(dbPath);
 
-// Check if the plain_language_summary column exists, add if not
+// Check if all summary columns exist, add if not
 async function setupDatabase() {
   return new Promise((resolve, reject) => {
     db.all("PRAGMA table_info(executive_orders)", [], (err, rows) => {
@@ -23,27 +23,66 @@ async function setupDatabase() {
         return;
       }
       
-      // Check if column exists
-      const hasColumn = rows && rows.some(row => row.name === 'plain_language_summary');
+      // Check if columns exist
+      const hasPlainSummary = rows && rows.some(row => row.name === 'plain_language_summary');
+      const hasExecutiveBrief = rows && rows.some(row => row.name === 'executive_brief');
+      const hasComprehensiveAnalysis = rows && rows.some(row => row.name === 'comprehensive_analysis');
       
-      if (!hasColumn) {
+      const promises = [];
+      
+      if (!hasPlainSummary) {
         console.log('Adding plain_language_summary column to executive_orders table...');
-        db.run(`ALTER TABLE executive_orders ADD COLUMN plain_language_summary TEXT`, (err) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-          resolve();
-        });
+        promises.push(new Promise((resolve, reject) => {
+          db.run(`ALTER TABLE executive_orders ADD COLUMN plain_language_summary TEXT`, (err) => {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve();
+          });
+        }));
       } else {
         console.log('plain_language_summary column already exists');
-        resolve();
       }
+      
+      if (!hasExecutiveBrief) {
+        console.log('Adding executive_brief column to executive_orders table...');
+        promises.push(new Promise((resolve, reject) => {
+          db.run(`ALTER TABLE executive_orders ADD COLUMN executive_brief TEXT`, (err) => {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve();
+          });
+        }));
+      } else {
+        console.log('executive_brief column already exists');
+      }
+      
+      if (!hasComprehensiveAnalysis) {
+        console.log('Adding comprehensive_analysis column to executive_orders table...');
+        promises.push(new Promise((resolve, reject) => {
+          db.run(`ALTER TABLE executive_orders ADD COLUMN comprehensive_analysis TEXT`, (err) => {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve();
+          });
+        }));
+      } else {
+        console.log('comprehensive_analysis column already exists');
+      }
+      
+      Promise.all(promises)
+        .then(() => resolve())
+        .catch(err => reject(err));
     });
   });
 }
 
-// Get all executive orders that need plain language summaries
+// Get all executive orders that need multi-level summaries
 async function getOrdersForProcessing() {
   return new Promise((resolve, reject) => {
     const query = `
@@ -59,7 +98,12 @@ async function getOrdersForProcessing() {
       LEFT JOIN impact_areas ia ON oia.impact_area_id = ia.id
       LEFT JOIN order_university_impact_areas ouia ON eo.id = ouia.order_id
       LEFT JOIN university_impact_areas uia ON ouia.university_impact_area_id = uia.id
-      WHERE eo.plain_language_summary IS NULL OR eo.plain_language_summary = ''
+      WHERE eo.plain_language_summary IS NULL 
+         OR eo.plain_language_summary = ''
+         OR eo.executive_brief IS NULL 
+         OR eo.executive_brief = ''
+         OR eo.comprehensive_analysis IS NULL 
+         OR eo.comprehensive_analysis = ''
       GROUP BY eo.id
       LIMIT 10
     `;
@@ -85,18 +129,18 @@ async function getOrdersForProcessing() {
   });
 }
 
-// Generate plain language summary for an executive order using Claude API
-async function generatePlainLanguageSummary(order) {
+// Generate all three summary types for an executive order using Claude API
+async function generateMultiLevelSummaries(order) {
   if (!process.env.ANTHROPIC_API_KEY) {
     throw new Error('ANTHROPIC_API_KEY not found in environment');
   }
   
-  console.log(`Generating plain language summary for ${order.order_number}: ${order.title}`);
+  console.log(`Generating multi-level summaries for ${order.order_number}: ${order.title}`);
   
   try {
     // Create a prompt for Claude with all available information
     const prompt = `
-      Create a comprehensive yet accessible plain language summary of this executive order specifically for Yale University administrators. Your summary should balance detail with clarity - aim for around 400 words total across all sections to provide sufficient depth without overwhelming the reader.
+      Create three different levels of summaries for this executive order for higher education administrators. Each summary should be tailored to different time constraints and information needs:
 
       EXECUTIVE ORDER INFORMATION:
       Title: ${order.title}
@@ -111,73 +155,129 @@ async function generatePlainLanguageSummary(order) {
       
       Additional Text: ${order.full_text || ''}
       
-      SUMMARY STRUCTURE:
+      SUMMARY LEVELS:
+      
+      1. EXECUTIVE BRIEF (TL;DR) - Maximum 50 words
+      - Provide an extremely concise 1-2 sentence summary
+      - Focus only on the most critical point(s) relevant to higher education institutions
+      - Use plain language at 6th-8th grade reading level
+      - Should answer: "What's the one thing I absolutely need to know about this order?"
+      
+      2. STANDARD SUMMARY - 400 words
+      Create a comprehensive yet accessible plain language summary with this structure:
       
       PART 1: EXECUTIVE SUMMARY
-      1. Title: Create a clear, informative title (max 10 words) that captures the core purpose of the executive order.
-      2. Overview: Provide a concise summary (2-3 sentences, ~50 words) that explains what the order does and its primary goal. Use plain language at an 8th-grade reading level.
-      3. Bottom Line Up Front: In one sentence, state the most critical takeaway for Yale administrators.
+      - Title: Clear, informative title (max 10 words) that captures core purpose
+      - Overview: Concise explanation (2-3 sentences) of what the order does and its primary goal
+      - Bottom Line: One sentence stating the most critical takeaway for administrators
       
-      PART 2: YALE-SPECIFIC IMPACTS
-      4. Key Impacts: Explain 3-5 specific ways this order affects Yale University. Focus on operational, financial, compliance, and strategic impacts. For each impact:
-         - Clearly state what aspect of Yale's operations is affected
-         - Explain how/why it's affected
-         - Note the severity/significance of the impact
-      5. Important Deadlines: List any specific dates, deadlines, or timelines that Yale administrators must know, formatted as MM/DD/YYYY: description.
-      6. Affected Yale Departments: Based on the university impact areas, identify which specific Yale departments, offices, or units will need to respond (e.g., Office of Research Administration, Student Financial Services, etc.)
+      PART 2: HIGHER EDUCATION IMPACTS
+      - Key Impacts: 3-5 specific ways this order affects higher education institutions
+      - Important Deadlines: Any specific dates or timelines administrators must know
+      - Affected Departments: Which departments/offices will need to respond
       
       PART 3: ACTION PLAN
-      7. Required Action: Clearly state "Action Required: Yes/No" plus a 1-sentence justification.
-      8. Immediate Steps (0-30 days): List 2-3 specific, actionable steps Yale should take immediately, with concrete details.
-      9. Short-term Actions (1-3 months): List 2-3 specific follow-up actions needed within the next few months.
-      10. Long-term Considerations: Note 1-2 strategic or ongoing activities needed for sustained compliance.
-      11. Resource Requirements: Provide realistic estimates of:
-          - Personnel needs (FTEs or hours)
-          - Budget implications (approximate ranges if possible)
-          - Technology or system changes required
-          - External expertise needed (if any)
+      - Required Action: "Yes/No" plus justification
+      - Immediate Steps (0-30 days): 2-3 specific, actionable steps
+      - Short-term Actions (1-3 months): 2-3 follow-up actions
+      - Long-term Considerations: 1-2 strategic or ongoing activities
+      - Resource Requirements: Estimates of personnel, budget, technology, and expertise needs
+      
+      3. COMPREHENSIVE ANALYSIS - 800-1000 words
+      Provide a detailed analysis with all of the above plus:
+      
+      PART 4: DETAILED CONTEXT
+      - Policy Background: Historical context and previous related policies
+      - Legal Framework: Underlying statutory authority and regulatory implications
+      - Industry/Sector Context: How this fits into broader trends affecting higher education
+      
+      PART 5: IMPLEMENTATION SPECIFICS
+      - Compliance Details: Specific compliance requirements, metrics, and documentation
+      - Technical Analysis: More detailed breakdown of technical/specialized aspects
+      - Cross-functional Impacts: How this affects different institutional areas
+      - Risk Analysis: Potential compliance risks and mitigation strategies
+      
+      PART 6: STRATEGIC CONSIDERATIONS
+      - Competitive Implications: How this might advantage/disadvantage different types of institutions
+      - Long-term Vision: How this fits into evolving higher education landscape
+      - Advocacy Opportunities: Potential for institutional input on implementation
       
       WRITING GUIDELINES:
-      - Write at an 8th-grade reading level, using clear language and short sentences (avg 15-20 words)
-      - Use active voice and present tense where possible
-      - Replace legal jargon with plain language alternatives
-      - Use bullet points and numbered lists for better readability
-      - Provide specific details rather than vague generalizations
-      - Focus on practical implications rather than theoretical analysis
-      - Be direct and candid about challenges and requirements
+      - Maintain consistent formatting and structure across all three versions
+      - Ensure each summary contains only the appropriate level of detail for its length
+      - Use active voice and plain language (avoid legal jargon)
+      - Make all three summaries standalone (don't reference content from other versions)
+      - Focus on higher education institutions generally, not just Yale University
       
       Format your response as JSON with the following structure:
       {
-        "title": "Clear, informative title",
-        "overview": "Concise explanation of the order",
-        "bottom_line": "The single most important takeaway",
-        "impacts": [
-          {"area": "Area 1", "description": "Detailed explanation of impact"},
-          {"area": "Area 2", "description": "Detailed explanation of impact"},
-          {"area": "Area 3", "description": "Detailed explanation of impact"}
-        ],
-        "action_needed": "Yes/No - with brief justification",
-        "important_dates": ["MM/DD/YYYY: description", "MM/DD/YYYY: description"],
-        "affected_departments": ["Department 1", "Department 2", "Department 3"],
-        "immediate_steps": ["Specific step 1", "Specific step 2", "Specific step 3"],
-        "short_term_actions": ["Action 1", "Action 2"],
-        "long_term_considerations": ["Consideration 1", "Consideration 2"],
-        "resource_requirements": {
-          "personnel": "Estimate of personnel needs",
-          "budget": "Estimate of budget implications",
-          "technology": "Required technology changes",
-          "external_expertise": "Required external expertise"
+        "executive_brief": "1-2 sentence TL;DR summary",
+        "standard_summary": {
+          "title": "Clear title",
+          "overview": "Concise explanation",
+          "bottom_line": "Critical takeaway",
+          "impacts": [
+            {"area": "Area 1", "description": "Impact details"},
+            {"area": "Area 2", "description": "Impact details"},
+            {"area": "Area 3", "description": "Impact details"}
+          ],
+          "action_needed": "Yes/No with justification",
+          "important_dates": ["MM/DD/YYYY: description", "MM/DD/YYYY: description"],
+          "affected_departments": ["Department 1", "Department 2", "Department 3"],
+          "immediate_steps": ["Step 1", "Step 2", "Step 3"],
+          "short_term_actions": ["Action 1", "Action 2"],
+          "long_term_considerations": ["Consideration 1", "Consideration 2"],
+          "resource_requirements": {
+            "personnel": "Personnel needs",
+            "budget": "Budget implications",
+            "technology": "Technology changes",
+            "external_expertise": "External expertise"
+          }
+        },
+        "comprehensive_analysis": {
+          "title": "Detailed title",
+          "overview": "Thorough explanation",
+          "bottom_line": "Critical takeaway with nuance",
+          "impacts": [
+            {"area": "Area 1", "description": "Detailed impact analysis"},
+            {"area": "Area 2", "description": "Detailed impact analysis"},
+            {"area": "Area 3", "description": "Detailed impact analysis"},
+            {"area": "Area 4", "description": "Detailed impact analysis"},
+            {"area": "Area 5", "description": "Detailed impact analysis"}
+          ],
+          "policy_background": "Historical and policy context",
+          "legal_framework": "Legal and regulatory details",
+          "industry_context": "Higher education sector context",
+          "action_needed": "Yes/No with detailed justification",
+          "important_dates": ["MM/DD/YYYY: detailed description", "MM/DD/YYYY: detailed description"],
+          "affected_departments": ["Department 1", "Department 2", "Department 3", "Department 4", "Department 5"],
+          "immediate_steps": ["Detailed step 1", "Detailed step 2", "Detailed step 3", "Detailed step 4"],
+          "short_term_actions": ["Detailed action 1", "Detailed action 2", "Detailed action 3"],
+          "long_term_considerations": ["Detailed consideration 1", "Detailed consideration 2", "Detailed consideration 3"],
+          "compliance_details": "Specific compliance requirements and documentation",
+          "technical_analysis": "Specialized technical aspects",
+          "cross_functional_impacts": "How this affects different areas",
+          "risk_analysis": "Compliance risks and mitigation",
+          "competitive_implications": "Advantages/disadvantages for institutions",
+          "long_term_vision": "Future higher education landscape impact",
+          "advocacy_opportunities": "Input opportunities on implementation",
+          "resource_requirements": {
+            "personnel": "Detailed personnel needs",
+            "budget": "Detailed budget implications",
+            "technology": "Detailed technology needs",
+            "external_expertise": "Detailed external expertise"
+          }
         }
       }
     `;
     
-    // Call Claude API to generate the summary
+    // Call Claude API to generate the summaries
     const response = await axios.post(
       'https://api.anthropic.com/v1/messages',
       {
         model: "claude-3-opus-20240229",
         max_tokens: 4000,
-        system: "You are an expert in higher education administration with expertise in regulatory compliance, finance, operations, and government affairs. Your role is to translate complex executive orders into clear, actionable summaries specifically for Yale University administrators. You understand the organizational structure of research universities, how federal regulations impact university operations, and the practical steps required for implementation. Your summaries balance thoroughness with clarity - providing detailed enough guidance to be useful, while still being accessible to administrators without legal expertise.",
+        system: "You are an expert in higher education administration with expertise in regulatory compliance, finance, operations, and government affairs. Your role is to translate complex executive orders into clear, actionable summaries specifically for higher education administrators. You understand the organizational structure of research universities, how federal regulations impact university operations, and the practical steps required for implementation. Your summaries balance thoroughness with clarity and are tailored to different stakeholder needs and time constraints.",
         messages: [
           {
             role: "user",
@@ -199,91 +299,253 @@ async function generatePlainLanguageSummary(order) {
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
     
     if (jsonMatch) {
-      const summary = JSON.parse(jsonMatch[0]);
+      const summaries = JSON.parse(jsonMatch[0]);
       
-      // Format the summary as HTML
-      const formattedSummary = `
+      // Format the executive brief
+      const executiveBrief = `
+        <div class="executive-brief" style="font-family: Arial, sans-serif; max-width: 800px; line-height: 1.5; padding: 1rem; background-color: #f0f9ff; border-left: 4px solid #2563eb; font-weight: 500; margin-bottom: 1.5rem;">
+          <h2 style="color: #1e3a8a; font-size: 1.25rem; margin-bottom: 0.5rem;">Executive Brief</h2>
+          <p>${summaries.executive_brief}</p>
+        </div>
+      `;
+      
+      // Format the standard summary as HTML
+      const standardSummary = `
         <div class="summary-container" style="font-family: Arial, sans-serif; max-width: 800px; line-height: 1.5;">
           <!-- Executive Summary Section -->
           <div class="executive-summary" style="margin-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem;">
-            <h2 style="color: #00356b; font-size: 1.5rem; margin-bottom: 0.5rem;">${summary.title}</h2>
-            <p style="font-size: 1rem; margin-bottom: 1rem;"><strong>Overview:</strong> ${summary.overview}</p>
-            <p style="font-size: 1rem; background-color: #f0f9ff; padding: 0.75rem; border-left: 4px solid #00356b; font-weight: 500;">
-              <strong>Bottom Line:</strong> ${summary.bottom_line}
+            <h2 style="color: #2563eb; font-size: 1.5rem; margin-bottom: 0.5rem;">${summaries.standard_summary.title}</h2>
+            <p style="font-size: 1rem; margin-bottom: 1rem;"><strong>Overview:</strong> ${summaries.standard_summary.overview}</p>
+            <p style="font-size: 1rem; background-color: #f0f9ff; padding: 0.75rem; border-left: 4px solid #2563eb; font-weight: 500;">
+              <strong>Bottom Line:</strong> ${summaries.standard_summary.bottom_line}
             </p>
           </div>
           
-          <!-- Yale-Specific Impacts Section -->
+          <!-- Higher Education Impacts Section -->
           <div class="impacts" style="margin-bottom: 1.5rem;">
-            <h3 style="color: #00356b; font-size: 1.25rem; margin-bottom: 0.75rem;">Key Impacts on Yale:</h3>
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Key Impacts on Higher Education:</h3>
             <div style="margin-bottom: 1rem;">
-              ${summary.impacts.map(impact => `
+              ${summaries.standard_summary.impacts.map(impact => `
                 <div style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
                   <p><strong>${impact.area}:</strong> ${impact.description}</p>
                 </div>
               `).join('')}
             </div>
             
-            ${Array.isArray(summary.important_dates) && summary.important_dates.length > 0 ? `
+            ${Array.isArray(summaries.standard_summary.important_dates) && summaries.standard_summary.important_dates.length > 0 ? `
               <div style="margin-bottom: 1rem;">
                 <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Important Dates:</h4>
                 <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
-                  ${summary.important_dates.map(date => `<li>${date}</li>`).join('')}
+                  ${summaries.standard_summary.important_dates.map(date => `<li>${date}</li>`).join('')}
                 </ul>
               </div>
             ` : ''}
             
             <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Affected Yale Departments:</h4>
-              <p>${summary.affected_departments.join(', ')}</p>
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Affected Departments:</h4>
+              <p>${summaries.standard_summary.affected_departments.join(', ')}</p>
             </div>
           </div>
           
           <!-- Action Plan Section -->
           <div class="action-plan" style="margin-bottom: 1.5rem; border-top: 1px solid #e5e7eb; padding-top: 1rem;">
-            <h3 style="color: #00356b; font-size: 1.25rem; margin-bottom: 0.75rem;">Action Plan:</h3>
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Action Plan:</h3>
             
-            <p style="font-weight: 500; margin-bottom: 1rem; ${summary.action_needed.startsWith('Yes') ? 'color: #b91c1c;' : 'color: #047857;'}">
-              <strong>Action Required:</strong> ${summary.action_needed}
+            <p style="font-weight: 500; margin-bottom: 1rem; ${summaries.standard_summary.action_needed.startsWith('Yes') ? 'color: #b91c1c;' : 'color: #047857;'}">
+              <strong>Action Required:</strong> ${summaries.standard_summary.action_needed}
             </p>
             
             <div style="margin-bottom: 1rem;">
               <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Immediate Steps (0-30 days):</h4>
               <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
-                ${summary.immediate_steps.map(step => `<li>${step}</li>`).join('')}
+                ${summaries.standard_summary.immediate_steps.map(step => `<li>${step}</li>`).join('')}
               </ul>
             </div>
             
             <div style="margin-bottom: 1rem;">
               <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Short-term Actions (1-3 months):</h4>
               <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
-                ${summary.short_term_actions.map(action => `<li>${action}</li>`).join('')}
+                ${summaries.standard_summary.short_term_actions.map(action => `<li>${action}</li>`).join('')}
               </ul>
             </div>
             
             <div style="margin-bottom: 1rem;">
               <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Long-term Considerations:</h4>
               <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
-                ${summary.long_term_considerations.map(consideration => `<li>${consideration}</li>`).join('')}
+                ${summaries.standard_summary.long_term_considerations.map(consideration => `<li>${consideration}</li>`).join('')}
               </ul>
             </div>
           </div>
           
           <!-- Resource Requirements Section -->
           <div class="resources" style="margin-bottom: 1rem; background-color: #f9fafb; padding: 1rem; border-radius: 0.375rem;">
-            <h3 style="color: #00356b; font-size: 1.25rem; margin-bottom: 0.75rem;">Resource Requirements:</h3>
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Resource Requirements:</h3>
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
               <div>
-                <p><strong>Personnel:</strong> ${summary.resource_requirements.personnel}</p>
+                <p><strong>Personnel:</strong> ${summaries.standard_summary.resource_requirements.personnel}</p>
               </div>
               <div>
-                <p><strong>Budget:</strong> ${summary.resource_requirements.budget}</p>
+                <p><strong>Budget:</strong> ${summaries.standard_summary.resource_requirements.budget}</p>
               </div>
               <div>
-                <p><strong>Technology:</strong> ${summary.resource_requirements.technology}</p>
+                <p><strong>Technology:</strong> ${summaries.standard_summary.resource_requirements.technology}</p>
               </div>
               <div>
-                <p><strong>External Expertise:</strong> ${summary.resource_requirements.external_expertise}</p>
+                <p><strong>External Expertise:</strong> ${summaries.standard_summary.resource_requirements.external_expertise}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Format the comprehensive analysis as HTML
+      const comprehensiveAnalysis = `
+        <div class="comprehensive-analysis" style="font-family: Arial, sans-serif; max-width: 800px; line-height: 1.5;">
+          <!-- Executive Summary Section -->
+          <div class="executive-summary" style="margin-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem;">
+            <h2 style="color: #2563eb; font-size: 1.5rem; margin-bottom: 0.5rem;">${summaries.comprehensive_analysis.title}</h2>
+            <p style="font-size: 1rem; margin-bottom: 1rem;"><strong>Overview:</strong> ${summaries.comprehensive_analysis.overview}</p>
+            <p style="font-size: 1rem; background-color: #f0f9ff; padding: 0.75rem; border-left: 4px solid #2563eb; font-weight: 500;">
+              <strong>Bottom Line:</strong> ${summaries.comprehensive_analysis.bottom_line}
+            </p>
+          </div>
+          
+          <!-- Context Section -->
+          <div class="context" style="margin-bottom: 1.5rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Policy Context:</h3>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Policy Background:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.policy_background}</p>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Legal Framework:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.legal_framework}</p>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Higher Education Context:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.industry_context}</p>
+            </div>
+          </div>
+          
+          <!-- Higher Education Impacts Section -->
+          <div class="impacts" style="margin-bottom: 1.5rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Key Impacts on Higher Education:</h3>
+            <div style="margin-bottom: 1rem;">
+              ${summaries.comprehensive_analysis.impacts.map(impact => `
+                <div style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
+                  <p><strong>${impact.area}:</strong> ${impact.description}</p>
+                </div>
+              `).join('')}
+            </div>
+            
+            ${Array.isArray(summaries.comprehensive_analysis.important_dates) && summaries.comprehensive_analysis.important_dates.length > 0 ? `
+              <div style="margin-bottom: 1rem;">
+                <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Important Dates:</h4>
+                <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+                  ${summaries.comprehensive_analysis.important_dates.map(date => `<li>${date}</li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Affected Departments:</h4>
+              <p>${summaries.comprehensive_analysis.affected_departments.join(', ')}</p>
+            </div>
+          </div>
+          
+          <!-- Implementation Specifics -->
+          <div class="implementation" style="margin-bottom: 1.5rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Implementation Details:</h3>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Compliance Requirements:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.compliance_details}</p>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Technical Analysis:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.technical_analysis}</p>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Cross-Functional Impacts:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.cross_functional_impacts}</p>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Risk Analysis:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.risk_analysis}</p>
+            </div>
+          </div>
+          
+          <!-- Strategic Considerations -->
+          <div class="strategic" style="margin-bottom: 1.5rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Strategic Considerations:</h3>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Competitive Implications:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.competitive_implications}</p>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Long-term Vision:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.long_term_vision}</p>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Advocacy Opportunities:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.advocacy_opportunities}</p>
+            </div>
+          </div>
+          
+          <!-- Action Plan Section -->
+          <div class="action-plan" style="margin-bottom: 1.5rem; border-top: 1px solid #e5e7eb; padding-top: 1rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Action Plan:</h3>
+            
+            <p style="font-weight: 500; margin-bottom: 1rem; ${summaries.comprehensive_analysis.action_needed.startsWith('Yes') ? 'color: #b91c1c;' : 'color: #047857;'}">
+              <strong>Action Required:</strong> ${summaries.comprehensive_analysis.action_needed}
+            </p>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Immediate Steps (0-30 days):</h4>
+              <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+                ${summaries.comprehensive_analysis.immediate_steps.map(step => `<li>${step}</li>`).join('')}
+              </ul>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Short-term Actions (1-3 months):</h4>
+              <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+                ${summaries.comprehensive_analysis.short_term_actions.map(action => `<li>${action}</li>`).join('')}
+              </ul>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Long-term Considerations:</h4>
+              <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+                ${summaries.comprehensive_analysis.long_term_considerations.map(consideration => `<li>${consideration}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Resource Requirements Section -->
+          <div class="resources" style="margin-bottom: 1rem; background-color: #f9fafb; padding: 1rem; border-radius: 0.375rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Resource Requirements:</h3>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+              <div>
+                <p><strong>Personnel:</strong> ${summaries.comprehensive_analysis.resource_requirements.personnel}</p>
+              </div>
+              <div>
+                <p><strong>Budget:</strong> ${summaries.comprehensive_analysis.resource_requirements.budget}</p>
+              </div>
+              <div>
+                <p><strong>Technology:</strong> ${summaries.comprehensive_analysis.resource_requirements.technology}</p>
+              </div>
+              <div>
+                <p><strong>External Expertise:</strong> ${summaries.comprehensive_analysis.resource_requirements.external_expertise}</p>
               </div>
             </div>
           </div>
@@ -294,22 +556,32 @@ async function generatePlainLanguageSummary(order) {
         </div>
       `;
       
-      return formattedSummary;
+      return {
+        executiveBrief,
+        standardSummary,
+        comprehensiveAnalysis
+      };
     } else {
       throw new Error('Failed to parse Claude response as JSON');
     }
   } catch (error) {
-    console.error(`Error generating summary: ${error.message}`);
+    console.error(`Error generating summaries: ${error.message}`);
     return null;
   }
 }
 
-// Save the plain language summary to the database
-async function savePlainLanguageSummary(orderId, summary) {
+// Save all summary types to the database
+async function saveSummaries(orderId, summaries) {
   return new Promise((resolve, reject) => {
+    const { executiveBrief, standardSummary, comprehensiveAnalysis } = summaries;
+    
     db.run(
-      `UPDATE executive_orders SET plain_language_summary = ? WHERE id = ?`,
-      [summary, orderId],
+      `UPDATE executive_orders 
+       SET plain_language_summary = ?, 
+           executive_brief = ?, 
+           comprehensive_analysis = ? 
+       WHERE id = ?`,
+      [standardSummary, executiveBrief, comprehensiveAnalysis, orderId],
       function(err) {
         if (err) {
           reject(err);
@@ -330,7 +602,7 @@ async function main() {
     
     // Get orders that need summaries
     const orders = await getOrdersForProcessing();
-    console.log(`Found ${orders.length} orders that need plain language summaries`);
+    console.log(`Found ${orders.length} orders that need multi-level summaries`);
     
     if (orders.length === 0) {
       console.log('No orders need processing. Exiting.');
@@ -342,13 +614,13 @@ async function main() {
     let successCount = 0;
     for (const order of orders) {
       try {
-        // Generate plain language summary
-        const summary = await generatePlainLanguageSummary(order);
+        // Generate all summary types
+        const summaries = await generateMultiLevelSummaries(order);
         
-        if (summary) {
-          // Save summary to database
-          await savePlainLanguageSummary(order.id, summary);
-          console.log(`Successfully processed ${order.order_number}: ${order.title}`);
+        if (summaries) {
+          // Save summaries to database
+          await saveSummaries(order.id, summaries);
+          console.log(`Successfully processed multi-level summaries for ${order.order_number}: ${order.title}`);
           successCount++;
         }
       } catch (error) {
@@ -359,7 +631,7 @@ async function main() {
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
     
-    console.log(`Successfully generated ${successCount} plain language summaries`);
+    console.log(`Successfully generated ${successCount} multi-level summaries`);
     console.log('Process completed.');
     
   } catch (error) {
