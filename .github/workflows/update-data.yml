@@ -1,0 +1,36 @@
+name: Update Executive Orders Data
+
+on:
+  workflow_dispatch:  # Allows manual triggering
+  schedule:
+    - cron: '0 0 * * 1'  # Run weekly on Mondays at midnight
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Export data to JSON
+        run: node export_to_json.js
+        
+      - name: Copy data to docs folder
+        run: cp -r public/data/* docs/data/
+        
+      - name: Update last updated date in README
+        run: |
+          sed -i "s/Last updated:.*$/Last updated: $(date)/" docs/README.md
+        
+      - name: Commit and push changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'Update executive orders data'
+          add: 'docs/'
