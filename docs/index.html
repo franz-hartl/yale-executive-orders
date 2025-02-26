@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Yale University Executive Order Analysis Assistant - Tracking and analyzing executive orders that impact university operations and compliance">
-    <meta name="keywords" content="Yale, executive orders, university impact, higher education, compliance, research funding">
-    <title>Yale Executive Order Tracker</title>
+    <meta name="description" content="Higher Education Executive Order Analysis Assistant - Tracking and analyzing executive orders that impact university operations and compliance">
+    <meta name="keywords" content="higher education, executive orders, university impact, academia, compliance, research funding">
+    <title>Higher Education Executive Order Tracker</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📜</text></svg>">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -21,7 +21,7 @@
             --danger: #ef4444;
             --success: #10b981;
             --neutral: #6b7280;
-            --yale-blue: #00356b;
+            --primary-blue: #2563eb;
         }
         
         body {
@@ -42,7 +42,7 @@
         }
         
         .btn-primary {
-            background-color: var(--yale-blue);
+            background-color: var(--primary-blue);
             color: white;
             border-radius: 0.375rem;
             font-weight: 500;
@@ -50,7 +50,7 @@
         }
         
         .btn-primary:hover {
-            background-color: #002548;
+            background-color: #1d4ed8;
         }
         
         .btn-secondary {
@@ -67,8 +67,8 @@
         
         .btn-outline {
             background-color: white;
-            color: var(--yale-blue);
-            border: 1px solid var(--yale-blue);
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
             border-radius: 0.375rem;
             font-weight: 500;
             transition: all 0.2s;
@@ -88,7 +88,7 @@
         
         .search-input:focus {
             outline: none;
-            border-color: var(--yale-blue);
+            border-color: var(--primary-blue);
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
         
@@ -105,7 +105,7 @@
         
         .select-input:focus {
             outline: none;
-            border-color: var(--yale-blue);
+            border-color: var(--primary-blue);
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
         
@@ -256,8 +256,8 @@
         }
         
         .tab-button.active {
-            color: var(--yale-blue);
-            border-bottom-color: var(--yale-blue);
+            color: var(--primary-blue);
+            border-bottom-color: var(--primary-blue);
         }
         
         .animated-fade-in {
@@ -329,9 +329,9 @@
             <div>
                 <h1 class="text-2xl font-bold flex items-center">
                     <span class="text-xl mr-2">📜</span>
-                    Yale Executive Order Tracker
+                    Higher Education Executive Order Tracker
                 </h1>
-                <p class="text-gray-600 mt-1">Monitoring orders that impact university operations and compliance</p>
+                <p class="text-gray-600 mt-1">Monitoring orders that impact higher education operations and compliance</p>
             </div>
             <div class="flex gap-3">
                 <span id="last-updated" class="text-sm text-gray-500 flex items-center">
@@ -556,10 +556,10 @@
         <footer class="border-t border-gray-200 pt-4 mt-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center mb-4 md:mb-0">
-                    <span class="text-sm text-gray-500" id="system-info">Yale Executive Order Tracker | Static Version</span>
+                    <span class="text-sm text-gray-500" id="system-info">Higher Education Executive Order Tracker | Static Version</span>
                 </div>
                 <div class="flex items-center">
-                    <span class="text-xs text-gray-400">Powered by Claude AI | <a href="https://github.com/yourusername/yale-executive-orders" class="text-blue-500 hover:text-blue-700">GitHub</a></span>
+                    <span class="text-xs text-gray-400">Powered by Claude AI | <a href="https://github.com/franz-hartl/yale-executive-orders" class="text-blue-500 hover:text-blue-700">GitHub</a></span>
                 </div>
             </div>
         </footer>
@@ -1133,11 +1133,11 @@
                             
                             card.innerHTML = `
                                 <div class="flex items-center mb-2">
-                                    <i class="${iconClass} text-[#00356B] mr-2"></i>
+                                    <i class="${iconClass} text-blue-700 mr-2"></i>
                                     <h5 class="font-medium">${areaName}</h5>
                                 </div>
                                 <p class="text-sm text-gray-700">
-                                    This executive order will impact ${areaName.toLowerCase()} at Yale University. 
+                                    This executive order will impact ${areaName.toLowerCase()} in higher education institutions. 
                                 </p>
                                 ${areaDescription ? `<p class="text-xs text-gray-500 mt-2">${areaDescription}</p>` : ''}
                                 ${areaNotes ? `<p class="text-xs italic text-gray-600 mt-2 border-t border-gray-100 pt-2">${areaNotes}</p>` : ''}

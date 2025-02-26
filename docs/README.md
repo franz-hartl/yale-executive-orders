@@ -1,11 +1,11 @@
-# Yale Executive Orders Analysis
-This is a static version of the Yale Executive Orders Analysis application, hosted on GitHub Pages.
+# Higher Education Executive Orders Analysis
+This is a static version of the Higher Education Executive Orders Analysis application, hosted on GitHub Pages.
 
-Visit the live application at: https://yourusername.github.io/yale-executive-orders/
+Visit the live application at: https://franz-hartl.github.io/yale-executive-orders/
 
 ## Features
 
-- Browse and search executive orders affecting Yale University
+- Browse and search executive orders affecting higher education institutions
 - View detailed analysis of each order
 - Filter by category, impact level, and university area
 - Access plain language summaries
@@ -13,6 +13,6 @@ Visit the live application at: https://yourusername.github.io/yale-executive-ord
 
 ## Static Implementation
 
-This version has been converted from a dynamic Node.js application to a static GitHub Pages site.
+This version has been converted from a dynamic Node.js application to a static GitHub Pages site. It provides a comprehensive tool for higher education administrators to understand the impact of executive orders on their institutions.
 
-Last updated: Wed Feb 26 13:30:54 EST 2025
+Last updated: Wed Feb 26 13:45:02 EST 2025
