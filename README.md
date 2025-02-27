@@ -1,24 +1,24 @@
 # Yale University Executive Order Analysis Assistant
 
-This project provides an AI-powered system for analyzing executive orders and their impact on Yale University. It helps Yale administrators understand compliance requirements, operational impacts, and necessary actions in response to executive orders through plain language summaries, categorization, and a user-friendly interface.
+This project provides an AI-powered system for analyzing executive orders and their impact on Yale University through a static GitHub Pages website. The system helps Yale administrators understand compliance requirements, operational impacts, and necessary actions in response to executive orders through plain language summaries, categorization, and a user-friendly interface.
 
 ## Core Features
 
 1. **AI-Enhanced Analysis**: Leverages Claude AI for categorization, plain language summaries, and question answering
 2. **University-Focused Classification**: Tailored categorization system specifically for higher education impact
 3. **Plain Language Summaries**: Accessible explanations of complex executive orders for non-legal experts
-4. **Comprehensive Database**: Stores executive orders with full-text search and filtering capabilities
+4. **Comprehensive Data Organization**: Well-structured JSON files for executive orders with full-text search and filtering capabilities
 5. **Interactive Interface**: Clean, table-based UI for browsing, filtering, and accessing order details
 
 ## System Architecture
 
 The system consists of the following key components:
 
-1. **SQLite Database**: Provides structured data storage with full-text search capabilities
-2. **API Server**: RESTful API for accessing and managing executive order data
-3. **Web Interface**: Browser-based UI for interacting with the executive order database 
+1. **Local SQLite Database**: Provides structured data storage for local preprocessing
+2. **Data Processing Tools**: Scripts for fetching, cleaning, and enhancing executive order data
+3. **Static Export Pipeline**: Tools to export processed data to JSON files for GitHub Pages
 4. **AI Integration**: Anthropic Claude API integration for advanced text processing
-5. **Data Collection Tools**: Utilities for fetching and importing executive order data
+5. **Static Web Interface**: Pure frontend app that runs entirely in the browser
 
 ## University-Focused Impact Areas
 
@@ -52,8 +52,8 @@ Executive orders are classified according to their impact on specific university
 ## Prerequisites
 
 - Node.js (v16 or later)
-- Anthropic API key
-- Internet connection
+- Anthropic API key (for AI-powered data processing)
+- Internet connection (for data collection)
 
 ## Getting Started
 
@@ -64,9 +64,6 @@ Create a `.env` file in the project root directory with:
 ```
 # Required for AI functionality
 ANTHROPIC_API_KEY=your_api_key
-
-# Optional configuration
-PORT=3001
 ```
 
 ### 2. Install Dependencies
@@ -75,80 +72,69 @@ PORT=3001
 npm install
 ```
 
-### 3. Start the API Server
+### 3. Update the Database (Local Preprocessing)
 
 ```bash
-# Using the convenience script
-./start_api.sh
+# Set up the SQLite database with current executive orders
+node database_setup.js
 
-# Or directly
-node api_server.js
+# Generate plain language summaries for new executive orders
+node generate_plain_summaries.js
 ```
 
-### 4. Access the Web Interface
+### 4. Export Data to Static Files
 
-Once the server is running, open your browser and navigate to:
-
+```bash
+# Export all data to JSON files for the static app
+node export_to_json.js
 ```
-http://localhost:3001/index.html
+
+### 5. Test the Static Website Locally
+
+```bash
+# Use any static file server (e.g., http-server)
+cd docs
+npx http-server
 ```
 
-## Core Components
+### 6. Deploy to GitHub Pages
 
-### Server Options
+Once you've exported your data and tested locally, you can deploy to GitHub Pages:
 
-The system provides multiple server implementations for different use cases:
+1. Copy data from public/ to docs/ (if not already there)
+2. Commit and push changes to GitHub
+3. Configure GitHub Pages to serve from the docs/ folder
 
-- `api_server.js`: Full-featured RESTful API with database integration (recommended)
-- `simplified_server.js`: Lightweight server for basic functionality
-- `basic_server.js`: Minimal server implementation for static files
-- `mcp_server.js`: Server with Model Context Provider for advanced AI features
+For detailed deployment instructions, see `GITHUB_PAGES_INSTRUCTIONS.md`.
 
-### Data Collection and Processing
+## Workflow for Updates
 
-- `fetch_orders.js`: Fetches executive orders from public data sources
-- `fetch_recent_orders.js` & `fetch_historical_orders.js`: Tools for fetching orders by date range
-- `fetch_whitehouse_orders.js`: Imports orders directly from whitehouse.gov
-- `ai_scraper.js`: AI-powered data extraction from various sources
-- `data_processor.js`: Utilities for cleaning and enhancing data
-- `generate_plain_summaries.js`: Creates plain language summaries using Claude AI
+The typical workflow for updating the system is:
 
-### Database Management
+1. **Data Collection**: Run the appropriate fetch_*.js scripts to gather new executive orders
+2. **Database Update**: Add new data to the SQLite database using database_setup.js
+3. **AI Processing**: Generate summaries and categorizations with generate_plain_summaries.js
+4. **Static Export**: Export processed data to JSON with export_to_json.js
+5. **GitHub Pages Update**: Copy to docs/ folder and push to GitHub
 
-- `sqlite_setup.js`: Creates and initializes the SQLite database schema
-- `database_setup.js`: Provides additional database functionality
+## Data Processing Tools
 
-## API Endpoints
+The project includes several tools for local data processing:
 
-The API server provides comprehensive endpoints for executive order management:
+- **fetch_*.js** scripts: Collect executive orders from various sources
+- **database_setup.js**: Configure SQLite database with executive order data
+- **generate_plain_summaries.js**: Create AI-generated plain language summaries
+- **export_to_json.js**: Export all data to static JSON files for the GitHub Pages site
 
-### Executive Order Access
-- `GET /api/executive-orders`: List all orders with filtering and pagination
-- `GET /api/executive-orders/:id`: Get detailed information about a specific order
-- `GET /api/executive-orders/:id/plain-summary`: Get the plain language summary
-
-### Metadata Access
-- `GET /api/categories`: Get all available categories
-- `GET /api/impact-areas`: Get all impact areas
-- `GET /api/university-impact-areas`: Get all university impact areas
-- `GET /api/statistics`: Get statistics about the executive orders
-
-### AI and Data Management
-- `POST /api/fetch-new-orders`: Fetch and import new executive orders
-- `POST /api/categorize-order/:id`: Use AI to categorize an executive order
-- `POST /api/executive-orders/:id/compliance-actions`: Add compliance action
-
-For complete API documentation, see the `API_README.md` file.
-
-## Customization and Extension
+## Customization
 
 ### Adding New Executive Orders
 
 You can add new executive orders in several ways:
 
-1. **Automatic Import**: Click "Fetch New Orders" in the UI or use the API endpoint
-2. **CSV Import**: Add new orders to `financial_executive_orders.csv` and run `node sqlite_setup.js`
-3. **Direct API**: Use the `POST /api/executive-orders` endpoint with order data
+1. **CSV Import**: Add new orders to `financial_executive_orders.csv` and run `node database_setup.js`
+2. **Direct Database**: Use SQLite tools to add records directly to the executive_orders table
+3. **API Scraping**: Modify the fetch_*.js scripts to capture additional orders
 
 ### Generating Plain Language Summaries
 
@@ -164,30 +150,10 @@ This will:
 - Format with Yale's color scheme and clear structure
 - Save the HTML-formatted summaries to the database
 
-### Customizing Categorization
-
-To modify the AI categorization system:
-
-1. Edit the university impact areas in `sqlite_setup.js` (lines 156-162)
-2. Modify the categorization prompt in `api_server.js` (lines 778-784)
-3. Add or adjust keyword mappings in `sqlite_setup.js` (lines 279-309)
-
-## Troubleshooting
-
-For common issues and solutions:
-
-- **API Connection**: Ensure the API server is running on port 3001
-- **Database Issues**: Run `node sqlite_setup.js` to reset the database
-- **Missing Summaries**: Execute `node generate_plain_summaries.js`
-- **AI Errors**: Verify your API key in the `.env` file
-
-For detailed troubleshooting information, refer to `DEBUG_README.md`.
-
 ## Project Documentation
 
 The project includes several documentation files:
 
-- `API_README.md`: Complete API documentation
+- `GITHUB_PAGES_INSTRUCTIONS.md`: Detailed guide for GitHub Pages deployment
 - `AI_PIPELINE_EXPLANATION.md`: Details of the AI integration
 - `PROJECT_STRUCTURE.md`: Overview of the project files and architecture
-- `DEBUG_README.md`: Troubleshooting guide and development tips

@@ -3,14 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yale Executive Order Tracker</title>
+    <meta name="description" content="Higher Education Executive Order Analysis Assistant - Tracking and analyzing executive orders that impact university operations and compliance">
+    <title>Higher Education Executive Order Tracker</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📜</text></svg>">
+    <!-- Accessibility enhancement -->
+    <script>
+        // Add focus outline script - ensures focus visibility for keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                document.body.classList.add('user-is-tabbing');
+            }
+        });
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('user-is-tabbing');
+        });
+    </script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Accessibility styles */
+        .user-is-tabbing :focus {
+            outline: 2px solid #2563eb !important;
+            outline-offset: 2px !important;
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
         :root {
             --primary: #1a56db;
             --primary-hover: #1e429f;
@@ -321,6 +352,9 @@
     </style>
 </head>
 <body class="min-h-screen">
+    <!-- Skip link for keyboard navigation -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:border focus:border-blue-700 focus:text-blue-700 focus:rounded">Skip to main content</a>
+    
     <div class="app-container mx-auto p-4 sm:p-6">
         <!-- Header: Simple and focused -->
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
@@ -340,7 +374,7 @@
         </header>
         
         <!-- Main content: Filters and Table in one card -->
-        <div class="card mb-6">
+        <div id="main-content" class="card mb-6" tabindex="-1">
             <!-- Search and filters bar -->
             <div class="border-b border-gray-200 p-4">
                 <div class="flex flex-col lg:flex-row gap-4">
@@ -434,8 +468,8 @@
                 <div class="modal-header p-6">
                     <div class="flex justify-between items-center">
                         <h3 id="detail-title" class="text-xl font-semibold text-gray-900"></h3>
-                        <button id="close-detail-btn" class="close-button" aria-label="Close">
-                            <i class="fas fa-times"></i>
+                        <button id="close-detail-btn" class="close-button" aria-label="Close details view">
+                            <i class="fas fa-times" aria-hidden="true"></i>
                         </button>
                     </div>
                     <p class="text-sm text-gray-500 mt-1 mb-3">
@@ -445,18 +479,18 @@
                     </p>
                     
                     <!-- Tabs -->
-                    <div class="flex border-b border-gray-200">
-                        <button class="tab-button active" data-tab="summary">
-                            <i class="far fa-file-alt mr-2"></i>Original Summary
+                    <div class="flex border-b border-gray-200 flex-wrap">
+                        <button class="tab-button active" data-tab="summary" aria-selected="true" role="tab" aria-controls="summary-tab">
+                            <i class="far fa-file-alt mr-2" aria-hidden="true"></i>Original Summary
                         </button>
-                        <button class="tab-button" data-tab="plain-summary">
-                            <i class="fas fa-file-alt mr-2"></i>Plain Language Summary
+                        <button class="tab-button" data-tab="executive-brief" aria-selected="false" role="tab" aria-controls="executive-brief-tab">
+                            <i class="fas fa-bolt mr-2" aria-hidden="true"></i>Executive Brief
                         </button>
-                        <button class="tab-button" data-tab="brief">
-                            <i class="fas fa-file-alt mr-2"></i>Executive Brief
+                        <button class="tab-button" data-tab="plain-summary" aria-selected="false" role="tab" aria-controls="plain-summary-tab">
+                            <i class="fas fa-file-alt mr-2" aria-hidden="true"></i>Standard Summary
                         </button>
-                        <button class="tab-button" data-tab="comprehensive">
-                            <i class="fas fa-file-alt mr-2"></i>Comprehensive Analysis
+                        <button class="tab-button" data-tab="comprehensive-analysis" aria-selected="false" role="tab" aria-controls="comprehensive-analysis-tab">
+                            <i class="fas fa-search-plus mr-2" aria-hidden="true"></i>Comprehensive Analysis
                         </button>
                     </div>
                 </div>
@@ -501,21 +535,9 @@
                         </div>
                     </div>
                     
-                    <!-- Plain Language Summary Tab -->
-                    <div id="plain-summary-tab" class="tab-content hidden">
-                        <div id="plain-summary-content" class="mb-6">
-                            <div class="flex justify-center items-center py-8">
-                                <div class="flex flex-col items-center">
-                                    <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
-                                    <p class="text-gray-500">Loading plain language summary...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
                     <!-- Executive Brief Tab -->
-                    <div id="brief-tab" class="tab-content hidden">
-                        <div id="brief-content" class="mb-6">
+                    <div id="executive-brief-tab" class="tab-content hidden" role="tabpanel" aria-labelledby="executive-brief-tab">
+                        <div id="executive-brief-content" class="mb-6">
                             <div class="flex justify-center items-center py-8">
                                 <div class="flex flex-col items-center">
                                     <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
@@ -525,9 +547,21 @@
                         </div>
                     </div>
                     
+                    <!-- Standard Summary Tab -->
+                    <div id="plain-summary-tab" class="tab-content hidden" role="tabpanel" aria-labelledby="plain-summary-tab">
+                        <div id="plain-summary-content" class="mb-6">
+                            <div class="flex justify-center items-center py-8">
+                                <div class="flex flex-col items-center">
+                                    <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
+                                    <p class="text-gray-500">Loading standard summary...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!-- Comprehensive Analysis Tab -->
-                    <div id="comprehensive-tab" class="tab-content hidden">
-                        <div id="comprehensive-content" class="mb-6">
+                    <div id="comprehensive-analysis-tab" class="tab-content hidden" role="tabpanel" aria-labelledby="comprehensive-analysis-tab">
+                        <div id="comprehensive-analysis-content" class="mb-6">
                             <div class="flex justify-center items-center py-8">
                                 <div class="flex flex-col items-center">
                                     <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
@@ -689,14 +723,63 @@
             }
             
             // Fetch and display the plain language summary
+            // Fetch and display the executive brief
+            async function fetchExecutiveBrief(orderId) {
+                try {
+                    const executiveBriefContent = document.getElementById('executive-brief-content');
+                    executiveBriefContent.innerHTML = `
+                        <div class="flex justify-center items-center py-8">
+                            <div class="flex flex-col items-center" aria-live="polite">
+                                <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
+                                <p class="text-gray-500">Loading executive brief...</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Fetch the executive brief HTML file
+                    const response = await fetch(`data/executive_briefs/${orderId}.html`);
+                    
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            // No brief available
+                            executiveBriefContent.innerHTML = `
+                                <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+                                    <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
+                                    <h3 class="text-lg font-medium text-gray-800 mb-2">No Executive Brief Available</h3>
+                                    <p class="text-gray-500">An executive brief has not been generated for this executive order yet.</p>
+                                </div>
+                            `;
+                            return;
+                        }
+                        throw new Error(`Status: ${response.status}`);
+                    }
+                    
+                    const htmlContent = await response.text();
+                    
+                    // Display the executive brief (which is already HTML formatted)
+                    executiveBriefContent.innerHTML = htmlContent;
+                    
+                } catch (error) {
+                    console.error('Error fetching executive brief:', error);
+                    document.getElementById('executive-brief-content').innerHTML = `
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center" role="alert">
+                            <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
+                            <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Brief</h3>
+                            <p class="text-red-500">There was an error loading the executive brief. Please try again later.</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Fetch and display the plain language summary (standard summary)
             async function fetchPlainLanguageSummary(orderId) {
                 try {
                     const plainSummaryContent = document.getElementById('plain-summary-content');
                     plainSummaryContent.innerHTML = `
                         <div class="flex justify-center items-center py-8">
-                            <div class="flex flex-col items-center">
-                                <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
-                                <p class="text-gray-500">Loading plain language summary...</p>
+                            <div class="flex flex-col items-center" aria-live="polite">
+                                <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
+                                <p class="text-gray-500">Loading standard summary...</p>
                             </div>
                         </div>
                     `;
@@ -709,9 +792,9 @@
                             // No summary available
                             plainSummaryContent.innerHTML = `
                                 <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
-                                    <i class="fas fa-file-alt text-gray-400 text-4xl mb-4"></i>
-                                    <h3 class="text-lg font-medium text-gray-800 mb-2">No Plain Language Summary Available</h3>
-                                    <p class="text-gray-500">A plain language summary has not been generated for this executive order yet.</p>
+                                    <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
+                                    <h3 class="text-lg font-medium text-gray-800 mb-2">No Standard Summary Available</h3>
+                                    <p class="text-gray-500">A standard summary has not been generated for this executive order yet.</p>
                                 </div>
                             `;
                             return;
@@ -721,64 +804,16 @@
                     
                     const htmlContent = await response.text();
                     
-                    // Display the plain language summary (which is already HTML formatted)
+                    // Display the standard summary (which is already HTML formatted)
                     plainSummaryContent.innerHTML = htmlContent;
                     
                 } catch (error) {
-                    console.error('Error fetching plain language summary:', error);
+                    console.error('Error fetching standard summary:', error);
                     document.getElementById('plain-summary-content').innerHTML = `
-                        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-                            <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4"></i>
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center" role="alert">
+                            <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
                             <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Summary</h3>
-                            <p class="text-red-500">There was an error loading the plain language summary. Please try again later.</p>
-                        </div>
-                    `;
-                }
-            }
-            
-            // Fetch and display the executive brief
-            async function fetchExecutiveBrief(orderId) {
-                try {
-                    const briefContent = document.getElementById('brief-content');
-                    briefContent.innerHTML = `
-                        <div class="flex justify-center items-center py-8">
-                            <div class="flex flex-col items-center">
-                                <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
-                                <p class="text-gray-500">Loading executive brief...</p>
-                            </div>
-                        </div>
-                    `;
-                    
-                    // Fetch the HTML file directly
-                    const response = await fetch(`data/executive_briefs/${orderId}.html`);
-                    
-                    if (!response.ok) {
-                        if (response.status === 404) {
-                            // No brief available
-                            briefContent.innerHTML = `
-                                <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
-                                    <i class="fas fa-file-alt text-gray-400 text-4xl mb-4"></i>
-                                    <h3 class="text-lg font-medium text-gray-800 mb-2">No Executive Brief Available</h3>
-                                    <p class="text-gray-500">An executive brief has not been generated for this executive order yet.</p>
-                                </div>
-                            `;
-                            return;
-                        }
-                        throw new Error(`Status: ${response.status}`);
-                    }
-                    
-                    const htmlContent = await response.text();
-                    
-                    // Display the executive brief
-                    briefContent.innerHTML = htmlContent;
-                    
-                } catch (error) {
-                    console.error('Error fetching executive brief:', error);
-                    document.getElementById('brief-content').innerHTML = `
-                        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-                            <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4"></i>
-                            <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Brief</h3>
-                            <p class="text-red-500">There was an error loading the executive brief. Please try again later.</p>
+                            <p class="text-red-500">There was an error loading the standard summary. Please try again later.</p>
                         </div>
                     `;
                 }
@@ -787,25 +822,25 @@
             // Fetch and display the comprehensive analysis
             async function fetchComprehensiveAnalysis(orderId) {
                 try {
-                    const analysisContent = document.getElementById('comprehensive-content');
-                    analysisContent.innerHTML = `
+                    const comprehensiveAnalysisContent = document.getElementById('comprehensive-analysis-content');
+                    comprehensiveAnalysisContent.innerHTML = `
                         <div class="flex justify-center items-center py-8">
-                            <div class="flex flex-col items-center">
-                                <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
+                            <div class="flex flex-col items-center" aria-live="polite">
+                                <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
                                 <p class="text-gray-500">Loading comprehensive analysis...</p>
                             </div>
                         </div>
                     `;
                     
-                    // Fetch the HTML file directly
+                    // Fetch the comprehensive analysis HTML file
                     const response = await fetch(`data/comprehensive_analyses/${orderId}.html`);
                     
                     if (!response.ok) {
                         if (response.status === 404) {
                             // No analysis available
-                            analysisContent.innerHTML = `
+                            comprehensiveAnalysisContent.innerHTML = `
                                 <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
-                                    <i class="fas fa-file-alt text-gray-400 text-4xl mb-4"></i>
+                                    <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
                                     <h3 class="text-lg font-medium text-gray-800 mb-2">No Comprehensive Analysis Available</h3>
                                     <p class="text-gray-500">A comprehensive analysis has not been generated for this executive order yet.</p>
                                 </div>
@@ -817,14 +852,14 @@
                     
                     const htmlContent = await response.text();
                     
-                    // Display the comprehensive analysis
-                    analysisContent.innerHTML = htmlContent;
+                    // Display the comprehensive analysis (which is already HTML formatted)
+                    comprehensiveAnalysisContent.innerHTML = htmlContent;
                     
                 } catch (error) {
                     console.error('Error fetching comprehensive analysis:', error);
-                    document.getElementById('comprehensive-content').innerHTML = `
-                        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-                            <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4"></i>
+                    document.getElementById('comprehensive-analysis-content').innerHTML = `
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center" role="alert">
+                            <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
                             <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Analysis</h3>
                             <p class="text-red-500">There was an error loading the comprehensive analysis. Please try again later.</p>
                         </div>
@@ -1104,6 +1139,38 @@
                     const truncatedSummary = order.summary 
                         ? (order.summary.length > 120 ? order.summary.substring(0, 120) + '...' : order.summary)
                         : '';
+                        
+                    // Create summary format indicators
+                    let summaryFormatsHtml = '';
+                    if (order.summary_formats_available && order.summary_formats_available.length > 0) {
+                        summaryFormatsHtml = `
+                            <div class="mt-1 flex gap-1">
+                                ${order.summary_formats_available.map(format => {
+                                    let badgeClass = '';
+                                    let label = '';
+                                    let icon = '';
+                                    
+                                    if (format === 'executive_brief') {
+                                        badgeClass = 'bg-yellow-100 text-yellow-800';
+                                        label = 'Brief';
+                                        icon = 'bolt';
+                                    } else if (format === 'standard') {
+                                        badgeClass = 'bg-blue-100 text-blue-800';
+                                        label = 'Standard';
+                                        icon = 'file-alt';
+                                    } else if (format === 'comprehensive') {
+                                        badgeClass = 'bg-green-100 text-green-800';
+                                        label = 'Comprehensive';
+                                        icon = 'search-plus';
+                                    }
+                                    
+                                    return `<span class="inline-flex items-center text-xs px-2 py-0.5 rounded ${badgeClass}">
+                                        <i class="fas fa-${icon} mr-1" aria-hidden="true"></i>${label}
+                                    </span>`;
+                                }).join('')}
+                            </div>
+                        `;
+                    }
                     
                     // Create table row
                     row.innerHTML = `
@@ -1116,6 +1183,7 @@
                                     ${order.title || 'N/A'}
                                 </div>
                                 <p class="text-xs text-gray-500 mt-1">${truncatedSummary}</p>
+                                ${summaryFormatsHtml}
                             </div>
                         </td>
                         <td class="text-gray-600 whitespace-nowrap">
@@ -1140,11 +1208,11 @@
                         </td>
                         <td class="whitespace-nowrap">
                             <div class="flex gap-2">
-                                <button class="btn-primary py-1 px-3 text-xs view-details" data-id="${order.id}">
-                                    <i class="fas fa-eye"></i>
+                                <button class="btn-primary py-1 px-3 text-xs view-details" data-id="${order.id}" aria-label="View details for ${order.title}">
+                                    <i class="fas fa-eye" aria-hidden="true"></i>
                                 </button>
-                                <a href="${order.url || '#'}" target="_blank" class="btn-secondary py-1 px-3 text-xs" title="View original source">
-                                    <i class="fas fa-external-link-alt"></i>
+                                <a href="${order.url || '#'}" target="_blank" class="btn-secondary py-1 px-3 text-xs" title="View original source" aria-label="View original source for ${order.title}">
+                                    <i class="fas fa-external-link-alt" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </td>
@@ -1159,6 +1227,35 @@
                             viewOrderDetails(id);
                         });
                     });
+                });
+            }
+            
+            // Focus trap for modal accessibility
+            function setupFocusTrap(modalElement) {
+                // Find all focusable elements
+                const focusableElements = modalElement.querySelectorAll(
+                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+                
+                if (focusableElements.length === 0) return;
+                
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+                
+                // Handle tab key in modal
+                modalElement.addEventListener('keydown', function(e) {
+                    if (e.key === 'Tab') {
+                        // If shift+tab on first element, move to last element
+                        if (e.shiftKey && document.activeElement === firstElement) {
+                            e.preventDefault();
+                            lastElement.focus();
+                        } 
+                        // If tab on last element, move to first element
+                        else if (!e.shiftKey && document.activeElement === lastElement) {
+                            e.preventDefault();
+                            firstElement.focus();
+                        }
+                    }
                 });
             }
             
@@ -1283,14 +1380,30 @@
                     document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
                     document.getElementById('summary-tab').classList.remove('hidden');
                     
-                    // Fetch summaries if available
-                    if (order.has_plain_language_summary) {
-                        fetchPlainLanguageSummary(order.id);
-                    }
-                    
-                    // Always try to fetch executive brief and comprehensive analysis
-                    fetchExecutiveBrief(order.id);
-                    fetchComprehensiveAnalysis(order.id);
+                    // Check which summary formats are available and set tab visibility
+                    document.querySelectorAll('.tab-button').forEach(tabButton => {
+                        const tabName = tabButton.getAttribute('data-tab');
+                        
+                        // Always show the original summary tab
+                        if (tabName === 'summary') {
+                            return;
+                        }
+                        
+                        // For other tabs, check if the format is available
+                        if (order.summary_formats_available && order.summary_formats_available.includes(tabName === 'plain-summary' ? 'standard' : tabName)) {
+                            tabButton.style.display = 'block';
+                            // Load the summary for this tab
+                            if (tabName === 'executive-brief') {
+                                fetchExecutiveBrief(order.id);
+                            } else if (tabName === 'plain-summary') {
+                                fetchPlainLanguageSummary(order.id);
+                            } else if (tabName === 'comprehensive-analysis') {
+                                fetchComprehensiveAnalysis(order.id);
+                            }
+                        } else {
+                            tabButton.style.display = 'none';
+                        }
+                    });
                     
                     // Show detail view
                     detailView.classList.remove('hidden');
@@ -1298,6 +1411,8 @@
                     // Set focus to the close button for accessibility
                     setTimeout(() => {
                         closeDetailBtn.focus();
+                        // Setup focus trap for the modal
+                        setupFocusTrap(detailView.querySelector('.modal-content'));
                     }, 100);
                     
                 } catch (error) {
@@ -1314,12 +1429,15 @@
                     toastContainer = document.createElement('div');
                     toastContainer.id = 'toast-container';
                     toastContainer.className = 'fixed bottom-4 right-4 z-50 flex flex-col gap-2';
+                    toastContainer.setAttribute('aria-live', 'polite');
+                    toastContainer.setAttribute('role', 'status');
                     document.body.appendChild(toastContainer);
                 }
                 
                 // Create toast element
                 const toast = document.createElement('div');
                 toast.className = 'card p-4 shadow-lg flex items-start gap-3 animate-fade-in max-w-md';
+                toast.setAttribute('role', 'alert');
                 
                 // Set background based on type
                 const bgColor = type === 'success' ? 'bg-green-50 border-l-4 border-green-500' :
@@ -1328,9 +1446,9 @@
                 toast.classList.add(...bgColor.split(' '));
                 
                 // Icon based on type
-                const icon = type === 'success' ? '<i class="fas fa-check-circle text-green-500"></i>' :
-                            type === 'error' ? '<i class="fas fa-exclamation-circle text-red-500"></i>' :
-                            '<i class="fas fa-info-circle text-blue-500"></i>';
+                const icon = type === 'success' ? '<i class="fas fa-check-circle text-green-500" aria-hidden="true"></i>' :
+                            type === 'error' ? '<i class="fas fa-exclamation-circle text-red-500" aria-hidden="true"></i>' :
+                            '<i class="fas fa-info-circle text-blue-500" aria-hidden="true"></i>';
                 
                 toast.innerHTML = `
                     <div class="text-xl">
@@ -1340,8 +1458,8 @@
                         <h3 class="font-medium">${title}</h3>
                         <p class="text-sm text-gray-600">${message}</p>
                     </div>
-                    <button class="text-gray-400 hover:text-gray-600 text-lg close-toast">
-                        <i class="fas fa-times"></i>
+                    <button class="text-gray-400 hover:text-gray-600 text-lg close-toast" aria-label="Close notification">
+                        <i class="fas fa-times" aria-hidden="true"></i>
                     </button>
                 `;
                 

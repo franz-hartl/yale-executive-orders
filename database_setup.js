@@ -1,396 +1,517 @@
-const { Client } = require('pg');
-const fs = require('fs').promises;
-const { PineconeClient } = require('@pinecone-database/pinecone');
+/**
+ * database_setup.js
+ * 
+ * This script initializes and updates the SQLite database with executive order data.
+ * It's used for local preprocessing before exporting data to static JSON files.
+ */
 
-class DatabaseSetup {
-  constructor() {
-    // PostgreSQL configuration
-    this.pgConfig = {
-      host: process.env.PG_HOST || 'localhost',
-      port: process.env.PG_PORT || 5432,
-      database: process.env.PG_DATABASE || 'executive_orders',
-      user: process.env.PG_USER || 'postgres',
-      password: process.env.PG_PASSWORD || 'postgres'
-    };
-    
-    // Pinecone configuration for vector embeddings
-    this.pineconeApiKey = process.env.PINECONE_API_KEY;
-    this.pineconeEnvironment = process.env.PINECONE_ENVIRONMENT || 'us-west1-gcp';
-    this.pineconeIndex = process.env.PINECONE_INDEX || 'executive-orders';
+const sqlite3 = require('sqlite3').verbose();
+const fs = require('fs');
+const path = require('path');
+const csv = require('csv-parser');
+
+// Database file path
+const dbFile = path.join(__dirname, 'executive_orders.db');
+const csvFile = path.join(__dirname, 'financial_executive_orders.csv');
+
+// Connect to or create the database
+const db = new sqlite3.Database(dbFile, (err) => {
+  if (err) {
+    console.error('Error opening database:', err.message);
+    process.exit(1);
   }
+  console.log('Connected to the SQLite database.');
+});
 
-  async initPostgres() {
-    console.log('Initializing PostgreSQL database...');
-    const client = new Client(this.pgConfig);
-    
-    try {
-      await client.connect();
-      
-      // Create tables
-      await client.query(`
-        CREATE TABLE IF NOT EXISTS executive_orders (
-          id SERIAL PRIMARY KEY,
-          order_number VARCHAR(20) UNIQUE,
-          title TEXT NOT NULL,
-          signing_date DATE,
-          publication_date DATE,
-          president VARCHAR(100),
-          summary TEXT,
-          financial_impact TEXT,
-          full_text TEXT,
-          url TEXT,
-          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        );
-      `);
-      
-      await client.query(`
-        CREATE TABLE IF NOT EXISTS order_categories (
-          id SERIAL PRIMARY KEY,
-          order_id INTEGER REFERENCES executive_orders(id) ON DELETE CASCADE,
-          primary_category VARCHAR(100),
-          UNIQUE(order_id)
-        );
-      `);
-      
-      await client.query(`
-        CREATE TABLE IF NOT EXISTS order_secondary_categories (
-          id SERIAL PRIMARY KEY,
-          order_id INTEGER REFERENCES executive_orders(id) ON DELETE CASCADE,
-          category VARCHAR(100) NOT NULL,
-          UNIQUE(order_id, category)
-        );
-      `);
-      
-      await client.query(`
-        CREATE TABLE IF NOT EXISTS order_economic_sectors (
-          id SERIAL PRIMARY KEY,
-          order_id INTEGER REFERENCES executive_orders(id) ON DELETE CASCADE,
-          sector VARCHAR(100) NOT NULL,
-          UNIQUE(order_id, sector)
-        );
-      `);
-      
-      await client.query(`
-        CREATE TABLE IF NOT EXISTS order_policy_tags (
-          id SERIAL PRIMARY KEY,
-          order_id INTEGER REFERENCES executive_orders(id) ON DELETE CASCADE,
-          tag VARCHAR(100) NOT NULL,
-          UNIQUE(order_id, tag)
-        );
-      `);
-      
-      // Create indexes for common query patterns
-      await client.query(`
-        CREATE INDEX IF NOT EXISTS idx_executive_orders_president ON executive_orders(president);
-        CREATE INDEX IF NOT EXISTS idx_executive_orders_signing_date ON executive_orders(signing_date);
-        CREATE INDEX IF NOT EXISTS idx_order_categories_primary_category ON order_categories(primary_category);
-      `);
-      
-      // Create a function to update the updated_at timestamp
-      await client.query(`
-        CREATE OR REPLACE FUNCTION update_modified_column()
-        RETURNS TRIGGER AS $$
-        BEGIN
-          NEW.updated_at = NOW();
-          RETURN NEW;
-        END;
-        $$ LANGUAGE plpgsql;
-      `);
-      
-      // Create a trigger to update the updated_at timestamp
-      await client.query(`
-        DROP TRIGGER IF EXISTS update_executive_orders_modtime ON executive_orders;
-        CREATE TRIGGER update_executive_orders_modtime
-        BEFORE UPDATE ON executive_orders
-        FOR EACH ROW
-        EXECUTE FUNCTION update_modified_column();
-      `);
-      
-      // Create a full-text search index
-      await client.query(`
-        ALTER TABLE executive_orders
-        ADD COLUMN IF NOT EXISTS search_vector tsvector;
-        
-        CREATE INDEX IF NOT EXISTS idx_executive_orders_search
-        ON executive_orders
-        USING GIN(search_vector);
-        
-        CREATE OR REPLACE FUNCTION executive_orders_search_trigger()
-        RETURNS TRIGGER AS $$
-        BEGIN
-          NEW.search_vector = 
-            setweight(to_tsvector('english', COALESCE(NEW.title, '')), 'A') ||
-            setweight(to_tsvector('english', COALESCE(NEW.summary, '')), 'B') ||
-            setweight(to_tsvector('english', COALESCE(NEW.financial_impact, '')), 'C') ||
-            setweight(to_tsvector('english', COALESCE(NEW.president, '')), 'D');
-          RETURN NEW;
-        END;
-        $$ LANGUAGE plpgsql;
-        
-        DROP TRIGGER IF EXISTS executive_orders_search_update ON executive_orders;
-        CREATE TRIGGER executive_orders_search_update
-        BEFORE INSERT OR UPDATE ON executive_orders
-        FOR EACH ROW
-        EXECUTE FUNCTION executive_orders_search_trigger();
-      `);
-      
-      console.log('PostgreSQL schema initialized successfully');
-    } catch (error) {
-      console.error('Error initializing PostgreSQL schema:', error);
-      throw error;
-    } finally {
-      await client.end();
-    }
-  }
+// Promisify database operations
+function dbRun(sql, params = []) {
+  return new Promise((resolve, reject) => {
+    db.run(sql, params, function(err) {
+      if (err) reject(err);
+      else resolve(this);
+    });
+  });
+}
 
-  async initPinecone() {
-    if (!this.pineconeApiKey) {
-      console.warn('Pinecone API key not provided, skipping vector database setup');
-      return;
-    }
-    
-    console.log('Initializing Pinecone vector database...');
-    
-    try {
-      const pinecone = new PineconeClient();
-      await pinecone.init({
-        apiKey: this.pineconeApiKey,
-        environment: this.pineconeEnvironment
-      });
-      
-      // Check if the index exists
-      const indexesList = await pinecone.listIndexes();
-      
-      if (!indexesList.includes(this.pineconeIndex)) {
-        console.log(`Creating new Pinecone index: ${this.pineconeIndex}`);
-        
-        await pinecone.createIndex({
-          name: this.pineconeIndex,
-          dimension: 1536, // Dimension for text-embedding-ada-002
-          metric: 'cosine'
-        });
-        
-        // Wait for index initialization
-        await new Promise(resolve => setTimeout(resolve, 30000));
-        console.log('Pinecone index created successfully');
-      } else {
-        console.log(`Pinecone index ${this.pineconeIndex} already exists`);
-      }
-    } catch (error) {
-      console.error('Error initializing Pinecone:', error);
-      throw error;
-    }
-  }
+function dbGet(sql, params = []) {
+  return new Promise((resolve, reject) => {
+    db.get(sql, params, (err, row) => {
+      if (err) reject(err);
+      else resolve(row);
+    });
+  });
+}
 
-  async importDataToPostgres(filePath = './processed_financial_eo_readable.json') {
-    console.log(`Importing data from ${filePath} to PostgreSQL...`);
-    const client = new Client(this.pgConfig);
-    
-    try {
-      await client.connect();
-      
-      // Read processed data
-      const rawData = await fs.readFile(filePath, 'utf8');
-      const orders = JSON.parse(rawData);
-      
-      console.log(`Importing ${orders.length} records to PostgreSQL...`);
-      
-      // Begin transaction
-      await client.query('BEGIN');
-      
-      for (const order of orders) {
-        // Insert executive order
-        const orderInsertResult = await client.query(`
-          INSERT INTO executive_orders
-          (order_number, title, signing_date, publication_date, president, summary, financial_impact, url)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-          ON CONFLICT (order_number) 
-          DO UPDATE SET 
-            title = EXCLUDED.title,
-            signing_date = EXCLUDED.signing_date,
-            publication_date = EXCLUDED.publication_date,
-            president = EXCLUDED.president,
-            summary = EXCLUDED.summary,
-            financial_impact = EXCLUDED.financial_impact,
-            url = EXCLUDED.url,
-            updated_at = CURRENT_TIMESTAMP
-          RETURNING id
-        `, [
-          order.number,
-          order.title,
-          order.date,
-          order.publication_date || order.date,
-          order.president,
-          order.summary,
-          order.financialImpact,
-          order.url
-        ]);
-        
-        const orderId = orderInsertResult.rows[0].id;
-        
-        // Insert primary category
-        if (order.primaryCategory) {
-          await client.query(`
-            INSERT INTO order_categories (order_id, primary_category)
-            VALUES ($1, $2)
-            ON CONFLICT (order_id) 
-            DO UPDATE SET primary_category = EXCLUDED.primary_category
-          `, [orderId, order.primaryCategory]);
-        }
-        
-        // Insert secondary categories
-        if (order.secondaryCategories && Array.isArray(order.secondaryCategories)) {
-          // First delete existing categories
-          await client.query(`
-            DELETE FROM order_secondary_categories WHERE order_id = $1
-          `, [orderId]);
-          
-          // Then insert new ones
-          for (const category of order.secondaryCategories) {
-            await client.query(`
-              INSERT INTO order_secondary_categories (order_id, category)
-              VALUES ($1, $2)
-              ON CONFLICT DO NOTHING
-            `, [orderId, category]);
-          }
-        }
-        
-        // Insert economic sectors
-        if (order.economicSectors && Array.isArray(order.economicSectors)) {
-          // First delete existing sectors
-          await client.query(`
-            DELETE FROM order_economic_sectors WHERE order_id = $1
-          `, [orderId]);
-          
-          // Then insert new ones
-          for (const sector of order.economicSectors) {
-            await client.query(`
-              INSERT INTO order_economic_sectors (order_id, sector)
-              VALUES ($1, $2)
-              ON CONFLICT DO NOTHING
-            `, [orderId, sector]);
-          }
-        }
-        
-        // Insert policy tags
-        if (order.policyTags && Array.isArray(order.policyTags)) {
-          // First delete existing tags
-          await client.query(`
-            DELETE FROM order_policy_tags WHERE order_id = $1
-          `, [orderId]);
-          
-          // Then insert new ones
-          for (const tag of order.policyTags) {
-            await client.query(`
-              INSERT INTO order_policy_tags (order_id, tag)
-              VALUES ($1, $2)
-              ON CONFLICT DO NOTHING
-            `, [orderId, tag]);
-          }
-        }
-      }
-      
-      // Commit transaction
-      await client.query('COMMIT');
-      
-      console.log('Data import to PostgreSQL completed successfully');
-    } catch (error) {
-      await client.query('ROLLBACK');
-      console.error('Error importing data to PostgreSQL:', error);
-      throw error;
-    } finally {
-      await client.end();
-    }
-  }
+function dbAll(sql, params = []) {
+  return new Promise((resolve, reject) => {
+    db.all(sql, params, (err, rows) => {
+      if (err) reject(err);
+      else resolve(rows);
+    });
+  });
+}
 
-  async importDataToPinecone(filePath = './processed_financial_eo.json') {
-    if (!this.pineconeApiKey) {
-      console.warn('Pinecone API key not provided, skipping vector database import');
-      return;
-    }
+// Create tables if they don't exist
+async function createTables() {
+  try {
+    // Create executive orders table
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS executive_orders (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_number TEXT UNIQUE,
+        title TEXT NOT NULL,
+        signing_date TEXT,
+        president TEXT,
+        summary TEXT,
+        url TEXT,
+        impact_level TEXT,
+        full_text TEXT,
+        plain_language_summary TEXT,
+        executive_brief TEXT,
+        comprehensive_analysis TEXT,
+        status TEXT DEFAULT 'Active'
+      )
+    `);
     
-    console.log(`Importing data from ${filePath} to Pinecone...`);
+    // Create categories tables
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS categories (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT UNIQUE,
+        description TEXT
+      )
+    `);
     
-    try {
-      // Read processed data with embeddings
-      const rawData = await fs.readFile(filePath, 'utf8');
-      const orders = JSON.parse(rawData);
-      
-      console.log(`Importing ${orders.length} records with embeddings to Pinecone...`);
-      
-      const pinecone = new PineconeClient();
-      await pinecone.init({
-        apiKey: this.pineconeApiKey,
-        environment: this.pineconeEnvironment
-      });
-      
-      const index = pinecone.Index(this.pineconeIndex);
-      
-      // Prepare vectors for upsert
-      const vectors = orders.map(order => {
-        if (!order.embedding) {
-          console.warn(`Order ${order.number} has no embedding, skipping`);
-          return null;
-        }
-        
-        return {
-          id: order.number || `order-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
-          values: order.embedding,
-          metadata: {
-            title: order.title,
-            number: order.number,
-            date: order.date,
-            president: order.president,
-            summary: order.summary,
-            financialImpact: order.financialImpact,
-            primaryCategory: order.primaryCategory,
-            secondaryCategories: order.secondaryCategories,
-            economicSectors: order.economicSectors
-          }
-        };
-      }).filter(Boolean);
-      
-      // Upsert in batches of 100
-      const batchSize = 100;
-      for (let i = 0; i < vectors.length; i += batchSize) {
-        const batch = vectors.slice(i, i + batchSize);
-        await index.upsert({
-          upsertRequest: {
-            vectors: batch,
-            namespace: ''
-          }
-        });
-        console.log(`Upserted batch ${i/batchSize + 1} of ${Math.ceil(vectors.length/batchSize)}`);
-      }
-      
-      console.log('Data import to Pinecone completed successfully');
-    } catch (error) {
-      console.error('Error importing data to Pinecone:', error);
-      throw error;
-    }
-  }
-
-  async setup() {
-    try {
-      console.log('Starting database setup...');
-      
-      // Initialize database schemas
-      await this.initPostgres();
-      await this.initPinecone();
-      
-      // Import data
-      await this.importDataToPostgres();
-      await this.importDataToPinecone();
-      
-      console.log('Database setup completed successfully');
-    } catch (error) {
-      console.error('Error during database setup:', error);
-      process.exit(1);
-    }
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS order_categories (
+        order_id INTEGER,
+        category_id INTEGER,
+        PRIMARY KEY (order_id, category_id),
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (category_id) REFERENCES categories(id)
+      )
+    `);
+    
+    // Create impact areas tables
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS impact_areas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT UNIQUE,
+        description TEXT
+      )
+    `);
+    
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS order_impact_areas (
+        order_id INTEGER,
+        impact_area_id INTEGER,
+        PRIMARY KEY (order_id, impact_area_id),
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (impact_area_id) REFERENCES impact_areas(id)
+      )
+    `);
+    
+    // Create university impact areas tables
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS university_impact_areas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT UNIQUE,
+        description TEXT
+      )
+    `);
+    
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS order_university_impact_areas (
+        order_id INTEGER,
+        university_impact_area_id INTEGER,
+        notes TEXT,
+        PRIMARY KEY (order_id, university_impact_area_id),
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (university_impact_area_id) REFERENCES university_impact_areas(id)
+      )
+    `);
+    
+    // Create compliance actions table
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS compliance_actions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER,
+        title TEXT NOT NULL,
+        description TEXT,
+        deadline TEXT,
+        responsible_party TEXT,
+        status TEXT DEFAULT 'Pending',
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id)
+      )
+    `);
+    
+    console.log('Database tables created successfully');
+    
+  } catch (err) {
+    console.error('Error creating tables:', err);
+    throw err;
   }
 }
 
-// Run setup
-const setup = new DatabaseSetup();
-setup.setup();
+// Initialize reference data (categories, impact areas, etc.)
+async function initializeReferenceData() {
+  try {
+    // Check if categories already exist
+    const categoryCount = await dbGet('SELECT COUNT(*) as count FROM categories');
+    if (categoryCount.count === 0) {
+      console.log('Initializing reference data...');
+      
+      // Insert university impact areas
+      const universityImpactAreas = [
+        { name: 'Research Funding', description: 'Impact on federal research grants, funding priorities, and research initiatives' },
+        { name: 'Student Aid & Higher Education Finance', description: 'Impact on student financial aid, loan programs, and education financing' },
+        { name: 'Administrative Compliance', description: 'Impact on regulatory requirements, reporting, and compliance obligations' },
+        { name: 'Workforce & Employment Policy', description: 'Impact on faculty hiring, employment regulations, and visa policies' },
+        { name: 'Public-Private Partnerships', description: 'Impact on university-industry collaboration and economic development' }
+      ];
+      
+      for (const area of universityImpactAreas) {
+        await dbRun('INSERT INTO university_impact_areas (name, description) VALUES (?, ?)', 
+          [area.name, area.description]);
+      }
+      
+      // Insert categories
+      const categories = [
+        { name: 'Technology', description: 'Related to technology, AI, computing, and digital infrastructure' },
+        { name: 'Education', description: 'Related to education policy, learning, and academic programs' },
+        { name: 'Finance', description: 'Related to financial regulations, funding, and economic policy' },
+        { name: 'Healthcare', description: 'Related to healthcare, public health, and medical research' },
+        { name: 'Research', description: 'Related to research initiatives, methodology, and priorities' },
+        { name: 'Immigration', description: 'Related to immigration policy, visas, and international students' },
+        { name: 'National Security', description: 'Related to national security, defense, and safety' },
+        { name: 'Diversity', description: 'Related to diversity, equity, inclusion, and accessibility' },
+        { name: 'Environment', description: 'Related to environmental protection, climate, and sustainability' },
+        { name: 'Industry', description: 'Related to industry partnerships, business, and economic development' }
+      ];
+      
+      for (const category of categories) {
+        await dbRun('INSERT INTO categories (name, description) VALUES (?, ?)', 
+          [category.name, category.description]);
+      }
+      
+      // Insert impact areas
+      const impactAreas = [
+        { name: 'Research', description: 'Impact on research activities and initiatives' },
+        { name: 'Compliance', description: 'Impact on regulatory compliance requirements' },
+        { name: 'Funding', description: 'Impact on funding sources and financial considerations' },
+        { name: 'Policy', description: 'Impact on institutional policies and procedures' },
+        { name: 'Student Aid', description: 'Impact on student financial aid and support' },
+        { name: 'Economic Development', description: 'Impact on economic growth and development' },
+        { name: 'Regulatory', description: 'Impact on regulations and regulatory frameworks' },
+        { name: 'Operational', description: 'Impact on day-to-day operations and administration' }
+      ];
+      
+      for (const area of impactAreas) {
+        await dbRun('INSERT INTO impact_areas (name, description) VALUES (?, ?)', 
+          [area.name, area.description]);
+      }
+      
+      console.log('Reference data initialized successfully');
+    } else {
+      console.log('Reference data already exists, skipping initialization');
+    }
+  } catch (err) {
+    console.error('Error initializing reference data:', err);
+    throw err;
+  }
+}
+
+// Import executive orders from CSV
+async function importFromCSV() {
+  if (!fs.existsSync(csvFile)) {
+    console.log('CSV file not found, skipping import');
+    return;
+  }
+  
+  console.log(`Importing executive orders from ${csvFile}...`);
+  
+  const orders = [];
+  fs.createReadStream(csvFile)
+    .pipe(csv())
+    .on('data', (data) => orders.push(data))
+    .on('end', async () => {
+      try {
+        console.log(`Found ${orders.length} orders in CSV file`);
+        
+        for (const order of orders) {
+          console.log(`Processing order: ${order.order_number} - ${order.title}`);
+          
+          // Check if order already exists
+          const existingOrder = await dbGet('SELECT id FROM executive_orders WHERE order_number = ?', 
+            [order.order_number]);
+          
+          if (existingOrder) {
+            console.log(`Order ${order.order_number} already exists, skipping`);
+            continue;
+          }
+          
+          // Insert executive order
+          const result = await dbRun(
+            'INSERT INTO executive_orders (order_number, title, signing_date, president, summary, url, impact_level) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [
+              order.order_number,
+              order.title,
+              order.signing_date,
+              order.president,
+              order.summary,
+              order.url,
+              order.impact_level
+            ]
+          );
+          
+          const orderId = result.lastID;
+          
+          // Process categories
+          if (order.categories) {
+            const categories = order.categories.split(',').map(c => c.trim());
+            for (const categoryName of categories) {
+              // Find category ID
+              const category = await dbGet('SELECT id FROM categories WHERE name = ?', [categoryName]);
+              if (category) {
+                // Add to order_categories
+                await dbRun('INSERT INTO order_categories (order_id, category_id) VALUES (?, ?)', 
+                  [orderId, category.id]);
+              }
+            }
+          }
+          
+          // Process impact areas
+          if (order.impact_areas) {
+            const impactAreas = order.impact_areas.split(',').map(a => a.trim());
+            for (const areaName of impactAreas) {
+              // Find impact area ID
+              const area = await dbGet('SELECT id FROM impact_areas WHERE name = ?', [areaName]);
+              if (area) {
+                // Add to order_impact_areas
+                await dbRun('INSERT INTO order_impact_areas (order_id, impact_area_id) VALUES (?, ?)', 
+                  [orderId, area.id]);
+              }
+            }
+          }
+          
+          // Process university impact areas
+          if (order.university_impact_areas) {
+            const universityAreas = order.university_impact_areas.split(',').map(a => a.trim());
+            for (const areaName of universityAreas) {
+              // Find university impact area ID
+              const area = await dbGet('SELECT id FROM university_impact_areas WHERE name = ?', [areaName]);
+              if (area) {
+                // Add to order_university_impact_areas
+                await dbRun('INSERT INTO order_university_impact_areas (order_id, university_impact_area_id) VALUES (?, ?)', 
+                  [orderId, area.id]);
+              }
+            }
+          }
+          
+          console.log(`Successfully imported order: ${order.order_number}`);
+        }
+        
+        console.log('CSV import complete');
+        
+      } catch (err) {
+        console.error('Error importing from CSV:', err);
+      } finally {
+        // Close the database connection
+        db.close();
+      }
+    });
+}
+
+// Import sample data if the database is empty
+async function importSampleData() {
+  try {
+    // Check if any orders exist
+    const orderCount = await dbGet('SELECT COUNT(*) as count FROM executive_orders');
+    
+    if (orderCount.count === 0) {
+      console.log('No orders found, importing sample data...');
+      
+      // Sample executive orders
+      const sampleOrders = [
+        {
+          "order_number": "EO 14110",
+          "title": "Addressing the Risks and Harnessing the Benefits of Artificial Intelligence",
+          "signing_date": "2025-01-30",
+          "president": "Sanders",
+          "summary": "Establishes new standards for AI safety and security in academic institutions. Requires universities receiving federal funding to implement responsible AI practices in research and teaching. Establishes an AI Safety Council with representatives from top research universities.",
+          "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2025/01/30/executive-order-on-the-safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence/",
+          "impact_level": "High",
+          "categories": ["Technology", "Education", "Research"],
+          "impact_areas": ["Research", "Compliance", "Policy"],
+          "university_impact_areas": ["Research Funding", "Administrative Compliance"]
+        },
+        {
+          "order_number": "EO 14111",
+          "title": "Improving Higher Education Research Funding",
+          "signing_date": "2025-02-15",
+          "president": "Sanders",
+          "summary": "Enhances federal funding for university research programs with focus on climate change, healthcare, and emerging technologies. Simplifies the grant application process for universities and increases transparency in funding allocation. Establishes priority funding for collaborative research initiatives across institutions.",
+          "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2025/02/15/executive-order-on-improving-higher-education-research-funding/",
+          "impact_level": "Critical",
+          "categories": ["Education", "Research", "Finance"],
+          "impact_areas": ["Funding", "Research", "Policy"],
+          "university_impact_areas": ["Research Funding", "Public-Private Partnerships"]
+        },
+        {
+          "order_number": "EO 14112",
+          "title": "Protecting Student Loan Borrowers",
+          "signing_date": "2025-02-22",
+          "president": "Sanders",
+          "summary": "Implements new protections for student loan borrowers including expanded loan forgiveness programs, caps on interest rates, and strengthened oversight of loan servicers. Requires universities to provide comprehensive financial counseling for students. Creates a Student Borrower Advocacy Office within the Department of Education.",
+          "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2025/02/22/executive-order-on-protecting-student-loan-borrowers/",
+          "impact_level": "Medium",
+          "categories": ["Education", "Finance"],
+          "impact_areas": ["Student Aid", "Compliance", "Policy"],
+          "university_impact_areas": ["Student Aid & Higher Education Finance", "Administrative Compliance"]
+        },
+        {
+          "order_number": "EO 14113",
+          "title": "Promoting Diversity in Higher Education",
+          "signing_date": "2025-03-05",
+          "president": "Sanders",
+          "summary": "Establishes initiatives to promote diversity and inclusion in higher education institutions through new federal grant programs, data collection requirements, and accountability frameworks. Requires institutions receiving federal funding to implement comprehensive DEI strategic plans and report progress annually.",
+          "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2025/03/05/executive-order-on-promoting-diversity-in-higher-education/",
+          "impact_level": "High",
+          "categories": ["Education", "Diversity"],
+          "impact_areas": ["Policy", "Compliance", "Funding"],
+          "university_impact_areas": ["Administrative Compliance", "Workforce & Employment Policy"]
+        },
+        {
+          "order_number": "EO 14114",
+          "title": "Strengthening University-Industry Research Partnerships",
+          "signing_date": "2025-03-15",
+          "president": "Sanders",
+          "summary": "Creates new frameworks for collaboration between universities and private industry including tax incentives for industry investments in academic research, streamlined technology transfer processes, and joint innovation hubs. Establishes a University-Industry Partnership Council to identify strategic areas for collaboration.",
+          "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2025/03/15/executive-order-on-strengthening-university-industry-research-partnerships/",
+          "impact_level": "High",
+          "categories": ["Research", "Industry", "Education"],
+          "impact_areas": ["Economic Development", "Research", "Funding"],
+          "university_impact_areas": ["Public-Private Partnerships", "Research Funding"]
+        },
+        {
+          "order_number": "EO 14115",
+          "title": "Enhancing International Academic Exchange Programs",
+          "signing_date": "2025-04-10",
+          "president": "Sanders",
+          "summary": "Streamlines visa processes for international students and scholars, expands funding for exchange programs, and creates new security frameworks for international research collaborations. Establishes a new Academic Exchange Council to coordinate policies across federal agencies and recommends best practices for universities.",
+          "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2025/04/10/executive-order-on-enhancing-international-academic-exchange-programs/",
+          "impact_level": "Medium",
+          "categories": ["Education", "Immigration", "Research"],
+          "impact_areas": ["Policy", "Compliance", "Funding"],
+          "university_impact_areas": ["Workforce & Employment Policy", "Research Funding", "Administrative Compliance"]
+        },
+        {
+          "order_number": "EO 14116",
+          "title": "Advancing Climate Research in Higher Education",
+          "signing_date": "2025-05-01",
+          "president": "Sanders",
+          "summary": "Directs federal agencies to prioritize funding for climate research at universities, creates new grant programs for climate-focused initiatives, and establishes reporting requirements for environmental sustainability on campuses. Creates a Climate Research Coordination Office to align university research with national climate goals.",
+          "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2025/05/01/executive-order-on-advancing-climate-research-in-higher-education/",
+          "impact_level": "High",
+          "categories": ["Environment", "Research", "Education"],
+          "impact_areas": ["Research", "Funding", "Compliance"],
+          "university_impact_areas": ["Research Funding", "Administrative Compliance", "Public-Private Partnerships"]
+        }
+      ];
+      
+      // Insert sample orders
+      for (const order of sampleOrders) {
+        const result = await dbRun(
+          'INSERT INTO executive_orders (order_number, title, signing_date, president, summary, url, impact_level) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          [
+            order.order_number,
+            order.title,
+            order.signing_date,
+            order.president,
+            order.summary,
+            order.url,
+            order.impact_level
+          ]
+        );
+        
+        const orderId = result.lastID;
+        
+        // Insert categories
+        for (const categoryName of order.categories) {
+          // Find category ID
+          const category = await dbGet('SELECT id FROM categories WHERE name = ?', [categoryName]);
+          if (category) {
+            // Add to order_categories
+            await dbRun('INSERT INTO order_categories (order_id, category_id) VALUES (?, ?)', 
+              [orderId, category.id]);
+          }
+        }
+        
+        // Insert impact areas
+        for (const areaName of order.impact_areas) {
+          // Find impact area ID
+          const area = await dbGet('SELECT id FROM impact_areas WHERE name = ?', [areaName]);
+          if (area) {
+            // Add to order_impact_areas
+            await dbRun('INSERT INTO order_impact_areas (order_id, impact_area_id) VALUES (?, ?)', 
+              [orderId, area.id]);
+          }
+        }
+        
+        // Insert university impact areas
+        for (const areaName of order.university_impact_areas) {
+          // Find university impact area ID
+          const area = await dbGet('SELECT id FROM university_impact_areas WHERE name = ?', [areaName]);
+          if (area) {
+            // Add to order_university_impact_areas
+            await dbRun('INSERT INTO order_university_impact_areas (order_id, university_impact_area_id) VALUES (?, ?)', 
+              [orderId, area.id]);
+          }
+        }
+      }
+      
+      console.log('Sample data imported successfully');
+    } else {
+      console.log(`Database already contains ${orderCount.count} orders, skipping sample data import`);
+    }
+  } catch (err) {
+    console.error('Error importing sample data:', err);
+    throw err;
+  }
+}
+
+// Main function
+async function main() {
+  try {
+    console.log('Starting database setup...');
+    
+    // Create tables if they don't exist
+    await createTables();
+    
+    // Initialize reference data
+    await initializeReferenceData();
+    
+    // Import sample data if needed
+    await importSampleData();
+    
+    // Import from CSV
+    await importFromCSV();
+    
+    console.log('Database setup completed successfully');
+    
+  } catch (err) {
+    console.error('Error in database setup:', err);
+  } finally {
+    // Close the database connection
+    db.close((err) => {
+      if (err) {
+        console.error('Error closing database:', err.message);
+      } else {
+        console.log('Database connection closed');
+      }
+    });
+  }
+}
+
+// Run the main function
+main();
