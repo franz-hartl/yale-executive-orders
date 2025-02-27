@@ -105,7 +105,7 @@ async function getOrdersForProcessing() {
          OR eo.comprehensive_analysis IS NULL 
          OR eo.comprehensive_analysis = ''
       GROUP BY eo.id
-      LIMIT 10
+      LIMIT 1
     `;
     
     db.all(query, [], (err, orders) => {

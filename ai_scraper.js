@@ -107,7 +107,7 @@ class AIWebScraper {
             {
               role: "user",
               content: `Extract executive order information from ${sourceName} in the HTML content below. 
-Extract only executive orders related to financial or economic matters.
+Extract all executive orders from the content.
 For each executive order, extract:
 1. Title
 2. Date (publication or signing date)
@@ -190,15 +190,15 @@ ${simplifiedHtml}`
         {
           model: "claude-3-opus-20240229",  // Using Opus for deeper analysis
           max_tokens: 1000,
-          system: "You are an expert in finance, economics, and government policy analysis, specializing in executive orders.",
+          system: "You are an expert in government policy analysis, specializing in executive orders across all policy domains.",
           messages: [
             {
               role: "user",
               content: `Analyze this executive order and extract/generate the following information:
 1. A 2-3 sentence summary of the order
-2. Key financial impact(s)
-3. Policy area tags (e.g., "banking", "securities", "fiscal_policy")
-4. Affected sectors of the economy
+2. Key impact(s) on society, government, and/or private sector
+3. Policy area tags (e.g., "healthcare", "education", "environment", "technology")
+4. Affected sectors 
 5. Determine the president who issued this order
 
 Executive Order Title: ${order.title}
@@ -207,7 +207,7 @@ Date: ${order.date || 'Unknown'}
 Full Text:
 ${truncatedText}
 
-Return the information in JSON format with these fields: summary, financialImpact, policyTags, affectedSectors, president`
+Return the information in JSON format with these fields: summary, impact, policyTags, affectedSectors, president`
             }
           ]
         },
@@ -237,30 +237,10 @@ Return the information in JSON format with these fields: summary, financialImpac
     }
   }
 
-  async detectFinancialRelevance(orders) {
-    const relevantOrders = [];
-    
-    for (const order of orders) {
-      // Combine available text for analysis
-      const combinedText = `${order.title} ${order.summary || ''} ${order.financialImpact || ''}`;
-      
-      // Simple keyword-based relevance check
-      const financialKeywords = [
-        'financ', 'econom', 'bank', 'currenc', 'money', 'tax', 'fiscal', 
-        'budget', 'treasury', 'securities', 'invest', 'capital', 'market',
-        'trade', 'tariff', 'sanction', 'debt', 'credit', 'loan', 'mortgage'
-      ];
-      
-      const isRelevant = financialKeywords.some(keyword => 
-        combinedText.toLowerCase().includes(keyword)
-      );
-      
-      if (isRelevant) {
-        relevantOrders.push(order);
-      }
-    }
-    
-    return relevantOrders;
+  // Return all orders without filtering for financial relevance
+  async processOrders(orders) {
+    // No filtering - just return all orders for comprehensive coverage
+    return orders;
   }
 
   async scrapeAndProcess() {
@@ -278,26 +258,26 @@ Return the information in JSON format with these fields: summary, financialImpac
       // Enrich data with full text and AI analysis
       const enrichedOrders = await this.fetchFullTextAndEnrich(allOrders);
       
-      // Filter for financial relevance
-      const financialOrders = await this.detectFinancialRelevance(enrichedOrders);
+      // Process all orders without filtering for financial relevance
+      const processedOrders = await this.processOrders(enrichedOrders);
       
-      console.log(`Filtered to ${financialOrders.length} finance-related executive orders`);
+      console.log(`Processing ${processedOrders.length} executive orders`);
       
       // Save the results
-      await fs.writeFile('./financial_executive_orders.json', JSON.stringify(financialOrders, null, 2));
+      await fs.writeFile('./executive_orders.json', JSON.stringify(processedOrders, null, 2));
       
       // Create CSV output
-      const headers = ['Number', 'Title', 'Date', 'President', 'Summary', 'Financial Impact', 'Policy Tags', 'Affected Sectors', 'URL'];
+      const headers = ['Number', 'Title', 'Date', 'President', 'Summary', 'Impact', 'Policy Tags', 'Affected Sectors', 'URL'];
       let csvContent = headers.join(',') + '\n';
       
-      for (const order of financialOrders) {
+      for (const order of processedOrders) {
         const row = [
           order.number || 'Unknown',
           `"${(order.title || '').replace(/"/g, '""')}"`,
           order.date || '',
           order.president || '',
           `"${(order.summary || '').replace(/"/g, '""')}"`,
-          `"${(order.financialImpact || '').replace(/"/g, '""')}"`,
+          `"${(order.impact || order.financialImpact || '').replace(/"/g, '""')}"`,
           `"${(order.policyTags || []).join(', ')}"`,
           `"${(order.affectedSectors || []).join(', ')}"`,
           order.url || ''
@@ -305,7 +285,7 @@ Return the information in JSON format with these fields: summary, financialImpac
         csvContent += row.join(',') + '\n';
       }
       
-      await fs.writeFile('./financial_executive_orders.csv', csvContent);
+      await fs.writeFile('./executive_orders.csv', csvContent);
       
       console.log('Scraping and processing complete!');
     } catch (error) {

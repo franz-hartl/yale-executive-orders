@@ -15,8 +15,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Configuration
 const config = {
   api: {
-    provider: process.env.API_PROVIDER || 'anthropic', // 'anthropic' or 'openai'
-    apiKey: process.env.API_KEY || process.env.ANTHROPIC_API_KEY || 'YOUR_API_KEY_HERE',
+    provider: 'anthropic', // Only using Anthropic
+    apiKey: process.env.ANTHROPIC_API_KEY || 'YOUR_API_KEY_HERE',
     model: process.env.API_MODEL || 'claude-3-sonnet-20240229', // Fallback to stable model name
   },
   database: {
@@ -229,13 +229,9 @@ Based on the information provided in the context, answer the user's question in 
   }
 }
 
-// Function to call the appropriate AI provider
+// Function to call the Anthropic API
 async function callAI(prompt, temperature = 0.5, maxTokens = 1000) {
-  if (config.api.provider === 'anthropic') {
-    return callAnthropic(prompt, temperature, maxTokens);
-  } else {
-    return callOpenAI(prompt, temperature, maxTokens);
-  }
+  return callAnthropic(prompt, temperature, maxTokens);
 }
 
 // Function to call Anthropic's Claude API
@@ -274,31 +270,7 @@ async function callAnthropic(prompt, temperature = 0.5, maxTokens = 1000) {
   }
 }
 
-// Function to call OpenAI API
-async function callOpenAI(prompt, temperature = 0.5, maxTokens = 1000) {
-  try {
-    const response = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        model: config.api.model,
-        messages: [{ role: 'user', content: prompt }],
-        temperature: temperature,
-        max_tokens: maxTokens
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${config.api.apiKey}`
-        }
-      }
-    );
-    
-    return response.data.choices[0].message.content;
-  } catch (error) {
-    console.error('Error calling OpenAI API:', error.response?.data || error.message);
-    throw error;
-  }
-}
+// OpenAI API removed - using only Anthropic now
 
 // API endpoint to get all executive orders
 app.get('/api/executive-orders', async (req, res) => {

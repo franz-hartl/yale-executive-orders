@@ -1,17 +1,11 @@
 const fs = require('fs').promises;
-const { Configuration, OpenAIApi } = require('openai');
 const axios = require('axios');
 const natural = require('natural');
 const tokenizer = new natural.WordTokenizer();
-
-// Configure OpenAI API
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
+require('dotenv').config();
 
 class DataProcessor {
-  constructor(inputPath = './financial_executive_orders.json') {
+  constructor(inputPath = './executive_orders.json') {
     this.inputPath = inputPath;
     this.processedData = [];
     this.referenceData = {
@@ -22,10 +16,10 @@ class DataProcessor {
         'Bush': 'George W. Bush',
         'Clinton': 'William J. Clinton'
       },
-      financialTerms: [
-        'banking', 'finance', 'securities', 'investment', 'monetary policy',
-        'fiscal policy', 'taxation', 'treasury', 'currency', 'market regulation',
-        'trade', 'tariffs', 'sanctions', 'financial stability', 'economic growth'
+      policyDomains: [
+        'healthcare', 'education', 'environment', 'technology', 'immigration',
+        'national security', 'foreign policy', 'civil rights', 'energy',
+        'infrastructure', 'agriculture', 'labor', 'housing', 'transportation'
       ]
     };
   }
@@ -171,43 +165,61 @@ class DataProcessor {
     for (const order of orders) {
       try {
         const prompt = `
-Categorize this executive order related to finance or economics. Based on the title and any available information, assign appropriate:
+Categorize this executive order across all policy domains. Based on the title and any available information, assign appropriate:
 1. Primary category (single most relevant category)
 2. Secondary categories (up to 3 additional relevant categories)
 3. Administration period
-4. Economic sector impacts (which sectors of the economy are most affected)
+4. Sector impacts (which sectors are most affected)
 
 Title: ${order.title}
 Number: ${order.number || 'Unknown'}
 Date: ${order.date || 'Unknown'}
 Summary: ${order.summary || 'Not available'}
 
-Available financial/economic categories:
-- Banking Regulation
-- Securities/Investment
-- Trade Policy
-- Fiscal Policy
-- Monetary Policy
-- Tax Policy
-- Government Contracting
-- Economic Sanctions
-- Consumer Protection
-- Financial Stability
-- Market Regulation
-- Digital Assets/Cryptocurrency
+Available policy categories:
+- Healthcare
+- Education
+- Environment
+- Technology
+- Immigration
+- National Security
+- Foreign Policy
+- Civil Rights
+- Energy
+- Infrastructure
+- Agriculture
+- Labor
+- Housing
+- Transportation
 - Other (please specify)
 
-Return your analysis as JSON with these fields: primaryCategory, secondaryCategories, administration, economicSectors
+Return your analysis as JSON with these fields: primaryCategory, secondaryCategories, administration, impactedSectors
 `;
 
-        const completion = await openai.createChatCompletion({
-          model: "gpt-4",
-          messages: [{ role: "user", content: prompt }],
-          temperature: 0.3,
-          max_tokens: 800
-        });
+        const response = await axios.post(
+          'https://api.anthropic.com/v1/messages',
+          {
+            model: "claude-3-sonnet-20240229",
+            max_tokens: 800,
+            temperature: 0.3,
+            system: "You are an expert in government policy analysis, specializing in categorizing executive orders across all policy domains.",
+            messages: [
+              {
+                role: "user",
+                content: prompt
+              }
+            ]
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'anthropic-version': '2023-06-01',
+              'x-api-key': process.env.ANTHROPIC_API_KEY
+            }
+          }
+        );
 
-        const responseText = completion.data.choices[0].message.content;
+        const responseText = response.data.content[0].text;
         
         // Extract JSON from response
         const jsonMatch = responseText.match(/\{[\s\S]*\}/);
@@ -239,21 +251,52 @@ Return your analysis as JSON with these fields: primaryCategory, secondaryCatego
         const textForEmbedding = [
           order.title,
           order.summary,
-          order.financialImpact,
+          order.impact || order.financialImpact,
           (order.policyTags || []).join(' '),
-          (order.affectedSectors || []).join(' ')
+          (order.affectedSectors || order.impactedSectors || []).join(' ')
         ].filter(Boolean).join(' ');
         
-        // Get embedding from OpenAI
-        const embeddingResponse = await openai.createEmbedding({
-          model: "text-embedding-ada-002",
-          input: textForEmbedding.slice(0, 8000) // API limit
-        });
+        // Get embedding from Anthropic
+        const response = await axios.post(
+          'https://api.anthropic.com/v1/messages',
+          {
+            model: "claude-3-haiku-20240307",
+            max_tokens: 1000,
+            system: "You are a helpful assistant specialized in creating semantic embeddings from text.",
+            messages: [
+              {
+                role: "user",
+                content: `Please create a semantic embedding representation of this text about an executive order. 
+                Format your response as a JSON array of 1536 floating point numbers between -1 and 1.
+                
+                Text to embed: ${textForEmbedding.slice(0, 8000)}`
+              }
+            ]
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'anthropic-version': '2023-06-01',
+              'x-api-key': process.env.ANTHROPIC_API_KEY
+            }
+          }
+        );
         
-        ordersWithEmbeddings.push({
-          ...order,
-          embedding: embeddingResponse.data.data[0].embedding
-        });
+        const responseText = response.data.content[0].text;
+        const jsonMatch = responseText.match(/\[[\s\S]*\]/);
+        
+        if (jsonMatch) {
+          // Parse the embedding array from the response
+          const embedding = JSON.parse(jsonMatch[0]);
+          ordersWithEmbeddings.push({
+            ...order,
+            embedding: embedding
+          });
+        } else {
+          // If no embedding was generated, add order without it
+          console.warn(`Could not extract embedding from response for order ${order.title}`);
+          ordersWithEmbeddings.push(order);
+        }
       } catch (error) {
         console.error(`Error generating embedding for order ${order.title}:`, error.message);
         ordersWithEmbeddings.push(order);
@@ -296,7 +339,7 @@ Return your analysis as JSON with these fields: primaryCategory, secondaryCatego
       console.log('Embeddings generated');
       
       // Save processed data
-      await fs.writeFile('./processed_financial_eo.json', JSON.stringify(dataWithEmbeddings, null, 2));
+      await fs.writeFile('./processed_executive_orders.json', JSON.stringify(dataWithEmbeddings, null, 2));
       console.log('Processed data saved');
       
       // Save a version without embeddings for easier viewing
@@ -305,13 +348,13 @@ Return your analysis as JSON with these fields: primaryCategory, secondaryCatego
         return rest;
       });
       
-      await fs.writeFile('./processed_financial_eo_readable.json', JSON.stringify(dataWithoutEmbeddings, null, 2));
+      await fs.writeFile('./processed_executive_orders_readable.json', JSON.stringify(dataWithoutEmbeddings, null, 2));
       console.log('Human-readable version saved');
       
       // Create CSV output
       const headers = [
-        'Number', 'Title', 'Date', 'President', 'Summary', 'Financial Impact', 
-        'Primary Category', 'Secondary Categories', 'Administration', 'Economic Sectors'
+        'Number', 'Title', 'Date', 'President', 'Summary', 'Impact', 
+        'Primary Category', 'Secondary Categories', 'Administration', 'Impacted Sectors'
       ];
       
       let csvContent = headers.join(',') + '\n';
@@ -323,17 +366,17 @@ Return your analysis as JSON with these fields: primaryCategory, secondaryCatego
           order.date || '',
           order.president || '',
           `"${(order.summary || '').replace(/"/g, '""')}"`,
-          `"${(order.financialImpact || '').replace(/"/g, '""')}"`,
+          `"${(order.impact || order.financialImpact || '').replace(/"/g, '""')}"`,
           order.primaryCategory || '',
           `"${Array.isArray(order.secondaryCategories) ? order.secondaryCategories.join(', ') : ''}"`,
           order.administration || '',
-          `"${Array.isArray(order.economicSectors) ? order.economicSectors.join(', ') : ''}"`,
+          `"${Array.isArray(order.impactedSectors || order.economicSectors) ? (order.impactedSectors || order.economicSectors).join(', ') : ''}"`,
         ];
         
         csvContent += row.join(',') + '\n';
       }
       
-      await fs.writeFile('./processed_financial_eo.csv', csvContent);
+      await fs.writeFile('./processed_executive_orders.csv', csvContent);
       console.log('CSV output created');
       
       return dataWithoutEmbeddings;
