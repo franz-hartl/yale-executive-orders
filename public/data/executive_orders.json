@@ -27,6 +27,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -57,6 +60,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -87,7 +93,8 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
-    ]
+    ],
+    "categories": []
   },
   {
     "id": 1226,
@@ -117,6 +124,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Healthcare"
     ]
   },
   {
@@ -155,6 +165,11 @@
         "name": "Workforce & Employment Policy",
         "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity"
       }
+    ],
+    "categories": [
+      "National Security",
+      "Immigration",
+      "Finance"
     ]
   },
   {
@@ -185,6 +200,9 @@
         "name": "Workforce & Employment Policy",
         "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity"
       }
+    ],
+    "categories": [
+      "Immigration"
     ]
   },
   {
@@ -219,6 +237,9 @@
         "name": "Workforce & Employment Policy",
         "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -249,6 +270,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -279,6 +303,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -313,6 +340,9 @@
         "name": "Workforce & Employment Policy",
         "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity"
       }
+    ],
+    "categories": [
+      "Finance"
     ]
   },
   {
@@ -343,6 +373,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Education"
     ]
   },
   {
@@ -373,6 +406,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Education"
     ]
   },
   {
@@ -411,6 +447,9 @@
         "name": "Public-Private Partnerships",
         "description": "Changes affecting university-industry collaborations, tech transfer, and economic development initiatives"
       }
+    ],
+    "categories": [
+      "Immigration"
     ]
   },
   {
@@ -441,6 +480,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -471,6 +513,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Immigration"
     ]
   },
   {
@@ -505,6 +550,9 @@
         "name": "Workforce & Employment Policy",
         "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -535,6 +583,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Education"
     ]
   },
   {
@@ -565,6 +616,9 @@
         "name": "Student Aid & Higher Education Finance",
         "description": "Changes to student financial aid, federal student loans, and university funding mechanisms"
       }
+    ],
+    "categories": [
+      "Education"
     ]
   },
   {
@@ -595,6 +649,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Education"
     ]
   },
   {
@@ -625,6 +682,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -655,6 +715,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -685,6 +748,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Education"
     ]
   },
   {
@@ -719,6 +785,10 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Research",
+      "Technology"
     ]
   },
   {
@@ -749,6 +819,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -779,6 +852,9 @@
         "name": "Research Funding",
         "description": "Impacts on federal research grants, funding priorities, and research administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -809,6 +885,9 @@
         "name": "Workforce & Employment Policy",
         "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity"
       }
+    ],
+    "categories": [
+      "Immigration"
     ]
   },
   {
@@ -839,6 +918,11 @@
         "name": "Workforce & Employment Policy",
         "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity"
       }
+    ],
+    "categories": [
+      "Immigration",
+      "Environment",
+      "Technology"
     ]
   },
   {
@@ -869,6 +953,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -899,6 +986,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -929,6 +1019,10 @@
         "name": "Workforce & Employment Policy",
         "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity"
       }
+    ],
+    "categories": [
+      "Immigration",
+      "Technology"
     ]
   },
   {
@@ -959,6 +1053,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -989,6 +1086,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   },
   {
@@ -1019,6 +1119,9 @@
         "name": "Administrative Compliance",
         "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
       }
+    ],
+    "categories": [
+      "Technology"
     ]
   }
 ]
