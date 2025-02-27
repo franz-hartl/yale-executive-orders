@@ -973,11 +973,7 @@
             const closeDetailBtn = document.getElementById('close-detail-btn');
             const updateDate = document.getElementById('update-date');
             
-            // Stat elements
-            const totalOrdersCount = document.getElementById('total-orders-count');
-            const criticalImpactCount = document.getElementById('critical-impact-count');
-            const topImpactArea = document.getElementById('top-impact-area');
-            const recentOrdersCount = document.getElementById('recent-orders-count');
+            // Removed stat elements references
             
             // Detail view elements
             const detailTitle = document.getElementById('detail-title');
@@ -1002,6 +998,12 @@
             let systemInfoData = {};
             let sortField = 'signing_date';
             let sortDirection = 'desc';
+            
+            // Element references for metrics (set to null since we removed the UI elements)
+            const totalOrdersCount = null;
+            const criticalImpactCount = null;
+            const topImpactArea = null;
+            const recentOrdersCount = null;
             
             // Tab handling
             const tabs = document.querySelectorAll('.tab-button');
@@ -1227,12 +1229,6 @@
                     
                     // Render the table
                     renderExecutiveOrdersTable();
-                    
-                    // Load statistics
-                    loadStatistics();
-                    
-                    // Update dashboard stats
-                    updateDashboardStats(allExecutiveOrders);
                     
                 } catch (error) {
                     console.error('Error loading executive orders:', error);
@@ -1931,6 +1927,7 @@
                 await getSystemInfo();
                 await loadMetadata();
                 await loadExecutiveOrders();
+                // We don't need to call loadStatistics() anymore since we removed the metrics dashboard
                 handleUrlNavigation();
             }
             
