@@ -1473,10 +1473,17 @@
                         impactBadgeClass = 'impact-low';
                     }
                     
-                    // Create a truncated summary
-                    const truncatedSummary = order.summary 
-                        ? (order.summary.length > 120 ? order.summary.substring(0, 120) + '...' : order.summary)
-                        : '';
+                    // Prepare the complete summary with "This executive order" removed from the beginning
+                    let cleanSummary = '';
+                    if (order.summary) {
+                        cleanSummary = order.summary
+                            .replace(/^This executive order\s+/i, '')  // Remove "This executive order" from start
+                            .replace(/^This EO\s+/i, '')               // Also remove "This EO" if present
+                            .replace(/^The executive order\s+/i, '');  // Also remove "The executive order" if present
+                        
+                        // Capitalize first letter
+                        cleanSummary = cleanSummary.charAt(0).toUpperCase() + cleanSummary.slice(1);
+                    }
                         
                     // Summary format badges removed since all orders have all formats
                     
@@ -1490,7 +1497,7 @@
                                 <div class="font-medium text-blue-700 hover:text-blue-900 cursor-pointer view-details text-base mb-2" data-id="${order.id}">
                                     ${order.title || 'N/A'}
                                 </div>
-                                <p class="text-sm text-gray-600 leading-relaxed">${truncatedSummary}</p>
+                                <p class="text-sm text-gray-600 leading-relaxed">${cleanSummary}</p>
                             </div>
                         </td>
                         <td class="text-gray-600 whitespace-nowrap">
