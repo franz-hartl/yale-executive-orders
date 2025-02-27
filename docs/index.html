@@ -1808,7 +1808,18 @@
                         }
                         
                         // For other tabs, check if the format is available
-                        if (order.summary_formats_available && order.summary_formats_available.includes(tabName === 'plain-summary' ? 'standard' : tabName)) {
+                        let isAvailable = false;
+                        if (order.summary_formats_available) {
+                            if (tabName === 'executive-brief') {
+                                isAvailable = order.summary_formats_available.includes('executive_brief');
+                            } else if (tabName === 'plain-summary') {
+                                isAvailable = order.summary_formats_available.includes('standard');
+                            } else if (tabName === 'comprehensive-analysis') {
+                                isAvailable = order.summary_formats_available.includes('comprehensive');
+                            }
+                        }
+                        
+                        if (isAvailable) {
                             tabButton.style.display = 'block';
                             // Load the summary for this tab
                             if (tabName === 'executive-brief') {
