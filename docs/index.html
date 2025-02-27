@@ -545,22 +545,7 @@
             box-shadow: var(--focus-ring);
         }
         
-        /* Skip to content link - for keyboard accessibility */
-        .skip-link {
-            background: var(--yale-blue);
-            color: white;
-            padding: 0.5rem 1rem;
-            position: absolute;
-            transform: translateY(-100%);
-            transition: transform 0.3s;
-            z-index: 100;
-            left: 1rem;
-            top: 1rem;
-        }
-        
-        .skip-link:focus {
-            transform: translateY(0);
-        }
+        /* Skip to content link removed */
         
         /* Header & Footer */
         .header {
@@ -657,9 +642,6 @@
     </style>
 </head>
 <body class="min-h-screen">
-    <!-- Skip link for keyboard navigation - WCAG 2.1 compliant -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    
     <div class="app-container">
         <!-- Header: Data-first minimalism -->
         <header class="header flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-3">
@@ -671,16 +653,6 @@
                     <h1>Executive Order Analysis</h1>
                 </div>
                 <p class="text-text-secondary text-sm mt-1 ml-9">Analysis and tracking for regulatory compliance</p>
-            </div>
-            <div class="flex items-center text-xs">
-                <div class="flex items-center mr-4 bg-bg-tertiary px-2 py-1 rounded border border-border-light">
-                    <div class="w-2 h-2 rounded-full bg-status-green mr-2"></div>
-                    <span>LAST UPDATED</span>
-                </div>
-                <span id="last-updated" class="flex items-center text-text-secondary">
-                    <i class="far fa-clock mr-1 text-accent-blue-secondary"></i>
-                    UPDATED: <span id="update-date" class="ml-1">LOADING</span>
-                </span>
             </div>
         </header>
         
