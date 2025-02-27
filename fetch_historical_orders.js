@@ -98,6 +98,35 @@ async function insertOrderIntoDatabase(order) {
   });
 }
 
+// Function to determine the president based on order data
+function determinePresident(order) {
+  // If the president name is available, use it
+  if (order.president?.name) {
+    return order.president.name;
+  }
+  
+  // For orders after January 20, 2025, set to Trump
+  const pubDate = new Date(order.publication_date);
+  const signingDate = order.signing_date ? new Date(order.signing_date) : null;
+  const cutoffDate = new Date('2025-01-20');
+  
+  if (pubDate >= cutoffDate || (signingDate && signingDate >= cutoffDate)) {
+    return "Trump";
+  }
+  
+  // For orders between Jan 20, 2021 and Jan 20, 2025, set to Biden
+  const bidenStartDate = new Date('2021-01-20');
+  const trumpStartDate = new Date('2025-01-20');
+  
+  if ((pubDate >= bidenStartDate && pubDate < trumpStartDate) || 
+      (signingDate && signingDate >= bidenStartDate && signingDate < trumpStartDate)) {
+    return "Biden";
+  }
+  
+  // Default to Unknown if we can't determine the president
+  return "Unknown";
+}
+
 // Function to fetch all executive orders since 2022
 async function fetchHistoricalExecutiveOrders() {
   try {
@@ -145,7 +174,7 @@ async function fetchHistoricalExecutiveOrders() {
               publication_date: order.publication_date,
               signing_date: order.signing_date,
               executive_order_number: order.executive_order_number,
-              president: order.president?.name || "Unknown",
+              president: determinePresident(order),
               url: order.html_url,
               summary: order.abstract || order.description || "No summary available",
               full_text: fullText || order.abstract || order.description || "No full text available"

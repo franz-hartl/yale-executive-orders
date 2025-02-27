@@ -35,3 +35,7 @@ Thumbs.db
 
 # Old versions
 *.bak
+
+# Deprecated files directory
+deprecated_server_files/
+cleanup_list.txt

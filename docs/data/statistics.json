@@ -6,79 +6,75 @@
     },
     {
       "impact_level": "High",
-      "count": 14
+      "count": 17
     },
     {
       "impact_level": "Medium",
-      "count": 26
+      "count": 34
     },
     {
       "impact_level": "Low",
-      "count": 16
-    },
-    {
-      "impact_level": null,
-      "count": 18
+      "count": 23
     }
   ],
   "universityImpactAreas": [
     {
       "name": "Administrative Compliance",
-      "count": 49
+      "count": 63
     },
     {
       "name": "Research Funding",
-      "count": 19
+      "count": 32
     },
     {
       "name": "Workforce & Employment Policy",
-      "count": 12
+      "count": 15
     },
     {
       "name": "Public-Private Partnerships",
-      "count": 4
+      "count": 6
     },
     {
       "name": "Student Aid & Higher Education Finance",
-      "count": 3
+      "count": 4
     }
   ],
   "categories": [
     {
       "name": "Education",
-      "count": 21
+      "count": 31
     },
     {
       "name": "Technology",
-      "count": 19
-    },
-    {
-      "name": "Immigration",
-      "count": 9
-    },
-    {
-      "name": "Finance",
-      "count": 8
-    },
-    {
-      "name": "Research",
-      "count": 6
-    },
-    {
-      "name": "Healthcare",
-      "count": 6
+      "count": 21
     },
     {
       "name": "National Security",
-      "count": 5
+      "count": 13
+    },
+    {
+      "name": "Immigration",
+      "count": 13
+    },
+    {
+      "name": "Research",
+      "count": 11
+    },
+    {
+      "name": "Finance",
+      "count": 9
+    },
+    {
+      "name": "Healthcare",
+      "count": 8
     },
     {
       "name": "Environment",
-      "count": 3
+      "count": 4
     },
     {
       "name": "Diversity",
-      "count": 2
+      "count": 3
     }
   ],
   "timeline": [

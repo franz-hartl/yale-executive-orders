@@ -6,130 +6,78 @@
     },
     {
       "impact_level": "High",
-      "count": 9
+      "count": 17
     },
     {
       "impact_level": "Medium",
-      "count": 16
+      "count": 34
     },
     {
       "impact_level": "Low",
-      "count": 9
-    },
-    {
-      "impact_level": null,
-      "count": 17
+      "count": 23
     }
   ],
   "universityImpactAreas": [
     {
       "name": "Administrative Compliance",
+      "count": 63
+    },
+    {
+      "name": "Research Funding",
       "count": 32
     },
     {
       "name": "Workforce & Employment Policy",
-      "count": 10
-    },
-    {
-      "name": "Research Funding",
-      "count": 3
-    },
-    {
-      "name": "Student Aid & Higher Education Finance",
-      "count": 2
+      "count": 15
     },
     {
       "name": "Public-Private Partnerships",
-      "count": 2
+      "count": 6
+    },
+    {
+      "name": "Student Aid & Higher Education Finance",
+      "count": 4
     }
   ],
   "categories": [
     {
-      "name": "Technology",
-      "count": 25
-    },
-    {
-      "name": "Immigration",
-      "count": 8
-    },
-    {
       "name": "Education",
-      "count": 8
+      "count": 31
     },
     {
-      "name": "Finance",
-      "count": 4
+      "name": "Technology",
+      "count": 21
     },
     {
       "name": "National Security",
-      "count": 2
+      "count": 13
     },
     {
-      "name": "Healthcare",
-      "count": 2
-    },
-    {
-      "name": "Environment",
-      "count": 2
+      "name": "Immigration",
+      "count": 13
     },
     {
       "name": "Research",
-      "count": 1
+      "count": 11
+    },
+    {
+      "name": "Finance",
+      "count": 9
+    },
+    {
+      "name": "Healthcare",
+      "count": 8
+    },
+    {
+      "name": "Environment",
+      "count": 4
+    },
+    {
+      "name": "Diversity",
+      "count": 3
     }
   ],
   "timeline": [
-    {
-      "month": "2011-07",
-      "count": 1
-    },
-    {
-      "month": "2012-07",
-      "count": 1
-    },
-    {
-      "month": "2017-02",
-      "count": 1
-    },
-    {
-      "month": "2018-08",
-      "count": 1
-    },
-    {
-      "month": "2020-01",
-      "count": 1
-    },
-    {
-      "month": "2020-11",
-      "count": 1
-    },
-    {
-      "month": "2021-01",
-      "count": 1
-    },
-    {
-      "month": "2021-02",
-      "count": 1
-    },
-    {
-      "month": "2021-05",
-      "count": 1
-    },
-    {
-      "month": "2021-12",
-      "count": 2
-    },
-    {
-      "month": "2022-03",
-      "count": 1
-    },
-    {
-      "month": "2023-10",
-      "count": 2
-    },
-    {
-      "month": "2024-02",
-      "count": 5
-    },
     {
       "month": "2025-01",
       "count": 14

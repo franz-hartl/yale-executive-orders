@@ -47,7 +47,16 @@ async function enrichExecutiveOrderData(orders) {
       const orderNumber = order.document_number || 'Unknown';
       
       // Extract president name
-      const president = order.president || 'Unknown';
+      let president = order.president || 'Unknown';
+      
+      // For orders after January 20, 2025, set to Trump
+      const pubDate = new Date(order.publication_date);
+      const signingDate = order.signing_date ? new Date(order.signing_date) : null;
+      const cutoffDate = new Date('2025-01-20');
+      
+      if (pubDate >= cutoffDate || (signingDate && signingDate >= cutoffDate)) {
+        president = "Trump";
+      }
       
       // Create Yale-specific impact categories based on the title
       const categories = [];

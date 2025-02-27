@@ -1,9 +1,9 @@
 {
   "topicName": "Yale Executive Order Analysis",
   "topicDescription": "Analysis of executive orders and their impact on Yale University operations and compliance",
-  "orderCount": 52,
+  "orderCount": 75,
   "version": "1.0.0",
-  "lastUpdated": "2025-02-27T01:05:51.092Z",
+  "lastUpdated": "2025-02-27T15:14:01.626Z",
   "isStaticVersion": true,
   "notes": "This is a static version of the Yale Executive Order Analysis system, deployed on GitHub Pages"
 }
