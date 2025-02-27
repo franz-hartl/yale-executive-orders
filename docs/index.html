@@ -591,12 +591,12 @@
                     </div>
                     <h1>Executive Order Analysis</h1>
                 </div>
-                <p class="text-text-secondary text-sm mt-1 ml-9">Operational intelligence for regulatory compliance</p>
+                <p class="text-text-secondary text-sm mt-1 ml-9">Analysis and tracking for regulatory compliance</p>
             </div>
             <div class="flex items-center text-xs">
                 <div class="flex items-center mr-4 bg-bg-tertiary px-2 py-1 rounded border border-border-light">
                     <div class="w-2 h-2 rounded-full bg-status-green mr-2"></div>
-                    <span>SYSTEM OPERATIONAL</span>
+                    <span>LAST UPDATED</span>
                 </div>
                 <span id="last-updated" class="flex items-center text-text-secondary">
                     <i class="far fa-clock mr-1 text-accent-blue-secondary"></i>
@@ -701,7 +701,7 @@
                                 </th>
                                 <th scope="col" data-sort="impact_level" class="cursor-pointer">
                                     <div class="flex items-center">
-                                        <span>THREAT LEVEL</span>
+                                        <span>PRIORITY LEVEL</span>
                                         <i class="fas fa-sort ml-2 text-text-muted"></i>
                                     </div>
                                 </th>
@@ -760,13 +760,13 @@
                             <i class="far fa-file-alt mr-2" aria-hidden="true"></i>SOURCE DATA
                         </button>
                         <button class="tab-button" data-tab="executive-brief" aria-selected="false" role="tab" aria-controls="executive-brief-tab">
-                            <i class="fas fa-bolt mr-2" aria-hidden="true"></i>TACTICAL BRIEF
+                            <i class="fas fa-bolt mr-2" aria-hidden="true"></i>EXECUTIVE BRIEF
                         </button>
                         <button class="tab-button" data-tab="plain-summary" aria-selected="false" role="tab" aria-controls="plain-summary-tab">
                             <i class="fas fa-file-alt mr-2" aria-hidden="true"></i>STANDARD ANALYSIS
                         </button>
                         <button class="tab-button" data-tab="comprehensive-analysis" aria-selected="false" role="tab" aria-controls="comprehensive-analysis-tab">
-                            <i class="fas fa-search-plus mr-2" aria-hidden="true"></i>DEEP INTELLIGENCE
+                            <i class="fas fa-search-plus mr-2" aria-hidden="true"></i>COMPREHENSIVE ANALYSIS
                         </button>
                     </div>
                 </div>
@@ -791,7 +791,7 @@
                                 <div class="mb-6">
                                     <div class="flex items-center p-2 bg-bg-tertiary border-b border-t border-border-light mb-3">
                                         <i class="fas fa-university text-accent-blue-secondary mr-2"></i>
-                                        <h4 class="text-sm uppercase tracking-wider font-medium">University Domain Analysis</h4>
+                                        <h4 class="text-sm uppercase tracking-wider font-medium">University Impact Analysis</h4>
                                     </div>
                                     <div id="detail-university-impact-areas" class="grid grid-cols-1 lg:grid-cols-2 gap-3"></div>
                                 </div>
@@ -815,7 +815,7 @@
                                         </div>
                                         
                                         <div class="mb-4">
-                                            <h6 class="text-xs uppercase text-text-muted mb-2">Functional Domains</h6>
+                                            <h6 class="text-xs uppercase text-text-muted mb-2">Affected Areas</h6>
                                             <div id="detail-impact-areas" class="flex flex-wrap gap-1"></div>
                                         </div>
                                     </div>
@@ -871,10 +871,10 @@
                 <div class="modal-footer p-3 flex justify-between items-center">
                     <div class="flex items-center text-xs">
                         <div class="w-2 h-2 bg-accent-blue-secondary rounded-full mr-2"></div>
-                        <span class="text-text-secondary uppercase tracking-wider">INTELLIGENCE REPORT</span>
+                        <span class="text-text-secondary uppercase tracking-wider">POLICY ANALYSIS</span>
                     </div>
                     <button class="btn-secondary px-4 py-2 text-sm uppercase tracking-wider" onclick="document.getElementById('detail-view').classList.add('hidden')">
-                        Close Console
+                        Close View
                     </button>
                 </div>
             </div>
@@ -895,10 +895,10 @@
             </div>
             
             <div class="stat-card">
-                <h3>CRITICAL ALERTS</h3>
+                <h3>CRITICAL PRIORITIES</h3>
                 <div class="flex items-baseline">
                     <span id="critical-impact-count" class="value text-status-critical text-mono">--</span>
-                    <span class="text-xs text-text-secondary ml-2 uppercase">immediate action</span>
+                    <span class="text-xs text-text-secondary ml-2 uppercase">immediate attention</span>
                 </div>
                 <div class="mt-2 text-xs">
                     <div class="w-full bg-bg-tertiary rounded-sm overflow-hidden h-1.5">
@@ -908,11 +908,11 @@
             </div>
             
             <div class="stat-card">
-                <h3>PRIMARY DOMAIN</h3>
+                <h3>PRIMARY AREA</h3>
                 <div id="top-impact-area" class="value text-mono truncate">--</div>
                 <div class="mt-2 flex items-center text-xs">
                     <i class="fas fa-bullseye text-accent-amber-secondary mr-1"></i>
-                    <span class="text-text-secondary">HIGHEST FREQUENCY</span>
+                    <span class="text-text-secondary">MOST AFFECTED</span>
                 </div>
             </div>
             
