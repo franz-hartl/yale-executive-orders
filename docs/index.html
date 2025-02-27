@@ -43,101 +43,196 @@
         }
         
         :root {
-            --primary: #1a56db;
-            --primary-hover: #1e429f;
-            --secondary: #e5e7eb;
-            --accent: #f97316;
-            --danger: #ef4444;
-            --success: #10b981;
-            --neutral: #6b7280;
-            --yale-blue: #00356b;
+            /* Core Color Palette */
+            --bg-primary: #1A1A1A;
+            --bg-secondary: #252525;
+            --bg-tertiary: #2D2D2D;
+            --accent-blue-primary: #0077CC;
+            --accent-blue-secondary: #00A8E8;
+            --accent-amber-primary: #FF9900;
+            --accent-amber-secondary: #FFC107;
+            
+            /* Status Colors */
+            --status-green: #2E7D32;
+            --status-amber: #FF9900;
+            --status-red: #C62828;
+            --status-low: rgba(46, 125, 50, 0.85);
+            --status-medium: rgba(255, 153, 0, 0.85);
+            --status-high: rgba(198, 40, 40, 0.85);
+            --status-critical: rgba(198, 40, 40, 1);
+            
+            /* Text Colors */
+            --text-primary: #E0E0E0;
+            --text-secondary: #B0B0B0;
+            --text-muted: #707070;
+            --text-highlight: #FFFFFF;
+            
+            /* Border and Shadow */
+            --border-light: #3A3A3A;
+            --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --card-depth: 1px 1px 0 #3A3A3A, 2px 2px 0 #333333;
+            
+            /* Interaction */
+            --hover-overlay: rgba(255, 255, 255, 0.05);
+            --active-overlay: rgba(255, 255, 255, 0.1);
+            --focus-ring: 0 0 0 2px var(--accent-blue-secondary);
+            
+            /* Animation */
+            --transition-standard: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-enter: 300ms cubic-bezier(0.0, 0, 0.2, 1);
+            --transition-exit: 250ms cubic-bezier(0.4, 0, 1, 1);
         }
         
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f9fafb;
-            color: #111827;
+            font-family: "Inter", system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            letter-spacing: 0.01em;
         }
         
+        /* Grid and Layout */
         .app-container {
-            max-width: 1400px;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0.5rem;
         }
         
+        /* Card Components */
         .card {
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            background-color: white;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
         }
         
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-highlight);
+            font-weight: 600;
+            margin-top: 0;
+            line-height: 1.2;
+        }
+        
+        h1 { font-size: 1.75rem; letter-spacing: -0.01em; }
+        h2 { font-size: 1.5rem; letter-spacing: -0.01em; }
+        h3 { font-size: 1.25rem; }
+        h4 { font-size: 1.125rem; }
+        h5 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        h6 { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        .text-mono {
+            font-family: "SF Mono", "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace;
+            font-size: 0.9em;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Buttons */
         .btn-primary {
-            background-color: var(--yale-blue);
-            color: white;
-            border-radius: 0.375rem;
+            background-color: var(--accent-blue-primary);
+            color: var(--text-highlight);
+            border: none;
+            border-radius: 3px;
             font-weight: 500;
-            transition: all 0.2s;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color var(--transition-standard);
+            text-align: center;
+            line-height: 1.2;
+            min-height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .btn-primary:hover {
-            background-color: #002548;
+            background-color: var(--accent-blue-secondary);
         }
         
         .btn-secondary {
-            background-color: var(--secondary);
-            color: #374151;
-            border-radius: 0.375rem;
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 3px;
             font-weight: 500;
-            transition: all 0.2s;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color var(--transition-standard);
+            min-height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .btn-secondary:hover {
-            background-color: #d1d5db;
+            background-color: var(--bg-secondary);
         }
         
         .btn-outline {
-            background-color: white;
-            color: var(--yale-blue);
-            border: 1px solid var(--yale-blue);
-            border-radius: 0.375rem;
+            background-color: transparent;
+            color: var(--accent-blue-secondary);
+            border: 1px solid var(--accent-blue-primary);
+            border-radius: 3px;
             font-weight: 500;
-            transition: all 0.2s;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all var(--transition-standard);
         }
         
         .btn-outline:hover {
-            background-color: #f0f9ff;
+            background-color: rgba(0, 168, 232, 0.1);
         }
         
+        /* Inputs */
         .search-input {
-            border-radius: 0.375rem;
-            border: 1px solid #d1d5db;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
+            border-radius: 3px;
             padding: 0.5rem 1rem;
             width: 100%;
-            transition: all 0.2s;
+            color: var(--text-primary);
+            transition: border-color var(--transition-standard);
         }
         
         .search-input:focus {
             outline: none;
-            border-color: var(--yale-blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: var(--accent-blue-primary);
+            box-shadow: var(--focus-ring);
+        }
+        
+        .search-input::placeholder {
+            color: var(--text-muted);
         }
         
         .select-input {
-            border-radius: 0.375rem;
-            border: 1px solid #d1d5db;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
+            border-radius: 3px;
             padding: 0.5rem 2rem 0.5rem 0.75rem;
+            color: var(--text-primary);
             appearance: none;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23B0B0B0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
             background-position: right 0.5rem center;
             background-repeat: no-repeat;
             background-size: 1.25em 1.25em;
+            transition: border-color var(--transition-standard);
         }
         
         .select-input:focus {
             outline: none;
-            border-color: var(--yale-blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: var(--accent-blue-primary);
+            box-shadow: var(--focus-ring);
         }
         
+        option {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+        
+        /* Data Table */
         .data-table {
             width: 100%;
             border-collapse: separate;
@@ -145,83 +240,91 @@
         }
         
         .data-table th {
-            background-color: #f9fafb;
+            background-color: var(--bg-secondary);
             font-weight: 600;
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.025em;
-            color: #374151;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
             padding: 0.75rem 1rem;
             text-align: left;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
         }
         
         .data-table td {
-            padding: 1rem;
-            border-bottom: 1px solid #e5e7eb;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-light);
             vertical-align: top;
+            color: var(--text-primary);
         }
         
         .data-table tr:hover {
-            background-color: #f9fafb;
+            background-color: var(--hover-overlay);
         }
         
+        /* Status Badges */
         .impact-badge {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border-radius: 9999px;
-            padding: 0.25rem 0.75rem;
+            border-radius: 3px;
+            padding: 0.2rem 0.6rem;
             font-size: 0.75rem;
             font-weight: 500;
             line-height: 1;
+            letter-spacing: 0.02em;
         }
         
         .impact-critical {
-            background-color: #fee2e2;
-            color: #b91c1c;
+            background-color: var(--status-critical);
+            color: white;
         }
         
         .impact-high {
-            background-color: #fff7ed;
-            color: #c2410c;
+            background-color: var(--status-high);
+            color: white;
         }
         
         .impact-medium {
-            background-color: #ecfdf5;
-            color: #047857;
+            background-color: var(--status-medium);
+            color: rgba(0, 0, 0, 0.8);
         }
         
         .impact-low {
-            background-color: #f3f4f6;
-            color: #4b5563;
+            background-color: var(--status-low);
+            color: white;
         }
         
         .tag {
             display: inline-flex;
             align-items: center;
-            border-radius: 0.25rem;
-            padding: 0.25rem 0.5rem;
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 3px;
+            padding: 0.2rem 0.5rem;
             font-size: 0.75rem;
             font-weight: 500;
-            background-color: #f3f4f6;
-            color: #4b5563;
             margin-right: 0.25rem;
             margin-bottom: 0.25rem;
         }
         
+        /* Modal Components */
         .modal-backdrop {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 0, 0, 0.7);
             z-index: 50;
             display: flex;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(3px);
+            transition: opacity var(--transition-enter);
         }
         
         .modal-backdrop.hidden {
@@ -230,29 +333,36 @@
         
         .modal-content {
             width: 95%;
-            max-width: 900px;
+            max-width: 1000px;
             max-height: 90vh;
             overflow-y: auto;
             z-index: 51;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            border-radius: 0.5rem;
-            background-color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            animation: modalEnter var(--transition-enter);
+        }
+        
+        @keyframes modalEnter {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .modal-header {
             position: sticky;
             top: 0;
-            background-color: white;
+            background-color: var(--bg-secondary);
             z-index: 2;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid var(--border-light);
         }
         
         .modal-footer {
             position: sticky;
             bottom: 0;
-            background-color: white;
+            background-color: var(--bg-secondary);
             z-index: 2;
-            border-top: 1px solid #e5e7eb;
+            border-top: 1px solid var(--border-light);
         }
         
         .close-button {
@@ -261,36 +371,46 @@
             justify-content: center;
             width: 2rem;
             height: 2rem;
-            border-radius: 9999px;
-            background-color: #f3f4f6;
-            color: #4b5563;
-            transition: all 0.2s;
+            border-radius: 3px;
+            background-color: var(--bg-tertiary);
+            color: var(--text-secondary);
+            transition: all var(--transition-standard);
+            border: 1px solid var(--border-light);
         }
         
         .close-button:hover {
-            background-color: #e5e7eb;
-            color: #1f2937;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
         }
         
+        /* Tab Navigation */
         .tab-button {
             padding: 0.75rem 1rem;
             font-weight: 500;
-            color: #6b7280;
+            color: var(--text-secondary);
             border-bottom: 2px solid transparent;
-            transition: all 0.2s;
+            transition: all var(--transition-standard);
+            background: transparent;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            cursor: pointer;
+            outline: none;
         }
         
         .tab-button:hover {
-            color: #1f2937;
+            color: var(--text-primary);
         }
         
         .tab-button.active {
-            color: var(--yale-blue);
-            border-bottom-color: var(--yale-blue);
+            color: var(--accent-blue-secondary);
+            border-bottom-color: var(--accent-blue-primary);
+            font-weight: 600;
         }
         
+        /* Animations */
         .animated-fade-in {
-            animation: fadeIn 0.3s ease-in;
+            animation: fadeIn var(--transition-enter);
         }
         
         @keyframes fadeIn {
@@ -298,6 +418,15 @@
             to { opacity: 1; }
         }
         
+        /* Data Visualization */
+        .data-visualization {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        /* Responsive Adjustments */
         @media (max-width: 768px) {
             .modal-content {
                 width: 100%;
@@ -311,29 +440,34 @@
             }
         }
 
-        /* Yale-specific styles */
+        /* Notification Badges */
         .yale-badge {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border-radius: 9999px;
-            padding: 0.25rem 0.75rem;
+            border-radius: 3px;
+            padding: 0.2rem 0.6rem;
             font-size: 0.75rem;
             font-weight: 500;
             line-height: 1;
+            letter-spacing: 0.02em;
         }
         
         .yale-tag {
             display: inline-flex;
             align-items: center;
-            border-radius: 0.25rem;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
+            border-radius: 3px;
             padding: 0.25rem 0.5rem;
             font-size: 0.75rem;
             font-weight: 500;
+            color: var(--text-primary);
             margin-right: 0.25rem;
             margin-bottom: 0.25rem;
         }
 
+        /* Toast Notifications */
         #toast-container {
             position: fixed;
             bottom: 1rem;
@@ -342,12 +476,104 @@
         }
 
         .animate-fade-in {
-            animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn var(--transition-enter);
         }
 
         .opacity-0 {
             opacity: 0;
-            transition: opacity 0.3s ease-out;
+            transition: opacity var(--transition-exit);
+        }
+        
+        /* Accessible Focus Styles */
+        .user-is-tabbing :focus:not(.btn-primary):not(.btn-secondary):not(.btn-outline) {
+            outline: none;
+            box-shadow: var(--focus-ring);
+        }
+        
+        /* Header & Footer */
+        .header {
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 0;
+        }
+        
+        .footer {
+            border-top: 1px solid var(--border-light);
+            padding: 1rem 0;
+            color: var(--text-secondary);
+        }
+        
+        /* Stats Cards */
+        .stat-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-card h3 {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .stat-card .value {
+            color: var(--text-highlight);
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Connection Lines */
+        .connection-line {
+            stroke: var(--border-light);
+            stroke-width: 1px;
+            fill: none;
+        }
+        
+        /* Loading Indicators */
+        .loading-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            color: var(--accent-blue-secondary);
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border-light);
+        }
+        
+        /* Screen Reader Only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
         }
     </style>
 </head>
@@ -355,179 +581,248 @@
     <!-- Skip link for keyboard navigation -->
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:border focus:border-blue-700 focus:text-blue-700 focus:rounded">Skip to main content</a>
     
-    <div class="app-container mx-auto p-4 sm:p-6">
-        <!-- Header: Simple and focused -->
-        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+    <div class="app-container">
+        <!-- Header: Data-first minimalism -->
+        <header class="header flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-3">
             <div>
-                <h1 class="text-2xl font-bold flex items-center">
-                    <span class="text-xl mr-2">📜</span>
-                    Yale Executive Order Tracker
-                </h1>
-                <p class="text-gray-600 mt-1">Monitoring orders that impact university operations and compliance</p>
+                <div class="flex items-center">
+                    <div class="w-6 h-6 rounded-sm mr-3 bg-accent-blue-primary flex items-center justify-center">
+                        <i class="fas fa-file-alt text-white text-xs"></i>
+                    </div>
+                    <h1>Executive Order Analysis</h1>
+                </div>
+                <p class="text-text-secondary text-sm mt-1 ml-9">Operational intelligence for regulatory compliance</p>
             </div>
-            <div class="flex gap-3">
-                <span id="last-updated" class="text-sm text-gray-500 flex items-center">
-                    <i class="far fa-clock mr-1"></i>
-                    Last updated: <span id="update-date">Loading...</span>
+            <div class="flex items-center text-xs">
+                <div class="flex items-center mr-4 bg-bg-tertiary px-2 py-1 rounded border border-border-light">
+                    <div class="w-2 h-2 rounded-full bg-status-green mr-2"></div>
+                    <span>SYSTEM OPERATIONAL</span>
+                </div>
+                <span id="last-updated" class="flex items-center text-text-secondary">
+                    <i class="far fa-clock mr-1 text-accent-blue-secondary"></i>
+                    UPDATED: <span id="update-date" class="ml-1">LOADING</span>
                 </span>
             </div>
         </header>
         
-        <!-- Main content: Filters and Table in one card -->
-        <div id="main-content" class="card mb-6" tabindex="-1">
-            <!-- Search and filters bar -->
-            <div class="border-b border-gray-200 p-4">
-                <div class="flex flex-col lg:flex-row gap-4">
-                    <!-- Search box - prominent for quick access -->
-                    <div class="relative flex-grow">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-search text-gray-400"></i>
+        <!-- Main content: Command Center Layout -->
+        <div id="main-content" class="mb-4" tabindex="-1">
+            <!-- Command Bar -->
+            <div class="card mb-4">
+                <div class="p-3 border-b border-border-light bg-bg-tertiary">
+                    <h5 class="text-text-secondary text-xs font-normal tracking-wider uppercase mb-0">Command Controls</h5>
+                </div>
+                <div class="p-4">
+                    <div class="flex flex-col lg:flex-row gap-3">
+                        <!-- Search box - military-grade precision -->
+                        <div class="relative flex-grow">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-text-muted text-sm"></i>
+                            </div>
+                            <input type="text" id="search-input" placeholder="SEARCH EXECUTIVE ORDERS BY KEYWORD" 
+                                   class="search-input pl-10 py-2 h-10 uppercase text-sm tracking-wider" />
                         </div>
-                        <input type="text" id="search-input" placeholder="Search executive orders..." 
-                               class="search-input pl-10 py-2 focus:ring-2 focus:ring-blue-100" />
-                    </div>
-                    
-                    <!-- Filter controls - in row for desktop, stacked for mobile -->
-                    <div class="flex flex-wrap gap-2 lg:items-center">
-                        <select id="filter-impact-level" class="select-input min-w-[140px]">
-                            <option value="">All Impact Levels</option>
-                            <option value="Critical">Critical</option>
-                            <option value="High">High</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Low">Low</option>
-                        </select>
                         
-                        <select id="filter-university-area" class="select-input min-w-[180px]">
-                            <option value="">All Impact Areas</option>
-                            <!-- Populated dynamically -->
-                        </select>
-                        
-                        <select id="filter-category" class="select-input min-w-[150px]">
-                            <option value="">All Categories</option>
-                            <!-- Populated dynamically -->
-                        </select>
-                        
-                        <button id="clear-filters-btn" class="btn-secondary py-2 px-3 flex items-center">
-                            <i class="fas fa-times mr-2"></i>Reset
-                        </button>
+                        <!-- Filter controls - precision filtering -->
+                        <div class="flex flex-wrap gap-2 lg:items-center">
+                            <div class="relative">
+                                <select id="filter-impact-level" class="select-input h-10 min-w-[140px] text-sm uppercase tracking-wider">
+                                    <option value="">ALL IMPACT LEVELS</option>
+                                    <option value="Critical">CRITICAL</option>
+                                    <option value="High">HIGH</option>
+                                    <option value="Medium">MEDIUM</option>
+                                    <option value="Low">LOW</option>
+                                </select>
+                                <div class="absolute right-0 top-0 bottom-0 w-8 pointer-events-none flex items-center justify-center">
+                                    <i class="fas fa-filter text-accent-blue-secondary text-xs"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="relative">
+                                <select id="filter-university-area" class="select-input h-10 min-w-[180px] text-sm uppercase tracking-wider">
+                                    <option value="">ALL IMPACT AREAS</option>
+                                    <!-- Populated dynamically -->
+                                </select>
+                                <div class="absolute right-0 top-0 bottom-0 w-8 pointer-events-none flex items-center justify-center">
+                                    <i class="fas fa-filter text-accent-blue-secondary text-xs"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="relative">
+                                <select id="filter-category" class="select-input h-10 min-w-[150px] text-sm uppercase tracking-wider">
+                                    <option value="">ALL CATEGORIES</option>
+                                    <!-- Populated dynamically -->
+                                </select>
+                                <div class="absolute right-0 top-0 bottom-0 w-8 pointer-events-none flex items-center justify-center">
+                                    <i class="fas fa-filter text-accent-blue-secondary text-xs"></i>
+                                </div>
+                            </div>
+                            
+                            <button id="clear-filters-btn" class="btn-secondary h-10 px-4 flex items-center uppercase tracking-wider text-sm">
+                                <i class="fas fa-times mr-2 text-accent-amber-secondary"></i>Reset
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Table with executive orders - the central focus -->
-            <div class="overflow-x-auto">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th scope="col" data-sort="order_number" class="cursor-pointer">
-                                <div class="flex items-center">
-                                    <span>Order #</span>
-                                    <i class="fas fa-sort ml-1 text-gray-400"></i>
-                                </div>
-                            </th>
-                            <th scope="col" data-sort="title" class="cursor-pointer">
-                                <div class="flex items-center">
-                                    <span>Title</span>
-                                    <i class="fas fa-sort ml-1 text-gray-400"></i>
-                                </div>
-                            </th>
-                            <th scope="col" data-sort="signing_date" class="cursor-pointer">
-                                <div class="flex items-center">
-                                    <span>Date</span>
-                                    <i class="fas fa-sort-down ml-1 text-blue-700"></i>
-                                </div>
-                            </th>
-                            <th scope="col" data-sort="impact_level" class="cursor-pointer">
-                                <div class="flex items-center">
-                                    <span>Impact</span>
-                                    <i class="fas fa-sort ml-1 text-gray-400"></i>
-                                </div>
-                            </th>
-                            <th scope="col">Areas</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="eo-table-body">
-                        <tr>
-                            <td colspan="6" class="text-center py-12">
-                                <div class="flex flex-col items-center">
-                                    <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
-                                    <p class="text-gray-500">Loading executive orders...</p>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- Data Grid - Operational Interface -->
+            <div class="card overflow-hidden">
+                <div class="p-3 border-b border-border-light bg-bg-tertiary flex justify-between items-center">
+                    <h5 class="text-text-secondary text-xs font-normal tracking-wider uppercase mb-0 flex items-center">
+                        <i class="fas fa-table mr-2 text-accent-blue-secondary"></i>
+                        Executive Order Database
+                    </h5>
+                    <div class="text-xs text-text-secondary">
+                        <span class="text-accent-blue-secondary font-mono mr-1" id="filtered-count">--</span> results displayed
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-sort="order_number" class="cursor-pointer">
+                                    <div class="flex items-center">
+                                        <span>ID CODE</span>
+                                        <i class="fas fa-sort ml-2 text-text-muted"></i>
+                                    </div>
+                                </th>
+                                <th scope="col" data-sort="title" class="cursor-pointer">
+                                    <div class="flex items-center">
+                                        <span>DIRECTIVE</span>
+                                        <i class="fas fa-sort ml-2 text-text-muted"></i>
+                                    </div>
+                                </th>
+                                <th scope="col" data-sort="signing_date" class="cursor-pointer">
+                                    <div class="flex items-center">
+                                        <span>EXECUTION DATE</span>
+                                        <i class="fas fa-sort-down ml-2 text-accent-blue-secondary"></i>
+                                    </div>
+                                </th>
+                                <th scope="col" data-sort="impact_level" class="cursor-pointer">
+                                    <div class="flex items-center">
+                                        <span>THREAT LEVEL</span>
+                                        <i class="fas fa-sort ml-2 text-text-muted"></i>
+                                    </div>
+                                </th>
+                                <th scope="col">AFFECTED DOMAINS</th>
+                                <th scope="col" class="text-right">OPERATIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eo-table-body">
+                            <tr>
+                                <td colspan="6" class="text-center py-12">
+                                    <div class="flex flex-col items-center loading-indicator">
+                                        <i class="fas fa-spinner fa-spin text-accent-blue-secondary text-xl mb-3"></i>
+                                        <p class="text-text-secondary uppercase tracking-wider text-sm">Retrieving intelligence data</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         
-        <!-- Detail View Modal (hidden by default) -->
+        <!-- Tactical Information View (hidden by default) -->
         <div id="detail-view" class="modal-backdrop hidden">
-            <div class="modal-content animated-fade-in">
-                <!-- Modal Header -->
-                <div class="modal-header p-6">
-                    <div class="flex justify-between items-center">
-                        <h3 id="detail-title" class="text-xl font-semibold text-gray-900"></h3>
+            <div class="modal-content">
+                <!-- Modal Header - Command Console Style -->
+                <div class="modal-header p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-accent-blue-secondary mr-3"></div>
+                            <h3 id="detail-title" class="text-lg font-medium"></h3>
+                        </div>
                         <button id="close-detail-btn" class="close-button" aria-label="Close details view">
                             <i class="fas fa-times" aria-hidden="true"></i>
                         </button>
                     </div>
-                    <p class="text-sm text-gray-500 mt-1 mb-3">
-                        <span id="detail-order-number" class="font-medium"></span> | 
-                        Signed by <span id="detail-president"></span> on 
-                        <span id="detail-date"></span>
-                    </p>
+                    
+                    <div class="mt-2 mb-4 flex items-center text-xs text-text-secondary bg-bg-tertiary p-2 border border-border-light rounded">
+                        <div class="flex items-center mr-4">
+                            <span class="text-text-muted uppercase mr-2">ID:</span>
+                            <span id="detail-order-number" class="font-mono text-text-primary"></span>
+                        </div>
+                        <div class="flex items-center mr-4">
+                            <span class="text-text-muted uppercase mr-2">AUTHOR:</span>
+                            <span id="detail-president" class="font-mono text-text-primary"></span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-text-muted uppercase mr-2">TIMESTAMP:</span>
+                            <span id="detail-date" class="font-mono text-text-primary"></span>
+                        </div>
+                    </div>
                     
                     <!-- Tabs -->
-                    <div class="flex border-b border-gray-200 flex-wrap">
+                    <div class="flex border-b border-border-light">
                         <button class="tab-button active" data-tab="summary" aria-selected="true" role="tab" aria-controls="summary-tab">
-                            <i class="far fa-file-alt mr-2" aria-hidden="true"></i>Original Summary
+                            <i class="far fa-file-alt mr-2" aria-hidden="true"></i>SOURCE DATA
                         </button>
                         <button class="tab-button" data-tab="executive-brief" aria-selected="false" role="tab" aria-controls="executive-brief-tab">
-                            <i class="fas fa-bolt mr-2" aria-hidden="true"></i>Executive Brief
+                            <i class="fas fa-bolt mr-2" aria-hidden="true"></i>TACTICAL BRIEF
                         </button>
                         <button class="tab-button" data-tab="plain-summary" aria-selected="false" role="tab" aria-controls="plain-summary-tab">
-                            <i class="fas fa-file-alt mr-2" aria-hidden="true"></i>Standard Summary
+                            <i class="fas fa-file-alt mr-2" aria-hidden="true"></i>STANDARD ANALYSIS
                         </button>
                         <button class="tab-button" data-tab="comprehensive-analysis" aria-selected="false" role="tab" aria-controls="comprehensive-analysis-tab">
-                            <i class="fas fa-search-plus mr-2" aria-hidden="true"></i>Comprehensive Analysis
+                            <i class="fas fa-search-plus mr-2" aria-hidden="true"></i>DEEP INTELLIGENCE
                         </button>
                     </div>
                 </div>
                 
                 <!-- Modal Body -->
-                <div id="tab-content" class="p-6">
+                <div id="tab-content" class="p-4">
                     <!-- Summary Tab (active by default) -->
                     <div id="summary-tab" class="tab-content">
-                        <div class="flex flex-col md:flex-row gap-6">
+                        <div class="flex flex-col lg:flex-row gap-4">
                             <!-- Main summary content -->
                             <div class="flex-grow">
-                                <div class="prose max-w-none mb-6">
-                                    <h4 class="text-lg font-medium mb-2">Executive Summary</h4>
-                                    <p id="detail-summary" class="text-gray-700"></p>
+                                <div class="mb-6">
+                                    <div class="flex items-center p-2 bg-bg-tertiary border-b border-t border-border-light mb-3">
+                                        <i class="fas fa-info-circle text-accent-blue-secondary mr-2"></i>
+                                        <h4 class="text-sm uppercase tracking-wider font-medium">Intelligence Abstract</h4>
+                                    </div>
+                                    <div class="bg-bg-tertiary p-3 border border-border-light rounded">
+                                        <p id="detail-summary" class="text-text-primary text-sm"></p>
+                                    </div>
                                 </div>
                                 
                                 <div class="mb-6">
-                                    <h4 class="text-lg font-medium mb-4">University Impact Areas</h4>
-                                    <div id="detail-university-impact-areas" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                                    <div class="flex items-center p-2 bg-bg-tertiary border-b border-t border-border-light mb-3">
+                                        <i class="fas fa-university text-accent-blue-secondary mr-2"></i>
+                                        <h4 class="text-sm uppercase tracking-wider font-medium">University Domain Analysis</h4>
+                                    </div>
+                                    <div id="detail-university-impact-areas" class="grid grid-cols-1 lg:grid-cols-2 gap-3"></div>
                                 </div>
                             </div>
                             
                             <!-- Info panel -->
-                            <div class="w-full md:w-80 lg:w-96 shrink-0">
-                                <div class="card p-4 mb-4">
-                                    <h5 class="font-medium text-gray-700 text-sm uppercase tracking-wider mb-3">Impact Assessment</h5>
-                                    <div id="detail-impact-level" class="yale-badge mb-4"></div>
+                            <div class="w-full lg:w-64 shrink-0">
+                                <div class="bg-bg-tertiary border border-border-light rounded mb-4">
+                                    <div class="p-3 border-b border-border-light">
+                                        <h5 class="uppercase tracking-wider text-xs font-medium">Operational Metrics</h5>
+                                    </div>
+                                    <div class="p-3">
+                                        <div class="mb-4">
+                                            <h6 class="text-xs uppercase text-text-muted mb-2">Priority Level</h6>
+                                            <div id="detail-impact-level" class="yale-badge"></div>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <h6 class="text-xs uppercase text-text-muted mb-2">Classification Tags</h6>
+                                            <div id="detail-categories" class="flex flex-wrap gap-1 mb-2"></div>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <h6 class="text-xs uppercase text-text-muted mb-2">Functional Domains</h6>
+                                            <div id="detail-impact-areas" class="flex flex-wrap gap-1"></div>
+                                        </div>
+                                    </div>
                                     
-                                    <h6 class="text-xs uppercase text-gray-500 font-medium mt-4 mb-2">Categories</h6>
-                                    <div id="detail-categories" class="flex flex-wrap gap-1 mb-4"></div>
-                                    
-                                    <h6 class="text-xs uppercase text-gray-500 font-medium mt-4 mb-2">Impact Areas</h6>
-                                    <div id="detail-impact-areas" class="flex flex-wrap gap-1"></div>
-                                    
-                                    <div class="mt-6 pt-4 border-t border-gray-100">
-                                        <a id="detail-url" href="#" target="_blank" class="btn-primary w-full py-2 px-4 flex items-center justify-center">
-                                            <i class="fas fa-external-link-alt mr-2"></i>View Full Text
+                                    <div class="p-3 border-t border-border-light">
+                                        <a id="detail-url" href="#" target="_blank" class="btn-primary w-full py-2 px-3 flex items-center justify-center text-sm">
+                                            <i class="fas fa-external-link-alt mr-2"></i>ACCESS SOURCE
                                         </a>
                                     </div>
                                 </div>
@@ -535,37 +830,37 @@
                         </div>
                     </div>
                     
-                    <!-- Executive Brief Tab -->
+                    <!-- Tactical Brief Tab -->
                     <div id="executive-brief-tab" class="tab-content hidden" role="tabpanel" aria-labelledby="executive-brief-tab">
-                        <div id="executive-brief-content" class="mb-6">
-                            <div class="flex justify-center items-center py-8">
+                        <div id="executive-brief-content" class="mb-4">
+                            <div class="loading-indicator py-12">
                                 <div class="flex flex-col items-center">
-                                    <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
-                                    <p class="text-gray-500">Loading executive brief...</p>
+                                    <i class="fas fa-spinner fa-spin text-accent-blue-secondary text-xl mb-3"></i>
+                                    <p class="text-text-secondary uppercase tracking-wider text-xs">Retrieving tactical brief</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Standard Summary Tab -->
+                    <!-- Standard Analysis Tab -->
                     <div id="plain-summary-tab" class="tab-content hidden" role="tabpanel" aria-labelledby="plain-summary-tab">
-                        <div id="plain-summary-content" class="mb-6">
-                            <div class="flex justify-center items-center py-8">
+                        <div id="plain-summary-content" class="mb-4">
+                            <div class="loading-indicator py-12">
                                 <div class="flex flex-col items-center">
-                                    <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
-                                    <p class="text-gray-500">Loading standard summary...</p>
+                                    <i class="fas fa-spinner fa-spin text-accent-blue-secondary text-xl mb-3"></i>
+                                    <p class="text-text-secondary uppercase tracking-wider text-xs">Retrieving standard analysis</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Comprehensive Analysis Tab -->
+                    <!-- Deep Intelligence Tab -->
                     <div id="comprehensive-analysis-tab" class="tab-content hidden" role="tabpanel" aria-labelledby="comprehensive-analysis-tab">
-                        <div id="comprehensive-analysis-content" class="mb-6">
-                            <div class="flex justify-center items-center py-8">
+                        <div id="comprehensive-analysis-content" class="mb-4">
+                            <div class="loading-indicator py-12">
                                 <div class="flex flex-col items-center">
-                                    <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
-                                    <p class="text-gray-500">Loading comprehensive analysis...</p>
+                                    <i class="fas fa-spinner fa-spin text-accent-blue-secondary text-xl mb-3"></i>
+                                    <p class="text-text-secondary uppercase tracking-wider text-xs">Retrieving deep intelligence</p>
                                 </div>
                             </div>
                         </div>
@@ -573,55 +868,86 @@
                 </div>
                 
                 <!-- Modal Footer -->
-                <div class="modal-footer p-4 flex justify-between items-center border-t border-gray-200">
-                    <span class="text-xs text-gray-500">Analyzed with Claude AI</span>
-                    <button class="btn-secondary px-4 py-2" onclick="document.getElementById('detail-view').classList.add('hidden')">
-                        Close
+                <div class="modal-footer p-3 flex justify-between items-center">
+                    <div class="flex items-center text-xs">
+                        <div class="w-2 h-2 bg-accent-blue-secondary rounded-full mr-2"></div>
+                        <span class="text-text-secondary uppercase tracking-wider">INTELLIGENCE REPORT</span>
+                    </div>
+                    <button class="btn-secondary px-4 py-2 text-sm uppercase tracking-wider" onclick="document.getElementById('detail-view').classList.add('hidden')">
+                        Close Console
                     </button>
                 </div>
             </div>
         </div>
         
-        <!-- Stats summary cards -->
+        <!-- Metrics Dashboard - Data Densification -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div class="card p-4">
-                <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">Total Orders</h3>
+            <div class="stat-card">
+                <h3>DATABASE VOLUME</h3>
                 <div class="flex items-baseline">
-                    <span id="total-orders-count" class="text-2xl font-semibold">--</span>
-                    <span class="text-sm text-gray-500 ml-2">executive orders</span>
+                    <span id="total-orders-count" class="value text-mono">--</span>
+                    <span class="text-xs text-text-secondary ml-2 uppercase">total directives</span>
+                </div>
+                <div class="mt-2 flex items-center text-xs">
+                    <i class="fas fa-database text-accent-blue-secondary mr-1"></i>
+                    <span class="text-text-secondary">RECORDS INDEXED</span>
                 </div>
             </div>
             
-            <div class="card p-4">
-                <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">Critical Impact</h3>
+            <div class="stat-card">
+                <h3>CRITICAL ALERTS</h3>
                 <div class="flex items-baseline">
-                    <span id="critical-impact-count" class="text-2xl font-semibold text-red-600">--</span>
-                    <span class="text-sm text-gray-500 ml-2">require immediate action</span>
+                    <span id="critical-impact-count" class="value text-status-critical text-mono">--</span>
+                    <span class="text-xs text-text-secondary ml-2 uppercase">immediate action</span>
+                </div>
+                <div class="mt-2 text-xs">
+                    <div class="w-full bg-bg-tertiary rounded-sm overflow-hidden h-1.5">
+                        <div id="critical-progress" class="bg-status-critical h-full" style="width: 0%"></div>
+                    </div>
                 </div>
             </div>
             
-            <div class="card p-4">
-                <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">Top Impact Area</h3>
-                <div id="top-impact-area" class="text-2xl font-semibold truncate">--</div>
+            <div class="stat-card">
+                <h3>PRIMARY DOMAIN</h3>
+                <div id="top-impact-area" class="value text-mono truncate">--</div>
+                <div class="mt-2 flex items-center text-xs">
+                    <i class="fas fa-bullseye text-accent-amber-secondary mr-1"></i>
+                    <span class="text-text-secondary">HIGHEST FREQUENCY</span>
+                </div>
             </div>
             
-            <div class="card p-4">
-                <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">Recent Activity</h3>
+            <div class="stat-card">
+                <h3>RECENT ACTIVITY</h3>
                 <div class="flex items-baseline">
-                    <span id="recent-orders-count" class="text-2xl font-semibold">--</span>
-                    <span class="text-sm text-gray-500 ml-2">in last 90 days</span>
+                    <span id="recent-orders-count" class="value text-mono">--</span>
+                    <span class="text-xs text-text-secondary ml-2 uppercase">last quarter</span>
+                </div>
+                <div class="mt-2 flex items-center text-xs">
+                    <i class="fas fa-calendar text-accent-blue-secondary mr-1"></i>
+                    <span class="text-text-secondary">90-DAY WINDOW</span>
                 </div>
             </div>
         </div>
         
-        <!-- Footer -->
-        <footer class="border-t border-gray-200 pt-4 mt-8">
+        <!-- Footer - Military-grade precision -->
+        <footer class="footer mt-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center mb-4 md:mb-0">
-                    <span class="text-sm text-gray-500" id="system-info">Yale Executive Order Tracker | Static Version</span>
+                    <div class="flex items-center text-xs uppercase tracking-wider">
+                        <div class="w-2 h-2 rounded-full bg-accent-blue-secondary mr-2"></div>
+                        <span id="system-info">EXECUTIVE ORDER ANALYSIS SYSTEM | STATIC DEPLOYMENT</span>
+                    </div>
                 </div>
-                <div class="flex items-center">
-                    <span class="text-xs text-gray-400">Powered by Claude AI | <a href="https://github.com/yourusername/yale-executive-orders" class="text-blue-500 hover:text-blue-700">GitHub</a></span>
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center text-xs">
+                        <span class="text-text-muted">POWERED BY</span>
+                        <i class="fas fa-brain text-accent-amber-secondary mx-2"></i>
+                        <span class="text-text-secondary">CLAUDE INTELLIGENCE ENGINE</span>
+                    </div>
+                    <a href="https://github.com/yourusername/yale-executive-orders" class="flex items-center text-xs" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github text-accent-blue-secondary mr-1"></i>
+                        <span class="text-accent-blue-secondary">REPOSITORY</span>
+                    </a>
                 </div>
             </div>
         </footer>
@@ -928,6 +1254,13 @@
                 const criticalOrders = orders.filter(order => order.impact_level === 'Critical');
                 criticalImpactCount.textContent = criticalOrders.length;
                 
+                // Update progress bar for critical alerts
+                const criticalPercentage = (criticalOrders.length / orders.length) * 100;
+                const criticalProgressBar = document.getElementById('critical-progress');
+                if (criticalProgressBar) {
+                    criticalProgressBar.style.width = criticalPercentage + '%';
+                }
+                
                 // Find top university impact area
                 const impactAreaCounts = {};
                 orders.forEach(order => {
@@ -944,9 +1277,9 @@
                     .sort((a, b) => b[1] - a[1]);
                 
                 if (sortedAreas.length) {
-                    topImpactArea.textContent = sortedAreas[0][0];
+                    topImpactArea.textContent = sortedAreas[0][0].toUpperCase();
                 } else {
-                    topImpactArea.textContent = 'None';
+                    topImpactArea.textContent = 'UNDEFINED';
                 }
                 
                 // Count recent orders (last 90 days)
@@ -1064,6 +1397,12 @@
                     
                     return true;
                 });
+                
+                // Update filtered count display
+                const filteredCount = document.getElementById('filtered-count');
+                if (filteredCount) {
+                    filteredCount.textContent = filteredOrders.length;
+                }
                 
                 // Sort the orders
                 filteredOrders.sort((a, b) => {
