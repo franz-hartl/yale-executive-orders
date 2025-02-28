@@ -138,9 +138,9 @@ async function generateMultiLevelSummaries(order) {
   console.log(`Generating multi-level summaries for ${order.order_number}: ${order.title}`);
   
   try {
-    // Create a prompt for Claude with all available information
+    // Create a streamlined prompt for Claude with essential information
     const prompt = `
-      Create three different levels of summaries for this executive order for higher education administrators. Each summary should be tailored to different time constraints and information needs:
+      Create three different levels of summaries for this executive order for higher education administrators, focusing on differentiated impact by institution type:
 
       EXECUTIVE ORDER INFORMATION:
       Title: ${order.title}
@@ -155,157 +155,165 @@ async function generateMultiLevelSummaries(order) {
       
       Additional Text: ${order.full_text || ''}
       
-      SUMMARY LEVELS:
-      
-      1. EXECUTIVE BRIEF (TL;DR) - Maximum 50 words
-      - Provide an extremely concise 1-2 sentence summary
-      - Focus only on the most critical point(s) relevant to higher education institutions
-      - Use plain language at 6th-8th grade reading level
-      - Should answer: "What's the one thing I absolutely need to know about this order?"
-      
-      2. STANDARD SUMMARY - 400 words
-      Create a comprehensive yet accessible plain language summary with this structure:
-      
-      PART 1: EXECUTIVE SUMMARY
-      - Title: Clear, informative title (max 10 words) that captures core purpose
-      - Overview: Concise explanation (2-3 sentences) of what the order does and its primary goal
-      - Bottom Line: One sentence stating the most critical takeaway for administrators
-      
-      PART 2: HIGHER EDUCATION IMPACTS
-      - Key Impacts: 3-5 specific ways this order affects higher education institutions
-      - Important Deadlines: Any specific dates or timelines administrators must know
-      - Affected Departments: Which departments/offices will need to respond
-      
-      PART 3: ACTION PLAN
-      - Required Action: "Yes/No" plus justification
-      - Immediate Steps (0-30 days): 2-3 specific, actionable steps
-      - Short-term Actions (1-3 months): 2-3 follow-up actions
-      - Long-term Considerations: 1-2 strategic or ongoing activities
-      - Resource Requirements: Estimates of personnel, budget, technology, and expertise needs
-      
-      3. COMPREHENSIVE ANALYSIS - 800-1000 words
-      Provide a detailed analysis with all of the above plus:
-      
-      PART 4: DETAILED CONTEXT
-      - Policy Background: Historical context and previous related policies
-      - Legal Framework: Underlying statutory authority and regulatory implications
-      - Industry/Sector Context: How this fits into broader trends affecting higher education
-      
-      PART 5: IMPLEMENTATION SPECIFICS
-      - Compliance Details: Specific compliance requirements, metrics, and documentation
-      - Technical Analysis: More detailed breakdown of technical/specialized aspects
-      - Cross-functional Impacts: How this affects different institutional areas
-      - Risk Analysis: Potential compliance risks and mitigation strategies
-      
-      PART 6: STRATEGIC CONSIDERATIONS
-      - Competitive Implications: How this might advantage/disadvantage different types of institutions
-      - Long-term Vision: How this fits into evolving higher education landscape
-      - Advocacy Opportunities: Potential for institutional input on implementation
-      
-      KEY DOMAINS TO ANALYZE (where applicable):
-      
-      1. RESEARCH FUNDING & SCIENCE POLICY
-      - Identify specific impacts on federal research grant processes, funding priorities, or research security
-      - Note any changes to proposal requirements, compliance documentation, or award terms
-      - Analyze implications for different types of research institutions (R1, R2, primarily undergraduate)
-      - Indicate how this order might interact with federal science agency policies (NIH, NSF, DOE, etc.)
-      
-      2. DIVERSITY, EQUITY & INCLUSION
-      - Analyze impacts on institutional DEI initiatives, civil rights compliance, and inclusion efforts
-      - Identify any changes to federal requirements, restrictions, or incentives around DEI programs
-      - Note implications for institutional statements, policies, curriculum, or staffing
-      - Consider impacts on institutional climate and student success initiatives
-      
-      3. IMMIGRATION & INTERNATIONAL PROGRAMS
-      - Identify effects on international student/scholar visas, recruitment, and enrollment
-      - Analyze impacts on study abroad, faculty exchanges, and global research partnerships
-      - Note compliance requirements related to international students/scholars
-      - Consider implications for international collaboration and academic mobility
-      
-      4. LABOR & EMPLOYMENT
-      - Analyze impacts on faculty/staff hiring, compensation, benefits, and employment conditions
-      - Identify changes to labor relations, union organizing, or collective bargaining
-      - Note implications for federal contractor requirements, wage standards, or working conditions
-      - Consider differential impacts on adjunct/contingent faculty vs. tenure-track positions
-      
-      5. REGULATORY COMPLIANCE
-      - Highlight specific reporting requirements, certifications, or documentation mandates
-      - Identify deadlines, implementation timelines, and enforcement mechanisms
-      - Analyze potential compliance costs, risks of non-compliance, and audit implications
-      - Note any potential conflicts with state laws, accreditation requirements, or institutional missions
-      
-      CROSS-DOMAIN IMPACTS (always analyze):
-      - Identify how impacts in one domain (e.g., immigration) might affect another (e.g., research funding)
-      - Note any contradictions or conflicts between different requirements in the order
-      - Analyze how resource-constrained institutions might prioritize competing compliance demands
-      - Consider implications for public vs. private, large vs. small, and research vs. teaching institutions
-      
-      WRITING GUIDELINES:
-      - Maintain consistent formatting and structure across all three versions
-      - Ensure each summary contains only the appropriate level of detail for its length
-      - Use active voice and plain language (avoid legal jargon)
-      - Make all three summaries standalone (don't reference content from other versions)
-      - Analyze impacts across diverse institution types (public, private, large research universities, community colleges, etc.) with examples from different contexts
-      - Never reference a specific institution by name
-      - Consider impacts on institutions with different resource levels, missions, and student populations
-      
-      Format your response as JSON with the following structure:
+      Format your response as JSON with this structure:
       {
-        "executive_brief": "1-2 sentence TL;DR summary",
+        "executive_brief": "1-2 sentence TL;DR summary with institution variation note if applicable",
         "standard_summary": {
           "title": "Clear title",
           "overview": "Concise explanation",
           "bottom_line": "Critical takeaway",
-          "impacts": [
+          "impact_matrix": {
+            "r1_universities": "Impact assessment",
+            "r2_universities": "Impact assessment",
+            "masters_universities": "Impact assessment",
+            "baccalaureate_colleges": "Impact assessment",
+            "community_colleges": "Impact assessment",
+            "specialized_institutions": "Impact assessment"
+          },
+          "key_functional_areas": [
             {"area": "Area 1", "description": "Impact details"},
             {"area": "Area 2", "description": "Impact details"},
             {"area": "Area 3", "description": "Impact details"}
           ],
-          "action_needed": "Yes/No with justification",
-          "important_dates": ["MM/DD/YYYY: description", "MM/DD/YYYY: description"],
+          "action_needed": "Yes/No with justification and exemption notes",
+          "important_dates": ["MM/DD/YYYY: description with variation notes"],
           "affected_departments": ["Department 1", "Department 2", "Department 3"],
-          "immediate_steps": ["Step 1", "Step 2", "Step 3"],
-          "short_term_actions": ["Action 1", "Action 2"],
+          "immediate_steps": [
+            {"action": "Step 1", "variations": "Institution-specific notes"},
+            {"action": "Step 2", "variations": "Institution-specific notes"}
+          ],
+          "short_term_actions": [
+            {"action": "Action 1", "variations": "Institution-specific notes"},
+            {"action": "Action 2", "variations": "Institution-specific notes"}
+          ],
           "long_term_considerations": ["Consideration 1", "Consideration 2"],
           "resource_requirements": {
-            "personnel": "Personnel needs",
-            "budget": "Budget implications",
-            "technology": "Technology changes",
-            "external_expertise": "External expertise"
+            "personnel": "Personnel needs with variation notes",
+            "budget": "Budget implications with variation notes",
+            "technology": "Technology changes with variation notes",
+            "external_expertise": "External expertise with variation notes"
           }
         },
         "comprehensive_analysis": {
           "title": "Detailed title",
           "overview": "Thorough explanation",
           "bottom_line": "Critical takeaway with nuance",
-          "impacts": [
-            {"area": "Area 1", "description": "Detailed impact analysis"},
-            {"area": "Area 2", "description": "Detailed impact analysis"},
-            {"area": "Area 3", "description": "Detailed impact analysis"},
-            {"area": "Area 4", "description": "Detailed impact analysis"},
-            {"area": "Area 5", "description": "Detailed impact analysis"}
+          "institution_impact_matrix": {
+            "r1_universities": {
+              "overall_impact": "Impact level (1-5) with explanation",
+              "key_affected_areas": ["Area 1", "Area 2", "Area 3"],
+              "relative_burden": "Assessment of relative implementation burden"
+            },
+            "r2_universities": {
+              "overall_impact": "Impact level (1-5) with explanation",
+              "key_affected_areas": ["Area 1", "Area 2"],
+              "relative_burden": "Assessment of relative implementation burden"
+            },
+            "masters_universities": {
+              "overall_impact": "Impact level (1-5) with explanation",
+              "key_affected_areas": ["Area 1", "Area 2"],
+              "relative_burden": "Assessment of relative implementation burden"
+            },
+            "baccalaureate_colleges": {
+              "overall_impact": "Impact level (1-5) with explanation",
+              "key_affected_areas": ["Area 1", "Area 2"],
+              "relative_burden": "Assessment of relative implementation burden"
+            },
+            "community_colleges": {
+              "overall_impact": "Impact level (1-5) with explanation",
+              "key_affected_areas": ["Area 1", "Area 2"],
+              "relative_burden": "Assessment of relative implementation burden"
+            },
+            "specialized_institutions": {
+              "overall_impact": "Impact level (1-5) with explanation",
+              "key_affected_areas": ["Area 1", "Area 2"],
+              "relative_burden": "Assessment of relative implementation burden"
+            }
+          },
+          "functional_area_impacts": [
+            {
+              "area": "Area 1", 
+              "description": "Detailed impact analysis",
+              "institution_variations": "How impact varies by institution type"
+            },
+            {
+              "area": "Area 2", 
+              "description": "Detailed impact analysis",
+              "institution_variations": "How impact varies by institution type"
+            }
           ],
+          "exemptions_special_provisions": "Detailed analysis of any exemptions or special provisions",
           "policy_background": "Historical and policy context",
           "legal_framework": "Legal and regulatory details",
           "industry_context": "Higher education sector context",
-          "action_needed": "Yes/No with detailed justification",
-          "important_dates": ["MM/DD/YYYY: detailed description", "MM/DD/YYYY: detailed description"],
-          "affected_departments": ["Department 1", "Department 2", "Department 3", "Department 4", "Department 5"],
-          "immediate_steps": ["Detailed step 1", "Detailed step 2", "Detailed step 3", "Detailed step 4"],
-          "short_term_actions": ["Detailed action 1", "Detailed action 2", "Detailed action 3"],
-          "long_term_considerations": ["Detailed consideration 1", "Detailed consideration 2", "Detailed consideration 3"],
-          "compliance_details": "Specific compliance requirements and documentation",
+          "action_needed": "Yes/No with detailed justification and exemption notes",
+          "important_dates": [
+            {
+              "date": "MM/DD/YYYY", 
+              "description": "detailed description",
+              "institution_variations": "Timeline variations by institution type"
+            }
+          ],
+          "affected_departments": ["Department 1", "Department 2", "Department 3"],
+          "immediate_steps": [
+            {
+              "action": "Detailed step 1", 
+              "r1_focus": "R1-specific guidance",
+              "small_institution_focus": "Small institution guidance"
+            },
+            {
+              "action": "Detailed step 2", 
+              "r1_focus": "R1-specific guidance",
+              "small_institution_focus": "Small institution guidance"
+            }
+          ],
+          "short_term_actions": [
+            {
+              "action": "Detailed action 1",
+              "institution_variations": "Action variations by institution type"
+            },
+            {
+              "action": "Detailed action 2",
+              "institution_variations": "Action variations by institution type"
+            }
+          ],
+          "long_term_considerations": ["Detailed consideration 1", "Detailed consideration 2"],
+          "compliance_details": {
+            "general_requirements": "Universal compliance requirements",
+            "r1_requirements": "R1-specific requirements",
+            "small_institution_requirements": "Small institution requirements"
+          },
           "technical_analysis": "Specialized technical aspects",
           "cross_functional_impacts": "How this affects different areas",
-          "risk_analysis": "Compliance risks and mitigation",
-          "competitive_implications": "Advantages/disadvantages for institutions",
+          "risk_analysis": {
+            "general_risks": "Universal compliance risks",
+            "r1_specific_risks": "Risks specific to research universities",
+            "small_institution_risks": "Risks specific to smaller institutions"
+          },
+          "competitive_implications": "Advantages/disadvantages for different institution types",
           "long_term_vision": "Future higher education landscape impact",
           "advocacy_opportunities": "Input opportunities on implementation",
           "resource_requirements": {
-            "personnel": "Detailed personnel needs",
-            "budget": "Detailed budget implications",
-            "technology": "Detailed technology needs",
-            "external_expertise": "Detailed external expertise"
+            "personnel": {
+              "large_institutions": "Personnel needs for large institutions",
+              "medium_institutions": "Personnel needs for medium institutions",
+              "small_institutions": "Personnel needs for small institutions"
+            },
+            "budget": {
+              "large_institutions": "Budget implications for large institutions",
+              "medium_institutions": "Budget implications for medium institutions",
+              "small_institutions": "Budget implications for small institutions"
+            },
+            "technology": {
+              "large_institutions": "Technology needs for large institutions",
+              "medium_institutions": "Technology needs for medium institutions",
+              "small_institutions": "Technology needs for small institutions"
+            },
+            "external_expertise": {
+              "large_institutions": "External expertise for large institutions",
+              "medium_institutions": "External expertise for medium institutions",
+              "small_institutions": "External expertise for small institutions"
+            }
           }
         }
       }
@@ -316,21 +324,17 @@ async function generateMultiLevelSummaries(order) {
       'https://api.anthropic.com/v1/messages',
       {
         model: "claude-3-opus-20240229",
-        max_tokens: 4000,
-        system: "You are an expert in higher education administration with specialized expertise in five key policy domains: (1) Research Funding & Science Policy, (2) Diversity, Equity & Inclusion, (3) Immigration & International Programs, (4) Labor & Employment, and (5) Regulatory Compliance. 
+        max_tokens: 3500,
+        system: "You are an expert in higher education administration with specialized expertise in policy domains relevant to colleges and universities of all types. You have deep expertise in institutional differentiation and understand how federal policies affect various institutions differently based on their type, size, mission, resources, and other characteristics.
         
-Your role is to translate complex executive orders into clear, actionable summaries specifically for higher education administrators. You analyze how federal policies impact institutions of all types - from major research universities to community colleges, public and private institutions, and schools with varying missions and resource levels. 
+Your primary role is to translate complex executive orders into clear, actionable summaries for higher education administrators while explicitly addressing how impacts, requirements, and implementation steps vary across different institutional contexts. You recognize that the higher education sector is diverse - from large R1 research universities with medical schools to small community colleges with workforce development missions.
 
-You deeply understand how executive orders create cross-domain impacts, such as how immigration policies might affect research funding, or how regulatory compliance interacts with DEI initiatives. You explain these interconnections clearly.
-
-For each policy you analyze, you consistently identify:
-1. Specific compliance requirements, deadlines, and documentation mandates
-2. Concrete immediate and longer-term actions institutions must take
-3. Resource implications (budget, personnel, expertise)
-4. How impacts vary across different institution types and contexts
-5. Potential conflicts with state laws, accreditation requirements, or institutional missions
-
-Your summaries maintain a formal, policy briefing tone while remaining accessible. They balance thoroughness with clarity and are carefully tailored to different stakeholder needs and time constraints.",
+You have particular expertise in:
+1. Research Funding & Science Policy - Understanding how research requirements scale with institution size and research volume
+2. Diversity, Equity & Inclusion - Analyzing impacts across institutions with different student demographics and missions
+3. Immigration & International Programs - Evaluating how international engagement level affects policy impacts
+4. Labor & Employment - Assessing workforce implications with sensitivity to institution size and staffing models
+5. Regulatory Compliance - Identifying threshold-based requirements and exemptions based on institution type",
         messages: [
           {
             role: "user",
@@ -374,17 +378,64 @@ Your summaries maintain a formal, policy briefing tone while remaining accessibl
             </p>
           </div>
           
-          <!-- Higher Education Impacts Section -->
+          <!-- Institution-Specific Impacts Section -->
           <div class="impacts" style="margin-bottom: 1.5rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Key Impacts on Higher Education:</h3>
-            <div style="margin-bottom: 1rem;">
-              ${summaries.standard_summary.impacts.map(impact => `
-                <div style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
-                  <p><strong>${impact.area}:</strong> ${impact.description}</p>
-                </div>
-              `).join('')}
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Institution-Specific Impacts:</h3>
+            
+            <!-- Impact Matrix Table -->
+            <div style="margin-bottom: 1.5rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Impact by Institution Type:</h4>
+              <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+                  <thead>
+                    <tr style="background-color: #f3f4f6; text-align: left;">
+                      <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Institution Type</th>
+                      <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Impact Assessment</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb; font-weight: 500;">R1 Research Universities</td>
+                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${summaries.standard_summary.impact_matrix.r1_universities}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb; font-weight: 500;">R2 Research Universities</td>
+                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${summaries.standard_summary.impact_matrix.r2_universities}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb; font-weight: 500;">Master's Universities</td>
+                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${summaries.standard_summary.impact_matrix.masters_universities}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb; font-weight: 500;">Baccalaureate Colleges</td>
+                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${summaries.standard_summary.impact_matrix.baccalaureate_colleges}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb; font-weight: 500;">Community Colleges</td>
+                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${summaries.standard_summary.impact_matrix.community_colleges}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb; font-weight: 500;">Specialized Institutions</td>
+                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${summaries.standard_summary.impact_matrix.specialized_institutions}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
             
+            <!-- Key Functional Areas -->
+            <div style="margin-bottom: 1.5rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Key Functional Areas Affected:</h4>
+              <div style="margin-bottom: 1rem;">
+                ${summaries.standard_summary.key_functional_areas.map(area => `
+                  <div style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
+                    <p><strong>${area.area}:</strong> ${area.description}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            
+            <!-- Important Dates -->
             ${Array.isArray(summaries.standard_summary.important_dates) && summaries.standard_summary.important_dates.length > 0 ? `
               <div style="margin-bottom: 1rem;">
                 <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Important Dates:</h4>
@@ -394,32 +445,39 @@ Your summaries maintain a formal, policy briefing tone while remaining accessibl
               </div>
             ` : ''}
             
+            <!-- Affected Departments -->
             <div style="margin-bottom: 1rem;">
               <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Affected Departments:</h4>
               <p>${summaries.standard_summary.affected_departments.join(', ')}</p>
             </div>
           </div>
           
-          <!-- Action Plan Section -->
+          <!-- Differentiated Action Plan Section -->
           <div class="action-plan" style="margin-bottom: 1.5rem; border-top: 1px solid #e5e7eb; padding-top: 1rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Action Plan:</h3>
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Differentiated Action Plan:</h3>
             
             <p style="font-weight: 500; margin-bottom: 1rem; ${summaries.standard_summary.action_needed.startsWith('Yes') ? 'color: #b91c1c;' : 'color: #047857;'}">
               <strong>Action Required:</strong> ${summaries.standard_summary.action_needed}
             </p>
             
-            <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Immediate Steps (0-30 days):</h4>
-              <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
-                ${summaries.standard_summary.immediate_steps.map(step => `<li>${step}</li>`).join('')}
-              </ul>
+            <div style="margin-bottom: 1.5rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Immediate Steps (0-30 days):</h4>
+              ${summaries.standard_summary.immediate_steps.map(step => `
+                <div style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
+                  <p style="margin-bottom: 0.25rem;"><strong>${step.action}</strong></p>
+                  <p style="margin: 0; font-size: 0.875rem; color: #4b5563; font-style: italic;">${step.variations}</p>
+                </div>
+              `).join('')}
             </div>
             
-            <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Short-term Actions (1-3 months):</h4>
-              <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
-                ${summaries.standard_summary.short_term_actions.map(action => `<li>${action}</li>`).join('')}
-              </ul>
+            <div style="margin-bottom: 1.5rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Short-term Actions (1-3 months):</h4>
+              ${summaries.standard_summary.short_term_actions.map(action => `
+                <div style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
+                  <p style="margin-bottom: 0.25rem;"><strong>${action.action}</strong></p>
+                  <p style="margin: 0; font-size: 0.875rem; color: #4b5563; font-style: italic;">${action.variations}</p>
+                </div>
+              `).join('')}
             </div>
             
             <div style="margin-bottom: 1rem;">
@@ -432,8 +490,8 @@ Your summaries maintain a formal, policy briefing tone while remaining accessibl
           
           <!-- Resource Requirements Section -->
           <div class="resources" style="margin-bottom: 1rem; background-color: #f9fafb; padding: 1rem; border-radius: 0.375rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Resource Requirements:</h3>
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Resource Requirements by Institution Type:</h3>
+            <div style="display: grid; gap: 1rem;">
               <div>
                 <p><strong>Personnel:</strong> ${summaries.standard_summary.resource_requirements.personnel}</p>
               </div>
@@ -463,6 +521,83 @@ Your summaries maintain a formal, policy briefing tone while remaining accessibl
             </p>
           </div>
           
+          <!-- Institution Impact Matrix Section -->
+          <div class="impact-matrix" style="margin-bottom: 2rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 1rem;">Institution Type Impact Matrix</h3>
+            
+            <!-- R1 Research Universities -->
+            <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+              <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                <h4 style="margin: 0; font-size: 1.1rem;">R1 Research Universities</h4>
+              </div>
+              <div style="padding: 1rem;">
+                <p><strong>Overall Impact:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.r1_universities.overall_impact}</p>
+                <p><strong>Key Affected Areas:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.r1_universities.key_affected_areas.join(', ')}</p>
+                <p><strong>Relative Burden:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.r1_universities.relative_burden}</p>
+              </div>
+            </div>
+            
+            <!-- R2 Research Universities -->
+            <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+              <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                <h4 style="margin: 0; font-size: 1.1rem;">R2 Research Universities</h4>
+              </div>
+              <div style="padding: 1rem;">
+                <p><strong>Overall Impact:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.r2_universities.overall_impact}</p>
+                <p><strong>Key Affected Areas:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.r2_universities.key_affected_areas.join(', ')}</p>
+                <p><strong>Relative Burden:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.r2_universities.relative_burden}</p>
+              </div>
+            </div>
+            
+            <!-- Master's Universities -->
+            <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+              <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                <h4 style="margin: 0; font-size: 1.1rem;">Master's Universities</h4>
+              </div>
+              <div style="padding: 1rem;">
+                <p><strong>Overall Impact:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.masters_universities.overall_impact}</p>
+                <p><strong>Key Affected Areas:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.masters_universities.key_affected_areas.join(', ')}</p>
+                <p><strong>Relative Burden:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.masters_universities.relative_burden}</p>
+              </div>
+            </div>
+            
+            <!-- Baccalaureate Colleges -->
+            <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+              <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                <h4 style="margin: 0; font-size: 1.1rem;">Baccalaureate Colleges</h4>
+              </div>
+              <div style="padding: 1rem;">
+                <p><strong>Overall Impact:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.baccalaureate_colleges.overall_impact}</p>
+                <p><strong>Key Affected Areas:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.baccalaureate_colleges.key_affected_areas.join(', ')}</p>
+                <p><strong>Relative Burden:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.baccalaureate_colleges.relative_burden}</p>
+              </div>
+            </div>
+            
+            <!-- Community Colleges -->
+            <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+              <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                <h4 style="margin: 0; font-size: 1.1rem;">Community Colleges</h4>
+              </div>
+              <div style="padding: 1rem;">
+                <p><strong>Overall Impact:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.community_colleges.overall_impact}</p>
+                <p><strong>Key Affected Areas:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.community_colleges.key_affected_areas.join(', ')}</p>
+                <p><strong>Relative Burden:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.community_colleges.relative_burden}</p>
+              </div>
+            </div>
+            
+            <!-- Specialized Institutions -->
+            <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+              <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                <h4 style="margin: 0; font-size: 1.1rem;">Specialized Institutions</h4>
+              </div>
+              <div style="padding: 1rem;">
+                <p><strong>Overall Impact:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.specialized_institutions.overall_impact}</p>
+                <p><strong>Key Affected Areas:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.specialized_institutions.key_affected_areas.join(', ')}</p>
+                <p><strong>Relative Burden:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.specialized_institutions.relative_burden}</p>
+              </div>
+            </div>
+          </div>
+          
           <!-- Context Section -->
           <div class="context" style="margin-bottom: 1.5rem;">
             <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Policy Context:</h3>
@@ -481,25 +616,40 @@ Your summaries maintain a formal, policy briefing tone while remaining accessibl
               <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Higher Education Context:</h4>
               <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.industry_context}</p>
             </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Exemptions & Special Provisions:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.exemptions_special_provisions}</p>
+            </div>
           </div>
           
-          <!-- Higher Education Impacts Section -->
+          <!-- Functional Area Impacts Section -->
           <div class="impacts" style="margin-bottom: 1.5rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Key Impacts on Higher Education:</h3>
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Functional Area Impacts:</h3>
             <div style="margin-bottom: 1rem;">
-              ${summaries.comprehensive_analysis.impacts.map(impact => `
-                <div style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
-                  <p><strong>${impact.area}:</strong> ${impact.description}</p>
+              ${summaries.comprehensive_analysis.functional_area_impacts.map(impact => `
+                <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+                  <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                    <h4 style="margin: 0; font-size: 1.1rem;">${impact.area}</h4>
+                  </div>
+                  <div style="padding: 1rem;">
+                    <p style="margin-bottom: 0.75rem;">${impact.description}</p>
+                    <p style="margin: 0; font-style: italic; color: #4b5563;"><strong>Institution Variations:</strong> ${impact.institution_variations}</p>
+                  </div>
                 </div>
               `).join('')}
             </div>
             
+            <!-- Important Dates with Variations -->
             ${Array.isArray(summaries.comprehensive_analysis.important_dates) && summaries.comprehensive_analysis.important_dates.length > 0 ? `
-              <div style="margin-bottom: 1rem;">
-                <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Important Dates:</h4>
-                <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
-                  ${summaries.comprehensive_analysis.important_dates.map(date => `<li>${date}</li>`).join('')}
-                </ul>
+              <div style="margin-bottom: 1.5rem;">
+                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Important Dates with Institution Variations:</h4>
+                ${summaries.comprehensive_analysis.important_dates.map(date => `
+                  <div style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
+                    <p style="margin-bottom: 0.25rem;"><strong>${date.date}:</strong> ${date.description}</p>
+                    <p style="margin: 0; font-size: 0.875rem; color: #4b5563; font-style: italic;"><strong>Institution Variations:</strong> ${date.institution_variations}</p>
+                  </div>
+                `).join('')}
               </div>
             ` : ''}
             
@@ -511,11 +661,15 @@ Your summaries maintain a formal, policy briefing tone while remaining accessibl
           
           <!-- Implementation Specifics -->
           <div class="implementation" style="margin-bottom: 1.5rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Implementation Details:</h3>
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Differentiated Implementation Details:</h3>
             
-            <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Compliance Requirements:</h4>
-              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.compliance_details}</p>
+            <div style="margin-bottom: 1.5rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Compliance Requirements by Institution Type:</h4>
+              <div style="padding: 1rem; background-color: #f9fafb; border-radius: 0.375rem; margin-bottom: 0.75rem;">
+                <p style="margin-bottom: 0.5rem;"><strong>General Requirements:</strong> ${summaries.comprehensive_analysis.compliance_details.general_requirements}</p>
+                <p style="margin-bottom: 0.5rem;"><strong>R1-Specific Requirements:</strong> ${summaries.comprehensive_analysis.compliance_details.r1_requirements}</p>
+                <p style="margin-bottom: 0rem;"><strong>Small Institution Requirements:</strong> ${summaries.comprehensive_analysis.compliance_details.small_institution_requirements}</p>
+              </div>
             </div>
             
             <div style="margin-bottom: 1rem;">
@@ -528,9 +682,13 @@ Your summaries maintain a formal, policy briefing tone while remaining accessibl
               <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.cross_functional_impacts}</p>
             </div>
             
-            <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Risk Analysis:</h4>
-              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.risk_analysis}</p>
+            <div style="margin-bottom: 1.5rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Risk Analysis by Institution Type:</h4>
+              <div style="padding: 1rem; background-color: #f9fafb; border-radius: 0.375rem; margin-bottom: 0.75rem;">
+                <p style="margin-bottom: 0.5rem;"><strong>General Risks:</strong> ${summaries.comprehensive_analysis.risk_analysis.general_risks}</p>
+                <p style="margin-bottom: 0.5rem;"><strong>R1-Specific Risks:</strong> ${summaries.comprehensive_analysis.risk_analysis.r1_specific_risks}</p>
+                <p style="margin-bottom: 0rem;"><strong>Small Institution Risks:</strong> ${summaries.comprehensive_analysis.risk_analysis.small_institution_risks}</p>
+              </div>
             </div>
           </div>
           
@@ -554,26 +712,37 @@ Your summaries maintain a formal, policy briefing tone while remaining accessibl
             </div>
           </div>
           
-          <!-- Action Plan Section -->
+          <!-- Differentiated Action Plan Section -->
           <div class="action-plan" style="margin-bottom: 1.5rem; border-top: 1px solid #e5e7eb; padding-top: 1rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Action Plan:</h3>
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Institution-Specific Action Plan:</h3>
             
             <p style="font-weight: 500; margin-bottom: 1rem; ${summaries.comprehensive_analysis.action_needed.startsWith('Yes') ? 'color: #b91c1c;' : 'color: #047857;'}">
               <strong>Action Required:</strong> ${summaries.comprehensive_analysis.action_needed}
             </p>
             
-            <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Immediate Steps (0-30 days):</h4>
-              <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
-                ${summaries.comprehensive_analysis.immediate_steps.map(step => `<li>${step}</li>`).join('')}
-              </ul>
+            <div style="margin-bottom: 1.5rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Immediate Steps (0-30 days):</h4>
+              ${summaries.comprehensive_analysis.immediate_steps.map(step => `
+                <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+                  <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                    <h5 style="margin: 0; font-size: 1rem;">${step.action}</h5>
+                  </div>
+                  <div style="padding: 1rem;">
+                    <p style="margin-bottom: 0.5rem;"><strong>For R1 Institutions:</strong> ${step.r1_focus}</p>
+                    <p style="margin: 0;"><strong>For Small Institutions:</strong> ${step.small_institution_focus}</p>
+                  </div>
+                </div>
+              `).join('')}
             </div>
             
-            <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Short-term Actions (1-3 months):</h4>
-              <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
-                ${summaries.comprehensive_analysis.short_term_actions.map(action => `<li>${action}</li>`).join('')}
-              </ul>
+            <div style="margin-bottom: 1.5rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Short-term Actions (1-3 months):</h4>
+              ${summaries.comprehensive_analysis.short_term_actions.map(action => `
+                <div style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
+                  <p style="margin-bottom: 0.25rem;"><strong>${action.action}</strong></p>
+                  <p style="margin: 0; font-size: 0.875rem; color: #4b5563; font-style: italic;"><strong>Institution Variations:</strong> ${action.institution_variations}</p>
+                </div>
+              `).join('')}
             </div>
             
             <div style="margin-bottom: 1rem;">
@@ -586,19 +755,77 @@ Your summaries maintain a formal, policy briefing tone while remaining accessibl
           
           <!-- Resource Requirements Section -->
           <div class="resources" style="margin-bottom: 1rem; background-color: #f9fafb; padding: 1rem; border-radius: 0.375rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Resource Requirements:</h3>
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-              <div>
-                <p><strong>Personnel:</strong> ${summaries.comprehensive_analysis.resource_requirements.personnel}</p>
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Resource Requirements by Institution Size:</h3>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Personnel:</h4>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0.75rem;">
+                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Large Institutions:</p>
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.personnel.large_institutions}</p>
+                </div>
+                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Medium Institutions:</p>
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.personnel.medium_institutions}</p>
+                </div>
+                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Small Institutions:</p>
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.personnel.small_institutions}</p>
+                </div>
               </div>
-              <div>
-                <p><strong>Budget:</strong> ${summaries.comprehensive_analysis.resource_requirements.budget}</p>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Budget:</h4>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0.75rem;">
+                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Large Institutions:</p>
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.budget.large_institutions}</p>
+                </div>
+                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Medium Institutions:</p>
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.budget.medium_institutions}</p>
+                </div>
+                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Small Institutions:</p>
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.budget.small_institutions}</p>
+                </div>
               </div>
-              <div>
-                <p><strong>Technology:</strong> ${summaries.comprehensive_analysis.resource_requirements.technology}</p>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Technology:</h4>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0.75rem;">
+                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Large Institutions:</p>
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.technology.large_institutions}</p>
+                </div>
+                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Medium Institutions:</p>
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.technology.medium_institutions}</p>
+                </div>
+                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Small Institutions:</p>
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.technology.small_institutions}</p>
+                </div>
               </div>
-              <div>
-                <p><strong>External Expertise:</strong> ${summaries.comprehensive_analysis.resource_requirements.external_expertise}</p>
+            </div>
+            
+            <div>
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">External Expertise:</h4>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0.75rem;">
+                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Large Institutions:</p>
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.external_expertise.large_institutions}</p>
+                </div>
+                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Medium Institutions:</p>
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.external_expertise.medium_institutions}</p>
+                </div>
+                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Small Institutions:</p>
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.external_expertise.small_institutions}</p>
+                </div>
               </div>
             </div>
           </div>

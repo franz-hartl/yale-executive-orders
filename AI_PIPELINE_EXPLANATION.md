@@ -110,11 +110,11 @@ A core feature of the system is the generation of accessible plain language summ
 
 ```javascript
 // Implementation in generate_plain_summaries.js
-async function generatePlainLanguageSummary(order) {
-  // Create a detailed prompt for Claude with structured sections
+async function generateMultiLevelSummaries(order) {
+  // Create a streamlined prompt for Claude with essential information
   const prompt = `
-    Create a comprehensive yet accessible plain language summary of this executive order specifically for Yale University administrators. Your summary should balance detail with clarity...
-    
+    Create three different levels of summaries for this executive order for higher education administrators, focusing on differentiated impact by institution type:
+
     EXECUTIVE ORDER INFORMATION:
     Title: ${order.title}
     Order Number: ${order.order_number}
@@ -128,25 +128,30 @@ async function generatePlainLanguageSummary(order) {
     
     Additional Text: ${order.full_text || ''}
     
-    SUMMARY STRUCTURE:
-    
-    PART 1: EXECUTIVE SUMMARY
-    [Instructions for title, overview, and bottom line...]
-    
-    PART 2: YALE-SPECIFIC IMPACTS
-    [Instructions for impacts, deadlines, affected departments...]
-    
-    PART 3: ACTION PLAN
-    [Instructions for required actions, steps, resource requirements...]
+    Format your response as JSON with this structure:
+    {
+      "executive_brief": "1-2 sentence TL;DR summary with institution variation note if applicable",
+      "standard_summary": {
+        "title": "Clear title",
+        "overview": "Concise explanation",
+        "bottom_line": "Critical takeaway",
+        // Additional fields for impact matrix, action steps, etc.
+      },
+      "comprehensive_analysis": {
+        "title": "Detailed title",
+        "overview": "Thorough explanation",
+        // Additional fields for detailed analysis, differentiated by institution type
+      }
+    }
   `;
   
-  // Call Claude API with specialized system prompt
+  // Call Claude API with optimized system prompt
   const response = await axios.post(
     'https://api.anthropic.com/v1/messages',
     {
       model: "claude-3-opus-20240229",
-      max_tokens: 4000,
-      system: "You are an expert in higher education administration with expertise in regulatory compliance, finance, operations, and government affairs. Your role is to translate complex executive orders into clear, actionable summaries specifically for Yale University administrators...",
+      max_tokens: 3500,
+      system: "You are an expert in higher education administration with specialized expertise in policy domains relevant to colleges and universities of all types. You have deep expertise in institutional differentiation and understand how federal policies affect various institutions differently based on their type, size, mission, resources, and other characteristics.",
       messages: [
         {
           role: "user",
@@ -156,18 +161,18 @@ async function generatePlainLanguageSummary(order) {
     }
   );
   
-  // Process response and format as HTML with Yale branding
+  // Process response and format as HTML with institution-specific sections
   // ...
 }
 ```
 
 Key aspects of the summary generation:
-- **Uses Claude-3-Opus**: Leverages the most capable Claude model for high-quality summaries
-- **Structured Output**: Organized into Executive Summary, Yale-Specific Impacts, and Action Plan sections
-- **Yale-Focused Expertise**: System prompt establishes expertise in higher education administration
-- **Professional Formatting**: HTML output with Yale blue color scheme and clear section organization
-- **Resource Requirements**: Includes specific estimates for personnel, budget, and technology needs
-- **Bottom Line Up Front**: Prioritizes the most critical takeaway for busy administrators
+- **Multi-Level Summaries**: Produces three distinct summary types (Executive Brief, Standard Summary, and Comprehensive Analysis)
+- **Institution-Differentiated Analysis**: Tailored to different institution types (R1/R2 research universities, master's universities, colleges, community colleges)
+- **Optimized Context Usage**: Streamlined prompts and reduced token allocation to prevent context limit errors
+- **Structured JSON Output**: Consistent machine-readable format for templated display
+- **Resource Requirements by Institution Size**: Specific guidance for large, medium, and small institutions
+- **Compliance Timeline Variations**: Highlights differences in deadlines and requirements by institution type
 
 ## 3. Natural Language Queries
 
@@ -233,14 +238,21 @@ The AI pipeline currently leverages:
 
 Recent improvements to the AI pipeline include:
 
-1. **Upgraded Plain Language Summaries**:
-   - Enhanced prompt with clearer structure (~400 words, better organization)
-   - Upgraded from Claude-3 Haiku to Claude-3 Opus for higher quality analysis
-   - Improved HTML formatting with Yale blue color scheme
-   - Added "Bottom Line" section for key takeaways
-   - More detailed resource requirements section
+1. **Multi-Level Differentiated Summaries**:
+   - Expanded from Yale-specific to sector-wide higher education analysis
+   - Developed three-tiered summary system (Executive Brief, Standard Summary, Comprehensive Analysis)
+   - Implemented institution-specific impact analysis across diverse higher education segments
+   - Added differentiated resource requirements based on institution size
+   - Created custom templates for displaying institution-specific guidance
 
-2. **Batch Categorization Improvements**:
+2. **Optimized Context Management**:
+   - Fine-tuned prompt structure for detailed institution-specific analysis
+   - Adjusted max_tokens parameter to 3500 for comprehensive output
+   - Enhanced system prompt with detailed expertise in differential impacts
+   - Structured JSON output format for consistent templated display
+   - Implemented efficient HTML templates for differentiated information display
+
+3. **Batch Categorization Improvements**:
    - Support for processing up to 500 orders in one batch operation
    - Smart filtering to prioritize recent (2022+) and uncategorized orders
    - Progress notifications during categorization process
@@ -251,7 +263,8 @@ Recent improvements to the AI pipeline include:
 Planned improvements to the AI pipeline:
 
 1. **Automatic Data Collection**: Add scheduled scraping with AI-guided extraction
-2. **Fine-Tuned Models**: Custom-trained models for Yale-specific categorization
+2. **Fine-Tuned Models**: Custom-trained models for higher education-specific categorization
 3. **Multi-Modal Analysis**: Analyze PDFs and images of executive orders directly
-4. **Automated Impact Assessment**: Generate more detailed Yale-specific impact analyses
-5. **Real-Time Alerts**: Notification system for high-impact orders
+4. **Impact Assessment Framework**: Implement quantitative scoring methodology for comparing impacts
+5. **Institution-Specific Templates**: Develop dynamic templates that adjust based on institution type
+6. **Real-Time Alerts**: Notification system customized to institution profile and needs
