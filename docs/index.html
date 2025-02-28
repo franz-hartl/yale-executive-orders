@@ -115,20 +115,31 @@
             box-shadow: var(--card-shadow);
         }
         
-        /* Typography - Adjusted for light mode */
+        /* Typography - Enhanced for mobile and desktop */
         h1, h2, h3, h4, h5, h6 {
             color: var(--yale-blue); /* Yale blue headers provide strong contrast and match branding */
             font-weight: 600;
             margin-top: 0;
-            line-height: 1.2;
+            line-height: 1.3; /* Increased line height for better readability */
         }
         
-        h1 { font-size: 1.75rem; letter-spacing: -0.01em; }
-        h2 { font-size: 1.5rem; letter-spacing: -0.01em; }
-        h3 { font-size: 1.25rem; }
-        h4 { font-size: 1.125rem; }
+        /* Mobile-first typography with responsive sizing */
+        h1 { font-size: 1.5rem; letter-spacing: -0.01em; }
+        h2 { font-size: 1.35rem; letter-spacing: -0.01em; }
+        h3 { font-size: 1.2rem; }
+        h4 { font-size: 1.1rem; }
         h5 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
-        h6 { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        h6 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        /* Desktop typography adjustments */
+        @media (min-width: 768px) {
+            h1 { font-size: 1.75rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.25rem; }
+            h4 { font-size: 1.125rem; }
+            h5 { font-size: 1rem; }
+            h6 { font-size: 0.875rem; }
+        }
         
         .text-mono {
             font-family: "SF Mono", "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace;
@@ -299,17 +310,26 @@
             background-color: var(--bg-secondary);
         }
         
-        /* Status Badges - Enhanced for accessibility */
+        /* Status Badges - Enhanced for accessibility and mobile */
         .impact-badge {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border-radius: 3px;
-            padding: 0.25rem 0.7rem; /* Slightly increased for better visibility */
-            font-size: 0.875rem; /* Increased for better readability */
+            border-radius: 4px;
+            padding: 0.35rem 0.8rem; /* Increased for better touch targets */
+            font-size: 0.9rem; /* Increased for better readability on mobile */
             font-weight: 600; /* Enhanced for better contrast */
-            line-height: 1.2;
+            line-height: 1.3;
             letter-spacing: 0.02em;
+            min-height: 36px; /* Minimum height for touch targets */
+        }
+        
+        @media (min-width: 768px) {
+            .impact-badge {
+                padding: 0.25rem 0.7rem;
+                font-size: 0.875rem;
+                min-height: 30px;
+            }
         }
         
         .impact-critical {
@@ -342,12 +362,23 @@
             background-color: var(--bg-tertiary);
             color: var(--text-primary);
             border: 1px solid var(--border-light);
-            border-radius: 3px;
-            padding: 0.2rem 0.5rem;
-            font-size: 0.75rem;
+            border-radius: 4px;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.85rem;
             font-weight: 500;
-            margin-right: 0.25rem;
-            margin-bottom: 0.25rem;
+            margin-right: 0.35rem;
+            margin-bottom: 0.35rem;
+            min-height: 32px; /* Better touch target size for mobile */
+        }
+        
+        @media (min-width: 768px) {
+            .tag {
+                padding: 0.2rem 0.5rem;
+                font-size: 0.75rem;
+                margin-right: 0.25rem;
+                margin-bottom: 0.25rem;
+                min-height: unset;
+            }
         }
         
         /* Modal Components - Adjusted for light mode */
@@ -664,20 +695,29 @@
                     <h5 class="text-text-secondary text-xs font-normal tracking-wider uppercase mb-0">Controls</h5>
                 </div>
                 <div class="p-4">
-                    <div class="flex flex-col lg:flex-row gap-3">
+                    <div class="flex flex-col gap-3">
                         <!-- Search box - military-grade precision -->
                         <div class="relative flex-grow">
                             <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
                                 <i class="fas fa-search text-text-muted text-sm"></i>
                             </div>
                             <input type="text" id="search-input" placeholder="  SEARCH BY KEYWORD" 
-                                   class="search-input pl-9 py-2 h-10 uppercase text-sm tracking-wider" />
+                                   class="search-input pl-9 py-3 h-12 md:h-10 uppercase text-base md:text-sm tracking-wider w-full" />
+                        </div>
+                        
+                        <!-- Mobile filter toggle -->
+                        <div class="block lg:hidden mb-2">
+                            <button id="mobile-filters-toggle" class="btn-secondary py-3 px-4 w-full flex items-center justify-center text-base uppercase tracking-wider">
+                                <i class="fas fa-filter mr-2 text-accent-blue-secondary"></i>
+                                <span>Filters</span>
+                                <i class="fas fa-chevron-down ml-2 text-accent-blue-secondary transition-transform duration-300" id="filter-toggle-icon"></i>
+                            </button>
                         </div>
                         
                         <!-- Filter controls - precision filtering -->
-                        <div class="flex flex-wrap gap-2 lg:items-center">
-                            <div class="relative">
-                                <select id="filter-impact-level" class="select-input h-10 min-w-[140px] text-sm uppercase tracking-wider">
+                        <div id="filters-container" class="flex flex-col lg:flex-row gap-3 mt-1 lg:mt-0 hidden lg:flex">
+                            <div class="relative w-full lg:w-auto">
+                                <select id="filter-impact-level" class="select-input h-12 md:h-10 text-base md:text-sm uppercase tracking-wider w-full">
                                     <option value="">ALL IMPACT LEVELS</option>
                                     <option value="Critical">CRITICAL</option>
                                     <option value="High">HIGH</option>
@@ -689,8 +729,8 @@
                                 </div>
                             </div>
                             
-                            <div class="relative">
-                                <select id="filter-university-area" class="select-input h-10 min-w-[180px] text-sm uppercase tracking-wider">
+                            <div class="relative w-full lg:w-auto">
+                                <select id="filter-university-area" class="select-input h-12 md:h-10 text-base md:text-sm uppercase tracking-wider w-full">
                                     <option value="">ALL IMPACT AREAS</option>
                                     <!-- Populated dynamically -->
                                 </select>
@@ -699,8 +739,8 @@
                                 </div>
                             </div>
                             
-                            <div class="relative">
-                                <select id="filter-category" class="select-input h-10 min-w-[150px] text-sm uppercase tracking-wider">
+                            <div class="relative w-full lg:w-auto">
+                                <select id="filter-category" class="select-input h-12 md:h-10 text-base md:text-sm uppercase tracking-wider w-full">
                                     <option value="">ALL CATEGORIES</option>
                                     <!-- Populated dynamically -->
                                 </select>
@@ -709,7 +749,7 @@
                                 </div>
                             </div>
                             
-                            <button id="clear-filters-btn" class="btn-secondary h-10 px-4 flex items-center uppercase tracking-wider text-sm">
+                            <button id="clear-filters-btn" class="btn-secondary h-12 md:h-10 px-4 flex items-center justify-center uppercase tracking-wider text-base md:text-sm w-full lg:w-auto">
                                 <i class="fas fa-times mr-2 text-accent-amber-secondary"></i>Reset
                             </button>
                         </div>
@@ -728,7 +768,18 @@
                         <span class="text-accent-blue-secondary font-mono mr-1" id="filtered-count">--</span> results displayed
                     </div>
                 </div>
-                <div class="overflow-x-auto">
+                <!-- Mobile card view (visible on small screens) -->
+                <div id="mobile-card-view" class="block lg:hidden">
+                    <div id="mobile-eo-cards" class="space-y-4 p-2">
+                        <div class="flex flex-col items-center py-8">
+                            <i class="fas fa-spinner fa-spin text-accent-blue-secondary text-xl mb-3"></i>
+                            <p class="text-text-secondary uppercase tracking-wider text-sm">Retrieving intelligence data</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Desktop table view (visible on large screens) -->
+                <div class="hidden lg:block overflow-x-auto">
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -805,8 +856,8 @@
                         </div>
                     </div>
                     
-                    <!-- Tabs -->
-                    <div class="flex border-b border-border-light">
+                    <!-- Tabs - Desktop Version -->
+                    <div class="hidden md:flex border-b border-border-light">
                         <button class="tab-button active" data-tab="summary" aria-selected="true" role="tab" aria-controls="summary-tab">
                             <i class="far fa-file-alt mr-2" aria-hidden="true"></i>SOURCE DATA
                         </button>
@@ -820,6 +871,30 @@
                             <i class="fas fa-search-plus mr-2" aria-hidden="true"></i>COMPREHENSIVE ANALYSIS
                         </button>
                     </div>
+                    
+                    <!-- Mobile Tabs - Dropdown Version -->
+                    <div class="block md:hidden border-b border-border-light">
+                        <div class="relative">
+                            <button id="mobile-tab-selector" class="w-full py-3 px-4 border border-border-light rounded bg-bg-tertiary flex items-center justify-between">
+                                <span id="current-tab-label"><i class="far fa-file-alt mr-2" aria-hidden="true"></i>SOURCE DATA</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div id="mobile-tab-dropdown" class="absolute z-20 left-0 right-0 bg-white border border-border-light rounded shadow-lg mt-1 hidden">
+                                <button class="mobile-tab-option w-full text-left px-4 py-3 hover:bg-bg-tertiary active" data-tab="summary">
+                                    <i class="far fa-file-alt mr-2" aria-hidden="true"></i>SOURCE DATA
+                                </button>
+                                <button class="mobile-tab-option w-full text-left px-4 py-3 hover:bg-bg-tertiary" data-tab="executive-brief">
+                                    <i class="fas fa-bolt mr-2" aria-hidden="true"></i>EXECUTIVE BRIEF
+                                </button>
+                                <button class="mobile-tab-option w-full text-left px-4 py-3 hover:bg-bg-tertiary" data-tab="plain-summary">
+                                    <i class="fas fa-file-alt mr-2" aria-hidden="true"></i>STANDARD ANALYSIS
+                                </button>
+                                <button class="mobile-tab-option w-full text-left px-4 py-3 hover:bg-bg-tertiary" data-tab="comprehensive-analysis">
+                                    <i class="fas fa-search-plus mr-2" aria-hidden="true"></i>COMPREHENSIVE ANALYSIS
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Modal Body -->
@@ -827,29 +902,60 @@
                     <!-- Summary Tab (active by default) -->
                     <div id="summary-tab" class="tab-content">
                         <div class="flex flex-col lg:flex-row gap-4">
+                            <!-- Mobile operational metrics (top on mobile) -->
+                            <div class="block lg:hidden w-full mb-4">
+                                <div class="bg-bg-tertiary border border-border-light rounded mb-4">
+                                    <div class="p-3 border-b border-border-light">
+                                        <h5 class="uppercase tracking-wider text-sm font-medium">Key Information</h5>
+                                    </div>
+                                    <div class="p-4">
+                                        <div class="mb-4">
+                                            <h6 class="text-sm uppercase text-text-muted mb-2">Priority Level</h6>
+                                            <div id="mobile-detail-impact-level" class="yale-badge"></div>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <h6 class="text-sm uppercase text-text-muted mb-2">Classification Tags</h6>
+                                            <div id="mobile-detail-categories" class="flex flex-wrap gap-1 mb-2"></div>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <h6 class="text-sm uppercase text-text-muted mb-2">Affected Areas</h6>
+                                            <div id="mobile-detail-impact-areas" class="flex flex-wrap gap-1"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="p-3 border-t border-border-light">
+                                        <a id="mobile-detail-url" href="#" target="_blank" class="btn-primary w-full py-3 px-4 flex items-center justify-center text-base">
+                                            <i class="fas fa-external-link-alt mr-2"></i>ACCESS SOURCE
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <!-- Main summary content -->
                             <div class="flex-grow">
                                 <div class="mb-6">
-                                    <div class="flex items-center p-2 bg-bg-tertiary border-b border-t border-border-light mb-3">
+                                    <div class="flex items-center p-3 bg-bg-tertiary border-b border-t border-border-light mb-3">
                                         <i class="fas fa-info-circle text-accent-blue-secondary mr-2"></i>
-                                        <h4 class="text-sm uppercase tracking-wider font-medium">Intelligence Abstract</h4>
+                                        <h4 class="text-base sm:text-sm uppercase tracking-wider font-medium">Intelligence Abstract</h4>
                                     </div>
-                                    <div class="bg-bg-tertiary p-3 border border-border-light rounded">
-                                        <p id="detail-summary" class="text-text-primary text-sm"></p>
+                                    <div class="bg-bg-tertiary p-4 border border-border-light rounded">
+                                        <p id="detail-summary" class="text-text-primary text-base sm:text-sm leading-relaxed"></p>
                                     </div>
                                 </div>
                                 
                                 <div class="mb-6">
-                                    <div class="flex items-center p-2 bg-bg-tertiary border-b border-t border-border-light mb-3">
+                                    <div class="flex items-center p-3 bg-bg-tertiary border-b border-t border-border-light mb-3">
                                         <i class="fas fa-university text-accent-blue-secondary mr-2"></i>
-                                        <h4 class="text-sm uppercase tracking-wider font-medium">University Impact Analysis</h4>
+                                        <h4 class="text-base sm:text-sm uppercase tracking-wider font-medium">University Impact Analysis</h4>
                                     </div>
-                                    <div id="detail-university-impact-areas" class="grid grid-cols-1 lg:grid-cols-2 gap-3"></div>
+                                    <div id="detail-university-impact-areas" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                                 </div>
                             </div>
                             
-                            <!-- Info panel -->
-                            <div class="w-full lg:w-64 shrink-0">
+                            <!-- Info panel (desktop only) -->
+                            <div class="hidden lg:block w-full lg:w-64 shrink-0">
                                 <div class="bg-bg-tertiary border border-border-light rounded mb-4">
                                     <div class="p-3 border-b border-border-light">
                                         <h5 class="uppercase tracking-wider text-xs font-medium">Operational Metrics</h5>
@@ -1898,12 +2004,315 @@
             // Add event listener for popstate (back/forward button)
             window.addEventListener('popstate', handleUrlNavigation);
             
+            // Handle mobile filter toggle
+            function setupMobileFilters() {
+                const mobileFiltersToggle = document.getElementById('mobile-filters-toggle');
+                const filtersContainer = document.getElementById('filters-container');
+                const filterToggleIcon = document.getElementById('filter-toggle-icon');
+                
+                if (mobileFiltersToggle) {
+                    mobileFiltersToggle.addEventListener('click', () => {
+                        filtersContainer.classList.toggle('hidden');
+                        filterToggleIcon.classList.toggle('transform');
+                        filterToggleIcon.classList.toggle('rotate-180');
+                    });
+                }
+            }
+            
+            // Handle mobile tab dropdown in detail view
+            function setupMobileTabDropdown() {
+                const mobileTabSelector = document.getElementById('mobile-tab-selector');
+                const mobileTabDropdown = document.getElementById('mobile-tab-dropdown');
+                const currentTabLabel = document.getElementById('current-tab-label');
+                const mobileTabOptions = document.querySelectorAll('.mobile-tab-option');
+                
+                if (mobileTabSelector) {
+                    // Toggle dropdown visibility
+                    mobileTabSelector.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        mobileTabDropdown.classList.toggle('hidden');
+                    });
+                    
+                    // Close dropdown when clicking outside
+                    document.addEventListener('click', (e) => {
+                        if (!mobileTabSelector.contains(e.target) && !mobileTabDropdown.contains(e.target)) {
+                            mobileTabDropdown.classList.add('hidden');
+                        }
+                    });
+                    
+                    // Handle tab selection
+                    mobileTabOptions.forEach(option => {
+                        option.addEventListener('click', () => {
+                            const tabName = option.getAttribute('data-tab');
+                            const tabLabel = option.textContent.trim();
+                            
+                            // Update current tab label
+                            currentTabLabel.innerHTML = option.innerHTML;
+                            
+                            // Hide dropdown
+                            mobileTabDropdown.classList.add('hidden');
+                            
+                            // Trigger the corresponding desktop tab click
+                            document.querySelector(`.tab-button[data-tab="${tabName}"]`).click();
+                            
+                            // Update active state in dropdown
+                            mobileTabOptions.forEach(opt => opt.classList.remove('active'));
+                            option.classList.add('active');
+                        });
+                    });
+                }
+            }
+            
+            // Create mobile cards for executive orders
+            function renderMobileCards(filteredOrders) {
+                const mobileCardsContainer = document.getElementById('mobile-eo-cards');
+                
+                if (!mobileCardsContainer) return;
+                
+                // Clear the container
+                mobileCardsContainer.innerHTML = '';
+                
+                // Check if we have any results
+                if (filteredOrders.length === 0) {
+                    mobileCardsContainer.innerHTML = `
+                        <div class="p-4 text-center">
+                            <div class="flex flex-col items-center">
+                                <i class="fas fa-filter text-gray-400 text-2xl mb-3"></i>
+                                <p class="text-gray-500 mb-3">No executive orders match the selected filters.</p>
+                                <button id="mobile-reset-filters" class="btn-secondary px-4 py-2 text-sm">Reset Filters</button>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('mobile-reset-filters')?.addEventListener('click', () => {
+                        clearFiltersBtn.click();
+                    });
+                    return;
+                }
+                
+                // Create card for each order
+                filteredOrders.forEach(order => {
+                    // Format date
+                    const dateFormatted = order.signing_date ? 
+                        new Date(order.signing_date).toLocaleDateString('en-US', {
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric'
+                        }) : 'N/A';
+                    
+                    // Determine impact level class
+                    let impactBadgeClass = 'impact-medium';
+                    if (order.impact_level === 'Critical') {
+                        impactBadgeClass = 'impact-critical';
+                    } else if (order.impact_level === 'High') {
+                        impactBadgeClass = 'impact-high';
+                    } else if (order.impact_level === 'Low') {
+                        impactBadgeClass = 'impact-low';
+                    }
+                    
+                    // Prepare the complete summary with "This executive order" removed
+                    let cleanSummary = '';
+                    if (order.summary) {
+                        cleanSummary = order.summary
+                            .replace(/^This executive order\s+/i, '')
+                            .replace(/^This EO\s+/i, '')
+                            .replace(/^The executive order\s+/i, '');
+                        
+                        // Capitalize first letter
+                        cleanSummary = cleanSummary.charAt(0).toUpperCase() + cleanSummary.slice(1);
+                        
+                        // Truncate if too long for card view
+                        if (cleanSummary.length > 160) {
+                            cleanSummary = cleanSummary.substring(0, 157) + '...';
+                        }
+                    }
+                    
+                    // Create mobile card
+                    const card = document.createElement('div');
+                    card.className = 'bg-white border border-border-light rounded-lg shadow-sm p-4';
+                    
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="text-xs text-text-muted font-mono">${order.order_number || 'N/A'}</div>
+                            <div class="text-xs text-text-muted">${dateFormatted}</div>
+                        </div>
+                        
+                        <h3 class="text-accent-blue-primary text-lg font-medium mb-2 view-details cursor-pointer" data-id="${order.id}">
+                            ${order.title || 'N/A'}
+                        </h3>
+                        
+                        <p class="text-text-secondary text-sm mb-4">${cleanSummary}</p>
+                        
+                        <div class="flex flex-wrap items-center gap-2 mb-4">
+                            <span class="impact-badge ${impactBadgeClass}">
+                                ${order.impact_level || 'Unknown'}
+                            </span>
+                            
+                            ${order.university_impact_areas && order.university_impact_areas.length ? 
+                                order.university_impact_areas.slice(0, 2).map(area => {
+                                    const areaName = typeof area === 'string' ? area : (area.name || '');
+                                    return `<span class="tag">${areaName.split(' ')[0]}</span>`;
+                                }).join('') + 
+                                (order.university_impact_areas.length > 2 ? 
+                                    `<span class="tag">+${order.university_impact_areas.length - 2}</span>` : '')
+                                : '<span class="text-gray-400 text-sm">No impact areas</span>'}
+                        </div>
+                        
+                        <div class="flex justify-between">
+                            <button class="btn-primary py-2 px-4 text-sm view-details" data-id="${order.id}">
+                                View Details
+                            </button>
+                            <a href="${order.url || '#'}" target="_blank" class="btn-secondary py-2 px-4 text-sm" aria-label="View original source">
+                                Source <i class="fas fa-external-link-alt ml-1"></i>
+                            </a>
+                        </div>
+                    `;
+                    
+                    mobileCardsContainer.appendChild(card);
+                    
+                    // Add click event handlers for view details
+                    card.querySelectorAll('.view-details').forEach(element => {
+                        element.addEventListener('click', () => {
+                            const id = element.getAttribute('data-id');
+                            viewOrderDetails(id);
+                        });
+                    });
+                });
+            }
+            
+            // Override the renderExecutiveOrdersTable function to also handle mobile cards
+            const originalRenderExecutiveOrdersTable = renderExecutiveOrdersTable;
+            renderExecutiveOrdersTable = function() {
+                // Get filter values
+                const categoryFilter = filterCategory.value;
+                const impactLevelFilter = filterImpactLevel.value;
+                const universityAreaFilter = filterUniversityArea.value;
+                const searchText = searchInput.value.toLowerCase();
+                
+                // Apply filters
+                const filteredOrders = allExecutiveOrders.filter(order => {
+                    // Category filter
+                    if (categoryFilter && (!order.categories || !order.categories.includes(categoryFilter))) {
+                        return false;
+                    }
+                    
+                    // Impact level filter
+                    if (impactLevelFilter && order.impact_level !== impactLevelFilter) {
+                        return false;
+                    }
+                    
+                    // University impact area filter
+                    if (universityAreaFilter) {
+                        if (!order.university_impact_areas || !order.university_impact_areas.length) {
+                            return false;
+                        }
+                        
+                        // Check if any of the impact areas match the filter
+                        const hasMatchingArea = order.university_impact_areas.some(area => {
+                            const areaName = typeof area === 'string' ? area : (area.name || '');
+                            return areaName === universityAreaFilter;
+                        });
+                        
+                        if (!hasMatchingArea) {
+                            return false;
+                        }
+                    }
+                    
+                    // Search text filter
+                    if (searchText) {
+                        const searchFields = [
+                            order.order_number,
+                            order.title,
+                            order.summary,
+                            order.president
+                        ].map(field => field ? field.toLowerCase() : '');
+                        
+                        return searchFields.some(field => field.includes(searchText));
+                    }
+                    
+                    return true;
+                });
+                
+                // Update filtered count display
+                const filteredCount = document.getElementById('filtered-count');
+                if (filteredCount) {
+                    filteredCount.textContent = filteredOrders.length;
+                }
+                
+                // Sort the orders
+                filteredOrders.sort((a, b) => {
+                    let aValue = a[sortField];
+                    let bValue = b[sortField];
+                    
+                    // Handle null values
+                    if (aValue === null || aValue === undefined) return 1;
+                    if (bValue === null || bValue === undefined) return -1;
+                    
+                    // Format values for comparison
+                    if (sortField === 'signing_date') {
+                        aValue = new Date(aValue);
+                        bValue = new Date(bValue);
+                    }
+                    
+                    // Compare values
+                    if (aValue < bValue) {
+                        return sortDirection === 'asc' ? -1 : 1;
+                    }
+                    if (aValue > bValue) {
+                        return sortDirection === 'asc' ? 1 : -1;
+                    }
+                    return 0;
+                });
+                
+                // Render desktop table (original function)
+                originalRenderExecutiveOrdersTable.call(this);
+                
+                // Render mobile cards
+                renderMobileCards(filteredOrders);
+            };
+            
+            // Update view order details to handle mobile view panels
+            const originalViewOrderDetails = viewOrderDetails;
+            viewOrderDetails = async function(id) {
+                await originalViewOrderDetails.call(this, id);
+                
+                // Sync mobile detail info with desktop
+                const order = allExecutiveOrders.find(o => o.id === parseInt(id, 10) || o.id === id);
+                if (order) {
+                    // Mobile impact level
+                    const mobileDetailImpactLevel = document.getElementById('mobile-detail-impact-level');
+                    if (mobileDetailImpactLevel) {
+                        mobileDetailImpactLevel.className = detailImpactLevel.className;
+                        mobileDetailImpactLevel.textContent = detailImpactLevel.textContent;
+                    }
+                    
+                    // Mobile categories
+                    const mobileDetailCategories = document.getElementById('mobile-detail-categories');
+                    if (mobileDetailCategories) {
+                        mobileDetailCategories.innerHTML = detailCategories.innerHTML;
+                    }
+                    
+                    // Mobile impact areas
+                    const mobileDetailImpactAreas = document.getElementById('mobile-detail-impact-areas');
+                    if (mobileDetailImpactAreas) {
+                        mobileDetailImpactAreas.innerHTML = detailImpactAreas.innerHTML;
+                    }
+                    
+                    // Mobile URL
+                    const mobileDetailUrl = document.getElementById('mobile-detail-url');
+                    if (mobileDetailUrl) {
+                        mobileDetailUrl.href = detailUrl.href;
+                    }
+                }
+            };
+            
             // Initialize
             async function init() {
                 await getSystemInfo();
                 await loadMetadata();
                 await loadExecutiveOrders();
                 // We don't need to call loadStatistics() anymore since we removed the metrics dashboard
+                setupMobileFilters();
+                setupMobileTabDropdown();
                 handleUrlNavigation();
             }
             
