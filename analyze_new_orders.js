@@ -57,25 +57,25 @@ async function generateAnalysisWithClaude(order) {
       {
         model: "claude-3-haiku-20240307",
         max_tokens: 1500,
-        system: "You are an expert in academic administration, specializing in analyzing how executive orders affect university operations, particularly in financial aspects.",
+        system: "You are an expert in higher education administration, specializing in analyzing how executive orders affect operations across diverse institution types, including research universities, liberal arts colleges, community colleges, and both public and private institutions.",
         messages: [
           {
             role: "user",
-            content: `Analyze this executive order for Yale University:
+            content: `Analyze this executive order for higher education institutions:
             
             Title: ${order.title}
             Order Number: ${order.order_number}
             President: ${order.president}
             Date: ${order.signing_date || order.publication_date}
             
-            Please analyze the impact of this executive order on Yale University operations, with special focus on financial impacts. Then generate:
+            Please analyze the impact of this executive order on higher education institutions across the sector, considering different institution types (public/private, large/small, research/teaching-focused). Then generate:
             
             1. A standard summary (2-3 sentences)
             2. An executive brief (3-4 paragraphs, more detailed than summary)
             3. A comprehensive analysis (detailed, ~600 words)
             4. Impact level classification (Critical, High, Medium, or Low)
             5. Relevant categories (choose from: Technology, Education, Finance, Healthcare, Research, Immigration, National Security, Diversity, Environment, Industry)
-            6. University impact areas (choose from: Research Funding, Student Aid & Higher Education Finance, Administrative Compliance, Workforce & Employment Policy, Public-Private Partnerships)
+            6. Higher education impact areas (choose from: Research Funding, Student Aid & Higher Education Finance, Administrative Compliance, Workforce & Employment Policy, Public-Private Partnerships, Institutional Accessibility, Academic Freedom & Curriculum)
             
             Format your response as JSON:
             {

@@ -2,26 +2,36 @@
   {
     "id": 3,
     "name": "Administrative Compliance",
-    "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
+    "description": "Compliance requirements, reporting mandates, and regulatory changes affecting higher education administration across institution types"
   },
   {
     "id": 5,
     "name": "Public-Private Partnerships",
-    "description": "Changes affecting university-industry collaborations, tech transfer, and economic development initiatives"
+    "description": "Changes affecting academic-industry collaborations, tech transfer, and economic development initiatives across diverse institutional settings"
   },
   {
     "id": 1,
     "name": "Research Funding",
-    "description": "Impacts on federal research grants, funding priorities, and research administration"
+    "description": "Impacts on federal research grants, funding priorities, and research administration for all research-active institutions"
   },
   {
     "id": 2,
     "name": "Student Aid & Higher Education Finance",
-    "description": "Changes to student financial aid, federal student loans, and university funding mechanisms"
+    "description": "Changes to student financial aid, federal student loans, and institutional funding mechanisms affecting institutions of all types and sizes"
   },
   {
     "id": 4,
     "name": "Workforce & Employment Policy",
-    "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity"
+    "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity in higher education institutions"
+  },
+  {
+    "id": 6,
+    "name": "Institutional Accessibility",
+    "description": "Impacts on educational access, affordability, and inclusion across diverse student populations and institution types"
+  },
+  {
+    "id": 7,
+    "name": "Academic Freedom & Curriculum",
+    "description": "Impacts on instructional policy, academic freedom, and curriculum requirements across different institutional contexts"
   }
 ]

@@ -2,7 +2,7 @@
  * generate_plain_summaries.js
  * 
  * This script generates plain language summaries for executive orders in the database,
- * making them easier for Yale administrators to understand.
+ * making them easier for higher education administrators to understand.
  */
 
 const sqlite3 = require('sqlite3').verbose();
@@ -207,7 +207,9 @@ async function generateMultiLevelSummaries(order) {
       - Ensure each summary contains only the appropriate level of detail for its length
       - Use active voice and plain language (avoid legal jargon)
       - Make all three summaries standalone (don't reference content from other versions)
-      - Focus on higher education institutions generally, not just Yale University
+      - Analyze impacts across diverse institution types (public, private, large research universities, community colleges, etc.) with examples from different contexts
+      - Never reference a specific institution by name
+      - Consider impacts on institutions with different resource levels, missions, and student populations
       
       Format your response as JSON with the following structure:
       {

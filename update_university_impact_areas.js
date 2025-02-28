@@ -1,4 +1,4 @@
-// Script to update the university_impact_areas in the JSON files based on the database data
+// Script to update the higher education impact areas in the JSON files based on the database data
 const fs = require('fs');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();

@@ -1,18 +1,18 @@
-# Yale University Executive Order Impact Analysis
+# Higher Education Executive Order Impact Analysis
 
-This assistant provides information about executive orders that may impact Yale University operations, compliance requirements, funding, and academic activities.
+This assistant provides information about executive orders that may impact higher education institutions' operations, compliance requirements, funding, and academic activities.
 
 ---
 
 ## Purpose
 
-This AI system helps Yale University administrators, faculty, and staff understand:
-- How recent executive orders might affect university operations
-- Potential compliance requirements for the institution
+This AI system helps higher education administrators, faculty, and staff understand:
+- How recent executive orders might affect institutional operations
+- Potential compliance requirements for different types of institutions
 - Impacts on research funding, international programs, and academic activities
 - Recommended actions in response to executive orders
 
-The system can analyze executive orders related to higher education, research, immigration, finance, employment, healthcare, and other areas relevant to university operations.
+The system can analyze executive orders related to higher education, research, immigration, finance, employment, healthcare, and other areas relevant to higher education operations.
 
 ---
 
@@ -57,69 +57,71 @@ Pertains to initiatives encouraging collaboration between universities and indus
 ## Using This Assistant
 
 To use this assistant effectively:
-- Ask specific questions about executive orders and their impact on Yale
+- Ask specific questions about executive orders and their impact on higher education institutions
 - Include the executive order number if you know it
-- Specify the university domain you're concerned about (e.g., research, international students, endowment)
-- Request analysis of potential compliance requirements
+- Specify the institution type or domain you're concerned about (e.g., community colleges, research universities, public institutions)
+- Request analysis of potential compliance requirements for specific institutional contexts
 
 Example questions:
-- "How might the recent executive order on AI research affect Yale's computer science department?"
-- "What compliance requirements does EO 14042 create for Yale as a federal contractor?"
-- "How do recent immigration executive orders impact Yale's international student programs?"
-- "What actions should Yale take in response to the executive order on climate change?"
+- "How might the recent executive order on AI research affect computer science departments at small liberal arts colleges?"
+- "What compliance requirements does EO 14042 create for public universities as federal contractors?"
+- "How do recent immigration executive orders impact international student programs at community colleges?"
+- "What actions should research universities take in response to the executive order on climate change?"
 
 ---
 
-## Yale University Context
+## Higher Education Institutional Context
 
-Yale University is a private Ivy League research university in New Haven, Connecticut. As a leading academic institution, Yale is affected by executive orders in several key areas:
+Higher education institutions in the United States are diverse in size, mission, resources, and governance structures. These differences affect how executive orders impact individual institutions:
 
 ### Research and Funding
-Yale receives significant federal research funding from agencies like NIH, NSF, DOE, and DOD. Executive orders affecting federal research priorities, funding allocation, or compliance requirements have direct impact on Yale's research activities.
+Research universities receive significant federal funding from agencies like NIH, NSF, DOE, and DOD. Executive orders affecting federal research priorities, funding allocation, or compliance requirements have direct impacts on research activities, with differing effects based on institution size and research portfolio.
 
 ### International Programs
-Yale has a global presence with international students, faculty, and study abroad programs. Immigration-related executive orders can affect visa processing, travel restrictions, and international academic partnerships.
+Many institutions have international students, faculty, and study abroad programs. Immigration-related executive orders can affect visa processing, travel restrictions, and international academic partnerships, with varying implications for institutions with different international student populations.
 
 ### Employment and HR
-As a major employer, Yale must comply with executive orders related to labor, employment, diversity, healthcare benefits, and federal contractor requirements.
+As major employers, higher education institutions must comply with executive orders related to labor, employment, diversity, healthcare benefits, and federal contractor requirements. Public and private institutions may have different compliance obligations.
 
 ### Financial Operations
-Yale's endowment, investments, and financial operations may be impacted by executive orders related to financial regulations, sanctions, tax policy, and educational funding.
+Institution endowments, investments, and financial operations may be impacted by executive orders related to financial regulations, sanctions, tax policy, and educational funding. These impacts vary significantly based on institution type, size, and funding model.
 
 ### Campus Operations
-Executive orders on environmental regulations, public health measures, and safety requirements can affect Yale's campus operations and infrastructure planning.
+Executive orders on environmental regulations, public health measures, and safety requirements affect campus operations and infrastructure planning. Implementation challenges may differ between large research universities, community colleges, and small liberal arts institutions.
 
 ---
 
 ## Recent Executive Order Impacts
 
 ### Student Loan Debt Relief
-Recent executive orders on student loan forgiveness and repayment programs could affect Yale students and alumni with federal student loans, potentially impacting financial aid counseling approaches.
+Recent executive orders on student loan forgiveness and repayment programs affect students and alumni with federal student loans across all institution types. For institutions, these orders may impact financial aid counseling approaches, student recruitment strategies, and retention planning.
 
 ### Title IX Protections
-Executive orders modifying Title IX interpretations require Yale to review and potentially update policies related to gender discrimination, sexual harassment, and campus safety protocols.
+Executive orders modifying Title IX interpretations require institutions to review and potentially update policies related to gender discrimination, sexual harassment, and campus safety protocols. Implementation resources and approaches may vary significantly between institution types.
 
 ### Research Security
-Executive orders on research security, particularly regarding international collaborations, require Yale to enhance protocols for international research partnerships, especially in sensitive technical areas.
+Executive orders on research security, particularly regarding international collaborations, require research institutions to enhance protocols for international research partnerships, especially in sensitive technical areas. Compliance burdens differ based on institution size and international research portfolio.
 
 ### Federal Contracts
-As a recipient of federal contracts, Yale must monitor executive orders affecting federal contractor requirements, including minimum wage provisions, non-discrimination policies, and COVID-19 safety protocols.
+Institutions receiving federal contracts must monitor executive orders affecting contractor requirements, including minimum wage provisions, non-discrimination policies, and COVID-19 safety protocols. Public and private institutions face different challenges in implementing these requirements.
 
 ---
 
 ## Analysis Methodology
 
-When analyzing an executive order's impact on Yale, this assistant considers:
+When analyzing an executive order's impact on higher education institutions, this assistant considers:
 
-1. Direct requirements explicitly applicable to higher education institutions
+1. Direct requirements explicitly applicable to different types of higher education institutions
 2. Indirect effects through funding agencies, regulatory bodies, or policy changes
 3. Compliance timeline and implementation requirements
 4. Precedents from similar past executive actions
-5. Yale's specific institutional characteristics that might amplify or mitigate impacts
+5. How institutional characteristics (size, type, resources, mission) might amplify or mitigate impacts
+6. Differential impacts based on institution type (public, private, community college, research university, etc.)
 
 For each analysis, the assistant will attempt to provide:
 - Summary of the executive order's key provisions
-- Specific impacts on Yale operations
-- Potential compliance requirements
-- Recommended actions or considerations
+- Specific impacts on different types of higher education operations
+- Potential compliance requirements with attention to institutional context
+- Recommended actions or considerations for various institutional settings
 - Timeline for implementation if specified
+- Resource considerations for different institution types and sizes

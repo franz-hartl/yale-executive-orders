@@ -161,13 +161,15 @@ async function initializeReferenceData() {
     if (categoryCount.count === 0) {
       console.log('Initializing reference data...');
       
-      // Insert university impact areas
+      // Insert higher education impact areas
       const universityImpactAreas = [
-        { name: 'Research Funding', description: 'Impact on federal research grants, funding priorities, and research initiatives' },
-        { name: 'Student Aid & Higher Education Finance', description: 'Impact on student financial aid, loan programs, and education financing' },
-        { name: 'Administrative Compliance', description: 'Impact on regulatory requirements, reporting, and compliance obligations' },
-        { name: 'Workforce & Employment Policy', description: 'Impact on faculty hiring, employment regulations, and visa policies' },
-        { name: 'Public-Private Partnerships', description: 'Impact on university-industry collaboration and economic development' }
+        { name: 'Research Funding', description: 'Impact on federal research grants, funding priorities, and research initiatives across institution types' },
+        { name: 'Student Aid & Higher Education Finance', description: 'Impact on student financial aid, loan programs, and education financing for diverse institution types' },
+        { name: 'Administrative Compliance', description: 'Impact on regulatory requirements, reporting, and compliance obligations for higher education institutions' },
+        { name: 'Workforce & Employment Policy', description: 'Impact on faculty hiring, employment regulations, and visa policies in the higher education sector' },
+        { name: 'Public-Private Partnerships', description: 'Impact on academic-industry collaboration and economic development initiatives' },
+        { name: 'Institutional Accessibility', description: 'Impact on educational access, affordability, and inclusion across diverse student populations' },
+        { name: 'Academic Freedom & Curriculum', description: 'Impact on instructional policy, academic freedom, and curriculum requirements' }
       ];
       
       for (const area of universityImpactAreas) {

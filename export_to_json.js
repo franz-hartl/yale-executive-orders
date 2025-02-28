@@ -299,13 +299,13 @@ async function exportSystemInfo() {
     const orderCount = (await dbAll('SELECT COUNT(*) as count FROM executive_orders'))[0].count;
     
     const systemInfo = {
-      topicName: 'Yale Executive Order Analysis',
-      topicDescription: 'Analysis of executive orders and their impact on Yale University operations and compliance',
+      topicName: 'Higher Education Executive Order Analysis',
+      topicDescription: 'Analysis of executive orders and their impact on higher education institutions nationwide',
       orderCount: orderCount,
       version: '1.0.0',
       lastUpdated: new Date().toISOString(),
       isStaticVersion: true,
-      notes: 'This is a static version of the Yale Executive Order Analysis system, deployed on GitHub Pages'
+      notes: 'This is a static version of the Higher Education Executive Order Analysis system, deployed on GitHub Pages'
     };
     
     const outputPath = path.join(outputDir, 'system_info.json');
