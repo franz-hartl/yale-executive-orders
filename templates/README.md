@@ -40,6 +40,28 @@ A practical template for tracking compliance and implementation activities:
 - Documentation requirements
 - Validation steps
 
+### 4. Impact Assessment Framework
+**File:** `impact_assessment_framework.md`
+
+A comprehensive framework for evaluating executive order impacts across diverse institution types:
+
+- Institution typology definitions (research universities, liberal arts colleges, community colleges, etc.)
+- Multi-dimensional impact matrices by institution type, funding model, and other factors
+- Modifying factors that increase or decrease baseline impacts
+- Customized assessment template for institution-specific evaluation
+- Implementation guidance for different institution types
+
+### 5. Executive Order Impact Scoring Guide
+**File:** `executive_order_impact_scoring.md`
+
+A quantitative methodology for consistent impact evaluation:
+
+- 1-5 severity scale with clear definitions
+- Weighted impact scoring by functional area and institution type
+- Institutional modifier calculations for size, funding, research activity
+- Formula-based approach to calculate composite impact scores
+- Separate calculations for urgency and resource intensity
+
 ## Using the Templates
 
 These templates are designed to be flexible and adaptable. Institutions should:
