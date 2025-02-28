@@ -178,6 +178,105 @@ async function exportExecutiveOrders() {
         console.log(`Error checking summaries for order ${order.id}: ${e.message}`);
       }
       
+      // Get differentiated impacts by institution type
+      const differentiatedImpacts = await dbAll(`
+        SELECT di.*, it.name as institution_type, fa.name as functional_area
+        FROM differentiated_impacts di
+        JOIN institution_types it ON di.institution_type_id = it.id
+        JOIN functional_areas fa ON di.functional_area_id = fa.id
+        WHERE di.order_id = ?
+        ORDER BY it.name, fa.name
+      `, [order.id]);
+      
+      // Format differentiated impacts for export
+      const formattedImpacts = {};
+      differentiatedImpacts.forEach(impact => {
+        if (!formattedImpacts[impact.institution_type]) {
+          formattedImpacts[impact.institution_type] = {};
+        }
+        
+        formattedImpacts[impact.institution_type][impact.functional_area] = {
+          score: impact.impact_score,
+          description: impact.impact_description,
+          compliance_requirements: impact.compliance_requirements,
+          resource_implications: impact.resource_implications
+        };
+      });
+      
+      // Get compliance timelines
+      const complianceTimelines = await dbAll(`
+        SELECT ct.*, it.name as institution_type
+        FROM compliance_timelines ct
+        JOIN institution_types it ON ct.institution_type_id = it.id
+        WHERE ct.order_id = ?
+        ORDER BY ct.deadline_date, it.name
+      `, [order.id]);
+      
+      // Format compliance timelines for export
+      const formattedTimelines = {};
+      complianceTimelines.forEach(timeline => {
+        const instType = timeline.institution_type;
+        if (!formattedTimelines[instType]) {
+          formattedTimelines[instType] = [];
+        }
+        
+        formattedTimelines[instType].push({
+          deadline: timeline.deadline_date,
+          requirement: timeline.requirement,
+          optional: timeline.optional === 1,
+          notes: timeline.notes
+        });
+      });
+      
+      // Get impact scoring
+      const impactScoring = await dbAll(`
+        SELECT is.*, it.name as institution_type
+        FROM impact_scoring is
+        JOIN institution_types it ON is.institution_type_id = it.id
+        WHERE is.order_id = ?
+        ORDER BY is.composite_score DESC
+      `, [order.id]);
+      
+      // Format impact scoring for export
+      const formattedScoring = impactScoring.map(score => {
+        let modifiers = null;
+        try {
+          if (score.modifying_factors) {
+            modifiers = JSON.parse(score.modifying_factors);
+          }
+        } catch (e) {
+          console.log(`Error parsing modifying factors for order ${order.id}: ${e.message}`);
+        }
+        
+        return {
+          institution_type: score.institution_type,
+          composite_score: score.composite_score,
+          impact_level: score.composite_score >= 4.5 ? 'Critical' : 
+                       (score.composite_score >= 3.5 ? 'High' : 
+                       (score.composite_score >= 2.5 ? 'Moderate' : 
+                       (score.composite_score >= 1.5 ? 'Low' : 'Minimal'))),
+          urgency_score: score.urgency_score,
+          urgency_rating: score.urgency_score >= 5 ? 'Immediate' : 
+                         (score.urgency_score >= 3 ? 'Near-term' : 
+                         (score.urgency_score >= 1 ? 'Medium-term' : 'Long-term')),
+          resource_intensity_score: score.resource_intensity_score,
+          resource_intensity_rating: score.resource_intensity_score >= 7 ? 'High' : 
+                                    (score.resource_intensity_score >= 4 ? 'Moderate' : 'Low'),
+          calculation_notes: score.calculation_notes,
+          modifying_factors: modifiers
+        };
+      });
+      
+      // Get implementation resources
+      const implementationResources = await dbAll(`
+        SELECT ir.*, it.name as institution_type, fa.name as functional_area
+        FROM implementation_resources ir
+        LEFT JOIN institution_types it ON ir.institution_type_id = it.id
+        LEFT JOIN functional_areas fa ON ir.functional_area_id = fa.id
+        WHERE ir.order_id = ?
+        ORDER BY ir.resource_type, ir.title
+      `, [order.id]);
+      
       // Return enriched order
       return {
         ...order,
@@ -188,6 +287,10 @@ async function exportExecutiveOrders() {
           description: uia.description,
           notes: uia.notes
         })),
+        differentiated_impacts: formattedImpacts,
+        compliance_timelines: formattedTimelines,
+        impact_scoring: formattedScoring,
+        implementation_resources: implementationResources,
         compliance_actions: complianceActions,
         has_plain_language_summary: hasPlainSummary,
         has_executive_brief: hasExecutiveBrief,
@@ -390,11 +493,23 @@ async function exportMetadata(categories, impactAreas, universityImpactAreas) {
       SELECT * FROM source_metadata ORDER BY source_name
     `);
     
+    // Get institution types
+    const institutionTypes = await dbAll(`
+      SELECT * FROM institution_types ORDER BY name
+    `);
+    
+    // Get functional areas
+    const functionalAreas = await dbAll(`
+      SELECT * FROM functional_areas ORDER BY name
+    `);
+    
     const metadata = {
       categories,
       impactAreas,
       universityImpactAreas,
-      externalSources: sources
+      externalSources: sources,
+      institutionTypes,
+      functionalAreas
     };
     
     const outputPath = path.join(outputDir, 'metadata.json');

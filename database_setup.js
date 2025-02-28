@@ -69,7 +69,10 @@ async function createTables() {
         plain_language_summary TEXT,
         executive_brief TEXT,
         comprehensive_analysis TEXT,
-        status TEXT DEFAULT 'Active'
+        status TEXT DEFAULT 'Active',
+        urgency_rating TEXT,
+        resource_intensity TEXT,
+        implementation_timeline TEXT
       )
     `);
     
@@ -131,6 +134,72 @@ async function createTables() {
       )
     `);
     
+    // Create institution type tables
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS institution_types (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT UNIQUE,
+        description TEXT
+      )
+    `);
+    
+    // Create functional area tables
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS functional_areas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT UNIQUE,
+        description TEXT
+      )
+    `);
+    
+    // Create differentiated impact tables
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS differentiated_impacts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER,
+        institution_type_id INTEGER,
+        functional_area_id INTEGER,
+        impact_score INTEGER,
+        impact_description TEXT,
+        compliance_requirements TEXT,
+        resource_implications TEXT,
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (institution_type_id) REFERENCES institution_types(id),
+        FOREIGN KEY (functional_area_id) REFERENCES functional_areas(id)
+      )
+    `);
+    
+    // Create compliance timeline tables
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS compliance_timelines (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER,
+        institution_type_id INTEGER,
+        deadline_date TEXT,
+        requirement TEXT,
+        optional INTEGER DEFAULT 0,
+        notes TEXT,
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (institution_type_id) REFERENCES institution_types(id)
+      )
+    `);
+    
+    // Create composite scoring table
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS impact_scoring (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER,
+        institution_type_id INTEGER,
+        composite_score REAL,
+        urgency_score INTEGER,
+        resource_intensity_score INTEGER,
+        calculation_notes TEXT,
+        modifying_factors TEXT,
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (institution_type_id) REFERENCES institution_types(id)
+      )
+    `);
+    
     // Create compliance actions table
     await dbRun(`
       CREATE TABLE IF NOT EXISTS compliance_actions (
@@ -141,7 +210,29 @@ async function createTables() {
         deadline TEXT,
         responsible_party TEXT,
         status TEXT DEFAULT 'Pending',
-        FOREIGN KEY (order_id) REFERENCES executive_orders(id)
+        institution_type_id INTEGER,
+        required_for_all INTEGER DEFAULT 1,
+        resource_requirement TEXT,
+        complexity_level TEXT,
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (institution_type_id) REFERENCES institution_types(id)
+      )
+    `);
+    
+    // Create implementation resources table
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS implementation_resources (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER,
+        resource_type TEXT,
+        title TEXT,
+        description TEXT,
+        url TEXT,
+        institution_type_id INTEGER,
+        functional_area_id INTEGER,
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (institution_type_id) REFERENCES institution_types(id),
+        FOREIGN KEY (functional_area_id) REFERENCES functional_areas(id)
       )
     `);
     
@@ -217,9 +308,101 @@ async function initializeReferenceData() {
           [area.name, area.description]);
       }
       
+      // Insert institution types
+      const institutionTypes = [
+        { name: 'R1 Research Universities', description: 'Doctoral universities with very high research activity (annual research expenditures >$100M)' },
+        { name: 'R2 Research Universities', description: 'Doctoral universities with high research activity (annual research expenditures $50M-$100M)' },
+        { name: 'Master\'s Universities', description: 'Institutions awarding at least 50 master\'s degrees annually but fewer doctoral degrees' },
+        { name: 'Baccalaureate Colleges', description: 'Institutions where baccalaureate degrees represent at least 50% of all degrees awarded' },
+        { name: 'Community Colleges', description: 'Associate\'s degree-granting institutions with primarily 2-year programs' },
+        { name: 'Specialized Institutions', description: 'Institutions focused on specific fields (medical schools, art schools, etc.)' },
+        { name: 'Well-Endowed Private', description: 'Private institutions with substantial endowments (>$1B)' },
+        { name: 'Tuition-Dependent Private', description: 'Private institutions deriving majority of revenue from tuition' },
+        { name: 'State-Funded Public', description: 'Public institutions with significant state appropriations' }
+      ];
+      
+      for (const type of institutionTypes) {
+        await dbRun('INSERT INTO institution_types (name, description) VALUES (?, ?)', 
+          [type.name, type.description]);
+      }
+      
+      // Insert functional areas
+      const functionalAreas = [
+        { name: 'Research Operations', description: 'Functions related to research administration, grants management, and research conduct' },
+        { name: 'Academic Programs', description: 'Functions related to curriculum, instruction, and academic management' },
+        { name: 'Student Aid & Financing', description: 'Functions related to financial aid, scholarships, and student financing' },
+        { name: 'International Programs', description: 'Functions related to international students, study abroad, and global partnerships' },
+        { name: 'Diversity Initiatives', description: 'Functions related to DEI, civil rights compliance, and inclusion programs' },
+        { name: 'Regulatory Compliance', description: 'Functions related to federal and state regulatory requirements' },
+        { name: 'Workforce & Employment', description: 'Functions related to faculty/staff employment, labor relations, and HR' },
+        { name: 'Public-Private Partnerships', description: 'Functions related to industry collaboration and external partnerships' },
+        { name: 'Administrative Operations', description: 'Functions related to institutional management and daily operations' },
+        { name: 'Financial Operations', description: 'Functions related to institutional finance, accounting, and budget' },
+        { name: 'Legal Affairs', description: 'Functions related to legal compliance and risk management' },
+        { name: 'Technology Infrastructure', description: 'Functions related to IT systems, data management, and digital resources' }
+      ];
+      
+      for (const area of functionalAreas) {
+        await dbRun('INSERT INTO functional_areas (name, description) VALUES (?, ?)', 
+          [area.name, area.description]);
+      }
+      
       console.log('Reference data initialized successfully');
     } else {
       console.log('Reference data already exists, skipping initialization');
+      
+      // Check if institution types exist and initialize if needed
+      const institutionTypeCount = await dbGet('SELECT COUNT(*) as count FROM institution_types');
+      if (institutionTypeCount.count === 0) {
+        console.log('Initializing institution types...');
+        
+        // Insert institution types
+        const institutionTypes = [
+          { name: 'R1 Research Universities', description: 'Doctoral universities with very high research activity (annual research expenditures >$100M)' },
+          { name: 'R2 Research Universities', description: 'Doctoral universities with high research activity (annual research expenditures $50M-$100M)' },
+          { name: 'Master\'s Universities', description: 'Institutions awarding at least 50 master\'s degrees annually but fewer doctoral degrees' },
+          { name: 'Baccalaureate Colleges', description: 'Institutions where baccalaureate degrees represent at least 50% of all degrees awarded' },
+          { name: 'Community Colleges', description: 'Associate\'s degree-granting institutions with primarily 2-year programs' },
+          { name: 'Specialized Institutions', description: 'Institutions focused on specific fields (medical schools, art schools, etc.)' },
+          { name: 'Well-Endowed Private', description: 'Private institutions with substantial endowments (>$1B)' },
+          { name: 'Tuition-Dependent Private', description: 'Private institutions deriving majority of revenue from tuition' },
+          { name: 'State-Funded Public', description: 'Public institutions with significant state appropriations' }
+        ];
+        
+        for (const type of institutionTypes) {
+          await dbRun('INSERT INTO institution_types (name, description) VALUES (?, ?)', 
+            [type.name, type.description]);
+        }
+        console.log('Institution types initialized successfully');
+      }
+      
+      // Check if functional areas exist and initialize if needed
+      const functionalAreaCount = await dbGet('SELECT COUNT(*) as count FROM functional_areas');
+      if (functionalAreaCount.count === 0) {
+        console.log('Initializing functional areas...');
+        
+        // Insert functional areas
+        const functionalAreas = [
+          { name: 'Research Operations', description: 'Functions related to research administration, grants management, and research conduct' },
+          { name: 'Academic Programs', description: 'Functions related to curriculum, instruction, and academic management' },
+          { name: 'Student Aid & Financing', description: 'Functions related to financial aid, scholarships, and student financing' },
+          { name: 'International Programs', description: 'Functions related to international students, study abroad, and global partnerships' },
+          { name: 'Diversity Initiatives', description: 'Functions related to DEI, civil rights compliance, and inclusion programs' },
+          { name: 'Regulatory Compliance', description: 'Functions related to federal and state regulatory requirements' },
+          { name: 'Workforce & Employment', description: 'Functions related to faculty/staff employment, labor relations, and HR' },
+          { name: 'Public-Private Partnerships', description: 'Functions related to industry collaboration and external partnerships' },
+          { name: 'Administrative Operations', description: 'Functions related to institutional management and daily operations' },
+          { name: 'Financial Operations', description: 'Functions related to institutional finance, accounting, and budget' },
+          { name: 'Legal Affairs', description: 'Functions related to legal compliance and risk management' },
+          { name: 'Technology Infrastructure', description: 'Functions related to IT systems, data management, and digital resources' }
+        ];
+        
+        for (const area of functionalAreas) {
+          await dbRun('INSERT INTO functional_areas (name, description) VALUES (?, ?)', 
+            [area.name, area.description]);
+        }
+        console.log('Functional areas initialized successfully');
+      }
     }
   } catch (err) {
     console.error('Error initializing reference data:', err);
