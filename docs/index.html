@@ -1702,7 +1702,7 @@
                     row.querySelectorAll('.view-details').forEach(button => {
                         button.addEventListener('click', () => {
                             const id = button.getAttribute('data-id');
-                            viewOrderDetails(id);
+                            navigateToAnalysisPage(id);
                         });
                     });
                 });
@@ -2059,6 +2059,22 @@
                 window.history.pushState({}, '', url);
             }
             
+            // Navigate to the analysis page
+            function navigateToAnalysisPage(id) {
+                const order = allExecutiveOrders.find(o => o.id === parseInt(id, 10) || o.id === id);
+                if (!order) return;
+                
+                // Create slug from order title
+                const slug = order.title.toLowerCase()
+                                .replace(/[^\w\s-]/g, '')
+                                .replace(/\s+/g, '-')
+                                .replace(/-+/g, '-')
+                                .trim();
+                                
+                // Navigate to analysis page with proper URL structure
+                window.location.href = `analysis/index.html?id=${order.id}`;
+            }
+            
             // Add event listener for popstate (back/forward button)
             window.addEventListener('popstate', handleUrlNavigation);
             
@@ -2231,7 +2247,7 @@
                     card.querySelectorAll('.view-details').forEach(element => {
                         element.addEventListener('click', () => {
                             const id = element.getAttribute('data-id');
-                            viewOrderDetails(id);
+                            navigateToAnalysisPage(id);
                         });
                     });
                 });
