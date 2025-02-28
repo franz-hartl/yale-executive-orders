@@ -130,6 +130,35 @@ async function exportExecutiveOrders() {
         ORDER BY deadline ASC
       `, [order.id]);
       
+      // Get external sources data if any
+      const sources = await dbAll(`
+        SELECT sm.source_name, sm.source_url, os.external_reference_id, 
+               os.source_specific_data, os.fetch_date
+        FROM order_sources os
+        JOIN source_metadata sm ON os.source_id = sm.id
+        WHERE os.order_id = ?
+      `, [order.id]);
+      
+      // Format sources data for export
+      const formattedSources = sources.map(source => {
+        let specificData = null;
+        try {
+          if (source.source_specific_data) {
+            specificData = JSON.parse(source.source_specific_data);
+          }
+        } catch (e) {
+          console.log(`Error parsing source data for order ${order.id}: ${e.message}`);
+        }
+        
+        return {
+          name: source.source_name,
+          url: source.source_url,
+          reference_id: source.external_reference_id,
+          fetch_date: source.fetch_date,
+          data: specificData
+        };
+      });
+      
       // Check which summary types exist
       let hasPlainSummary = false;
       let hasExecutiveBrief = false;
@@ -167,7 +196,8 @@ async function exportExecutiveOrders() {
           ...(hasExecutiveBrief ? ['executive_brief'] : []),
           ...(hasPlainSummary ? ['standard'] : []),
           ...(hasComprehensiveAnalysis ? ['comprehensive'] : [])
-        ]
+        ],
+        sources: formattedSources
       };
     }));
     
@@ -273,12 +303,24 @@ async function exportStatistics() {
       ORDER BY month
     `);
     
+    // External source stats
+    const sourcesStats = await dbAll(`
+      SELECT 
+        sm.source_name as name,
+        COUNT(DISTINCT os.order_id) as order_count
+      FROM source_metadata sm
+      LEFT JOIN order_sources os ON sm.id = os.source_id
+      GROUP BY sm.id
+      ORDER BY order_count DESC
+    `);
+    
     // Combine all stats
     const stats = {
       impactLevels,
       universityImpactAreas,
       categories,
-      timeline
+      timeline,
+      externalSources: sourcesStats
     };
     
     // Write to file
@@ -298,14 +340,35 @@ async function exportSystemInfo() {
   try {
     const orderCount = (await dbAll('SELECT COUNT(*) as count FROM executive_orders'))[0].count;
     
+    // Get source information
+    const sources = await dbAll(`
+      SELECT 
+        sm.source_name,
+        sm.source_url,
+        sm.description,
+        sm.last_updated,
+        COUNT(DISTINCT os.order_id) as order_count
+      FROM source_metadata sm
+      LEFT JOIN order_sources os ON sm.id = os.source_id
+      GROUP BY sm.id
+      ORDER BY sm.source_name
+    `);
+    
     const systemInfo = {
       topicName: 'Higher Education Executive Order Analysis',
       topicDescription: 'Analysis of executive orders and their impact on higher education institutions nationwide',
       orderCount: orderCount,
-      version: '1.0.0',
+      version: '1.1.0',
       lastUpdated: new Date().toISOString(),
       isStaticVersion: true,
-      notes: 'This is a static version of the Higher Education Executive Order Analysis system, deployed on GitHub Pages'
+      notes: 'This is a static version of the Higher Education Executive Order Analysis system, deployed on GitHub Pages',
+      externalSources: sources.map(source => ({
+        name: source.source_name,
+        url: source.source_url,
+        description: source.description,
+        lastUpdated: source.last_updated,
+        orderCount: source.order_count
+      }))
     };
     
     const outputPath = path.join(outputDir, 'system_info.json');
@@ -322,10 +385,16 @@ async function exportSystemInfo() {
 // Export metadata (categories, impact areas, etc.) as a single file
 async function exportMetadata(categories, impactAreas, universityImpactAreas) {
   try {
+    // Get source metadata
+    const sources = await dbAll(`
+      SELECT * FROM source_metadata ORDER BY source_name
+    `);
+    
     const metadata = {
       categories,
       impactAreas,
-      universityImpactAreas
+      universityImpactAreas,
+      externalSources: sources
     };
     
     const outputPath = path.join(outputDir, 'metadata.json');

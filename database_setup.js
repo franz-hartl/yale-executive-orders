@@ -163,13 +163,15 @@ async function initializeReferenceData() {
       
       // Insert higher education impact areas
       const universityImpactAreas = [
-        { name: 'Research Funding', description: 'Impact on federal research grants, funding priorities, and research initiatives across institution types' },
+        { name: 'Research Funding & Science Policy', description: 'Impact on federal research grants, funding priorities, research security, and national science initiatives across all institution types' },
         { name: 'Student Aid & Higher Education Finance', description: 'Impact on student financial aid, loan programs, and education financing for diverse institution types' },
-        { name: 'Administrative Compliance', description: 'Impact on regulatory requirements, reporting, and compliance obligations for higher education institutions' },
-        { name: 'Workforce & Employment Policy', description: 'Impact on faculty hiring, employment regulations, and visa policies in the higher education sector' },
-        { name: 'Public-Private Partnerships', description: 'Impact on academic-industry collaboration and economic development initiatives' },
-        { name: 'Institutional Accessibility', description: 'Impact on educational access, affordability, and inclusion across diverse student populations' },
-        { name: 'Academic Freedom & Curriculum', description: 'Impact on instructional policy, academic freedom, and curriculum requirements' }
+        { name: 'Regulatory Compliance', description: 'Impact on regulatory requirements, federal reporting mandates, certifications, and compliance obligations for higher education institutions' },
+        { name: 'Labor & Employment', description: 'Impact on faculty/staff hiring, employment law, union relations, compensation, and workforce policies in higher education' },
+        { name: 'Public-Private Partnerships', description: 'Impact on academic-industry collaboration, technology transfer, and economic development initiatives' },
+        { name: 'Institutional Accessibility', description: 'Impact on educational access, affordability, and inclusion across diverse student populations and institution types' },
+        { name: 'Academic Freedom & Curriculum', description: 'Impact on instructional policy, academic freedom, and curriculum requirements across different institutional contexts' },
+        { name: 'Immigration & International Programs', description: 'Impact on international student/scholar visas, study abroad, global partnerships, and academic mobility' },
+        { name: 'Diversity, Equity & Inclusion', description: 'Impact on institutional diversity initiatives, civil rights compliance, and inclusion efforts across higher education' }
       ];
       
       for (const area of universityImpactAreas) {
@@ -183,12 +185,14 @@ async function initializeReferenceData() {
         { name: 'Education', description: 'Related to education policy, learning, and academic programs' },
         { name: 'Finance', description: 'Related to financial regulations, funding, and economic policy' },
         { name: 'Healthcare', description: 'Related to healthcare, public health, and medical research' },
-        { name: 'Research', description: 'Related to research initiatives, methodology, and priorities' },
-        { name: 'Immigration', description: 'Related to immigration policy, visas, and international students' },
-        { name: 'National Security', description: 'Related to national security, defense, and safety' },
-        { name: 'Diversity', description: 'Related to diversity, equity, inclusion, and accessibility' },
+        { name: 'Research & Science Policy', description: 'Related to research initiatives, scientific methodology, funding priorities, and federal science policy' },
+        { name: 'Immigration', description: 'Related to immigration policy, international student/scholar visas, and academic mobility' },
+        { name: 'National Security', description: 'Related to national security, defense, sensitive research, and export controls' },
+        { name: 'Diversity, Equity & Inclusion', description: 'Related to diversity, equity, inclusion, civil rights, and accessibility initiatives' },
         { name: 'Environment', description: 'Related to environmental protection, climate, and sustainability' },
-        { name: 'Industry', description: 'Related to industry partnerships, business, and economic development' }
+        { name: 'Industry', description: 'Related to industry partnerships, business, and economic development' },
+        { name: 'Labor & Employment', description: 'Related to workforce regulations, employment law, labor relations, and compensation policies' },
+        { name: 'Regulatory Compliance', description: 'Related to federal reporting requirements, administrative mandates, and compliance frameworks' }
       ];
       
       for (const category of categories) {

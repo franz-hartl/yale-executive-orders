@@ -202,6 +202,44 @@ async function generateMultiLevelSummaries(order) {
       - Long-term Vision: How this fits into evolving higher education landscape
       - Advocacy Opportunities: Potential for institutional input on implementation
       
+      KEY DOMAINS TO ANALYZE (where applicable):
+      
+      1. RESEARCH FUNDING & SCIENCE POLICY
+      - Identify specific impacts on federal research grant processes, funding priorities, or research security
+      - Note any changes to proposal requirements, compliance documentation, or award terms
+      - Analyze implications for different types of research institutions (R1, R2, primarily undergraduate)
+      - Indicate how this order might interact with federal science agency policies (NIH, NSF, DOE, etc.)
+      
+      2. DIVERSITY, EQUITY & INCLUSION
+      - Analyze impacts on institutional DEI initiatives, civil rights compliance, and inclusion efforts
+      - Identify any changes to federal requirements, restrictions, or incentives around DEI programs
+      - Note implications for institutional statements, policies, curriculum, or staffing
+      - Consider impacts on institutional climate and student success initiatives
+      
+      3. IMMIGRATION & INTERNATIONAL PROGRAMS
+      - Identify effects on international student/scholar visas, recruitment, and enrollment
+      - Analyze impacts on study abroad, faculty exchanges, and global research partnerships
+      - Note compliance requirements related to international students/scholars
+      - Consider implications for international collaboration and academic mobility
+      
+      4. LABOR & EMPLOYMENT
+      - Analyze impacts on faculty/staff hiring, compensation, benefits, and employment conditions
+      - Identify changes to labor relations, union organizing, or collective bargaining
+      - Note implications for federal contractor requirements, wage standards, or working conditions
+      - Consider differential impacts on adjunct/contingent faculty vs. tenure-track positions
+      
+      5. REGULATORY COMPLIANCE
+      - Highlight specific reporting requirements, certifications, or documentation mandates
+      - Identify deadlines, implementation timelines, and enforcement mechanisms
+      - Analyze potential compliance costs, risks of non-compliance, and audit implications
+      - Note any potential conflicts with state laws, accreditation requirements, or institutional missions
+      
+      CROSS-DOMAIN IMPACTS (always analyze):
+      - Identify how impacts in one domain (e.g., immigration) might affect another (e.g., research funding)
+      - Note any contradictions or conflicts between different requirements in the order
+      - Analyze how resource-constrained institutions might prioritize competing compliance demands
+      - Consider implications for public vs. private, large vs. small, and research vs. teaching institutions
+      
       WRITING GUIDELINES:
       - Maintain consistent formatting and structure across all three versions
       - Ensure each summary contains only the appropriate level of detail for its length
@@ -279,7 +317,20 @@ async function generateMultiLevelSummaries(order) {
       {
         model: "claude-3-opus-20240229",
         max_tokens: 4000,
-        system: "You are an expert in higher education administration with expertise in regulatory compliance, finance, operations, and government affairs. Your role is to translate complex executive orders into clear, actionable summaries specifically for higher education administrators. You understand the organizational structure of research universities, how federal regulations impact university operations, and the practical steps required for implementation. Your summaries balance thoroughness with clarity and are tailored to different stakeholder needs and time constraints.",
+        system: "You are an expert in higher education administration with specialized expertise in five key policy domains: (1) Research Funding & Science Policy, (2) Diversity, Equity & Inclusion, (3) Immigration & International Programs, (4) Labor & Employment, and (5) Regulatory Compliance. 
+        
+Your role is to translate complex executive orders into clear, actionable summaries specifically for higher education administrators. You analyze how federal policies impact institutions of all types - from major research universities to community colleges, public and private institutions, and schools with varying missions and resource levels. 
+
+You deeply understand how executive orders create cross-domain impacts, such as how immigration policies might affect research funding, or how regulatory compliance interacts with DEI initiatives. You explain these interconnections clearly.
+
+For each policy you analyze, you consistently identify:
+1. Specific compliance requirements, deadlines, and documentation mandates
+2. Concrete immediate and longer-term actions institutions must take
+3. Resource implications (budget, personnel, expertise)
+4. How impacts vary across different institution types and contexts
+5. Potential conflicts with state laws, accreditation requirements, or institutional missions
+
+Your summaries maintain a formal, policy briefing tone while remaining accessible. They balance thoroughness with clarity and are carefully tailored to different stakeholder needs and time constraints.",
         messages: [
           {
             role: "user",
