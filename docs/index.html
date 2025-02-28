@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Accessibility styles */
         .user-is-tabbing :focus {
@@ -90,7 +90,7 @@
         }
         
         body {
-            font-family: "Inter", system-ui, -apple-system, sans-serif;
+            font-family: "Open Sans", system-ui, -apple-system, sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.5;
@@ -674,36 +674,29 @@
 </head>
 <body class="min-h-screen">
     <div class="app-container">
-        <!-- Header: Refined Academic Authority design -->
-        <header class="header pt-8 pb-10 mb-10 bg-white" style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEX///////////////////////////////////////////////////////////////////////////////////////////94FlRsAAAAG3RSTlMAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRpjYTYhAAAAPklEQVRIie3LMQEAIAzEsLR/5ylYfzJg4DM3uzk5OTk5Of25FOY85wGvsHLuulkXVo7dx7DiKZx8Yk5OTk4+5gLUhQT3wQRLwQAAAABJRU5ErkJggg=='); background-size: 200px;">
+        <!-- Header: Clean, modern design -->
+        <header class="header pt-5 pb-5 mb-6 bg-white border-b border-gray-200">
             <div class="w-full max-w-6xl mx-auto px-4">
                 <!-- Top content with logo and title -->
-                <div class="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
+                <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-0">
                     <!-- Left side: Logo and title -->
                     <div class="flex-shrink-0 md:w-3/5">
-                        <div class="flex items-center mb-3">
-                            <div class="w-10 h-10 rounded-sm mr-3 bg-accent-blue-primary flex items-center justify-center">
-                                <i class="fas fa-file-alt text-white text-base"></i>
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 rounded-sm mr-3 bg-accent-blue-primary flex items-center justify-center">
+                                <i class="fas fa-file-alt text-white text-sm"></i>
                             </div>
-                            <h1 class="text-2xl md:text-3xl font-semibold tracking-tight" style="font-family: 'Georgia', serif; color: #00356B;">Higher Education Executive Order Tracker</h1>
+                            <h1 class="text-xl md:text-2xl font-semibold tracking-tight text-accent-blue-primary">Higher Education Executive Order Tracker</h1>
                         </div>
-                        <p class="text-text-primary text-base ml-0 md:ml-12 mb-0 font-medium">Powered by AI analysis for university regulatory compliance</p>
+                        <p class="text-text-primary text-sm ml-0 md:ml-11 mb-0">Powered by AI analysis for university regulatory compliance</p>
                     </div>
                     
                     <!-- Right side: Description -->
-                    <div class="md:w-2/5">
-                        <p class="text-text-secondary leading-relaxed text-base" style="font-family: 'Inter', system-ui, sans-serif;">
+                    <div class="md:w-2/5 mt-3 md:mt-1">
+                        <p class="text-text-secondary text-sm">
                             A specialized tool for analyzing Presidential Executive Orders and their potential impacts on higher education institutions, using AI to identify and categorize key policy implications.
                         </p>
                     </div>
                 </div>
-                
-                <!-- Thin decorative rule (university icon removed) -->
-                <div class="relative w-full flex items-center mb-2">
-                    <div class="w-full h-px bg-accent-blue-primary opacity-50"></div>
-                </div>
-                
-                <!-- Secondary description removed for cleaner design -->
             </div>
         </header>
         
