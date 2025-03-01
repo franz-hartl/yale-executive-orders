@@ -623,11 +623,11 @@ async function exportExecutiveOrders() {
       
       // Get impact scoring
       const impactScoring = await dbAll(`
-        SELECT is.*, it.name as institution_type
-        FROM impact_scoring is
-        JOIN institution_types it ON is.institution_type_id = it.id
-        WHERE is.order_id = ?
-        ORDER BY is.composite_score DESC
+        SELECT impact_s.*, it.name as institution_type
+        FROM impact_scoring impact_s
+        JOIN institution_types it ON impact_s.institution_type_id = it.id
+        WHERE impact_s.order_id = ?
+        ORDER BY impact_s.composite_score DESC
       `, [order.id]);
       
       // Format impact scoring for export
