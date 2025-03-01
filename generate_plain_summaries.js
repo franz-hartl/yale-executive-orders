@@ -151,28 +151,39 @@ async function generateMultiLevelSummaries(order) {
       Categories: ${order.categories.join(', ')}
       University Impact Areas: ${order.university_impact_areas.join(', ')}
       
-      YALE UNIVERSITY CONTEXT:
-      Yale is a private R1 research university with unique characteristics that should be considered in your analysis:
-      - Extensive arts and cultural collections (museums, rare book libraries, performance venues)
-      - Strong undergraduate liberal arts focus through Yale College and the residential college system
-      - Major medical enterprise through Yale School of Medicine and Yale New Haven Hospital
-      - Significant global programs and international student/faculty population
-      - Historic legacy as one of America's oldest institutions with unique governance structures
-      - Substantial endowment with specialized investment approach
+      YALE UNIVERSITY STRUCTURE:
+      Yale has a specific organizational structure that should be referenced in your analysis:
+      - Office of the President: Executive leadership
+      - Office of the Provost: Chief academic officer
+      - General Counsel: Legal services
+      - Office of Research Administration: Research grants and compliance
+      - Finance & Administration: Financial management
+      - Human Resources: Employment and workforce
+      - Student Affairs: Student services and residential life
+      - International Affairs: Global initiatives
+      - Yale College: Undergraduate education
+      - Graduate School: Graduate education and research training
+      - Yale School of Medicine: Medical education and clinical practice
+      - Yale Arts & Museums: Arts programs and collections
+      - Athletics: Sports programs
+      
+      YALE'S DISTINCTIVE FEATURES:
+      - Extensive arts and cultural collections (museums, libraries, performance venues)
+      - Residential college system for undergraduates
+      - Yale School of Medicine and Yale New Haven Hospital
+      - Significant international programs and global presence
+      - Historic legacy as one of America's oldest institutions
+      - $41.4 billion endowment with specialized investment approach
       
       Original Summary: ${order.summary || 'Not available'}
       
       Additional Text: ${order.full_text || ''}
       
-      FORMAT YOUR RESPONSE SPECIFICALLY FOR YALE UNIVERSITY, focusing on Yale's key stakeholder groups:
-      - Provost's Office and central administration
-      - Yale College and undergraduate education
-      - Graduate and professional schools
-      - Museums and cultural institutions
-      - School of Medicine and clinical operations
-      - International programs and global initiatives
-      - Athletics and student life
-      - Research administration and compliance
+      FORMAT YOUR RESPONSE EXCLUSIVELY FOR YALE UNIVERSITY, directly referencing Yale's departments:
+      - Be specific to Yale's organizational units, not generic institution types
+      - Identify primary Yale departments responsible for implementation
+      - Highlight specific considerations unique to Yale's structure and operations
+      - Clearly indicate which Yale departments should take action
       
       Format your response as JSON with this structure:
       {
@@ -188,9 +199,10 @@ async function generateMultiLevelSummaries(order) {
             {"area": "Yale Area 2", "description": "Impact details for Yale University"},
             {"area": "Yale Area 3", "description": "Impact details for Yale University"}
           ],
-          "yale_stakeholders": [
-            {"stakeholder": "Primary Yale office", "priority": "High/Medium/Low", "action_required": true/false},
-            {"stakeholder": "Secondary Yale office", "priority": "High/Medium/Low", "action_required": true/false}
+          "yale_departments": [
+            {"department": "Office of the President", "priority": "High/Medium/Low", "action_required": true/false},
+            {"department": "Office of the Provost", "priority": "High/Medium/Low", "action_required": true/false},
+            {"department": "General Counsel", "priority": "High/Medium/Low", "action_required": true/false}
           ],
           "action_needed": "Yes/No with justification for Yale context",
           "important_dates": ["MM/DD/YYYY: description relevant to Yale University"],
@@ -250,10 +262,16 @@ async function generateMultiLevelSummaries(order) {
               "priority_level": "Importance level for Yale administrators"
             }
           ],
-          "affected_yale_units": {
-            "primary_responsibility": ["Yale units with primary responsibility"],
-            "secondary_involvement": ["Yale units with secondary involvement"],
-            "consultation_needed": ["Yale units that should be consulted"]
+          "yale_department_responsibilities": {
+            "primary_responsibility": [
+              {"department": "Office name", "role": "Brief description of responsibility"}
+            ],
+            "secondary_involvement": [
+              {"department": "Office name", "role": "Brief description of involvement"}
+            ],
+            "consultation_needed": [
+              {"department": "Office name", "expertise_needed": "Brief description"}
+            ]
           },
           "implementation_strategy": [
             {

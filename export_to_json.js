@@ -157,109 +157,166 @@ function getSourceAbbreviation(sourceName) {
   return abbreviations[sourceName] || sourceName.split(' ').map(word => word[0]).join('');
 }
 
-// Generate institution-specific guidance based on multiple sources, prioritizing Private R1 Universities
-function generateInstitutionGuidance(order, sources, differentiatedImpacts) {
-  const institutionTypes = Object.keys(differentiatedImpacts || {});
-  const guidance = {};
-  
-  // If no differentiated impacts, create default guidance for Private R1 Universities
-  if (institutionTypes.length === 0) {
-    guidance['Private R1 Universities'] = {
-      relevance_score: calculateRelevanceScore(order, 'Private R1 Universities', {}),
-      action_items: [],
-      exemptions: [],
-      source_considerations: {},
-      isPriority: true
-    };
-    return guidance;
-  }
-  
-  // Define institution type priorities
-  const institutionPriorities = {
-    'Private R1 Universities': 1,
-    'Private R2 Universities': 2,
-    'Public R1 Universities': 3,
-    'Public R2 Universities': 4,
-    'Master\'s Universities': 5,
-    'Baccalaureate Colleges': 6,
-    'Community Colleges': 7,
-    'Specialized Institutions': 8
-  };
-  
-  // Sort institution types by priority
-  const sortedInstitutionTypes = institutionTypes.sort((a, b) => {
-    return (institutionPriorities[a] || 99) - (institutionPriorities[b] || 99);
-  });
-  
-  sortedInstitutionTypes.forEach(instType => {
-    // Initialize guidance object for this institution type
-    guidance[instType] = {
-      relevance_score: calculateRelevanceScore(order, instType, differentiatedImpacts),
-      action_items: [],
-      exemptions: [],
-      source_considerations: {},
-      isPriority: instType === 'Private R1 Universities'
+// Generate simplified Yale-specific guidance based on multiple sources
+async function generateYaleGuidance(order, sources) {
+  try {
+    // Get all Yale departments
+    const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY);
+    const departments = await dbAll.call(db, 'SELECT * FROM yale_departments ORDER BY name');
+    
+    // Get all Yale impact areas with mapping to departments
+    const yaleImpactAreas = await dbAll.call(
+      db, 
+      `SELECT * FROM yale_impact_areas WHERE id IN 
+       (SELECT yale_impact_area_id FROM order_yale_impact_areas WHERE order_id = ?)`,
+      [order.id]
+    );
+    
+    // Get Yale compliance actions
+    const complianceActions = await dbAll.call(
+      db,
+      `SELECT * FROM yale_compliance_actions WHERE order_id = ? ORDER BY deadline`,
+      [order.id]
+    );
+    
+    // Get Yale impact mapping
+    const impactMapping = await dbAll.call(
+      db,
+      `SELECT * FROM yale_impact_mapping WHERE order_id = ? ORDER BY impact_score DESC`,
+      [order.id]
+    );
+    
+    // Create simplified source insights
+    const sourceInsights = {
+      key_takeaways: [],
+      implementation_references: [],
+      resource_links: []
     };
     
-    // Add source-specific guidance
-    sources.forEach(source => {
-      if (!source.specificData) return;
+    // Process sources to extract valuable information without institution variations
+    for (const source of sources) {
+      if (!source.specificData) continue;
       
       const sourceData = source.specificData;
       const sourceAbbrev = getSourceAbbreviation(source.source_name);
       
-      // Extract guidance from source data
-      let sourceGuidance = [];
-      
+      // Extract implementation references if available
       if (sourceData.implementation_references) {
         sourceData.implementation_references.forEach(ref => {
-          if (ref.institution_specific_guidance && ref.institution_specific_guidance[instType]) {
-            sourceGuidance.push({
-              title: ref.title || 'Implementation Reference',
-              guidance: ref.institution_specific_guidance[instType],
-              url: ref.url || null
+          // Add to implementation references
+          sourceInsights.implementation_references.push({
+            title: ref.title || `${sourceAbbrev} Implementation Reference`,
+            url: ref.url || null,
+            source: sourceAbbrev,
+            date: ref.date || ref.deadline_date || null,
+            description: ref.context || ref.description || null
+          });
+          
+          // Add any resource links
+          if (ref.url) {
+            sourceInsights.resource_links.push({
+              title: ref.title || `${sourceAbbrev} Resource`,
+              url: ref.url,
+              source: sourceAbbrev
             });
           }
           
-          // Check for exemptions
-          if (ref.exemptions && ref.exemptions.includes(instType)) {
-            guidance[instType].exemptions.push({
+          // Extract key takeaways
+          if (ref.context || ref.description) {
+            sourceInsights.key_takeaways.push({
               source: sourceAbbrev,
-              description: `Exemption noted in ${ref.title || 'implementation reference'}`
-            });
-          }
-          
-          // Check for action items
-          if (ref.action_items) {
-            ref.action_items.forEach(item => {
-              if (!item.institution_type || item.institution_type === instType) {
-                guidance[instType].action_items.push({
-                  title: item.title,
-                  description: item.description,
-                  deadline: item.deadline || null,
-                  source: sourceAbbrev
-                });
-              }
+              content: ref.context || ref.description,
+              url: ref.url || null
             });
           }
         });
       }
-      
-      // Add this source's considerations
-      if (sourceGuidance.length > 0) {
-        guidance[instType].source_considerations[sourceAbbrev] = sourceGuidance;
-      }
-    });
+    }
     
-    // De-duplicate action items
-    guidance[instType].action_items = deduplicateActionItems(guidance[instType].action_items);
-  });
-  
-  return guidance;
+    // Structure for Yale-specific guidance
+    const guidance = {
+      yale_university: {
+        relevance_score: calculateYaleRelevanceScore(order, impactMapping),
+        affected_departments: [],
+        primary_departments: [],
+        secondary_departments: [],
+        action_items: [],
+        compliance_actions: complianceActions,
+        impact_areas: yaleImpactAreas,
+        source_insights: sourceInsights
+      }
+    };
+    
+    // Determine affected departments based on impact mapping
+    if (impactMapping.length > 0) {
+      // Map department IDs to names and add to affected departments
+      for (const mapping of impactMapping) {
+        const dept = departments.find(d => d.id === mapping.yale_department_id);
+        if (dept) {
+          // Add to appropriate list based on priority
+          if (mapping.priority_level === 'High' || mapping.impact_score >= 7) {
+            guidance.yale_university.primary_departments.push({
+              id: dept.id,
+              name: dept.name,
+              impact_score: mapping.impact_score,
+              description: dept.description,
+              impact_description: mapping.impact_description,
+              action_required: mapping.action_required === 1
+            });
+          } else {
+            guidance.yale_university.secondary_departments.push({
+              id: dept.id,
+              name: dept.name,
+              impact_score: mapping.impact_score,
+              description: dept.description,
+              impact_description: mapping.impact_description,
+              action_required: mapping.action_required === 1
+            });
+          }
+          
+          // Add to complete list of affected departments
+          guidance.yale_university.affected_departments.push(dept.name);
+        }
+      }
+    } else {
+      // If no impact mapping exists yet, use impact areas to determine likely affected departments
+      for (const area of yaleImpactAreas) {
+        if (area.primary_yale_department_id) {
+          const dept = departments.find(d => d.id === area.primary_yale_department_id);
+          if (dept && !guidance.yale_university.affected_departments.includes(dept.name)) {
+            guidance.yale_university.affected_departments.push(dept.name);
+            guidance.yale_university.primary_departments.push({
+              id: dept.id,
+              name: dept.name,
+              description: dept.description,
+              impact_description: `Primary department for ${area.name}`,
+              action_required: true
+            });
+          }
+        }
+      }
+    }
+    
+    // Process compliance actions to create action items
+    guidance.yale_university.action_items = complianceActions.map(action => ({
+      title: action.title,
+      description: action.description,
+      deadline: action.deadline,
+      department: departments.find(d => d.id === action.yale_department_id)?.name || 'Yale University',
+      required: action.required === 1,
+      resource_requirement: action.resource_requirement,
+      complexity_level: action.complexity_level
+    }));
+    
+    return guidance;
+  } catch (err) {
+    console.error('Error generating Yale guidance:', err);
+    return { yale_university: { relevance_score: 5, affected_departments: [], action_items: [] } };
+  }
 }
 
-// Calculate relevance score for an institution type
-function calculateRelevanceScore(order, instType, differentiatedImpacts) {
+// Calculate relevance score specifically for Yale
+function calculateYaleRelevanceScore(order, impactMapping) {
   let score = 0;
   
   // Consider impact level
@@ -270,13 +327,11 @@ function calculateRelevanceScore(order, instType, differentiatedImpacts) {
   else if (impactLevel === 'Low') score += 2;
   else score += 1;
   
-  // Consider differentiated impacts
-  const impacts = differentiatedImpacts[instType] || {};
-  const impactScores = Object.values(impacts).map(i => i.score || 0);
-  
-  if (impactScores.length > 0) {
+  // Consider Yale-specific impact mapping
+  if (impactMapping && impactMapping.length > 0) {
+    const impactScores = impactMapping.map(m => m.impact_score || 0);
     const avgImpactScore = impactScores.reduce((sum, score) => sum + score, 0) / impactScores.length;
-    score += avgImpactScore;
+    score += (avgImpactScore / 2); // Weight it so it doesn't overwhelm the base score
   }
   
   // Normalize to 1-10 scale
@@ -307,48 +362,18 @@ function deduplicateActionItems(actionItems) {
   return uniqueItems;
 }
 
-// Generate integrated source-aware impact analysis
+// Generate simplified source-aware impact analysis
 function generateSourceAwareImpactAnalysis(order, sources, universityImpactAreas) {
   const impactAnalysis = {};
   
-  // Initialize with primary university impact areas - prioritize those most relevant to Private R1s
-  const priorityOrder = [
-    "Research Funding & Security",
-    "Advanced Research Programs",
-    "International Collaboration",
-    "Endowment Management", 
-    "Graduate Education",
-    "Public-Private Partnerships",
-    "Administrative Compliance"
-  ];
-  
-  // First add R1-specific impact areas in priority order
-  priorityOrder.forEach(areaName => {
-    const area = universityImpactAreas.find(a => a.name === areaName);
-    if (area) {
-      impactAnalysis[area.name] = {
-        description: area.description,
-        notes: area.notes || null,
-        source_insights: {},
-        consensus_rating: 'Neutral',
-        perspectives: [],
-        isPriority: true
-      };
-    }
-  });
-  
-  // Then add any remaining areas
+  // First initialize all university impact areas
   universityImpactAreas.forEach(area => {
-    if (!impactAnalysis[area.name]) {
-      impactAnalysis[area.name] = {
-        description: area.description,
-        notes: area.notes || null,
-        source_insights: {},
-        consensus_rating: 'Neutral',
-        perspectives: [],
-        isPriority: false
-      };
-    }
+    impactAnalysis[area.name] = {
+      description: area.description,
+      notes: area.notes || null,
+      source_insights: [],
+      consensus_rating: 'Neutral'
+    };
   });
   
   // Add source-specific insights
@@ -364,28 +389,22 @@ function generateSourceAwareImpactAnalysis(order, sources, universityImpactAreas
         if (ref.impact_areas) {
           Object.keys(ref.impact_areas).forEach(areaName => {
             if (!impactAnalysis[areaName]) {
-              // If this is a new impact area not in our primary list, add it
+              // If this is a new impact area not in our list, add it
               impactAnalysis[areaName] = {
                 description: null,
                 notes: null,
-                source_insights: {},
-                consensus_rating: 'Neutral',
-                perspectives: []
+                source_insights: [],
+                consensus_rating: 'Neutral'
               };
             }
             
-            // Add this source's perspective
-            impactAnalysis[areaName].source_insights[sourceAbbrev] = {
+            // Add this source's insight
+            impactAnalysis[areaName].source_insights.push({
+              source: sourceAbbrev,
+              name: source.source_name,
               impact: ref.impact_areas[areaName].impact || 'Neutral',
               description: ref.impact_areas[areaName].description || null,
               url: ref.url || null
-            };
-            
-            // Add to perspectives list
-            impactAnalysis[areaName].perspectives.push({
-              source: sourceAbbrev,
-              impact: ref.impact_areas[areaName].impact || 'Neutral',
-              insight: ref.impact_areas[areaName].description || null
             });
           });
         }
@@ -393,34 +412,26 @@ function generateSourceAwareImpactAnalysis(order, sources, universityImpactAreas
     }
   });
   
-  // Calculate consensus ratings
+  // Calculate simple consensus ratings
   Object.keys(impactAnalysis).forEach(areaName => {
-    const perspectives = impactAnalysis[areaName].perspectives;
+    const insights = impactAnalysis[areaName].source_insights;
     
-    if (perspectives.length > 0) {
-      // Calculate consensus
-      const impactRatings = {
-        'Positive': 0,
-        'Negative': 0,
-        'Neutral': 0,
-        'Mixed': 0
-      };
+    if (insights.length > 0) {
+      // Count impact ratings
+      const impactCounts = { 'Positive': 0, 'Negative': 0, 'Neutral': 0, 'Mixed': 0 };
       
-      perspectives.forEach(p => {
-        if (impactRatings[p.impact] !== undefined) {
-          impactRatings[p.impact]++;
-        } else {
-          impactRatings['Neutral']++;
-        }
+      insights.forEach(insight => {
+        const impact = insight.impact || 'Neutral';
+        impactCounts[impact] = (impactCounts[impact] || 0) + 1;
       });
       
-      // Determine consensus
+      // Find most common rating
       let maxRating = 'Neutral';
       let maxCount = 0;
       
-      Object.keys(impactRatings).forEach(rating => {
-        if (impactRatings[rating] > maxCount) {
-          maxCount = impactRatings[rating];
+      Object.entries(impactCounts).forEach(([rating, count]) => {
+        if (count > maxCount) {
+          maxCount = count;
           maxRating = rating;
         }
       });
@@ -432,14 +443,13 @@ function generateSourceAwareImpactAnalysis(order, sources, universityImpactAreas
   return impactAnalysis;
 }
 
-// Generate combined analysis section from multiple sources
+// Generate simplified combined analysis section from multiple sources
 function generateCombinedAnalysis(order, sources) {
   // Base analysis from the order itself
   let combinedAnalysis = {
     summary: order.summary || "",
     extended_analysis: order.comprehensive_analysis || "",
-    source_contributions: {},
-    key_perspectives: []
+    source_insights: []
   };
   
   // Add source-specific analyses
@@ -449,32 +459,20 @@ function generateCombinedAnalysis(order, sources) {
     const sourceData = source.specificData;
     const sourceAbbrev = getSourceAbbreviation(source.source_name);
     
-    let sourceAnalysis = null;
-    let sourceURL = null;
-    
-    // Extract analysis from implementation references
+    // Extract insights from implementation references
     if (sourceData.implementation_references && sourceData.implementation_references.length > 0) {
-      const mainRef = sourceData.implementation_references[0]; // Use the first reference as primary
-      sourceAnalysis = mainRef.analysis || mainRef.context || null;
-      sourceURL = mainRef.url || null;
-    }
-    
-    // If we have analysis from this source, add it
-    if (sourceAnalysis) {
-      combinedAnalysis.source_contributions[sourceAbbrev] = {
-        text: sourceAnalysis,
-        url: sourceURL
-      };
-      
-      // Add to key perspectives if substantive
-      if (sourceAnalysis.length > 100) {
-        combinedAnalysis.key_perspectives.push({
-          source: sourceAbbrev,
-          summary: sourceAnalysis.substring(0, 150) + "...",
-          full_text: sourceAnalysis,
-          url: sourceURL
-        });
-      }
+      sourceData.implementation_references.forEach(ref => {
+        const analysis = ref.analysis || ref.context || null;
+        if (analysis) {
+          combinedAnalysis.source_insights.push({
+            source: sourceAbbrev,
+            name: source.source_name,
+            title: ref.title || `${sourceAbbrev} Analysis`,
+            text: analysis,
+            url: ref.url || null
+          });
+        }
+      });
     }
   });
   
@@ -672,8 +670,8 @@ async function exportExecutiveOrders() {
         ORDER BY ir.resource_type, ir.title
       `, [order.id]);
       
-      // Generate enhanced source-integrated data
-      const institutionGuidance = generateInstitutionGuidance(order, sourcesWithParsedData, formattedImpacts);
+      // Generate Yale-specific data
+      const yaleGuidance = await generateYaleGuidance(order, sourcesWithParsedData);
       const sourceAwareImpactAnalysis = generateSourceAwareImpactAnalysis(order, sourcesWithParsedData, universityImpactAreas);
       const combinedAnalysis = generateCombinedAnalysis(order, sourcesWithParsedData);
       
@@ -700,11 +698,11 @@ async function exportExecutiveOrders() {
           ...(hasPlainSummary ? ['standard'] : []),
           ...(hasComprehensiveAnalysis ? ['comprehensive'] : [])
         ],
-        // Enhanced source integration fields
+        // Simplified source integration
         sources: normalizedSources,
-        institution_specific_guidance: institutionGuidance,
-        source_aware_impact_analysis: sourceAwareImpactAnalysis,
-        integrated_analysis: combinedAnalysis
+        yale_guidance: yaleGuidance,
+        simplified_impact_analysis: sourceAwareImpactAnalysis,
+        simplified_source_analysis: combinedAnalysis
       };
     }));
     
@@ -918,14 +916,15 @@ async function exportSystemInfo() {
     `);
     
     const systemInfo = {
-      topicName: 'Private R1 University Executive Order Analysis',
-      topicDescription: 'Analysis of executive orders and their impact on private R1 research universities',
+      topicName: 'Yale University Executive Order Analysis',
+      topicDescription: 'Analysis of executive orders and their impact on Yale University',
       orderCount: orderCount,
-      version: '1.3.0', // Increment version for the Private R1 focus
+      version: '2.0.0', // Yale-specific focus version
       lastUpdated: new Date().toISOString(),
       isStaticVersion: true,
-      notes: 'Refocused export prioritizing private R1 research universities with specialized impact analysis',
-      primaryFocus: 'Private R1 Universities',
+      notes: 'Streamlined version focused exclusively on Yale University organizational structure and impact areas',
+      primaryFocus: 'Yale University',
+      yaleDepartments: await dbAll('SELECT * FROM yale_departments ORDER BY name'),
       externalSources: sources.map(source => ({
         name: source.source_name,
         abbreviation: getSourceAbbreviation(source.source_name),
@@ -1017,16 +1016,16 @@ async function exportMetadata(categories, impactAreas, universityImpactAreas) {
       externalSources: formattedSources,
       institutionTypes,
       functionalAreas,
-      applicationVersion: '1.3.0',
+      applicationVersion: '2.0.0',
       primaryFocus: 'Yale University',
-      featuredInstitutionTypes: ['Private R1 Universities', 'Yale-Specific Context'],
-      sourceIntegrationVersion: '1.2.0',
+      featuredInstitutionTypes: ['Yale University'],
+      sourceIntegrationVersion: '2.0.0',
       sourceIntegrationFeatures: [
-        'Normalized Source Attribution',
-        'Combined Analysis Section',
-        'Institution-Specific Guidance',
-        'Source-Attributed Impact Areas',
-        'Yale-Specific Context Layer'
+        'Simplified Source Integration',
+        'Yale Department Structure',
+        'Yale-Specific Impact Areas',
+        'Yale Department Mapping',
+        'Yale Compliance Workflow'
       ],
       specializedFocusAreas: [
         'Research Funding & Security',
@@ -1036,10 +1035,11 @@ async function exportMetadata(categories, impactAreas, universityImpactAreas) {
         'Graduate Education',
         'Arts & Cultural Heritage',
         'Medical & Clinical Operations',
-        'Yale College Experience'
+        'Yale College Experience',
+        'Athletics & Student Activities'
       ],
       yaleSpecificFocus: true,
-      yaleFocusVersion: '1.0.0'
+      yaleFocusVersion: '2.0.0'
     };
     
     const outputPath = path.join(outputDir, 'metadata.json');

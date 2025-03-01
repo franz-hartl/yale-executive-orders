@@ -179,105 +179,81 @@ async function createTables() {
       )
     `);
     
-    // Create institution type tables
+    // Create Yale department tables
     await dbRun(`
-      CREATE TABLE IF NOT EXISTS institution_types (
+      CREATE TABLE IF NOT EXISTS yale_departments (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT UNIQUE,
-        description TEXT
+        description TEXT,
+        contact_info TEXT,
+        parent_department_id INTEGER NULL,
+        FOREIGN KEY (parent_department_id) REFERENCES yale_departments(id)
       )
     `);
     
-    // Create functional area tables
+    // Create Yale impact mapping tables
     await dbRun(`
-      CREATE TABLE IF NOT EXISTS functional_areas (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT UNIQUE,
-        description TEXT
-      )
-    `);
-    
-    // Create differentiated impact tables
-    await dbRun(`
-      CREATE TABLE IF NOT EXISTS differentiated_impacts (
+      CREATE TABLE IF NOT EXISTS yale_impact_mapping (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         order_id INTEGER,
-        institution_type_id INTEGER,
-        functional_area_id INTEGER,
+        yale_department_id INTEGER,
         impact_score INTEGER,
         impact_description TEXT,
-        compliance_requirements TEXT,
+        action_required BOOLEAN DEFAULT 0,
+        priority_level TEXT,
         resource_implications TEXT,
         FOREIGN KEY (order_id) REFERENCES executive_orders(id),
-        FOREIGN KEY (institution_type_id) REFERENCES institution_types(id),
-        FOREIGN KEY (functional_area_id) REFERENCES functional_areas(id)
+        FOREIGN KEY (yale_department_id) REFERENCES yale_departments(id)
       )
     `);
     
-    // Create compliance timeline tables
+    // Create Yale compliance timeline tables
     await dbRun(`
-      CREATE TABLE IF NOT EXISTS compliance_timelines (
+      CREATE TABLE IF NOT EXISTS yale_compliance_timelines (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         order_id INTEGER,
-        institution_type_id INTEGER,
+        yale_department_id INTEGER,
         deadline_date TEXT,
         requirement TEXT,
         optional INTEGER DEFAULT 0,
         notes TEXT,
         FOREIGN KEY (order_id) REFERENCES executive_orders(id),
-        FOREIGN KEY (institution_type_id) REFERENCES institution_types(id)
+        FOREIGN KEY (yale_department_id) REFERENCES yale_departments(id)
       )
     `);
     
-    // Create composite scoring table
+    // Create Yale-specific compliance actions table
     await dbRun(`
-      CREATE TABLE IF NOT EXISTS impact_scoring (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        order_id INTEGER,
-        institution_type_id INTEGER,
-        composite_score REAL,
-        urgency_score INTEGER,
-        resource_intensity_score INTEGER,
-        calculation_notes TEXT,
-        modifying_factors TEXT,
-        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
-        FOREIGN KEY (institution_type_id) REFERENCES institution_types(id)
-      )
-    `);
-    
-    // Create compliance actions table
-    await dbRun(`
-      CREATE TABLE IF NOT EXISTS compliance_actions (
+      CREATE TABLE IF NOT EXISTS yale_compliance_actions (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         order_id INTEGER,
         title TEXT NOT NULL,
         description TEXT,
         deadline TEXT,
-        responsible_party TEXT,
+        yale_department_id INTEGER,
         status TEXT DEFAULT 'Pending',
-        institution_type_id INTEGER,
-        required_for_all INTEGER DEFAULT 1,
+        required INTEGER DEFAULT 1,
         resource_requirement TEXT,
         complexity_level TEXT,
         FOREIGN KEY (order_id) REFERENCES executive_orders(id),
-        FOREIGN KEY (institution_type_id) REFERENCES institution_types(id)
+        FOREIGN KEY (yale_department_id) REFERENCES yale_departments(id)
       )
     `);
     
-    // Create implementation resources table
+    // Create Yale implementation resources table
     await dbRun(`
-      CREATE TABLE IF NOT EXISTS implementation_resources (
+      CREATE TABLE IF NOT EXISTS yale_implementation_resources (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         order_id INTEGER,
         resource_type TEXT,
         title TEXT,
         description TEXT,
         url TEXT,
-        institution_type_id INTEGER,
-        functional_area_id INTEGER,
+        yale_department_id INTEGER,
+        yale_impact_area_id INTEGER,
         FOREIGN KEY (order_id) REFERENCES executive_orders(id),
-        FOREIGN KEY (institution_type_id) REFERENCES institution_types(id),
-        FOREIGN KEY (functional_area_id) REFERENCES functional_areas(id)
+        FOREIGN KEY (yale_department_id) REFERENCES yale_departments(id),
+        FOREIGN KEY (yale_impact_area_id) REFERENCES yale_impact_areas(id)
       )
     `);
     
@@ -399,43 +375,96 @@ async function initializeReferenceData() {
           [area.name, area.description]);
       }
       
-      // Insert institution types (prioritizing Private R1 institutions)
-      const institutionTypes = [
-        { name: 'Private R1 Universities', description: 'Private doctoral universities with very high research activity (annual research expenditures >$100M)', priority: 1 },
-        { name: 'Private R2 Universities', description: 'Private doctoral universities with high research activity (annual research expenditures $50M-$100M)', priority: 2 },
-        { name: 'Public R1 Universities', description: 'Public doctoral universities with very high research activity (annual research expenditures >$100M)', priority: 3 },
-        { name: 'Public R2 Universities', description: 'Public doctoral universities with high research activity (annual research expenditures $50M-$100M)', priority: 4 },
-        { name: 'Master\'s Universities', description: 'Institutions awarding at least 50 master\'s degrees annually but fewer doctoral degrees', priority: 5 },
-        { name: 'Baccalaureate Colleges', description: 'Institutions where baccalaureate degrees represent at least 50% of all degrees awarded', priority: 6 },
-        { name: 'Community Colleges', description: 'Associate\'s degree-granting institutions with primarily 2-year programs', priority: 7 },
-        { name: 'Specialized Institutions', description: 'Institutions focused on specific fields (medical schools, art schools, etc.)', priority: 8 }
+      // Insert Yale departments
+      const yaleDepartments = [
+        { 
+          name: 'Office of the President',
+          description: 'Executive leadership of Yale University',
+          contact_info: 'president@yale.edu',
+          parent_department_id: null
+        },
+        { 
+          name: 'Office of the Provost',
+          description: 'Chief academic officer responsible for all academic policies and activities',
+          contact_info: 'provost@yale.edu',
+          parent_department_id: null
+        },
+        { 
+          name: 'General Counsel',
+          description: 'Legal services for Yale University',
+          contact_info: 'general.counsel@yale.edu',
+          parent_department_id: null
+        },
+        { 
+          name: 'Office of Research Administration',
+          description: 'Oversight for research grants, compliance, and research activities',
+          contact_info: 'research.administration@yale.edu',
+          parent_department_id: 2 // Reports to Provost
+        },
+        { 
+          name: 'Finance & Administration',
+          description: 'Financial management and administrative operations',
+          contact_info: 'finance@yale.edu',
+          parent_department_id: null
+        },
+        { 
+          name: 'Human Resources',
+          description: 'Employment, benefits, and workforce management',
+          contact_info: 'human.resources@yale.edu',
+          parent_department_id: 5 // Reports to Finance & Admin
+        },
+        { 
+          name: 'Student Affairs',
+          description: 'Student services, support, and residential life',
+          contact_info: 'student.affairs@yale.edu',
+          parent_department_id: null
+        },
+        { 
+          name: 'International Affairs',
+          description: 'International programs, partnerships, and global initiatives',
+          contact_info: 'international@yale.edu',
+          parent_department_id: 2 // Reports to Provost
+        },
+        { 
+          name: 'Yale College',
+          description: 'Undergraduate education and residential colleges',
+          contact_info: 'yale.college@yale.edu',
+          parent_department_id: 2 // Reports to Provost
+        },
+        { 
+          name: 'Graduate School of Arts & Sciences',
+          description: 'Graduate education and research training',
+          contact_info: 'graduate.school@yale.edu',
+          parent_department_id: 2 // Reports to Provost
+        },
+        { 
+          name: 'Yale School of Medicine',
+          description: 'Medical education, research, and clinical practice',
+          contact_info: 'medicine@yale.edu',
+          parent_department_id: 2 // Reports to Provost
+        },
+        { 
+          name: 'Yale Arts & Museums',
+          description: 'Arts programs, museums, and cultural collections',
+          contact_info: 'arts@yale.edu',
+          parent_department_id: 2 // Reports to Provost
+        },
+        { 
+          name: 'Athletics',
+          description: 'Sports programs and physical education',
+          contact_info: 'athletics@yale.edu',
+          parent_department_id: 7 // Reports to Student Affairs
+        }
       ];
       
-      for (const type of institutionTypes) {
-        await dbRun('INSERT INTO institution_types (name, description) VALUES (?, ?)', 
-          [type.name, type.description]);
+      for (const dept of yaleDepartments) {
+        await dbRun(
+          'INSERT INTO yale_departments (name, description, contact_info, parent_department_id) VALUES (?, ?, ?, ?)', 
+          [dept.name, dept.description, dept.contact_info, dept.parent_department_id]
+        );
       }
       
-      // Insert functional areas
-      const functionalAreas = [
-        { name: 'Research Operations', description: 'Functions related to research administration, grants management, and research conduct' },
-        { name: 'Academic Programs', description: 'Functions related to curriculum, instruction, and academic management' },
-        { name: 'Student Aid & Financing', description: 'Functions related to financial aid, scholarships, and student financing' },
-        { name: 'International Programs', description: 'Functions related to international students, study abroad, and global partnerships' },
-        { name: 'Diversity Initiatives', description: 'Functions related to DEI, civil rights compliance, and inclusion programs' },
-        { name: 'Regulatory Compliance', description: 'Functions related to federal and state regulatory requirements' },
-        { name: 'Workforce & Employment', description: 'Functions related to faculty/staff employment, labor relations, and HR' },
-        { name: 'Public-Private Partnerships', description: 'Functions related to industry collaboration and external partnerships' },
-        { name: 'Administrative Operations', description: 'Functions related to institutional management and daily operations' },
-        { name: 'Financial Operations', description: 'Functions related to institutional finance, accounting, and budget' },
-        { name: 'Legal Affairs', description: 'Functions related to legal compliance and risk management' },
-        { name: 'Technology Infrastructure', description: 'Functions related to IT systems, data management, and digital resources' }
-      ];
-      
-      for (const area of functionalAreas) {
-        await dbRun('INSERT INTO functional_areas (name, description) VALUES (?, ?)', 
-          [area.name, area.description]);
-      }
+      console.log(`Imported ${yaleDepartments.length} Yale departments`);
       
       console.log('Reference data initialized successfully');
     } else {
