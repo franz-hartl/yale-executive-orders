@@ -1,0 +1,151 @@
+/**
+ * Yale Component Library - Accessibility
+ * Accessibility enhancements and utilities
+ */
+
+/* Focus Visible Support */
+.user-is-tabbing :focus {
+  outline: 3px solid var(--yale-blue-light) !important;
+  outline-offset: 2px !important;
+}
+
+.user-is-tabbing :focus:not(.yale-btn):not(.yale-btn--primary):not(.yale-btn--secondary):not(.yale-btn--outline):not(.yale-tab-button) {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* For WCAG 2.1 keyboard focus - ensures focus indicators are visible */
+*:focus-visible {
+  outline: 3px solid var(--yale-blue-light);
+  outline-offset: 2px;
+}
+
+/* Screen Reader Only - Proper ARIA support */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Show only for screen readers and keyboard users */
+.sr-only-focusable:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip Links - For keyboard navigation */
+.yale-skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--yale-blue);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.2s ease;
+}
+
+.yale-skip-link:focus {
+  top: 0;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .yale-modal__content {
+    animation: none !important;
+  }
+  
+  .yale-toast {
+    animation: none !important;
+  }
+}
+
+/* High Contrast Mode Adjustments */
+@media (forced-colors: active) {
+  .yale-btn--primary {
+    border: 1px solid transparent;
+  }
+  
+  .yale-card,
+  .yale-accordion,
+  .yale-modal__content {
+    border: 1px solid CanvasText;
+  }
+  
+  .yale-table th {
+    background-color: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+  }
+  
+  .yale-badge,
+  .yale-badge--critical,
+  .yale-badge--high,
+  .yale-badge--medium,
+  .yale-badge--low {
+    border: 1px solid CanvasText;
+  }
+}
+
+/* Accessibility Utility Classes */
+.yale-a11y-contrast-high {
+  color: var(--text-primary) !important;
+  background-color: white !important;
+}
+
+.yale-a11y-text-zoom {
+  font-size: 1.2em !important;
+}
+
+/* Increase Form Control Touch Targets */
+.yale-a11y-touch-target input[type="checkbox"],
+.yale-a11y-touch-target input[type="radio"],
+.yale-a11y-touch-target .yale-checkbox-control,
+.yale-a11y-touch-target .yale-radio-control {
+  min-width: 24px;
+  min-height: 24px;
+}
+
+/* Improved Keyboard Focus Styles */
+.yale-a11y-focus-enhanced :focus {
+  outline: 4px solid var(--yale-blue-light) !important;
+  outline-offset: 4px !important;
+}
+
+/* Accessible Line Height */
+.yale-a11y-line-height {
+  line-height: 1.8 !important;
+}
+
+/* Accessible Font Size */
+.yale-a11y-font-base {
+  font-size: 1rem !important;
+}
+
+.yale-a11y-font-large {
+  font-size: 1.2rem !important;
+}
+
+.yale-a11y-font-xl {
+  font-size: 1.4rem !important;
+}

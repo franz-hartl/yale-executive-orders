@@ -1,0 +1,329 @@
+/**
+ * Yale Component Library - Notifications
+ * Toast notifications, alerts, and loading indicators
+ */
+
+/* Toast Container */
+.yale-toast-container {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 24rem;
+  width: calc(100% - 2rem);
+  pointer-events: none;
+}
+
+/* Toast Notification Base */
+.yale-toast {
+  border-radius: var(--radius-base);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  pointer-events: auto;
+  animation: toastEnter 0.3s ease-in-out;
+}
+
+@keyframes toastEnter {
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.yale-toast--exiting {
+  animation: toastExit 0.3s ease-in-out forwards;
+}
+
+@keyframes toastExit {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(1rem); }
+}
+
+/* Toast Variants */
+.yale-toast--success {
+  background-color: #f0f9f1;
+  border: 1px solid #c6e9c9;
+}
+
+.yale-toast--error {
+  background-color: #fef1f1;
+  border: 1px solid #fcd5d5;
+}
+
+.yale-toast--info {
+  background-color: #f0f5ff;
+  border: 1px solid #d0e1fd;
+}
+
+.yale-toast--warning {
+  background-color: #fffbeb;
+  border: 1px solid #fef3c7;
+}
+
+/* Toast Content */
+.yale-toast__content {
+  padding: 1rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.yale-toast__icon {
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  font-size: 1.25rem;
+}
+
+.yale-toast--success .yale-toast__icon {
+  color: #2e7d32;
+}
+
+.yale-toast--error .yale-toast__icon {
+  color: #c62828;
+}
+
+.yale-toast--info .yale-toast__icon {
+  color: #0277bd;
+}
+
+.yale-toast--warning .yale-toast__icon {
+  color: #f57c00;
+}
+
+.yale-toast__body {
+  flex-grow: 1;
+}
+
+.yale-toast__title {
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+.yale-toast--success .yale-toast__title {
+  color: #1b5e20;
+}
+
+.yale-toast--error .yale-toast__title {
+  color: #b71c1c;
+}
+
+.yale-toast--info .yale-toast__title {
+  color: #01579b;
+}
+
+.yale-toast--warning .yale-toast__title {
+  color: #e65100;
+}
+
+.yale-toast__message {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.yale-toast__close {
+  margin-left: 0.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.yale-toast__close:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: var(--text-primary);
+}
+
+/* Alert Component */
+.yale-alert {
+  border-radius: var(--radius-base);
+  padding: 1rem;
+  border: 1px solid transparent;
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: flex-start;
+}
+
+.yale-alert--success {
+  background-color: #f0f9f1;
+  border-color: #c6e9c9;
+  color: #1b5e20;
+}
+
+.yale-alert--error {
+  background-color: #fef1f1;
+  border-color: #fcd5d5;
+  color: #b71c1c;
+}
+
+.yale-alert--info {
+  background-color: #f0f5ff;
+  border-color: #d0e1fd;
+  color: #01579b;
+}
+
+.yale-alert--warning {
+  background-color: #fffbeb;
+  border-color: #fef3c7;
+  color: #e65100;
+}
+
+.yale-alert__icon {
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  font-size: 1.25rem;
+}
+
+.yale-alert__content {
+  flex-grow: 1;
+}
+
+.yale-alert__title {
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+.yale-alert__message {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.yale-alert__close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: currentColor;
+  opacity: 0.7;
+  padding: 0;
+  margin-left: 0.75rem;
+  flex-shrink: 0;
+}
+
+.yale-alert__close:hover {
+  opacity: 1;
+}
+
+/* Loading Indicators */
+.yale-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-lg);
+}
+
+.yale-loading--overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 100;
+}
+
+.yale-loading--container {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.yale-loading__spinner {
+  border: 3px solid rgba(0, 53, 107, 0.1);
+  border-radius: 50%;
+  border-top: 3px solid var(--yale-blue);
+  width: 2rem;
+  height: 2rem;
+  animation: yale-spin 1s linear infinite;
+}
+
+.yale-loading__spinner--sm {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-width: 2px;
+}
+
+.yale-loading__spinner--lg {
+  width: 3rem;
+  height: 3rem;
+  border-width: 4px;
+}
+
+@keyframes yale-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.yale-loading__text {
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* Inline Loading */
+.yale-loading-inline {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.yale-loading-inline__spinner {
+  border: 2px solid rgba(0, 53, 107, 0.1);
+  border-radius: 50%;
+  border-top: 2px solid var(--yale-blue);
+  width: 1rem;
+  height: 1rem;
+  animation: yale-spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+/* Progress Bar */
+.yale-progress {
+  width: 100%;
+  height: 0.5rem;
+  background-color: var(--background-tertiary);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.yale-progress__bar {
+  height: 100%;
+  background-color: var(--yale-blue);
+  transition: width 0.3s ease;
+}
+
+.yale-progress--success .yale-progress__bar {
+  background-color: var(--status-green);
+}
+
+.yale-progress--warning .yale-progress__bar {
+  background-color: var(--status-amber);
+}
+
+.yale-progress--error .yale-progress__bar {
+  background-color: var(--status-red);
+}
+
+.yale-progress--indeterminate .yale-progress__bar {
+  width: 50% !important;
+  animation: yale-progress-indeterminate 1.5s infinite ease-in-out;
+  transform-origin: 0% 50%;
+}
+
+@keyframes yale-progress-indeterminate {
+  0% { transform: translateX(-100%); }
+  60% { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}

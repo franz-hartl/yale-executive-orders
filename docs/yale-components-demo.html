@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yale Component Library Demo</title>
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  
+  <!-- Yale Component Library CSS -->
+  <link rel="stylesheet" href="css/yale-components.css">
+  
+  <style>
+    /* Demo page specific styles */
+    .demo-section {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    
+    .demo-title {
+      margin-bottom: 1.5rem;
+    }
+    
+    .color-swatch {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-base);
+      margin-bottom: 0.5rem;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="yale-skip-link">Skip to main content</a>
+  
+  <!-- Header -->
+  <header class="yale-header">
+    <div class="yale-container">
+      <div class="yale-header__inner">
+        <div class="yale-header__logo-container">
+          <div class="yale-header__logo">
+            <i class="fas fa-university"></i>
+          </div>
+          <h1 class="yale-header__title">Yale Component Library</h1>
+        </div>
+        <div class="yale-header__description">
+          <p class="yale-text-sm yale-text-secondary">A comprehensive UI component system based on Yale design principles</p>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Main Content -->
+  <main id="main-content" class="yale-container yale-py-lg" tabindex="-1">
+    <section class="demo-section">
+      <h2 class="demo-title">Colors & Typography</h2>
+      
+      <!-- Color Swatches -->
+      <div class="yale-grid yale-md-grid-cols-4 yale-gap-md">
+        <div>
+          <div class="color-swatch" style="background-color: var(--yale-blue);">Yale Blue</div>
+          <p class="yale-text-sm">#00356B</p>
+        </div>
+        <div>
+          <div class="color-swatch" style="background-color: var(--yale-blue-light);">Yale Blue Light</div>
+          <p class="yale-text-sm">#286DC0</p>
+        </div>
+        <div>
+          <div class="color-swatch" style="background-color: var(--yale-blue-dark);">Yale Blue Dark</div>
+          <p class="yale-text-sm">#0A3161</p>
+        </div>
+        <div>
+          <div class="color-swatch" style="background-color: var(--yale-accent);">Yale Accent</div>
+          <p class="yale-text-sm">#BD5319</p>
+        </div>
+      </div>
+      
+      <!-- Typography -->
+      <div class="yale-mt-xl">
+        <h3 class="yale-mb-md">Typography</h3>
+        <h1>Heading 1 - Open Sans</h1>
+        <h2>Heading 2 - Open Sans</h2>
+        <h3>Heading 3 - Open Sans</h3>
+        <h4>Heading 4 - Open Sans</h4>
+        <h5>Heading 5 - Open Sans</h5>
+        <h6>Heading 6 - Open Sans</h6>
+        <p>Regular paragraph text - Open Sans. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis risus eget urna mollis ornare vel eu leo.</p>
+        <p><a href="#" class="yale-link">This is a text link</a></p>
+      </div>
+    </section>
+    
+    <!-- Buttons Section -->
+    <section class="demo-section">
+      <h2 class="demo-title">Buttons</h2>
+      
+      <div class="yale-grid yale-gap-md">
+        <div>
+          <h3 class="yale-h4 yale-mb-sm">Button Variants</h3>
+          <button class="yale-btn yale-btn--primary yale-mr-sm">Primary Button</button>
+          <button class="yale-btn yale-btn--secondary yale-mr-sm">Secondary Button</button>
+          <button class="yale-btn yale-btn--outline yale-mr-sm">Outline Button</button>
+          <button class="yale-btn yale-btn--text">Text Button</button>
+        </div>
+        
+        <div class="yale-mt-md">
+          <h3 class="yale-h4 yale-mb-sm">Button Sizes</h3>
+          <button class="yale-btn yale-btn--primary yale-btn--sm yale-mr-sm">Small</button>
+          <button class="yale-btn yale-btn--primary yale-mr-sm">Medium</button>
+          <button class="yale-btn yale-btn--primary yale-btn--lg">Large</button>
+        </div>
+        
+        <div class="yale-mt-md">
+          <h3 class="yale-h4 yale-mb-sm">Buttons with Icons</h3>
+          <button class="yale-btn yale-btn--primary yale-mr-sm">
+            <i class="fas fa-save yale-btn__icon--left"></i>
+            Save
+          </button>
+          <button class="yale-btn yale-btn--secondary yale-mr-sm">
+            Download
+            <i class="fas fa-download yale-btn__icon--right"></i>
+          </button>
+          <button class="yale-btn yale-btn--outline yale-btn--icon-only" aria-label="Settings">
+            <i class="fas fa-cog"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Cards Section -->
+    <section class="demo-section">
+      <h2 class="demo-title">Cards</h2>
+      
+      <div class="yale-grid yale-md-grid-cols-3 yale-gap-lg">
+        <!-- Standard Card -->
+        <div class="yale-card">
+          <div class="yale-card__header">
+            <h3 class="yale-card__title">Card Title</h3>
+            <p class="yale-card__subtitle">Card subtitle or description</p>
+          </div>
+          <div class="yale-card__body">
+            <p>This is a standard card with header, body, and footer sections. Cards are versatile containers for displaying content.</p>
+          </div>
+          <div class="yale-card__footer">
+            <button class="yale-btn yale-btn--primary">Action</button>
+          </div>
+        </div>
+        
+        <!-- Filter Card -->
+        <div class="yale-filter-card">
+          <div class="yale-filter-card__header">
+            <h3 class="yale-filter-card__title">Filter Controls</h3>
+          </div>
+          <div class="yale-filter-card__body">
+            <div class="yale-form-group">
+              <label for="demo-select" class="yale-form-label">Category</label>
+              <select id="demo-select" class="yale-select">
+                <option>All Categories</option>
+                <option>Research</option>
+                <option>Administration</option>
+                <option>Student Services</option>
+              </select>
+            </div>
+            <div class="yale-form-group">
+              <label for="demo-search" class="yale-form-label">Search</label>
+              <div class="yale-search">
+                <input id="demo-search" type="text" class="yale-input yale-search__input" placeholder="Search...">
+                <i class="fas fa-search yale-search__icon"></i>
+              </div>
+            </div>
+          </div>
+          <div class="yale-filter-card__footer">
+            <button class="yale-btn yale-btn--outline">Reset</button>
+          </div>
+        </div>
+        
+        <!-- Stat Card -->
+        <div class="yale-stat-card">
+          <div class="yale-stat-card__title">Total Orders</div>
+          <div class="yale-stat-card__value">1,024</div>
+          <div class="yale-stat-card__subtitle">Up 12% from last month</div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Forms Section -->
+    <section class="demo-section">
+      <h2 class="demo-title">Form Elements</h2>
+      
+      <div class="yale-grid yale-md-grid-cols-2 yale-gap-lg">
+        <!-- Text Inputs -->
+        <div>
+          <h3 class="yale-h4 yale-mb-md">Text Inputs</h3>
+          
+          <div class="yale-form-group">
+            <label for="text-input" class="yale-form-label">Text Input</label>
+            <input id="text-input" type="text" class="yale-input" placeholder="Enter text...">
+            <p class="yale-form-help-text">Helper text for the input field</p>
+          </div>
+          
+          <div class="yale-form-group">
+            <label for="text-input-error" class="yale-form-label yale-form-label--required">Required Input</label>
+            <input id="text-input-error" type="text" class="yale-input yale-input--error" value="Invalid value">
+            <p class="yale-form-error">This field is required</p>
+          </div>
+          
+          <div class="yale-form-group">
+            <label for="textarea" class="yale-form-label">Textarea</label>
+            <textarea id="textarea" class="yale-textarea" rows="3" placeholder="Enter multiple lines..."></textarea>
+          </div>
+        </div>
+        
+        <!-- Selects and Checkboxes -->
+        <div>
+          <h3 class="yale-h4 yale-mb-md">Select & Checkboxes</h3>
+          
+          <div class="yale-form-group">
+            <label for="select" class="yale-form-label">Select Dropdown</label>
+            <select id="select" class="yale-select">
+              <option>Option 1</option>
+              <option>Option 2</option>
+              <option>Option 3</option>
+            </select>
+          </div>
+          
+          <div class="yale-form-group">
+            <div class="yale-checkbox-group">
+              <div class="yale-checkbox-wrapper">
+                <input type="checkbox" id="checkbox1" class="yale-checkbox">
+                <span class="yale-checkbox-control"></span>
+                <label for="checkbox1" class="yale-checkbox-label">Option One</label>
+              </div>
+              <div class="yale-checkbox-wrapper">
+                <input type="checkbox" id="checkbox2" class="yale-checkbox" checked>
+                <span class="yale-checkbox-control"></span>
+                <label for="checkbox2" class="yale-checkbox-label">Option Two (checked)</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="yale-form-group">
+            <div class="yale-radio-group">
+              <div class="yale-radio-wrapper">
+                <input type="radio" id="radio1" name="radio-group" class="yale-radio">
+                <span class="yale-radio-control"></span>
+                <label for="radio1" class="yale-radio-label">Radio Option One</label>
+              </div>
+              <div class="yale-radio-wrapper">
+                <input type="radio" id="radio2" name="radio-group" class="yale-radio" checked>
+                <span class="yale-radio-control"></span>
+                <label for="radio2" class="yale-radio-label">Radio Option Two (selected)</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Tables Section -->
+    <section class="demo-section">
+      <h2 class="demo-title">Tables</h2>
+      
+      <div class="yale-table-wrapper">
+        <table class="yale-table">
+          <thead>
+            <tr>
+              <th class="yale-table__sort-header">
+                ID
+                <span class="yale-table__sort-icon">
+                  <i class="fas fa-sort"></i>
+                </span>
+              </th>
+              <th class="yale-table__sort-header">
+                Name
+                <span class="yale-table__sort-icon">
+                  <i class="fas fa-sort"></i>
+                </span>
+              </th>
+              <th>Department</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>001</td>
+              <td>John Smith</td>
+              <td>Administration</td>
+              <td>
+                <span class="yale-badge yale-badge--low">Active</span>
+              </td>
+              <td>
+                <button class="yale-btn yale-btn--sm yale-btn--outline">View</button>
+              </td>
+            </tr>
+            <tr>
+              <td>002</td>
+              <td>Jane Doe</td>
+              <td>Research</td>
+              <td>
+                <span class="yale-badge yale-badge--medium">Pending</span>
+              </td>
+              <td>
+                <button class="yale-btn yale-btn--sm yale-btn--outline">View</button>
+              </td>
+            </tr>
+            <tr>
+              <td>003</td>
+              <td>Robert Johnson</td>
+              <td>Student Services</td>
+              <td>
+                <span class="yale-badge yale-badge--high">Inactive</span>
+              </td>
+              <td>
+                <button class="yale-btn yale-btn--sm yale-btn--outline">View</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- Badges & Tags Section -->
+    <section class="demo-section">
+      <h2 class="demo-title">Badges & Tags</h2>
+      
+      <div class="yale-grid yale-gap-lg">
+        <!-- Badges -->
+        <div>
+          <h3 class="yale-h4 yale-mb-md">Impact Badges</h3>
+          <div class="yale-flex yale-flex-wrap yale-gap-sm">
+            <span class="yale-badge yale-badge--critical">Critical</span>
+            <span class="yale-badge yale-badge--high">High</span>
+            <span class="yale-badge yale-badge--medium">Medium</span>
+            <span class="yale-badge yale-badge--low">Low</span>
+          </div>
+        </div>
+        
+        <!-- Badge Variants -->
+        <div class="yale-mt-md">
+          <h3 class="yale-h4 yale-mb-md">Badge Variants</h3>
+          <div class="yale-flex yale-flex-wrap yale-gap-sm">
+            <span class="yale-badge yale-badge--primary">Primary</span>
+            <span class="yale-badge yale-badge--secondary">Secondary</span>
+            <span class="yale-badge yale-badge--outline">Outline</span>
+            <span class="yale-badge yale-badge--primary yale-badge--sm">Small</span>
+            <span class="yale-badge yale-badge--primary yale-badge--lg">Large</span>
+          </div>
+        </div>
+        
+        <!-- Tags -->
+        <div class="yale-mt-md">
+          <h3 class="yale-h4 yale-mb-md">Tags</h3>
+          <div class="yale-tag-group">
+            <span class="yale-tag">Default Tag</span>
+            <span class="yale-tag yale-tag--primary">Primary</span>
+            <span class="yale-tag yale-tag--secondary">Secondary</span>
+            <span class="yale-tag yale-tag--accent">Accent</span>
+            <span class="yale-tag yale-tag--removable">
+              Removable
+              <span class="yale-tag__remove">×</span>
+            </span>
+            <span class="yale-tag">
+              <i class="fas fa-user yale-tag__icon"></i>
+              With Icon
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Interactive Components Section -->
+    <section class="demo-section">
+      <h2 class="demo-title">Interactive Components</h2>
+      
+      <!-- Tabs -->
+      <div class="yale-mt-lg">
+        <h3 class="yale-h4 yale-mb-md">Tabs</h3>
+        
+        <div class="yale-tabs-wrapper">
+          <div class="yale-tabs" data-tabs-animate="true">
+            <div class="yale-tabs__nav">
+              <button id="tab-1" class="yale-tab-button yale-tab-button--active" data-tab-target="tab-content-1">
+                First Tab
+              </button>
+              <button id="tab-2" class="yale-tab-button" data-tab-target="tab-content-2">
+                <i class="fas fa-chart-bar yale-tab-button__icon"></i>
+                Second Tab
+              </button>
+              <button id="tab-3" class="yale-tab-button" data-tab-target="tab-content-3">
+                Third Tab
+              </button>
+            </div>
+            
+            <div id="tab-content-1" class="yale-tab-content">
+              <p>This is the content for the first tab. Tabs are used to organize content into different sections that can be displayed one at a time.</p>
+            </div>
+            
+            <div id="tab-content-2" class="yale-tab-content yale-tab-content--hidden">
+              <p>This is the content for the second tab. This tab has an icon in its button.</p>
+            </div>
+            
+            <div id="tab-content-3" class="yale-tab-content yale-tab-content--hidden">
+              <p>This is the content for the third tab. The tabs component is fully accessible and supports keyboard navigation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Accordion -->
+      <div class="yale-mt-lg">
+        <h3 class="yale-h4 yale-mb-md">Accordion</h3>
+        
+        <div class="yale-accordion">
+          <div class="yale-accordion__item">
+            <button class="yale-accordion__button" aria-expanded="false">
+              <span>Accordion Section 1</span>
+              <span class="yale-accordion__icon"></span>
+            </button>
+            <div class="yale-accordion__content">
+              <p>This is the content for section 1. Accordions are useful for showing and hiding content to save space.</p>
+            </div>
+          </div>
+          
+          <div class="yale-accordion__item">
+            <button class="yale-accordion__button" aria-expanded="false">
+              <span>Accordion Section 2</span>
+              <span class="yale-accordion__icon"></span>
+            </button>
+            <div class="yale-accordion__content">
+              <p>This is the content for section 2. The accordion component supports opening multiple sections at once or just one at a time.</p>
+            </div>
+          </div>
+          
+          <div class="yale-accordion__item">
+            <button class="yale-accordion__button" aria-expanded="false">
+              <span>Accordion Section 3</span>
+              <span class="yale-accordion__icon"></span>
+            </button>
+            <div class="yale-accordion__content">
+              <p>This is the content for section 3. Accordions are fully accessible and support keyboard navigation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Modal -->
+      <div class="yale-mt-lg">
+        <h3 class="yale-h4 yale-mb-md">Modal</h3>
+        
+        <button class="yale-btn yale-btn--primary" data-modal-open="demo-modal">Open Modal</button>
+        
+        <!-- Modal Dialog -->
+        <div id="demo-modal" class="yale-modal__backdrop yale-modal__backdrop--hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <div class="yale-modal__content">
+            <div class="yale-modal__header">
+              <h2 id="modal-title" class="yale-modal__title">Modal Title</h2>
+              <button class="yale-modal__close" data-modal-close aria-label="Close modal">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            
+            <div class="yale-modal__body">
+              <p>This is the content of the modal dialog. Modals are used to display content that requires user attention or interaction.</p>
+              <p>They're useful for forms, confirmations, and detailed information that doesn't need to be visible all the time.</p>
+            </div>
+            
+            <div class="yale-modal__footer">
+              <div class="yale-modal__buttons yale-modal__buttons--end">
+                <button class="yale-btn yale-btn--outline" data-modal-close>Cancel</button>
+                <button class="yale-btn yale-btn--primary">Confirm</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Toasts -->
+      <div class="yale-mt-lg">
+        <h3 class="yale-h4 yale-mb-md">Toast Notifications</h3>
+        
+        <div class="yale-flex yale-gap-sm">
+          <button id="show-success-toast" class="yale-btn yale-btn--outline">Show Success Toast</button>
+          <button id="show-error-toast" class="yale-btn yale-btn--outline">Show Error Toast</button>
+          <button id="show-info-toast" class="yale-btn yale-btn--outline">Show Info Toast</button>
+          <button id="show-warning-toast" class="yale-btn yale-btn--outline">Show Warning Toast</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="yale-footer yale-py-lg">
+    <div class="yale-container">
+      <div class="yale-flex yale-flex-col yale-md-flex-row yale-justify-between yale-items-center">
+        <div class="yale-text-sm yale-text-secondary">
+          Yale Component Library - for Yale Executive Orders Analysis
+        </div>
+        <div class="yale-mt-sm yale-md-mt-0">
+          <a href="#main-content" class="yale-btn yale-btn--outline yale-btn--sm">Back to Top</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Yale Component Library JS -->
+  <script src="js/yale-components/accessibility.js"></script>
+  <script src="js/yale-components/tabs.js"></script>
+  <script src="js/yale-components/accordion.js"></script>
+  <script src="js/yale-components/modal.js"></script>
+  <script src="js/yale-components/toast.js"></script>
+  
+  <script>
+    // Initialize all components
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize accessibility enhancements
+      const accessibility = initYaleAccessibility();
+      
+      // Initialize tabs
+      initYaleTabs();
+      
+      // Initialize accordions
+      initYaleAccordion();
+      
+      // Initialize modals
+      const modal = initYaleModal();
+      
+      // Initialize toasts
+      const toast = initYaleToast();
+      
+      // Set up toast demo buttons
+      document.getElementById('show-success-toast').addEventListener('click', () => {
+        toast.success('Operation completed successfully', {
+          title: 'Success',
+          duration: 3000
+        });
+      });
+      
+      document.getElementById('show-error-toast').addEventListener('click', () => {
+        toast.error('An error occurred', {
+          title: 'Error',
+          duration: 3000
+        });
+      });
+      
+      document.getElementById('show-info-toast').addEventListener('click', () => {
+        toast.info('Here is some helpful information', {
+          title: 'Information',
+          duration: 3000
+        });
+      });
+      
+      document.getElementById('show-warning-toast').addEventListener('click', () => {
+        toast.warning('Please be aware of this warning', {
+          title: 'Warning',
+          duration: 3000
+        });
+      });
+    });
+  </script>
+</body>
+</html>

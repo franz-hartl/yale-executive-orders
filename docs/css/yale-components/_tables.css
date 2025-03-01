@@ -1,0 +1,216 @@
+/**
+ * Yale Component Library - Tables
+ * Table styles for data display
+ */
+
+/* Table Wrapper */
+.yale-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-base);
+  box-shadow: var(--card-shadow);
+}
+
+/* Base Table */
+.yale-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: var(--card-shadow);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+}
+
+/* Table Header */
+.yale-table thead th {
+  background-color: var(--yale-blue);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: white;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Table Body */
+.yale-table tbody td {
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+  color: var(--text-primary);
+  background-color: white;
+}
+
+.yale-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.yale-table tbody tr:hover td {
+  background-color: var(--background-secondary);
+}
+
+/* Table with Zebra Striping */
+.yale-table--striped tbody tr:nth-child(odd) td {
+  background-color: var(--background-secondary);
+}
+
+.yale-table--striped tbody tr:hover td {
+  background-color: var(--background-tertiary);
+}
+
+/* Bordered Table */
+.yale-table--bordered th,
+.yale-table--bordered td {
+  border: 1px solid var(--border-light);
+}
+
+/* Compact Table */
+.yale-table--compact thead th {
+  padding: 0.5rem 0.75rem;
+}
+
+.yale-table--compact tbody td {
+  padding: 0.75rem;
+}
+
+/* Table Column Alignment */
+.yale-table .yale-text-left {
+  text-align: left;
+}
+
+.yale-table .yale-text-center {
+  text-align: center;
+}
+
+.yale-table .yale-text-right {
+  text-align: right;
+}
+
+/* Sortable Headers */
+.yale-table__sort-header {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.yale-table__sort-header:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.yale-table__sort-icon {
+  display: inline-block;
+  margin-left: 0.25rem;
+  opacity: 0.5;
+  transition: opacity var(--transition-standard);
+}
+
+.yale-table__sort-header:hover .yale-table__sort-icon {
+  opacity: 1;
+}
+
+.yale-table__sort-header--asc .yale-table__sort-icon {
+  transform: rotate(180deg);
+}
+
+/* Responsive Table */
+@media (max-width: 767px) {
+  .yale-table--responsive thead {
+    display: none;
+  }
+  
+  .yale-table--responsive,
+  .yale-table--responsive tbody,
+  .yale-table--responsive tr,
+  .yale-table--responsive td {
+    display: block;
+    width: 100%;
+  }
+  
+  .yale-table--responsive tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-base);
+    overflow: hidden;
+  }
+  
+  .yale-table--responsive td {
+    display: flex;
+    padding: 0.5rem 1rem;
+  }
+  
+  .yale-table--responsive td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    width: 40%;
+    margin-right: 5%;
+  }
+  
+  .yale-table--responsive td:not(:last-child) {
+    border-bottom: 1px solid var(--border-light);
+  }
+}
+
+/* Empty State */
+.yale-table__empty {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.yale-table__empty-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+.yale-table__empty-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.yale-table__empty-message {
+  font-size: 0.875rem;
+}
+
+/* Loading State */
+.yale-table__loading {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.yale-table__loading-spinner {
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid rgba(0, 53, 107, 0.2);
+  border-radius: 50%;
+  border-top-color: var(--yale-blue);
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Table Caption */
+.yale-table caption {
+  caption-side: top;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: var(--yale-blue);
+  text-align: left;
+  background-color: white;
+  border: 1px solid var(--border-light);
+  border-bottom: none;
+  border-top-left-radius: var(--radius-base);
+  border-top-right-radius: var(--radius-base);
+}

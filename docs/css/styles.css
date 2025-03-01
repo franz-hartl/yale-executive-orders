@@ -1,708 +1,145 @@
 /**
  * Yale Executive Orders Tracker - Main Stylesheet
  *
- * This file contains all styles for the Executive Order Tracker application.
- * Styles are organized into logical sections and follow Yale's design guidelines.
+ * This file contains styles for the Executive Order Tracker application.
+ * It integrates the Yale Component Library with application-specific styles.
  */
 
-/* =========================================================================
-   COLOR VARIABLES AND THEMING
-   ========================================================================= */
-
-:root {
-    /* Yale Official Colors */
-    --yale-blue: #00356B; /* Official Yale Blue (PMS 648C equivalent) */
-    --yale-blue-light: #286DC0; /* Higher intensity blue (PMS 660 equivalent) */
-    --yale-blue-dark: #0A3161; /* Lower intensity blue (PMS 654 equivalent) */
-    --yale-gray: #A6A6A6; /* Yale's Warm Gray (PMS Warm Gray 7 equivalent) */
-    
-    /* Core Color Palette - Using Yale colors with light mode */
-    --bg-primary: #FFFFFF; /* White background - Yale's primary background color */
-    --bg-secondary: #F5F7FA; /* Light gray/blue background for secondary elements */
-    --bg-tertiary: #EDF2F7; /* Slightly darker background for tertiary elements */
-    --accent-blue-primary: var(--yale-blue);
-    --accent-blue-secondary: var(--yale-blue-light);
-    --accent-amber-primary: #BD5319; /* Yale's complementary accent color */
-    --accent-amber-secondary: #F8C23E; /* Brighter yellow for contrast */
-    
-    /* Status Colors - WCAG 2.1 compliant with good contrast ratio */
-    --status-green: #2E7D32; /* 4.5:1 contrast ratio against light backgrounds */
-    --status-amber: #BD5319; /* Yale's complementary accent color */
-    --status-red: #C62828; /* 4.5:1 contrast ratio against light backgrounds */
-    --status-low: rgba(46, 125, 50, 0.95);
-    --status-medium: rgba(189, 83, 25, 0.95); /* Using Yale complementary */
-    --status-high: rgba(198, 40, 40, 0.95);
-    --status-critical: rgba(198, 40, 40, 1);
-    
-    /* Text Colors - Enhanced for WCAG 2.1 AA compliance (4.5:1 min contrast ratio) */
-    --text-primary: #212121; /* Dark gray - nearly black (15.6:1 contrast with white) */
-    --text-secondary: #4A5568; /* Medium gray (7.8:1 contrast with white) */
-    --text-muted: #718096; /* Light gray (4.6:1 contrast with white) */
-    --text-highlight: var(--yale-blue); /* Using Yale Blue for highlighted text */
-    
-    /* Border and Shadow - Adjusted for light mode */
-    --border-light: #E2E8F0; /* Light gray border */
-    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Lighter shadow for light mode */
-    --card-depth: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06); /* Subtle depth for cards */
-    
-    /* Interaction - Enhanced for accessibility */
-    --hover-overlay: rgba(0, 53, 107, 0.05); /* Yale blue hover with slight transparency */
-    --active-overlay: rgba(0, 53, 107, 0.1); /* Yale blue active with slight transparency */
-    --focus-ring: 0 0 0 3px rgba(40, 109, 192, 0.5); /* Yale blue light with transparency for focus */
-    
-    /* Animation */
-    --transition-standard: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-enter: 300ms cubic-bezier(0.0, 0, 0.2, 1);
-    --transition-exit: 250ms cubic-bezier(0.4, 0, 1, 1);
-}
+/* Import Yale Component Library */
+@import 'yale-components.css';
 
 /* =========================================================================
-   BASE ELEMENTS
+   APPLICATION-SPECIFIC STYLES
    ========================================================================= */
 
-body {
-    font-family: "Open Sans", system-ui, -apple-system, sans-serif;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    line-height: 1.5;
-    margin: 0;
-    padding: 0;
-    letter-spacing: 0.01em;
-}
-
-/* Typography - Enhanced for mobile and desktop */
-h1, h2, h3, h4, h5, h6 {
-    color: var(--yale-blue); /* Yale blue headers provide strong contrast and match branding */
-    font-weight: 600;
-    margin-top: 0;
-    line-height: 1.3; /* Increased line height for better readability */
-}
-
-/* Mobile-first typography with responsive sizing */
-h1 { font-size: 1.5rem; letter-spacing: -0.01em; }
-h2 { font-size: 1.35rem; letter-spacing: -0.01em; }
-h3 { font-size: 1.2rem; }
-h4 { font-size: 1.1rem; }
-h5 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
-h6 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
-
-/* Desktop typography adjustments */
-@media (min-width: 768px) {
-    h1 { font-size: 1.75rem; }
-    h2 { font-size: 1.5rem; }
-    h3 { font-size: 1.25rem; }
-    h4 { font-size: 1.125rem; }
-    h5 { font-size: 1rem; }
-    h6 { font-size: 0.875rem; }
-}
-
-.text-mono {
-    font-family: "SF Mono", "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace;
-    font-size: 0.9em;
-    letter-spacing: -0.02em;
-}
-
-/* =========================================================================
-   LAYOUT ELEMENTS
-   ========================================================================= */
-
-/* Grid and Layout */
+/* App Container */
 .app-container {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 0.5rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0.5rem;
 }
 
-/* Card Components - Adjusted for light mode */
-.card {
-    background-color: white;
-    border: 1px solid var(--border-light);
-    border-radius: 4px;
-    overflow: hidden;
-    box-shadow: var(--card-shadow);
+/* System Info Bar */
+.system-info-bar {
+  background-color: rgba(0, 53, 107, 0.05);
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border-radius: var(--radius-base);
 }
 
-/* Header & Footer */
-.header {
-    border-bottom: 1px solid var(--border-light);
-    padding: 1rem 0;
-}
-
-.footer {
-    border-top: 1px solid var(--border-light);
-    padding: 1rem 0;
-    color: var(--text-secondary);
-}
-
-/* =========================================================================
-   COMPONENTS - BUTTONS
-   ========================================================================= */
-
-/* Primary Button - Yale Blue */
-.btn-primary {
-    background-color: var(--accent-blue-primary);
-    color: white; /* Always white text on Yale blue for best contrast */
-    border: none;
-    border-radius: 3px;
-    font-weight: 600; /* Increased from 500 for better readability */
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: background-color var(--transition-standard);
-    text-align: center;
-    line-height: 1.2;
-    min-height: 44px; /* Increased from 36px for better touch target size (WCAG 2.1) */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem; /* Ensuring minimum text size for readability */
-}
-
-.btn-primary:hover {
-    background-color: var(--accent-blue-secondary);
-}
-
-.btn-primary:focus {
-    outline: none;
-    box-shadow: var(--focus-ring);
-}
-
-/* Secondary Button - Light Gray */
-.btn-secondary {
-    background-color: var(--bg-tertiary);
-    color: var(--yale-blue); /* Using Yale blue for text color on light backgrounds */
-    border: 1px solid var(--border-light);
-    border-radius: 3px;
-    font-weight: 600; /* Increased from 500 for better readability */
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: all var(--transition-standard);
-    min-height: 44px; /* Increased for WCAG 2.1 touch target size */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem; /* Ensuring minimum text size for readability */
-}
-
-.btn-secondary:hover {
-    background-color: var(--bg-secondary);
-    border-color: var(--yale-blue);
-}
-
-.btn-secondary:focus {
-    outline: none;
-    box-shadow: var(--focus-ring);
-    border-color: var(--yale-blue-light);
-}
-
-/* Outline Button - Bordered */
-.btn-outline {
-    background-color: transparent;
-    color: var(--yale-blue);
-    border: 1px solid var(--yale-blue);
-    border-radius: 3px;
-    font-weight: 600; /* Increased from 500 for better readability */
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: all var(--transition-standard);
-    min-height: 44px; /* Consistent with other buttons */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn-outline:hover {
-    background-color: rgba(0, 53, 107, 0.05); /* Yale blue with low opacity */
-}
-
-.btn-outline:focus {
-    outline: none;
-    box-shadow: var(--focus-ring);
-}
-
-/* Close Button */
-.close-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 3px;
-    background-color: var(--bg-tertiary);
-    color: var(--yale-blue);
-    transition: all var(--transition-standard);
-    border: 1px solid var(--border-light);
-    min-height: auto; /* Override other button min-height */
-}
-
-.close-button:hover {
-    background-color: var(--accent-blue-primary);
-    color: white;
-    border-color: var(--accent-blue-primary);
-}
-
-.close-button:focus {
-    outline: none;
-    box-shadow: var(--focus-ring);
-}
-
-/* =========================================================================
-   COMPONENTS - FORM ELEMENTS
-   ========================================================================= */
-
-/* Inputs - Adjusted for light mode */
-.search-input {
-    background-color: white;
-    border: 1px solid var(--border-light);
-    border-radius: 3px;
-    padding: 0.5rem 1rem;
-    width: 100%;
-    color: var(--text-primary);
-    transition: all var(--transition-standard);
-    min-height: 44px; /* Consistent height for better UX */
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: var(--yale-blue);
-    box-shadow: var(--focus-ring);
-}
-
-.search-input::placeholder {
-    color: var(--text-muted);
-}
-
-/* Selects with custom dropdown arrow */
-.select-input {
-    background-color: white;
-    border: 1px solid var(--border-light);
-    border-radius: 3px;
-    padding: 0.5rem 2rem 0.5rem 0.75rem;
-    color: var(--text-primary);
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2300356B' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-    background-position: right 0.5rem center;
-    background-repeat: no-repeat;
-    background-size: 1.25em 1.25em;
-    transition: all var(--transition-standard);
-    min-height: 44px; /* Consistent height for accessibility */
-}
-
-.select-input:focus {
-    outline: none;
-    border-color: var(--yale-blue);
-    box-shadow: var(--focus-ring);
-}
-
-option {
-    background-color: white;
-    color: var(--text-primary);
-    padding: 0.5rem;
-}
-
-/* =========================================================================
-   COMPONENTS - TABLE
-   ========================================================================= */
-
-/* Data Table - Adjusted for light mode */
-.data-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    box-shadow: var(--card-shadow);
-    border-radius: 4px;
-    overflow: hidden;
+/* Data Table Customizations */
+.data-table .sort-header {
+  cursor: pointer;
 }
 
 .data-table th {
-    background-color: var(--yale-blue);
-    font-weight: 600;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: white; /* White text on Yale blue for best contrast */
-    padding: 0.75rem 1rem;
-    text-align: left;
-    position: sticky;
-    top: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
-.data-table td {
-    padding: 1.25rem 1rem; /* Increased vertical padding for more breathing room */
-    border-bottom: 1px solid var(--border-light);
-    vertical-align: top;
-    color: var(--text-primary);
-    background-color: white; /* Ensuring white background for cells */
-}
-
-.data-table tr:hover td {
-    background-color: var(--bg-secondary);
-}
-
-/* =========================================================================
-   COMPONENTS - STATUS BADGES
-   ========================================================================= */
-
-/* Status Badges - Enhanced for accessibility and mobile */
 .impact-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    padding: 0.35rem 0.8rem; /* Increased for better touch targets */
-    font-size: 0.9rem; /* Increased for better readability on mobile */
-    font-weight: 600; /* Enhanced for better contrast */
-    line-height: 1.3;
-    letter-spacing: 0.02em;
-    min-height: 36px; /* Minimum height for touch targets */
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Detail View Customizations */
+.detail-view .modal-content {
+  max-width: 1000px;
+}
+
+.detail-metadata {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
 }
 
 @media (min-width: 768px) {
-    .impact-badge {
-        padding: 0.25rem 0.7rem;
-        font-size: 0.875rem;
-        min-height: 30px;
-    }
+  .detail-metadata {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Legacy Classes (for backward compatibility) */
+.btn-primary {
+  @extend .yale-btn;
+  @extend .yale-btn--primary;
+}
+
+.btn-secondary {
+  @extend .yale-btn;
+  @extend .yale-btn--secondary;
+}
+
+.btn-outline {
+  @extend .yale-btn;
+  @extend .yale-btn--outline;
+}
+
+.card {
+  @extend .yale-card;
 }
 
 .impact-critical {
-    background-color: var(--status-critical);
-    color: white; /* 11.5:1 contrast ratio - excellent */
-    font-weight: 600; /* Enhanced for readability */
+  @extend .yale-badge;
+  @extend .yale-badge--critical;
 }
 
 .impact-high {
-    background-color: var(--status-high);
-    color: white; /* 9.5:1 contrast ratio - excellent */
-    font-weight: 600; /* Enhanced for readability */
+  @extend .yale-badge;
+  @extend .yale-badge--high;
 }
 
 .impact-medium {
-    background-color: var(--status-medium);
-    color: white; /* Changed to white from dark for better contrast */
-    font-weight: 600; /* Enhanced for readability */
+  @extend .yale-badge;
+  @extend .yale-badge--medium;
 }
 
 .impact-low {
-    background-color: var(--status-low);
-    color: white; /* 7:1 contrast ratio - excellent */
-    font-weight: 600; /* Enhanced for readability */
+  @extend .yale-badge;
+  @extend .yale-badge--low;
 }
 
-/* =========================================================================
-   COMPONENTS - TAGS
-   ========================================================================= */
-
-/* Tag Component */
 .tag {
-    display: inline-flex;
-    align-items: center;
-    background-color: var(--bg-tertiary);
-    color: var(--text-primary);
-    border: 1px solid var(--border-light);
-    border-radius: 4px;
-    padding: 0.3rem 0.6rem;
-    font-size: 0.85rem;
-    font-weight: 500;
-    margin-right: 0.35rem;
-    margin-bottom: 0.35rem;
-    min-height: 32px; /* Better touch target size for mobile */
+  @extend .yale-tag;
 }
 
-@media (min-width: 768px) {
-    .tag {
-        padding: 0.2rem 0.5rem;
-        font-size: 0.75rem;
-        margin-right: 0.25rem;
-        margin-bottom: 0.25rem;
-        min-height: unset;
-    }
-}
-
-/* Yale-specific badge */
-.yale-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 3px;
-    padding: 0.25rem 0.7rem; /* Slightly increased for better readability */
-    font-size: 0.875rem; /* Increased from 0.75rem for better readability */
-    font-weight: 600; /* Increased from 500 for better readability */
-    line-height: 1.2; /* Increased for better readability */
-    letter-spacing: 0.02em;
-}
-
-.yale-tag {
-    display: inline-flex;
-    align-items: center;
-    background-color: var(--bg-tertiary);
-    border: 1px solid var(--border-light);
-    border-radius: 3px;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--text-primary);
-    margin-right: 0.25rem;
-    margin-bottom: 0.25rem;
-}
-
-/* =========================================================================
-   COMPONENTS - MODAL
-   ========================================================================= */
-
-/* Modal Components - Adjusted for light mode */
 .modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 53, 107, 0.5); /* Yale blue with transparency */
-    z-index: 50;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(3px);
-    transition: opacity var(--transition-enter);
-}
-
-.modal-backdrop.hidden {
-    display: none;
+  @extend .yale-modal__backdrop;
 }
 
 .modal-content {
-    width: 95%;
-    max-width: 1000px;
-    max-height: 90vh;
-    overflow-y: auto;
-    z-index: 51;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    border-radius: 8px; /* Slightly increased roundness */
-    background-color: white;
-    border: 1px solid var(--border-light);
-    animation: modalEnter var(--transition-enter);
-}
-
-@keyframes modalEnter {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  @extend .yale-modal__content;
 }
 
 .modal-header {
-    position: sticky;
-    top: 0;
-    background-color: white;
-    z-index: 2;
-    border-bottom: 1px solid var(--border-light);
+  @extend .yale-modal__header;
+}
+
+.modal-body {
+  @extend .yale-modal__body;
 }
 
 .modal-footer {
-    position: sticky;
-    bottom: 0;
-    background-color: white;
-    z-index: 2;
-    border-top: 1px solid var(--border-light);
+  @extend .yale-modal__footer;
 }
 
-/* =========================================================================
-   COMPONENTS - TABS
-   ========================================================================= */
-
-/* Tab Navigation - Improved for accessibility */
 .tab-button {
-    padding: 0.75rem 1rem;
-    font-weight: 600; /* Increased from 500 for better readability */
-    font-size: 0.95rem; /* Specified for consistent sizing */
-    color: var(--text-secondary);
-    border-bottom: 2px solid transparent;
-    transition: all var(--transition-standard);
-    background: transparent;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    cursor: pointer;
-    min-height: 44px; /* Ensures adequate touch target size for WCAG 2.1 */
-    position: relative; /* For focus indicator */
-}
-
-.tab-button:hover {
-    color: var(--text-primary);
-}
-
-.tab-button:focus {
-    outline: none;
-    box-shadow: inset 0 -3px 0 var(--yale-blue-light);
+  @extend .yale-tab-button;
 }
 
 .tab-button.active {
-    color: var(--yale-blue);
-    border-bottom-color: var(--yale-blue);
-    font-weight: 700; /* Increased from 600 for better distinction */
-    background-color: rgba(0, 53, 107, 0.04); /* Very subtle background to highlight active tab */
+  @extend .yale-tab-button--active;
 }
 
-/* =========================================================================
-   COMPONENTS - STATS CARDS
-   ========================================================================= */
-
-/* Stats Cards - Adjusted for light mode */
-.stat-card {
-    background-color: white;
-    border: 1px solid var(--border-light);
-    border-radius: 4px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    box-shadow: var(--card-shadow);
+.tab-content {
+  @extend .yale-tab-content;
 }
 
-.stat-card h3 {
-    color: var(--yale-blue);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.5rem;
-    font-weight: 600; /* Increased from 500 for better visibility */
+.tab-content.hidden {
+  @extend .yale-tab-content--hidden;
 }
 
-.stat-card .value {
-    color: var(--text-primary);
-    font-size: 1.5rem;
-    font-weight: 700; /* Increased from 600 for better emphasis */
-    letter-spacing: -0.02em;
-}
-
-/* =========================================================================
-   COMPONENTS - TOAST NOTIFICATIONS
-   ========================================================================= */
-
-/* Toast Notifications */
-#toast-container {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    z-index: 100;
-}
-
-.animate-fade-in {
-    animation: fadeIn var(--transition-enter);
-}
-
-.opacity-0 {
-    opacity: 0;
-    transition: opacity var(--transition-exit);
-}
-
-/* =========================================================================
-   COMPONENTS - LOADING INDICATORS
-   ========================================================================= */
-
-/* Loading Indicators */
-.loading-indicator {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    color: var(--accent-blue-secondary);
-}
-
-/* =========================================================================
-   UTILITIES
-   ========================================================================= */
-
-/* Animations */
-.animated-fade-in {
-    animation: fadeIn var(--transition-enter);
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Connection Lines */
-.connection-line {
-    stroke: var(--border-light);
-    stroke-width: 1px;
-    fill: none;
-}
-
-/* Data Visualization - Adjusted for light mode */
-.data-visualization {
-    background-color: white;
-    border: 1px solid var(--border-light);
-    border-radius: 4px;
-    overflow: hidden;
-    box-shadow: var(--card-shadow);
-}
-
-/* Screen Reader Only - Proper ARIA support */
 .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
-
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-primary);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--bg-tertiary);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--border-light);
-}
-
-/* =========================================================================
-   ACCESSIBILITY ENHANCEMENTS
-   ========================================================================= */
-
-/* Accessibility styles */
-.user-is-tabbing :focus {
-    outline: 2px solid #2563eb !important;
-    outline-offset: 2px !important;
-}
-
-/* Accessible Focus Styles - Enhanced for WCAG 2.1 compliance */
-.user-is-tabbing :focus:not(.btn-primary):not(.btn-secondary):not(.btn-outline):not(.tab-button) {
-    outline: none;
-    box-shadow: var(--focus-ring);
-}
-
-/* For WCAG 2.1 keyboard focus - ensures focus indicators are visible */
-*:focus-visible {
-    outline: 3px solid var(--yale-blue-light);
-    outline-offset: 2px;
-}
-
-/* =========================================================================
-   RESPONSIVE ADJUSTMENTS
-   ========================================================================= */
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .modal-content {
-        width: 100%;
-        max-height: 100vh;
-        border-radius: 0;
-    }
-    
-    .tab-button {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.875rem;
-    }
+  @extend .sr-only;
 }

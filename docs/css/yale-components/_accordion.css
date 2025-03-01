@@ -1,0 +1,191 @@
+/**
+ * Yale Component Library - Accordion
+ * Collapsible content sections
+ */
+
+/* Accordion Container */
+.yale-accordion {
+  width: 100%;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+
+/* Accordion Item */
+.yale-accordion__item {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.yale-accordion__item:last-child {
+  border-bottom: none;
+}
+
+/* Accordion Button */
+.yale-accordion__button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: white;
+  cursor: pointer;
+  transition: all var(--transition-standard);
+  border: none;
+  text-align: left;
+  font-weight: 600;
+  color: var(--yale-blue);
+  position: relative;
+  min-height: 44px;
+}
+
+.yale-accordion__button:hover {
+  background-color: var(--background-secondary);
+}
+
+.yale-accordion__button:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 3px rgba(40, 109, 192, 0.5);
+}
+
+/* Accordion Button Icon */
+.yale-accordion__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-left: 0.5rem;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.yale-accordion__icon::before,
+.yale-accordion__icon::after {
+  content: "";
+  position: absolute;
+  background-color: currentColor;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.yale-accordion__icon::before {
+  width: 10px;
+  height: 2px;
+}
+
+.yale-accordion__icon::after {
+  height: 10px;
+  width: 2px;
+  transition: transform 0.3s ease;
+}
+
+.yale-accordion__button[aria-expanded="true"] .yale-accordion__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* Accordion Content */
+.yale-accordion__content {
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease;
+  background-color: white;
+}
+
+.yale-accordion__button[aria-expanded="true"] + .yale-accordion__content {
+  padding: 1rem;
+  border-top: 1px solid var(--border-light);
+}
+
+/* Accordion Inner */
+.yale-accordion__inner {
+  padding: 0 1rem 0.5rem 1rem;
+}
+
+/* Accordion Variants */
+.yale-accordion--flush {
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.yale-accordion--flush .yale-accordion__item {
+  border: none;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.yale-accordion--flush .yale-accordion__button {
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.yale-accordion--flush .yale-accordion__button[aria-expanded="true"] + .yale-accordion__content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.yale-accordion--minimal {
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.yale-accordion--minimal .yale-accordion__item {
+  margin-bottom: 0.5rem;
+  border: none;
+}
+
+.yale-accordion--minimal .yale-accordion__button {
+  background-color: var(--background-tertiary);
+  border-radius: var(--radius-base);
+  border: 1px solid var(--border-light);
+}
+
+.yale-accordion--minimal .yale-accordion__button[aria-expanded="true"] {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.yale-accordion--minimal .yale-accordion__button[aria-expanded="true"] + .yale-accordion__content {
+  border: 1px solid var(--border-light);
+  border-top: none;
+  border-bottom-left-radius: var(--radius-base);
+  border-bottom-right-radius: var(--radius-base);
+}
+
+/* Sizes */
+.yale-accordion--sm .yale-accordion__button {
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  min-height: 40px;
+}
+
+.yale-accordion--lg .yale-accordion__button {
+  padding: 1.25rem;
+  font-size: 1.125rem;
+  min-height: 52px;
+}
+
+/* Accordion with Icons */
+.yale-accordion__button-icon {
+  margin-right: 0.75rem;
+  color: inherit;
+  opacity: 0.8;
+}
+
+/* Yale-styled Accordion */
+.yale-accordion--yale .yale-accordion__button {
+  background-color: var(--yale-blue);
+  color: white;
+}
+
+.yale-accordion--yale .yale-accordion__button:hover {
+  background-color: var(--yale-blue-light);
+}
+
+.yale-accordion--yale .yale-accordion__icon::before,
+.yale-accordion--yale .yale-accordion__icon::after {
+  background-color: white;
+}

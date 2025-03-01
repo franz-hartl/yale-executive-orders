@@ -1,0 +1,106 @@
+/**
+ * Yale Component Library - Base Styles
+ * Typography and base element styling
+ */
+
+/* Import Open Sans font */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+/* Base Elements */
+body {
+  font-family: "Open Sans", system-ui, -apple-system, sans-serif;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.01em;
+}
+
+/* Typography - Enhanced for mobile and desktop */
+h1, h2, h3, h4, h5, h6,
+.yale-h1, .yale-h2, .yale-h3, .yale-h4, .yale-h5, .yale-h6 {
+  color: var(--yale-blue);
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+  line-height: 1.3;
+}
+
+/* Mobile-first typography with responsive sizing */
+h1, .yale-h1 { font-size: 1.5rem; letter-spacing: -0.01em; }
+h2, .yale-h2 { font-size: 1.35rem; letter-spacing: -0.01em; }
+h3, .yale-h3 { font-size: 1.2rem; }
+h4, .yale-h4 { font-size: 1.1rem; }
+h5, .yale-h5 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+h6, .yale-h6 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Desktop typography adjustments */
+@media (min-width: 768px) {
+  h1, .yale-h1 { font-size: 1.75rem; }
+  h2, .yale-h2 { font-size: 1.5rem; }
+  h3, .yale-h3 { font-size: 1.25rem; }
+  h4, .yale-h4 { font-size: 1.125rem; }
+  h5, .yale-h5 { font-size: 1rem; }
+  h6, .yale-h6 { font-size: 0.875rem; }
+}
+
+/* Paragraphs */
+p {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+}
+
+/* Links */
+a, .yale-link {
+  color: var(--yale-blue);
+  text-decoration: none;
+  transition: color var(--transition-standard);
+}
+
+a:hover, .yale-link:hover {
+  color: var(--yale-blue-light);
+  text-decoration: underline;
+}
+
+a:focus, .yale-link:focus {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Text utility classes */
+.yale-text-sm { font-size: 0.875rem; }
+.yale-text-xs { font-size: 0.75rem; }
+.yale-text-lg { font-size: 1.125rem; }
+.yale-text-xl { font-size: 1.25rem; }
+.yale-text-2xl { font-size: 1.5rem; }
+
+.yale-text-regular { font-weight: 400; }
+.yale-text-medium { font-weight: 500; }
+.yale-text-semibold { font-weight: 600; }
+.yale-text-bold { font-weight: 700; }
+
+.yale-text-primary { color: var(--text-primary); }
+.yale-text-secondary { color: var(--text-secondary); }
+.yale-text-muted { color: var(--text-muted); }
+.yale-text-yale-blue { color: var(--yale-blue); }
+
+/* List styles */
+ul.yale-list,
+ol.yale-list {
+  padding-left: 1.5rem;
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+}
+
+ul.yale-list li,
+ol.yale-list li {
+  margin-bottom: var(--space-xs);
+}
+
+/* Monospace text */
+.yale-text-mono {
+  font-family: "SF Mono", "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  letter-spacing: -0.02em;
+}

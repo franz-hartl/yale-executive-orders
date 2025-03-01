@@ -5,8 +5,33 @@
  * including data loading, table rendering, filtering, and UI management.
  */
 
+// Initialize Yale Component Library
+let yaleModal;
+let yaleToast;
+
 // Wait for DOM to be fully loaded before running code
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Yale Component Library
+    if (typeof initYaleAccessibility === 'function') {
+        initYaleAccessibility();
+    }
+    
+    if (typeof initYaleTabs === 'function') {
+        initYaleTabs();
+    }
+    
+    if (typeof initYaleAccordion === 'function') {
+        initYaleAccordion();
+    }
+    
+    if (typeof initYaleModal === 'function') {
+        yaleModal = initYaleModal();
+    }
+    
+    if (typeof initYaleToast === 'function') {
+        yaleToast = initYaleToast();
+    }
+    
     // =====================================================================
     // DOM ELEMENT REFERENCES
     // =====================================================================
@@ -273,8 +298,38 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchExecutiveBrief(orderId);
             fetchComprehensiveAnalysis(orderId);
             
-            // Show the detail view
-            detailView.classList.remove('hidden');
+            // Show the detail view using Yale Modal if available
+            if (yaleModal) {
+                // Setup modal with content from detail view
+                const modalContent = detailView.innerHTML;
+                
+                // Create Yale modal structure
+                const modalId = 'order-detail-modal';
+                let modalElement = document.getElementById(modalId);
+                
+                if (!modalElement) {
+                    modalElement = document.createElement('div');
+                    modalElement.id = modalId;
+                    modalElement.className = 'yale-modal__backdrop yale-modal__backdrop--hidden';
+                    modalElement.setAttribute('role', 'dialog');
+                    modalElement.setAttribute('aria-modal', 'true');
+                    modalElement.setAttribute('aria-labelledby', 'detail-title');
+                    
+                    modalElement.innerHTML = `
+                        <div class="yale-modal__content yale-modal__content--lg">
+                            ${detailView.querySelector('.modal-content').innerHTML}
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(modalElement);
+                }
+                
+                // Open the Yale modal
+                yaleModal.openModal(modalElement);
+            } else {
+                // Fallback to original implementation
+                detailView.classList.remove('hidden');
+            }
             
             // Hide loading
             hideLoading();
@@ -307,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Set impact level with appropriate class
         detailImpactLevel.textContent = order.impact_level;
         detailImpactLevel.className = ''; // Clear existing classes
-        detailImpactLevel.classList.add('impact-badge', `impact-${order.impact_level.toLowerCase()}`);
+        detailImpactLevel.classList.add('yale-badge', `yale-badge--${order.impact_level.toLowerCase()}`);
         
         // Set URL with appropriate text
         detailUrl.href = order.url;
@@ -322,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (order.categories && order.categories.length > 0) {
             order.categories.forEach(category => {
                 const tag = document.createElement('span');
-                tag.classList.add('tag');
+                tag.classList.add('yale-tag');
                 tag.textContent = category;
                 detailCategories.appendChild(tag);
             });
@@ -334,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (order.impact_areas && order.impact_areas.length > 0) {
             order.impact_areas.forEach(area => {
                 const tag = document.createElement('span');
-                tag.classList.add('tag');
+                tag.classList.add('yale-tag');
                 tag.textContent = area;
                 detailImpactAreas.appendChild(tag);
             });
@@ -346,7 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (order.university_impact_areas && order.university_impact_areas.length > 0) {
             order.university_impact_areas.forEach(area => {
                 const tag = document.createElement('span');
-                tag.classList.add('tag');
+                tag.classList.add('yale-tag');
                 tag.textContent = area.name;
                 detailUniversityImpactAreas.appendChild(tag);
             });
@@ -362,11 +417,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Show loading state
             executiveBriefContent.innerHTML = `
-                <div class="flex justify-center items-center py-8">
-                    <div class="flex flex-col items-center" aria-live="polite">
-                        <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
-                        <p class="text-gray-500">Loading executive brief...</p>
-                    </div>
+                <div class="yale-loading">
+                    <div class="yale-loading__spinner"></div>
+                    <p class="yale-loading__text">Loading executive brief...</p>
                 </div>
             `;
             
@@ -377,10 +430,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.status === 404) {
                     // No brief available - show appropriate message
                     executiveBriefContent.innerHTML = `
-                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
-                            <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
-                            <h3 class="text-lg font-medium text-gray-800 mb-2">No Executive Brief Available</h3>
-                            <p class="text-gray-500">An executive brief has not been generated for this executive order yet.</p>
+                        <div class="yale-alert yale-alert--info">
+                            <div class="yale-alert__icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="yale-alert__content">
+                                <h3 class="yale-alert__title">No Executive Brief Available</h3>
+                                <p class="yale-alert__message">An executive brief has not been generated for this executive order yet.</p>
+                            </div>
                         </div>
                     `;
                     return;
@@ -396,10 +453,14 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error fetching executive brief:', error);
             document.getElementById('executive-brief-content').innerHTML = `
-                <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center" role="alert">
-                    <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
-                    <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Brief</h3>
-                    <p class="text-red-500">There was an error loading the executive brief. Please try again later.</p>
+                <div class="yale-alert yale-alert--error">
+                    <div class="yale-alert__icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="yale-alert__content">
+                        <h3 class="yale-alert__title">Error Loading Brief</h3>
+                        <p class="yale-alert__message">There was an error loading the executive brief. Please try again later.</p>
+                    </div>
                 </div>
             `;
         }
@@ -412,11 +473,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Show loading state
             plainSummaryContent.innerHTML = `
-                <div class="flex justify-center items-center py-8">
-                    <div class="flex flex-col items-center" aria-live="polite">
-                        <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
-                        <p class="text-gray-500">Loading plain language summary...</p>
-                    </div>
+                <div class="yale-loading">
+                    <div class="yale-loading__spinner"></div>
+                    <p class="yale-loading__text">Loading plain language summary...</p>
                 </div>
             `;
             
@@ -427,10 +486,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.status === 404) {
                     // No summary available - show appropriate message
                     plainSummaryContent.innerHTML = `
-                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
-                            <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
-                            <h3 class="text-lg font-medium text-gray-800 mb-2">No Plain Language Summary Available</h3>
-                            <p class="text-gray-500">A plain language summary has not been generated for this executive order yet.</p>
+                        <div class="yale-alert yale-alert--info">
+                            <div class="yale-alert__icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="yale-alert__content">
+                                <h3 class="yale-alert__title">No Plain Language Summary Available</h3>
+                                <p class="yale-alert__message">A plain language summary has not been generated for this executive order yet.</p>
+                            </div>
                         </div>
                     `;
                     return;
@@ -446,10 +509,14 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error fetching plain language summary:', error);
             document.getElementById('plain-summary-content').innerHTML = `
-                <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center" role="alert">
-                    <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
-                    <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Summary</h3>
-                    <p class="text-red-500">There was an error loading the plain language summary. Please try again later.</p>
+                <div class="yale-alert yale-alert--error">
+                    <div class="yale-alert__icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="yale-alert__content">
+                        <h3 class="yale-alert__title">Error Loading Summary</h3>
+                        <p class="yale-alert__message">There was an error loading the plain language summary. Please try again later.</p>
+                    </div>
                 </div>
             `;
         }
@@ -462,11 +529,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Show loading state
             comprehensiveAnalysisContent.innerHTML = `
-                <div class="flex justify-center items-center py-8">
-                    <div class="flex flex-col items-center" aria-live="polite">
-                        <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
-                        <p class="text-gray-500">Loading comprehensive analysis...</p>
-                    </div>
+                <div class="yale-loading">
+                    <div class="yale-loading__spinner"></div>
+                    <p class="yale-loading__text">Loading comprehensive analysis...</p>
                 </div>
             `;
             
@@ -477,10 +542,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.status === 404) {
                     // No analysis available - show appropriate message
                     comprehensiveAnalysisContent.innerHTML = `
-                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
-                            <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
-                            <h3 class="text-lg font-medium text-gray-800 mb-2">No Comprehensive Analysis Available</h3>
-                            <p class="text-gray-500">A comprehensive analysis has not been generated for this executive order yet.</p>
+                        <div class="yale-alert yale-alert--info">
+                            <div class="yale-alert__icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="yale-alert__content">
+                                <h3 class="yale-alert__title">No Comprehensive Analysis Available</h3>
+                                <p class="yale-alert__message">A comprehensive analysis has not been generated for this executive order yet.</p>
+                            </div>
                         </div>
                     `;
                     return;
@@ -496,10 +565,14 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error fetching comprehensive analysis:', error);
             document.getElementById('comprehensive-analysis-content').innerHTML = `
-                <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center" role="alert">
-                    <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
-                    <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Analysis</h3>
-                    <p class="text-red-500">There was an error loading the comprehensive analysis. Please try again later.</p>
+                <div class="yale-alert yale-alert--error">
+                    <div class="yale-alert__icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="yale-alert__content">
+                        <h3 class="yale-alert__title">Error Loading Analysis</h3>
+                        <p class="yale-alert__message">There was an error loading the comprehensive analysis. Please try again later.</p>
+                    </div>
                 </div>
             `;
         }
@@ -612,11 +685,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // No results - show a message
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td colspan="5" class="py-8 text-center text-gray-500">
-                    <div class="flex flex-col items-center">
-                        <i class="fas fa-search text-gray-400 text-2xl mb-3"></i>
-                        <p class="text-lg font-medium">No executive orders found</p>
-                        <p class="mt-1">Try adjusting your search criteria or clearing filters</p>
+                <td colspan="5" class="yale-py-xl yale-text-center yale-text-secondary">
+                    <div class="yale-flex yale-flex-col yale-items-center">
+                        <i class="fas fa-search yale-text-muted yale-text-2xl yale-mb-sm"></i>
+                        <p class="yale-text-lg yale-text-semibold">No executive orders found</p>
+                        <p class="yale-mt-xs">Try adjusting your search criteria or clearing filters</p>
                     </div>
                 </td>
             `;
@@ -641,34 +714,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
             
-            // Create impact level badge
-            const impactLevelClass = `impact-${(order.impact_level || 'medium').toLowerCase()}`;
+            // Create impact level badge class
+            const impactLevelClass = `yale-badge--${(order.impact_level || 'medium').toLowerCase()}`;
             
             // Add cells to the row
             row.innerHTML = `
-                <td class="py-4 px-4 border-b">
-                    <div class="flex items-start">
-                        <span class="impact-badge ${impactLevelClass} mr-3">
+                <td class="yale-py-md yale-px-md">
+                    <div class="yale-flex yale-items-start">
+                        <span class="yale-badge ${impactLevelClass}">
                             ${order.impact_level || 'Medium'}
                         </span>
                     </div>
                 </td>
-                <td class="py-4 px-4 border-b">
-                    <div class="flex flex-col">
-                        <span class="font-semibold text-accent-blue-primary">${order.order_number || 'Unknown'}</span>
-                        <span class="text-sm text-gray-500">${displayDate}</span>
+                <td class="yale-py-md yale-px-md">
+                    <div class="yale-flex yale-flex-col">
+                        <span class="yale-text-semibold yale-text-yale-blue">${order.order_number || 'Unknown'}</span>
+                        <span class="yale-text-sm yale-text-muted">${displayDate}</span>
                     </div>
                 </td>
-                <td class="py-4 px-4 border-b">
-                    <span class="font-medium">${order.title || 'Untitled Order'}</span>
+                <td class="yale-py-md yale-px-md">
+                    <span class="yale-text-medium">${order.title || 'Untitled Order'}</span>
                 </td>
-                <td class="py-4 px-4 border-b">
-                    <div class="flex flex-wrap gap-1">
+                <td class="yale-py-md yale-px-md">
+                    <div class="yale-tag-group">
                         ${createTagsHTML(order.categories)}
                     </div>
                 </td>
-                <td class="py-4 px-4 border-b">
-                    <div class="flex flex-wrap gap-1">
+                <td class="yale-py-md yale-px-md">
+                    <div class="yale-tag-group">
                         ${createUniversityImpactAreasHTML(order.university_impact_areas)}
                     </div>
                 </td>
@@ -715,7 +788,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Create HTML for tags (categories)
     function createTagsHTML(tags) {
         if (!tags || tags.length === 0) {
-            return '<span class="text-gray-400 text-sm">None</span>';
+            return '<span class="yale-text-muted yale-text-sm">None</span>';
         }
         
         // Limit to 3 tags for display
@@ -723,13 +796,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const remainingCount = tags.length - visibleTags.length;
         
         let html = visibleTags.map(tag => `
-            <span class="tag">
+            <span class="yale-tag">
                 ${tag}
             </span>
         `).join('');
         
         if (remainingCount > 0) {
-            html += `<span class="tag">+${remainingCount} more</span>`;
+            html += `<span class="yale-tag">+${remainingCount} more</span>`;
         }
         
         return html;
@@ -738,7 +811,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Create HTML for university impact areas
     function createUniversityImpactAreasHTML(areas) {
         if (!areas || areas.length === 0) {
-            return '<span class="text-gray-400 text-sm">None</span>';
+            return '<span class="yale-text-muted yale-text-sm">None</span>';
         }
         
         // Process areas (handle both string and object formats)
@@ -749,13 +822,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const remainingCount = areaNames.length - visibleAreas.length;
         
         let html = visibleAreas.map(area => `
-            <span class="tag">
+            <span class="yale-tag">
                 ${area}
             </span>
         `).join('');
         
         if (remainingCount > 0) {
-            html += `<span class="tag">+${remainingCount} more</span>`;
+            html += `<span class="yale-tag">+${remainingCount} more</span>`;
         }
         
         return html;
@@ -769,13 +842,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!loadingElement) {
             loadingElement = document.createElement('div');
             loadingElement.id = 'loading-indicator';
-            loadingElement.className = 'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50';
+            loadingElement.className = 'yale-loading--overlay';
             loadingElement.innerHTML = `
-                <div class="bg-white p-6 rounded-lg shadow-xl max-w-md w-full text-center">
-                    <div class="flex justify-center mb-4">
-                        <i class="fas fa-spinner fa-spin text-accent-blue-primary text-3xl"></i>
-                    </div>
-                    <p id="loading-message" class="text-lg text-text-primary">${message}</p>
+                <div class="yale-loading">
+                    <div class="yale-loading__spinner yale-loading__spinner--lg"></div>
+                    <p id="loading-message" class="yale-loading__text">${message}</p>
                 </div>
             `;
             document.body.appendChild(loadingElement);
@@ -796,76 +867,102 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Show an error message as a toast notification
     function showError(message) {
-        // Create toast element
-        const toast = document.createElement('div');
-        toast.className = 'bg-red-50 border border-red-200 rounded-lg p-4 mb-3 shadow-lg animate-fade-in max-w-md';
-        toast.setAttribute('role', 'alert');
-        toast.innerHTML = `
-            <div class="flex items-center">
-                <i class="fas fa-exclamation-circle text-red-500 mr-3"></i>
-                <div class="text-red-800">${message}</div>
-            </div>
-            <button class="absolute top-1 right-1 text-red-500 hover:text-red-700 p-1" aria-label="Close">
-                <i class="fas fa-times"></i>
-            </button>
-        `;
-        
-        // Add close functionality
-        const closeButton = toast.querySelector('button');
-        closeButton.addEventListener('click', () => {
-            toast.classList.add('opacity-0');
+        if (yaleToast) {
+            // Use Yale Toast component if available
+            yaleToast.error(message, {
+                title: 'Error',
+                duration: 5000
+            });
+        } else {
+            // Fallback to original implementation
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'yale-toast yale-toast--error';
+            toast.setAttribute('role', 'alert');
+            toast.innerHTML = `
+                <div class="yale-toast__content">
+                    <div class="yale-toast__icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="yale-toast__body">
+                        <p class="yale-toast__message">${message}</p>
+                    </div>
+                    <button class="yale-toast__close" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            // Add close functionality
+            const closeButton = toast.querySelector('.yale-toast__close');
+            closeButton.addEventListener('click', () => {
+                toast.classList.add('yale-toast--exiting');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            });
+            
+            // Auto-remove after 5 seconds
             setTimeout(() => {
-                toast.remove();
-            }, 300);
-        });
-        
-        // Auto-remove after 5 seconds
-        setTimeout(() => {
-            toast.classList.add('opacity-0');
-            setTimeout(() => {
-                toast.remove();
-            }, 300);
-        }, 5000);
-        
-        // Add to toast container
-        toastContainer.appendChild(toast);
+                toast.classList.add('yale-toast--exiting');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 5000);
+            
+            // Add to toast container
+            toastContainer.appendChild(toast);
+        }
     }
     
     // Show a success message as a toast notification
     function showSuccess(message) {
-        // Create toast element
-        const toast = document.createElement('div');
-        toast.className = 'bg-green-50 border border-green-200 rounded-lg p-4 mb-3 shadow-lg animate-fade-in max-w-md';
-        toast.setAttribute('role', 'alert');
-        toast.innerHTML = `
-            <div class="flex items-center">
-                <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                <div class="text-green-800">${message}</div>
-            </div>
-            <button class="absolute top-1 right-1 text-green-500 hover:text-green-700 p-1" aria-label="Close">
-                <i class="fas fa-times"></i>
-            </button>
-        `;
-        
-        // Add close functionality
-        const closeButton = toast.querySelector('button');
-        closeButton.addEventListener('click', () => {
-            toast.classList.add('opacity-0');
+        if (yaleToast) {
+            // Use Yale Toast component if available
+            yaleToast.success(message, {
+                title: 'Success',
+                duration: 5000
+            });
+        } else {
+            // Fallback to original implementation
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'yale-toast yale-toast--success';
+            toast.setAttribute('role', 'alert');
+            toast.innerHTML = `
+                <div class="yale-toast__content">
+                    <div class="yale-toast__icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="yale-toast__body">
+                        <p class="yale-toast__message">${message}</p>
+                    </div>
+                    <button class="yale-toast__close" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            // Add close functionality
+            const closeButton = toast.querySelector('.yale-toast__close');
+            closeButton.addEventListener('click', () => {
+                toast.classList.add('yale-toast--exiting');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            });
+            
+            // Auto-remove after 5 seconds
             setTimeout(() => {
-                toast.remove();
-            }, 300);
-        });
-        
-        // Auto-remove after 5 seconds
-        setTimeout(() => {
-            toast.classList.add('opacity-0');
-            setTimeout(() => {
-                toast.remove();
-            }, 300);
-        }, 5000);
-        
-        // Add to toast container
-        toastContainer.appendChild(toast);
+                toast.classList.add('yale-toast--exiting');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 5000);
+            
+            // Add to toast container
+            toastContainer.appendChild(toast);
+        }
     }
     
     // =====================================================================

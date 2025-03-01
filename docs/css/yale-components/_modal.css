@@ -1,0 +1,211 @@
+/**
+ * Yale Component Library - Modal
+ * Modal dialog components
+ */
+
+/* Modal Backdrop */
+.yale-modal__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 53, 107, 0.5);
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+  transition: opacity 0.3s ease-in-out;
+}
+
+.yale-modal__backdrop--hidden {
+  display: none;
+}
+
+/* Modal Content */
+.yale-modal__content {
+  width: 95%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 51;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-lg);
+  background-color: white;
+  border: 1px solid var(--border-light);
+  animation: modalEnter 0.3s ease-in-out;
+}
+
+@keyframes modalEnter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal Sizes */
+.yale-modal__content--sm {
+  max-width: 480px;
+}
+
+.yale-modal__content--lg {
+  max-width: 1000px;
+}
+
+.yale-modal__content--xl {
+  max-width: 1280px;
+}
+
+.yale-modal__content--full {
+  max-width: 95%;
+  max-height: 95vh;
+}
+
+/* Modal Sections */
+.yale-modal__header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 2;
+  border-bottom: 1px solid var(--border-light);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.yale-modal__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--yale-blue);
+}
+
+.yale-modal__subtitle {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.yale-modal__body {
+  padding: var(--space-lg);
+}
+
+.yale-modal__footer {
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  z-index: 2;
+  border-top: 1px solid var(--border-light);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Close Button */
+.yale-modal__close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-base);
+  transition: all 0.2s ease-in-out;
+}
+
+.yale-modal__close:hover {
+  background-color: var(--background-secondary);
+  color: var(--text-primary);
+}
+
+.yale-modal__close:focus {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Modal Body with Dividers */
+.yale-modal__section {
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-md);
+}
+
+.yale-modal__section:not(:last-child) {
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* Scrollable Modal Body */
+.yale-modal__scroll-body {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: var(--space-sm);
+}
+
+/* Modal with Tabs */
+.yale-modal__tabs {
+  margin-top: -1rem;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+}
+
+/* Modal Footer Button Layout */
+.yale-modal__buttons {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.yale-modal__buttons--end {
+  justify-content: flex-end;
+}
+
+.yale-modal__buttons--center {
+  justify-content: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .yale-modal__content {
+    width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+    margin: 0;
+  }
+  
+  .yale-modal__header,
+  .yale-modal__body,
+  .yale-modal__footer {
+    padding: var(--space-md);
+  }
+  
+  .yale-modal__buttons {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+  
+  .yale-modal__buttons .yale-btn {
+    width: 100%;
+  }
+}
+
+/* Modal Transitions */
+.yale-modal--fade-enter {
+  opacity: 0;
+}
+
+.yale-modal--fade-enter-active {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.yale-modal--fade-exit {
+  opacity: 1;
+}
+
+.yale-modal--fade-exit-active {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
