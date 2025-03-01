@@ -288,7 +288,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load all required data
     async function loadData() {
         try {
-            showLoading('Loading data...');
+            // Use a non-intrusive loading indicator
+            showLoadingStatusIndicator('Initializing data...');
             
             // Load metadata and system info first, then executive orders
             // This provides a better user experience as it allows UI setup
@@ -301,8 +302,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Setup filter options as soon as we have metadata
             populateFilterOptions();
             
-            // Show a specific loading message for the large data file
-            showLoading('Loading executive orders...');
+            // Render table with empty state first to ensure UI is ready
+            renderTable();
+            
+            // Show a non-blocking loading message for the large data file
+            showLoadingStatusIndicator('Loading executive orders...');
             
             // Load the large datasets sequentially to avoid memory pressure
             await getExecutiveOrders();
@@ -314,15 +318,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.warn('Statistics could not be loaded, continuing anyway:', error);
             }
             
-            hideLoading();
+            // Hide the loading indicator
+            hideLoadingStatusIndicator();
             
-            // Render the table only after all data is loaded
+            // Re-render the table with the loaded data
             renderTable();
             
         } catch (error) {
             console.error('Error loading data:', error);
             showError('Failed to load data. Please try again later.');
-            hideLoading();
+            hideLoadingStatusIndicator();
         }
     }
     
@@ -355,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function getExecutiveOrders() {
         try {
             // First fetch the metadata index that contains info about available orders
-            showLoading('Loading executive order index...');
+            showLoadingStatusIndicator('Loading executive order index...');
             
             const indexResponse = await fetch('data/orders_index.json');
             
@@ -371,14 +376,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const batchSize = indexData.batchSize || 50;
             const totalBatches = Math.ceil(totalOrders / batchSize);
             
-            showLoading(`Loading executive orders (0/${totalOrders})...`);
+            showLoadingStatusIndicator(`Loading executive orders (0/${totalOrders})...`);
             
             // Load all data batches in sequence
             allExecutiveOrders = [];
             let loadedCount = 0;
             
             for (let batchNum = 1; batchNum <= totalBatches; batchNum++) {
-                showLoading(`Loading batch ${batchNum}/${totalBatches}...`);
+                showLoadingStatusIndicator(`Loading batch ${batchNum}/${totalBatches}...`);
                 
                 try {
                     const batchResponse = await fetch(`data/batches/orders_batch_${batchNum}.json`);
@@ -390,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     allExecutiveOrders = [...allExecutiveOrders, ...batchData];
                     
                     loadedCount += batchData.length;
-                    showLoading(`Loading executive orders (${loadedCount}/${totalOrders})...`);
+                    showLoadingStatusIndicator(`Loading executive orders (${loadedCount}/${totalOrders})...`);
                 } catch (batchError) {
                     console.error(`Error loading batch ${batchNum}:`, batchError);
                     showError(`Failed to load some executive orders (batch ${batchNum})`);
@@ -425,7 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Legacy method for loading executive orders from a single large file
     async function getLegacyExecutiveOrders() {
         try {
-            showLoading('Fetching executive orders (legacy method)...');
+            showLoadingStatusIndicator('Fetching executive orders (legacy method)...');
             
             // Use a streaming approach to handle the large JSON file
             const response = await fetch('data/processed_executive_orders.json');
@@ -433,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(`Status: ${response.status}`);
             }
             
-            showLoading('Processing data (legacy method)...');
+            showLoadingStatusIndicator('Processing data (legacy method)...');
             
             // First try the simpler approach which might work for smaller files
             try {
@@ -466,7 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chunks += decoder.decode();
             
             // Parse the JSON data
-            showLoading('Parsing data (legacy method)...');
+            showLoadingStatusIndicator('Parsing data (legacy method)...');
             allExecutiveOrders = JSON.parse(chunks);
             filteredOrders = [...allExecutiveOrders];
             
@@ -1061,6 +1066,68 @@ document.addEventListener('DOMContentLoaded', () => {
     // =====================================================================
     // UTILITY FUNCTIONS
     // =====================================================================
+    
+    // Show a status indicator message without blocking the UI (appears in header)
+    function showLoadingStatusIndicator(message) {
+        // Create or get the status indicator
+        let statusIndicator = document.getElementById('yale-status-indicator');
+        
+        if (!statusIndicator) {
+            // Create the indicator if it doesn't exist yet
+            statusIndicator = document.createElement('div');
+            statusIndicator.id = 'yale-status-indicator';
+            statusIndicator.className = 'yale-status-indicator';
+            
+            // Create a spinner
+            const spinner = document.createElement('div');
+            spinner.className = 'yale-spinner yale-spinner--sm';
+            statusIndicator.appendChild(spinner);
+            
+            // Create message element
+            const messageEl = document.createElement('span');
+            messageEl.id = 'yale-status-message';
+            messageEl.className = 'yale-status-message';
+            statusIndicator.appendChild(messageEl);
+            
+            // Add to the system info bar for better Yale design consistency
+            const systemInfoBar = document.querySelector('.system-info-bar');
+            if (systemInfoBar) {
+                // Insert the indicator into the system info bar's first div
+                const infoContainer = systemInfoBar.querySelector('div');
+                if (infoContainer) {
+                    infoContainer.appendChild(statusIndicator);
+                } else {
+                    systemInfoBar.appendChild(statusIndicator);
+                }
+            } else {
+                // Fallback: add to the header
+                const header = document.querySelector('.yale-header');
+                if (header) {
+                    header.appendChild(statusIndicator);
+                } else {
+                    // If no good location, add at top of page
+                    document.body.insertBefore(statusIndicator, document.body.firstChild);
+                }
+            }
+        }
+        
+        // Update the message
+        const messageEl = document.getElementById('yale-status-message');
+        if (messageEl) {
+            messageEl.textContent = message;
+        }
+        
+        // Make sure it's visible
+        statusIndicator.style.display = 'flex';
+    }
+    
+    // Hide the status indicator
+    function hideLoadingStatusIndicator() {
+        const statusIndicator = document.getElementById('yale-status-indicator');
+        if (statusIndicator) {
+            statusIndicator.style.display = 'none';
+        }
+    }
     
     // Update pagination controls
     function updatePagination() {

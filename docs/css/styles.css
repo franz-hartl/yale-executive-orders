@@ -24,31 +24,82 @@
   display: none !important;
 }
 
-/* System Info Bar */
+/* System Info Bar - Yale design with no rounded corners */
 .system-info-bar {
   background-color: rgba(0, 53, 107, 0.05);
-  padding: 0.75rem;
-  margin-bottom: 1.5rem;
-  border-radius: var(--radius-base);
+  padding: 1rem 1.25rem; /* Yale prefers more padding */
+  margin-bottom: 2rem; /* More whitespace below */
+  border-radius: 0; /* Sharp corners per Yale design */
+  border-left: 3px solid var(--yale-blue); /* Yale-style accent border */
 }
 
-/* Loading Indicator Customizations */
-.yale-loading--overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.9);
+/* Yale Header - properly styled per Yale guidelines */
+.yale-header {
+  border-bottom: 1px solid #e2e8f0;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  position: relative;
+}
+
+.yale-header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .yale-header h1 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Yale-style non-blocking Status Indicator */
+.yale-status-indicator {
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 9999;
-  transition: opacity 0.3s ease-in-out;
+  background-color: var(--yale-blue);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0;
+  margin-left: auto;
+  margin-right: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  max-width: 100%;
+  overflow: hidden;
 }
 
-.yale-loading--exiting {
-  opacity: 0;
+.yale-spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: yale-spin 1s linear infinite;
+  margin-right: 0.75rem;
+}
+
+.yale-spinner--sm {
+  width: 0.875rem;
+  height: 0.875rem;
+  border-width: 2px;
+}
+
+.yale-status-message {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes yale-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Loading Indicator (deprecated) */
+.yale-loading--overlay {
+  display: none; /* Hide by default now that we have a better solution */
 }
 
 /* Pagination Styles */

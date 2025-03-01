@@ -56,20 +56,21 @@
   box-shadow: var(--card-depth);
 }
 
-/* Filter Card - Used for command/filter bars */
+/* Filter Card - Used for command/filter bars (Yale design with sharp corners) */
 .yale-filter-card {
   background-color: white;
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-base);
+  border-radius: 0; /* Yale design uses square corners */
   overflow: hidden;
-  box-shadow: var(--card-shadow);
+  box-shadow: none; /* Yale design avoids shadows for a cleaner look */
+  border-top: 3px solid var(--yale-blue); /* Yale-style accent border at top */
 }
 
 .yale-filter-card__header {
-  height: 40px;
+  height: 44px; /* Slightly taller for Yale design */
   display: flex;
   align-items: center;
-  padding: 0 var(--space-md);
+  padding: 0 var(--space-lg); /* More horizontal padding */
   background-color: rgba(0, 53, 107, 0.05);
   border-bottom: 1px solid var(--border-light);
 }
@@ -84,11 +85,11 @@
 }
 
 .yale-filter-card__body {
-  padding: var(--space-lg);
+  padding: var(--space-lg) var(--space-xl); /* Yale design uses more padding */
 }
 
 .yale-filter-card__footer {
-  padding: var(--space-md);
+  padding: var(--space-md) var(--space-xl); /* Yale design uses more horizontal padding */
   border-top: 1px solid var(--border-light);
   background-color: var(--background-secondary);
   display: flex;
