@@ -16,30 +16,30 @@
     
     <!-- Application CSS -->
     <link rel="stylesheet" href="css/styles.css">
-    
-    <!-- Accessibility script -->
-    <script src="js/accessibility.js"></script>
 </head>
 <body class="min-h-screen">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="yale-skip-link">Skip to main content</a>
+    
     <div class="app-container">
-        <!-- Header: Clean, modern design -->
-        <header class="header pt-5 pb-5 mb-6 bg-white border-b border-gray-200">
-            <div class="w-full max-w-6xl mx-auto px-4">
+        <!-- Header: Yale Component Design -->
+        <header class="yale-header yale-py-md">
+            <div class="yale-container">
                 <!-- Top content with logo and title -->
-                <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-0">
+                <div class="yale-flex yale-flex-col yale-md-flex-row yale-justify-between yale-gap-md">
                     <!-- Left side: Logo and title -->
-                    <div class="flex-shrink-0 md:w-3/5">
-                        <div class="flex items-center mb-2">
-                            <div class="w-8 h-8 rounded-sm mr-3 bg-accent-blue-primary flex items-center justify-center">
+                    <div>
+                        <div class="yale-flex yale-items-center yale-mb-sm">
+                            <div class="w-8 h-8 rounded-sm mr-3 bg-accent-blue-primary yale-flex yale-items-center yale-justify-center">
                                 <i class="fas fa-file-alt text-white text-sm"></i>
                             </div>
-                            <h1 class="text-xl md:text-2xl font-semibold tracking-tight text-accent-blue-primary">Higher Education Executive Order Tracker</h1>
+                            <h1 class="yale-h1 text-accent-blue-primary">Higher Education Executive Order Tracker</h1>
                         </div>
                     </div>
                     
                     <!-- Right side: Description -->
-                    <div class="md:w-2/5 mt-3 md:mt-1">
-                        <p class="text-text-secondary text-sm">
+                    <div class="yale-mt-sm yale-md-mt-0">
+                        <p class="yale-text-sm yale-text-secondary">
                             A specialized tool for analyzing Presidential Executive Orders and their potential impacts on higher education institutions.
                         </p>
                     </div>
@@ -48,67 +48,65 @@
         </header>
         
         <!-- Main content: Command Center Layout -->
-        <div id="main-content" class="mb-4" tabindex="-1">
-            <!-- Command Bar - Refined Academic Style -->
-            <div class="card mb-6 border border-gray-200 rounded-sm shadow-sm overflow-hidden">
-                <div class="bg-white border-b border-gray-200 p-0">
-                    <div class="flex items-center h-10 px-4 bg-accent-blue-primary bg-opacity-5">
-                        <p class="text-accent-blue-primary text-xs uppercase tracking-widest font-medium">Document Filters</p>
-                    </div>
+        <main id="main-content" class="yale-mb-md" tabindex="-1">
+            <!-- Command Bar - Filters Card -->
+            <div class="yale-filter-card yale-mb-lg">
+                <div class="yale-filter-card__header">
+                    <h2 class="yale-filter-card__title">Document Filters</h2>
                 </div>
-                <div class="p-5 bg-white">
-                    <div class="flex flex-col gap-4">
-                        <!-- Search box - Academic style -->
-                        <div class="relative flex-grow">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-search text-accent-blue-primary opacity-70 text-sm"></i>
+                <div class="yale-filter-card__body">
+                    <div class="yale-flex yale-flex-col yale-gap-md">
+                        <!-- Search box -->
+                        <div class="yale-form-group">
+                            <div class="yale-search">
+                                <input type="text" id="search-input" placeholder="Search executive orders by keyword" 
+                                       class="yale-input yale-search__input" />
+                                <i class="fas fa-search yale-search__icon"></i>
                             </div>
-                            <input type="text" id="search-input" placeholder="Search executive orders by keyword" 
-                                   class="w-full border border-gray-300 rounded-sm py-2.5 pl-10 pr-3 text-gray-800 placeholder-gray-500 focus:border-accent-blue-primary focus:ring focus:ring-accent-blue-primary focus:ring-opacity-30 transition duration-200 outline-none" style="font-family: 'Inter', system-ui, sans-serif;" />
                         </div>
                         
-                        <!-- Mobile filter toggle - Academic style -->
-                        <div class="block lg:hidden mb-1">
-                            <button id="mobile-filters-toggle" class="w-full border border-gray-300 rounded-sm py-2.5 px-4 flex items-center justify-center bg-white hover:bg-gray-50 transition duration-200" style="font-family: 'Inter', system-ui, sans-serif;">
+                        <!-- Mobile filter toggle -->
+                        <div class="block lg:hidden yale-mb-sm">
+                            <button id="mobile-filters-toggle" class="yale-btn yale-btn--secondary yale-w-full">
                                 <span>Advanced Filters</span>
-                                <i class="fas fa-filter ml-2 text-accent-blue-primary text-sm"></i>
+                                <i class="fas fa-filter yale-btn__icon--right"></i>
                             </button>
                         </div>
                         
-                        <!-- Filters row - Academic style -->
-                        <div id="filters-row" class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 mt-1">
-                            <!-- Category dropdown - Academic style -->
-                            <div>
-                                <label for="filter-category" class="block text-sm font-medium text-gray-600 mb-1.5">Category</label>
-                                <select id="filter-category" class="select-input w-full border border-gray-300 rounded-sm">
+                        <!-- Filters row -->
+                        <div id="filters-row" class="yale-grid yale-md-grid-cols-3 yale-gap-md">
+                            <!-- Category dropdown -->
+                            <div class="yale-form-group">
+                                <label for="filter-category" class="yale-form-label">Category</label>
+                                <select id="filter-category" class="yale-select">
                                     <option value="">All Categories</option>
                                     <!-- Options populated by JavaScript -->
                                 </select>
                             </div>
                             
-                            <!-- Impact Level dropdown - Academic style -->
-                            <div>
-                                <label for="filter-impact-level" class="block text-sm font-medium text-gray-600 mb-1.5">Impact Level</label>
-                                <select id="filter-impact-level" class="select-input w-full border border-gray-300 rounded-sm">
+                            <!-- Impact Level dropdown -->
+                            <div class="yale-form-group">
+                                <label for="filter-impact-level" class="yale-form-label">Impact Level</label>
+                                <select id="filter-impact-level" class="yale-select">
                                     <option value="">All Impact Levels</option>
                                     <!-- Options populated by JavaScript -->
                                 </select>
                             </div>
                             
-                            <!-- University Impact Area dropdown - Academic style -->
-                            <div>
-                                <label for="filter-university-area" class="block text-sm font-medium text-gray-600 mb-1.5">University Impact Area</label>
-                                <select id="filter-university-area" class="select-input w-full border border-gray-300 rounded-sm">
+                            <!-- University Impact Area dropdown -->
+                            <div class="yale-form-group">
+                                <label for="filter-university-area" class="yale-form-label">University Impact Area</label>
+                                <select id="filter-university-area" class="yale-select">
                                     <option value="">All University Impact Areas</option>
                                     <!-- Options populated by JavaScript -->
                                 </select>
                             </div>
                         </div>
                         
-                        <!-- Clear filters button - Academic style -->
-                        <div class="flex justify-end mt-1">
-                            <button id="clear-filters-btn" class="btn-outline flex items-center text-sm px-4 py-2">
-                                <i class="fas fa-undo-alt mr-2 text-accent-blue-primary"></i>
+                        <!-- Clear filters button -->
+                        <div class="yale-flex yale-justify-end yale-mt-sm">
+                            <button id="clear-filters-btn" class="yale-btn yale-btn--outline yale-btn--sm">
+                                <i class="fas fa-undo-alt yale-btn__icon--left"></i>
                                 Clear All Filters
                             </button>
                         </div>
@@ -118,84 +116,82 @@
             
             <!-- Data Container -->
             <div class="overflow-hidden">
-                <!-- System info bar - Academic style -->
-                <div class="bg-accent-blue-primary bg-opacity-5 p-3 mb-6 text-sm flex flex-col md:flex-row justify-between items-start md:items-center rounded-sm">
-                    <div class="flex items-center">
-                        <i class="fas fa-database text-accent-blue-primary mr-2 opacity-75"></i>
-                        <span id="system-info" class="text-accent-blue-primary font-medium">Yale Executive Order Tracker | Static Version</span>
-                    </div>
-                    <div class="mt-2 md:mt-0 text-text-secondary">
-                        <span>Last Updated: </span>
-                        <span id="update-date">Unknown</span>
+                <!-- System info bar -->
+                <div class="system-info-bar yale-mb-lg">
+                    <div class="yale-flex yale-flex-col yale-md-flex-row yale-justify-between yale-items-start yale-md-items-center">
+                        <div class="yale-flex yale-items-center">
+                            <i class="fas fa-database text-accent-blue-primary mr-2 opacity-75"></i>
+                            <span id="system-info" class="yale-text-yale-blue yale-text-semibold">Yale Executive Order Tracker | Static Version</span>
+                        </div>
+                        <div class="yale-mt-sm yale-md-mt-0 yale-text-secondary">
+                            <span>Last Updated: </span>
+                            <span id="update-date">Unknown</span>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Data Display - Clean Academic Table -->
-                <div class="bg-white overflow-hidden shadow-sm rounded-sm border border-gray-200 mb-12">
-                    <div class="overflow-x-auto">
-                        <table class="data-table min-w-full divide-y divide-gray-200">
-                            <thead>
-                                <tr>
-                                    <th class="sort-header w-24" data-sort="impact_level">
-                                        <div class="flex items-center">
-                                            <span>Impact</span>
-                                            <span class="ml-1 group-hover:opacity-100 transition-opacity">
-                                                <i class="fas fa-sort text-white text-opacity-40 text-xs"></i>
-                                            </span>
-                                        </div>
-                                    </th>
-                                    <th class="sort-header w-40" data-sort="order_number">
-                                        <div class="flex items-center">
-                                            <span>Order #</span>
-                                            <span class="ml-1 group-hover:opacity-100 transition-opacity">
-                                                <i class="fas fa-sort text-white text-opacity-40 text-xs"></i>
-                                            </span>
-                                        </div>
-                                    </th>
-                                    <th class="sort-header" data-sort="title">
-                                        <div class="flex items-center">
-                                            <span>Title</span>
-                                            <span class="ml-1 group-hover:opacity-100 transition-opacity">
-                                                <i class="fas fa-sort text-white text-opacity-40 text-xs"></i>
-                                            </span>
-                                        </div>
-                                    </th>
-                                    <th class="w-64">Categories</th>
-                                    <th class="w-72">University Impact Areas</th>
-                                </tr>
-                            </thead>
-                            <tbody id="eo-table-body">
-                                <!-- Table rows will be populated by JavaScript -->
-                                <tr>
-                                    <td colspan="5" class="py-8 text-center text-gray-500">
-                                        <div class="flex flex-col items-center">
-                                            <i class="fas fa-spinner fa-spin text-accent-blue-primary text-2xl mb-3"></i>
-                                            <p class="text-lg font-medium">Loading executive orders...</p>
-                                            <p class="mt-1">Please wait while we retrieve the data</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <!-- Data Display - Table -->
+                <div class="yale-table-wrapper yale-mb-xl">
+                    <table class="yale-table">
+                        <thead>
+                            <tr>
+                                <th class="yale-table__sort-header" data-sort="impact_level">
+                                    <div class="yale-flex yale-items-center">
+                                        <span>Impact</span>
+                                        <span class="yale-table__sort-icon">
+                                            <i class="fas fa-sort"></i>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th class="yale-table__sort-header" data-sort="order_number">
+                                    <div class="yale-flex yale-items-center">
+                                        <span>Order #</span>
+                                        <span class="yale-table__sort-icon">
+                                            <i class="fas fa-sort"></i>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th class="yale-table__sort-header" data-sort="title">
+                                    <div class="yale-flex yale-items-center">
+                                        <span>Title</span>
+                                        <span class="yale-table__sort-icon">
+                                            <i class="fas fa-sort"></i>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th>Categories</th>
+                                <th>University Impact Areas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eo-table-body">
+                            <!-- Table rows will be populated by JavaScript -->
+                            <tr>
+                                <td colspan="5" class="yale-table__loading">
+                                    <div class="yale-loading__spinner"></div>
+                                    <p class="yale-loading__text">Loading executive orders...</p>
+                                    <p class="yale-text-sm yale-text-secondary">Please wait while we retrieve the data</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
+        </main>
         
-        <!-- Footer: Clean, modern design -->
-        <footer class="footer pt-5 pb-5 mt-6 bg-white border-t border-gray-200">
-            <div class="w-full max-w-6xl mx-auto px-4">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="mb-4 md:mb-0">
-                        <p class="text-sm text-text-secondary">
+        <!-- Footer -->
+        <footer class="yale-footer yale-py-md">
+            <div class="yale-container">
+                <div class="yale-flex yale-flex-col yale-md-flex-row yale-justify-between yale-items-center">
+                    <div class="yale-mb-md yale-md-mb-0">
+                        <p class="yale-text-sm yale-text-secondary">
                             Executive order analysis powered by Claude AI
                         </p>
                     </div>
-                    <div class="flex items-center">
-                        <a href="https://github.com/franz-hartl/yale-executive-orders" class="text-accent-blue-primary hover:text-accent-blue-secondary transition-colors mr-4" aria-label="View source code on GitHub">
-                            <i class="fab fa-github text-lg"></i>
+                    <div class="yale-flex yale-items-center">
+                        <a href="https://github.com/franz-hartl/yale-executive-orders" class="yale-link yale-mr-md" aria-label="View source code on GitHub">
+                            <i class="fab fa-github yale-text-xl"></i>
                         </a>
-                        <a href="#main-content" class="btn-outline text-xs py-2 px-3 min-h-0">
+                        <a href="#main-content" class="yale-btn yale-btn--outline yale-btn--sm">
                             Back to Top
                         </a>
                     </div>
@@ -205,117 +201,107 @@
     </div>
     
     <!-- Detail Modal -->
-    <div id="detail-view" class="modal-backdrop hidden">
-        <div class="modal-content animated-fade-in">
+    <div id="detail-view" class="yale-modal__backdrop yale-modal__backdrop--hidden" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+        <div class="yale-modal__content yale-modal__content--lg">
             <!-- Modal Header -->
-            <div class="modal-header p-5 md:p-6 border-b border-gray-200">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h2 id="detail-title" class="text-lg md:text-xl font-semibold text-accent-blue-primary leading-tight mb-1">
-                            Executive Order Details
-                        </h2>
-                        <div class="flex flex-wrap gap-2 items-center mt-2">
-                            <span id="detail-order-number" class="text-sm font-semibold text-text-secondary mr-1"></span>
-                            <span id="detail-impact-level" class="impact-badge impact-medium"></span>
-                        </div>
+            <div class="yale-modal__header">
+                <div>
+                    <h2 id="detail-title" class="yale-modal__title">Executive Order Details</h2>
+                    <div class="yale-flex yale-flex-wrap yale-gap-sm yale-items-center yale-mt-sm">
+                        <span id="detail-order-number" class="yale-text-sm yale-text-semibold yale-text-secondary yale-mr-xs"></span>
+                        <span id="detail-impact-level" class="yale-badge yale-badge--medium"></span>
                     </div>
-                    <button id="close-detail-btn" class="close-button" aria-label="Close details">
-                        <i class="fas fa-times"></i>
-                    </button>
                 </div>
+                <button id="close-detail-btn" class="yale-modal__close" aria-label="Close details">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             
             <!-- Modal Content -->
-            <div class="p-5 md:p-6">
+            <div class="yale-modal__body">
                 <!-- Order metadata -->
-                <div class="mb-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div class="yale-mb-lg">
+                    <div class="yale-grid yale-md-grid-cols-2 yale-gap-md yale-mb-md">
                         <div>
-                            <h3 class="text-sm uppercase text-accent-blue-primary font-medium tracking-wide mb-1.5">President</h3>
-                            <p id="detail-president" class="text-text-primary"></p>
+                            <h3 class="yale-text-xs yale-text-uppercase yale-text-yale-blue yale-text-semibold yale-mb-xs">President</h3>
+                            <p id="detail-president" class="yale-text-primary"></p>
                         </div>
                         <div>
-                            <h3 class="text-sm uppercase text-accent-blue-primary font-medium tracking-wide mb-1.5">Signing Date</h3>
-                            <p id="detail-date" class="text-text-primary"></p>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <h3 class="text-sm uppercase text-accent-blue-primary font-medium tracking-wide mb-1.5">Summary</h3>
-                        <p id="detail-summary" class="text-text-primary"></p>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                        <div>
-                            <h3 class="text-sm uppercase text-accent-blue-primary font-medium tracking-wide mb-1.5">Categories</h3>
-                            <div id="detail-categories" class="flex flex-wrap"></div>
-                        </div>
-                        <div>
-                            <h3 class="text-sm uppercase text-accent-blue-primary font-medium tracking-wide mb-1.5">Impact Areas</h3>
-                            <div id="detail-impact-areas" class="flex flex-wrap"></div>
+                            <h3 class="yale-text-xs yale-text-uppercase yale-text-yale-blue yale-text-semibold yale-mb-xs">Signing Date</h3>
+                            <p id="detail-date" class="yale-text-primary"></p>
                         </div>
                     </div>
                     
-                    <div class="mt-4">
-                        <h3 class="text-sm uppercase text-accent-blue-primary font-medium tracking-wide mb-1.5">University Impact Areas</h3>
-                        <div id="detail-university-impact-areas" class="flex flex-wrap"></div>
+                    <div class="yale-mb-md">
+                        <h3 class="yale-text-xs yale-text-uppercase yale-text-yale-blue yale-text-semibold yale-mb-xs">Summary</h3>
+                        <p id="detail-summary" class="yale-text-primary"></p>
+                    </div>
+                    
+                    <div class="yale-grid yale-md-grid-cols-2 yale-gap-md yale-mt-md">
+                        <div>
+                            <h3 class="yale-text-xs yale-text-uppercase yale-text-yale-blue yale-text-semibold yale-mb-xs">Categories</h3>
+                            <div id="detail-categories" class="yale-tag-group"></div>
+                        </div>
+                        <div>
+                            <h3 class="yale-text-xs yale-text-uppercase yale-text-yale-blue yale-text-semibold yale-mb-xs">Impact Areas</h3>
+                            <div id="detail-impact-areas" class="yale-tag-group"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="yale-mt-md">
+                        <h3 class="yale-text-xs yale-text-uppercase yale-text-yale-blue yale-text-semibold yale-mb-xs">University Impact Areas</h3>
+                        <div id="detail-university-impact-areas" class="yale-tag-group"></div>
                     </div>
                 </div>
                 
                 <!-- Tabs and Content -->
-                <div class="mt-4 border-t border-gray-200 pt-4">
+                <div class="yale-mt-md yale-border-t yale-pt-md">
                     <!-- Tab navigation -->
-                    <div class="border-b border-gray-200">
-                        <nav class="flex overflow-x-auto" aria-label="Executive order analysis tabs">
-                            <button class="tab-button active" data-tab="standard" role="tab" aria-selected="true" aria-controls="standard-tab">
+                    <div class="yale-tabs" data-tabs-animate="true">
+                        <div class="yale-tabs__nav">
+                            <button id="tab-1" class="yale-tab-button yale-tab-button--active" data-tab-target="standard-tab" role="tab" aria-selected="true" aria-controls="standard-tab">
                                 Standard Summary
                             </button>
-                            <button class="tab-button" data-tab="executive-brief" role="tab" aria-selected="false" aria-controls="executive-brief-tab">
+                            <button id="tab-2" class="yale-tab-button" data-tab-target="executive-brief-tab" role="tab" aria-selected="false" aria-controls="executive-brief-tab">
                                 Executive Brief
                             </button>
-                            <button class="tab-button" data-tab="comprehensive-analysis" role="tab" aria-selected="false" aria-controls="comprehensive-analysis-tab">
+                            <button id="tab-3" class="yale-tab-button" data-tab-target="comprehensive-analysis-tab" role="tab" aria-selected="false" aria-controls="comprehensive-analysis-tab">
                                 Comprehensive Analysis
                             </button>
-                        </nav>
+                        </div>
                     </div>
                     
                     <!-- Tab contents -->
-                    <div class="py-4">
+                    <div class="yale-py-md">
                         <!-- Standard Summary Tab -->
-                        <div id="standard-tab" class="tab-content" role="tabpanel">
+                        <div id="standard-tab" class="yale-tab-content" role="tabpanel">
                             <div id="plain-summary-content" class="prose prose-blue max-w-none">
                                 <!-- Content loaded via JavaScript -->
-                                <div class="flex justify-center items-center py-8">
-                                    <div class="flex flex-col items-center" aria-live="polite">
-                                        <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
-                                        <p class="text-gray-500">Loading summary...</p>
-                                    </div>
+                                <div class="yale-loading">
+                                    <div class="yale-loading__spinner"></div>
+                                    <p class="yale-loading__text">Loading summary...</p>
                                 </div>
                             </div>
                         </div>
                         
                         <!-- Executive Brief Tab -->
-                        <div id="executive-brief-tab" class="tab-content hidden" role="tabpanel">
+                        <div id="executive-brief-tab" class="yale-tab-content yale-tab-content--hidden" role="tabpanel">
                             <div id="executive-brief-content" class="prose prose-blue max-w-none">
                                 <!-- Content loaded via JavaScript -->
-                                <div class="flex justify-center items-center py-8">
-                                    <div class="flex flex-col items-center" aria-live="polite">
-                                        <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
-                                        <p class="text-gray-500">Loading executive brief...</p>
-                                    </div>
+                                <div class="yale-loading">
+                                    <div class="yale-loading__spinner"></div>
+                                    <p class="yale-loading__text">Loading executive brief...</p>
                                 </div>
                             </div>
                         </div>
                         
                         <!-- Comprehensive Analysis Tab -->
-                        <div id="comprehensive-analysis-tab" class="tab-content hidden" role="tabpanel">
+                        <div id="comprehensive-analysis-tab" class="yale-tab-content yale-tab-content--hidden" role="tabpanel">
                             <div id="comprehensive-analysis-content" class="prose prose-blue max-w-none">
                                 <!-- Content loaded via JavaScript -->
-                                <div class="flex justify-center items-center py-8">
-                                    <div class="flex flex-col items-center" aria-live="polite">
-                                        <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
-                                        <p class="text-gray-500">Loading comprehensive analysis...</p>
-                                    </div>
+                                <div class="yale-loading">
+                                    <div class="yale-loading__spinner"></div>
+                                    <p class="yale-loading__text">Loading comprehensive analysis...</p>
                                 </div>
                             </div>
                         </div>
@@ -324,14 +310,16 @@
             </div>
             
             <!-- Modal Footer -->
-            <div class="modal-footer p-5 md:p-6 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
-                <a id="detail-url" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary flex items-center">
-                    <i class="fas fa-external-link-alt mr-2"></i>
-                    View Official Document
-                </a>
-                <button class="btn-outline text-sm py-2 px-4" id="close-detail-btn-bottom">
-                    Close
-                </button>
+            <div class="yale-modal__footer">
+                <div class="yale-flex yale-flex-col yale-md-flex-row yale-justify-between yale-items-center yale-gap-md">
+                    <a id="detail-url" href="#" target="_blank" rel="noopener noreferrer" class="yale-btn yale-btn--primary">
+                        <i class="fas fa-external-link-alt yale-btn__icon--left"></i>
+                        View Official Document
+                    </a>
+                    <button class="yale-btn yale-btn--outline yale-btn--sm" id="close-detail-btn-bottom">
+                        Close
+                    </button>
+                </div>
             </div>
         </div>
     </div>
