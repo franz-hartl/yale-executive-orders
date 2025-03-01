@@ -1,6 +1,6 @@
 # Yale University Executive Order Analysis Assistant
 
-This project provides an AI-powered system for analyzing executive orders and their impact on Yale University through a static GitHub Pages website. The system helps Yale administrators understand compliance requirements, operational impacts, and necessary actions in response to executive orders through plain language summaries, categorization, and a user-friendly interface.
+This project provides an AI-powered system for analyzing executive orders and their impact on higher education institutions through a static GitHub Pages website. The system integrates data from multiple authoritative sources (COGR, NSF, NIH, ACE) to provide comprehensive analysis of executive orders with institution-specific guidance, helping administrators understand compliance requirements, operational impacts, and necessary actions through plain language summaries, categorization, and a user-friendly interface.
 
 ## Core Features
 
@@ -17,10 +17,11 @@ This project provides an AI-powered system for analyzing executive orders and th
 The system consists of the following key components:
 
 1. **Local SQLite Database**: Provides structured data storage for local preprocessing
-2. **Data Processing Tools**: Scripts for fetching, cleaning, and enhancing executive order data
-3. **Static Export Pipeline**: Tools to export processed data to JSON files for GitHub Pages
-4. **AI Integration**: Anthropic Claude API integration for advanced text processing
-5. **Static Web Interface**: Pure frontend app that runs entirely in the browser
+2. **External Source Integration**: Fetches and processes data from authoritative sources
+3. **Data Processing Tools**: Scripts for fetching, cleaning, and enhancing executive order data
+4. **Enhanced JSON Export**: Exports data with integrated source analysis and institution-specific guidance
+5. **AI Integration**: Anthropic Claude API integration for advanced text processing
+6. **Static Web Interface**: Pure frontend app that runs entirely in the browser
 
 ## University-Focused Impact Areas
 
@@ -122,22 +123,28 @@ For detailed deployment instructions, see `GITHUB_PAGES_INSTRUCTIONS.md`.
 
 ## Workflow for Updates
 
-The typical workflow for updating the system is:
+The enhanced workflow for updating the system is:
 
-1. **Data Collection**: Run the appropriate fetch_*.js scripts to gather new executive orders
+1. **Executive Order Collection**: Run appropriate fetch_*.js scripts to gather new executive orders
 2. **Database Update**: Add new data to the SQLite database using database_setup.js
 3. **AI Processing**: Generate summaries and categorizations with generate_plain_summaries.js
-4. **Static Export**: Export processed data to JSON with export_to_json.js
-5. **GitHub Pages Update**: Copy to docs/ folder and push to GitHub
+4. **External Source Integration**: Fetch data from authoritative sources with fetch_external_sources.js
+5. **Enhanced JSON Export**: Export processed data with integrated source analysis using export_to_json.js
+6. **Testing**: Verify enhanced JSON structure with test_enhanced_export_structure.js
+7. **GitHub Pages Update**: Copy to docs/ folder and push to GitHub
+
+For detailed workflow instructions, see WORKFLOW.md.
 
 ## Data Processing Tools
 
 The project includes several tools for local data processing:
 
 - **fetch_*.js** scripts: Collect executive orders from various sources
+- **fetch_external_sources.js**: Fetch and integrate external authoritative source data
 - **database_setup.js**: Configure SQLite database with executive order data
 - **generate_plain_summaries.js**: Create AI-generated plain language summaries
-- **export_to_json.js**: Export all data to static JSON files for the GitHub Pages site
+- **export_to_json.js**: Export data to static JSON with enhanced source integration
+- **test_enhanced_export_structure.js**: Test the enhanced JSON structure
 
 ## Customization
 
@@ -172,3 +179,6 @@ The project includes several documentation files:
 - `PROJECT_STRUCTURE.md`: Overview of the project files and architecture
 - `ENHANCED_JSON_STRUCTURE.md`: Documentation of the enhanced JSON export with integrated source data
 - `DATA_SOURCES.md`: Information about external data sources and integration
+- `WORKFLOW.md`: Step-by-step workflow for updating the system
+- `API_README.md`: API documentation with enhanced JSON structure details
+- `PHASE5_SUMMARY.md`: Summary of the enhanced JSON export implementation
