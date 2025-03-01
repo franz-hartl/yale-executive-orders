@@ -134,6 +134,51 @@ async function createTables() {
       )
     `);
     
+    // Create Yale-specific impact areas tables
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS yale_impact_areas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT UNIQUE,
+        description TEXT,
+        related_r1_area_id INTEGER NULL,
+        FOREIGN KEY (related_r1_area_id) REFERENCES university_impact_areas(id)
+      )
+    `);
+    
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS order_yale_impact_areas (
+        order_id INTEGER,
+        yale_impact_area_id INTEGER,
+        yale_specific_notes TEXT,
+        yale_impact_rating TEXT,
+        PRIMARY KEY (order_id, yale_impact_area_id),
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (yale_impact_area_id) REFERENCES yale_impact_areas(id)
+      )
+    `);
+    
+    // Create Yale stakeholders tables
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS yale_stakeholders (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT UNIQUE,
+        description TEXT
+      )
+    `);
+    
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS order_yale_stakeholders (
+        order_id INTEGER,
+        yale_stakeholder_id INTEGER,
+        priority_level TEXT,
+        action_required BOOLEAN DEFAULT 0,
+        stakeholder_notes TEXT,
+        PRIMARY KEY (order_id, yale_stakeholder_id),
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (yale_stakeholder_id) REFERENCES yale_stakeholders(id)
+      )
+    `);
+    
     // Create institution type tables
     await dbRun(`
       CREATE TABLE IF NOT EXISTS institution_types (
@@ -249,7 +294,17 @@ async function initializeReferenceData() {
   try {
     // Check if categories already exist
     const categoryCount = await dbGet('SELECT COUNT(*) as count FROM categories');
-    if (categoryCount.count === 0) {
+    
+    // Check if Yale-specific impact areas exist
+    let yaleImpactAreasCount = 0;
+    try {
+      yaleImpactAreasCount = await dbGet('SELECT COUNT(*) as count FROM yale_impact_areas');
+    } catch (err) {
+      // Table might not exist yet, which is fine
+      console.log('Yale impact areas table not checked or not available');
+    }
+    
+    if (categoryCount.count === 0 || !yaleImpactAreasCount || yaleImpactAreasCount.count === 0) {
       console.log('Initializing reference data...');
       
       // Insert higher education impact areas
@@ -268,6 +323,42 @@ async function initializeReferenceData() {
       for (const area of universityImpactAreas) {
         await dbRun('INSERT INTO university_impact_areas (name, description) VALUES (?, ?)', 
           [area.name, area.description]);
+      }
+      
+      // Initialize Yale-specific impact areas from JSON file if the table exists
+      try {
+        const yaleImpactAreasPath = path.join(__dirname, 'yale_specific_data', 'yale_impact_areas.json');
+        if (fs.existsSync(yaleImpactAreasPath)) {
+          const yaleImpactAreasData = JSON.parse(fs.readFileSync(yaleImpactAreasPath, 'utf-8'));
+          
+          for (const area of yaleImpactAreasData) {
+            await dbRun(
+              'INSERT INTO yale_impact_areas (id, name, description, related_r1_area_id) VALUES (?, ?, ?, ?)',
+              [area.id, area.name, area.description, area.related_r1_area_id]
+            );
+          }
+          console.log(`Imported ${yaleImpactAreasData.length} Yale-specific impact areas`);
+        }
+      } catch (err) {
+        console.error('Error importing Yale-specific impact areas:', err);
+      }
+      
+      // Initialize Yale stakeholders from JSON file if the table exists
+      try {
+        const yaleStakeholdersPath = path.join(__dirname, 'yale_specific_data', 'yale_stakeholders.json');
+        if (fs.existsSync(yaleStakeholdersPath)) {
+          const yaleStakeholdersData = JSON.parse(fs.readFileSync(yaleStakeholdersPath, 'utf-8'));
+          
+          for (const stakeholder of yaleStakeholdersData) {
+            await dbRun(
+              'INSERT INTO yale_stakeholders (id, name, description) VALUES (?, ?, ?)',
+              [stakeholder.id, stakeholder.name, stakeholder.description]
+            );
+          }
+          console.log(`Imported ${yaleStakeholdersData.length} Yale stakeholders`);
+        }
+      } catch (err) {
+        console.error('Error importing Yale stakeholders:', err);
       }
       
       // Insert categories

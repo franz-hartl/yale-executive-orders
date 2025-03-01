@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Research Funding & Security",
+    "description": "Impacts on federal research grants, funding priorities, and research security requirements for Yale University",
+    "related_r1_area_id": 1
+  },
+  {
+    "id": 2,
+    "name": "Advanced Research Programs",
+    "description": "Impacts on Yale's specialized research initiatives, laboratory operations, and high-priority research areas",
+    "related_r1_area_id": 2
+  },
+  {
+    "id": 3,
+    "name": "International Collaboration",
+    "description": "Impacts on Yale's international research partnerships, scholar mobility, and global academic initiatives",
+    "related_r1_area_id": 3
+  },
+  {
+    "id": 4,
+    "name": "Endowment Management",
+    "description": "Impacts on Yale's endowment investment policies, reporting requirements, and financial regulations",
+    "related_r1_area_id": 4
+  },
+  {
+    "id": 5,
+    "name": "Graduate Education",
+    "description": "Impacts on Yale's graduate and professional education programs, including funding mechanisms and program requirements",
+    "related_r1_area_id": 5
+  },
+  {
+    "id": 6,
+    "name": "Public-Private Partnerships",
+    "description": "Changes affecting Yale's academic-industry collaborations, tech transfer, and economic development initiatives",
+    "related_r1_area_id": 6
+  },
+  {
+    "id": 7,
+    "name": "Administrative Compliance",
+    "description": "Compliance requirements, reporting mandates, and regulatory changes specifically affecting Yale University",
+    "related_r1_area_id": 7
+  },
+  {
+    "id": 8,
+    "name": "Arts & Cultural Heritage",
+    "description": "Impact on Yale's museums, collections, performances, and cultural programming",
+    "related_r1_area_id": null
+  },
+  {
+    "id": 9,
+    "name": "Global Education",
+    "description": "Impact on Yale's international student recruitment, study abroad programs, and international partnerships",
+    "related_r1_area_id": 3
+  },
+  {
+    "id": 10,
+    "name": "Medical & Clinical Operations",
+    "description": "Impact on Yale School of Medicine, Yale New Haven Hospital, healthcare delivery, and clinical trials",
+    "related_r1_area_id": null
+  },
+  {
+    "id": 11,
+    "name": "Yale College Experience",
+    "description": "Impact on Yale's undergraduate education, residential colleges, and student life",
+    "related_r1_area_id": null
+  },
+  {
+    "id": 12,
+    "name": "Athletics & Student Activities",
+    "description": "Impact on Yale's sports programs and extracurricular activities",
+    "related_r1_area_id": null
+  }
+]

@@ -140,7 +140,7 @@ async function generateMultiLevelSummaries(order) {
   try {
     // Create a streamlined prompt for Claude with essential information
     const prompt = `
-      Create three different levels of summaries for this executive order specifically for private R1 research university administrators. Focus entirely on the implications, requirements, and implementation steps for private research universities with very high research activity:
+      Create three different levels of summaries for this executive order specifically for Yale University administrators. Focus on the implications, requirements, and implementation steps that are most relevant to Yale's unique institutional context:
 
       EXECUTIVE ORDER INFORMATION:
       Title: ${order.title}
@@ -151,144 +151,173 @@ async function generateMultiLevelSummaries(order) {
       Categories: ${order.categories.join(', ')}
       University Impact Areas: ${order.university_impact_areas.join(', ')}
       
+      YALE UNIVERSITY CONTEXT:
+      Yale is a private R1 research university with unique characteristics that should be considered in your analysis:
+      - Extensive arts and cultural collections (museums, rare book libraries, performance venues)
+      - Strong undergraduate liberal arts focus through Yale College and the residential college system
+      - Major medical enterprise through Yale School of Medicine and Yale New Haven Hospital
+      - Significant global programs and international student/faculty population
+      - Historic legacy as one of America's oldest institutions with unique governance structures
+      - Substantial endowment with specialized investment approach
+      
       Original Summary: ${order.summary || 'Not available'}
       
       Additional Text: ${order.full_text || ''}
       
-      FORMAT YOUR RESPONSE SPECIFICALLY FOR PRIVATE R1 RESEARCH UNIVERSITIES, focusing on their unique characteristics:
-      - Very high research activity (annual research expenditures >$100M)
-      - Substantial endowments
-      - Significant international presence
-      - Strong graduate and professional programs
-      - Extensive research infrastructure
+      FORMAT YOUR RESPONSE SPECIFICALLY FOR YALE UNIVERSITY, focusing on Yale's key stakeholder groups:
+      - Provost's Office and central administration
+      - Yale College and undergraduate education
+      - Graduate and professional schools
+      - Museums and cultural institutions
+      - School of Medicine and clinical operations
+      - International programs and global initiatives
+      - Athletics and student life
+      - Research administration and compliance
       
       Format your response as JSON with this structure:
       {
-        "executive_brief": "1-2 sentence TL;DR summary specifically for private R1 universities",
+        "executive_brief": "1-2 sentence TL;DR summary specifically for Yale University administrators",
         "standard_summary": {
-          "title": "Clear title focused on private R1 implications",
-          "overview": "Concise explanation for research universities",
-          "bottom_line": "Critical takeaway for private R1 administrators",
-          "impact_rating": "Impact level specifically for private R1s (Critical/High/Moderate/Low/Minimal)",
-          "key_research_implications": "How this affects research operations and funding",
-          "key_functional_areas": [
-            {"area": "Research Area 1", "description": "Impact details for research universities"},
-            {"area": "Area 2", "description": "Impact details for private R1s"},
-            {"area": "Area 3", "description": "Impact details for research-intensive context"}
+          "title": "Clear title focused on Yale University implications",
+          "overview": "Concise explanation for Yale administrators",
+          "bottom_line": "Critical takeaway for Yale administration",
+          "impact_rating": "Impact level specifically for Yale (Critical/High/Moderate/Low/Minimal)",
+          "key_yale_implications": "How this affects Yale's operations and mission",
+          "key_impact_areas": [
+            {"area": "Yale Area 1", "description": "Impact details for Yale University"},
+            {"area": "Yale Area 2", "description": "Impact details for Yale University"},
+            {"area": "Yale Area 3", "description": "Impact details for Yale University"}
           ],
-          "action_needed": "Yes/No with justification for private R1 context",
-          "important_dates": ["MM/DD/YYYY: description relevant to private R1 universities"],
-          "affected_departments": ["Department 1", "Department 2", "Department 3"],
+          "yale_stakeholders": [
+            {"stakeholder": "Primary Yale office", "priority": "High/Medium/Low", "action_required": true/false},
+            {"stakeholder": "Secondary Yale office", "priority": "High/Medium/Low", "action_required": true/false}
+          ],
+          "action_needed": "Yes/No with justification for Yale context",
+          "important_dates": ["MM/DD/YYYY: description relevant to Yale University"],
+          "affected_campus_units": ["Yale unit 1", "Yale unit 2", "Yale unit 3"],
           "immediate_steps": [
-            {"action": "Step 1 for private R1 implementation"},
-            {"action": "Step 2 for private R1 implementation"}
+            {"action": "Step 1 for Yale implementation", "responsible_units": ["Unit 1", "Unit 2"]},
+            {"action": "Step 2 for Yale implementation", "responsible_units": ["Unit 3"]}
           ],
           "short_term_actions": [
-            {"action": "Action 1 for private R1 implementation"},
-            {"action": "Action 2 for private R1 implementation"}
+            {"action": "Action 1 for Yale implementation", "responsible_units": ["Unit 1"]},
+            {"action": "Action 2 for Yale implementation", "responsible_units": ["Unit 2"]}
           ],
-          "long_term_considerations": ["Private R1 consideration 1", "Private R1 consideration 2"],
+          "long_term_considerations": ["Yale consideration 1", "Yale consideration 2"],
           "resource_requirements": {
-            "personnel": "Personnel needs for private R1 implementation",
-            "budget": "Budget implications for private R1 implementation",
-            "technology": "Technology changes for private R1 implementation",
-            "external_expertise": "External expertise for private R1 implementation"
-          }
+            "personnel": "Personnel needs for Yale implementation",
+            "budget": "Budget implications for Yale implementation",
+            "technology": "Technology changes for Yale implementation",
+            "external_expertise": "External expertise for Yale implementation"
+          },
+          "yale_specific_considerations": "Any considerations unique to Yale's institutional context"
         },
         "comprehensive_analysis": {
-          "title": "Detailed title with private R1 focus",
-          "overview": "Thorough explanation for private research universities",
-          "bottom_line": "Critical takeaway with private R1 nuance",
-          "research_impact_analysis": {
-            "research_security": "Impact on research security requirements",
-            "international_collaboration": "Impact on international research partnerships",
-            "funding_implications": "Impact on research funding mechanisms",
-            "compliance_burden": "Assessment of compliance requirements",
-            "competitive_position": "How this affects institutional competitive position"
+          "title": "Detailed title focused on Yale University implications",
+          "overview": "Thorough explanation for Yale administrators",
+          "bottom_line": "Critical takeaway for Yale leadership",
+          "yale_impact_analysis": {
+            "research_enterprise": "Impact on Yale's research operations and security requirements",
+            "international_programs": "Impact on Yale's global initiatives and international partnerships",
+            "funding_implications": "Impact on Yale's funding sources and mechanisms",
+            "compliance_requirements": "Assessment of Yale-specific compliance requirements",
+            "competitive_position": "How this affects Yale's position among peer institutions",
+            "cultural_heritage": "Impact on Yale's museums, collections, and cultural programs",
+            "medical_enterprise": "Impact on Yale School of Medicine and Yale New Haven Hospital",
+            "undergraduate_experience": "Impact on Yale College and residential college system"
           },
-          "key_focus_areas": [
+          "key_yale_areas": [
             {
-              "area": "Research Area 1", 
-              "description": "Detailed impact analysis for private R1 context",
-              "implementation_considerations": "Specific implementation details for research universities"
+              "area": "Yale Area 1", 
+              "description": "Detailed impact analysis for Yale University",
+              "implementation_considerations": "Specific implementation details for Yale administrators"
             },
             {
-              "area": "Area 2", 
-              "description": "Detailed impact analysis for private R1 context",
-              "implementation_considerations": "Specific implementation details for research universities"
+              "area": "Yale Area 2", 
+              "description": "Detailed impact analysis for Yale University",
+              "implementation_considerations": "Specific implementation details for Yale administrators"
             }
           ],
-          "exemptions_special_provisions": "Detailed analysis of any exemptions relevant to private R1 universities",
-          "policy_background": "Historical and policy context relevant to research universities",
-          "legal_framework": "Legal and regulatory details most relevant to private R1s",
-          "research_sector_context": "How this affects the research university landscape",
-          "action_needed": "Yes/No with detailed justification for private R1 universities",
+          "exemptions_special_provisions": "Detailed analysis of any exemptions relevant to Yale University",
+          "policy_background": "Historical and policy context relevant to Yale",
+          "legal_framework": "Legal and regulatory details most relevant to Yale's operations",
+          "higher_ed_context": "How this affects Yale's position in the higher education landscape",
+          "action_needed": "Yes/No with detailed justification for Yale administrators",
           "important_dates": [
             {
               "date": "MM/DD/YYYY", 
-              "description": "detailed description relevant to private R1 implementation",
-              "priority_level": "Importance level for private R1 administrators"
+              "description": "detailed description relevant to Yale implementation",
+              "priority_level": "Importance level for Yale administrators"
             }
           ],
-          "affected_departments": {
-            "primary": ["Most affected departments at private R1s"],
-            "secondary": ["Secondarily affected departments at private R1s"]
+          "affected_yale_units": {
+            "primary_responsibility": ["Yale units with primary responsibility"],
+            "secondary_involvement": ["Yale units with secondary involvement"],
+            "consultation_needed": ["Yale units that should be consulted"]
           },
           "implementation_strategy": [
             {
               "phase": "Immediate (0-30 days)",
               "actions": [
-                "Detailed private R1 step 1", 
-                "Detailed private R1 step 2"
+                "Detailed Yale implementation step 1", 
+                "Detailed Yale implementation step 2"
               ],
-              "key_considerations": "Critical implementation factors"
+              "responsible_units": ["Unit 1", "Unit 2"],
+              "key_considerations": "Critical implementation factors for Yale"
             },
             {
               "phase": "Short-term (1-3 months)",
               "actions": [
-                "Detailed private R1 action 1",
-                "Detailed private R1 action 2"
+                "Detailed Yale implementation action 1",
+                "Detailed Yale implementation action 2"
               ],
-              "key_considerations": "Critical implementation factors"
+              "responsible_units": ["Unit 3", "Unit 4"],
+              "key_considerations": "Critical implementation factors for Yale"
             },
             {
               "phase": "Long-term (4+ months)",
               "actions": [
-                "Detailed private R1 action 1",
-                "Detailed private R1 action 2"
+                "Detailed Yale implementation action 1",
+                "Detailed Yale implementation action 2"
               ],
-              "key_considerations": "Critical implementation factors"
+              "responsible_units": ["Unit 5", "Unit 6"],
+              "key_considerations": "Critical implementation factors for Yale"
             }
           ],
-          "specialized_analysis": {
-            "research_competitiveness": "How this affects competitive position in research",
-            "talent_acquisition": "Impact on faculty/researcher recruitment and retention",
-            "institutional_autonomy": "Effects on institutional independence and governance",
-            "financial_implications": "Detailed financial analysis for private R1 context",
-            "reputation_management": "Reputation and brand considerations"
+          "specialized_yale_analysis": {
+            "institutional_mission": "Alignment with Yale's mission and values",
+            "faculty_impact": "Effects on Yale faculty recruitment, retention, and activities",
+            "student_experience": "Impact on Yale student experience and opportunities",
+            "governance_considerations": "Implications for Yale's governance structure",
+            "financial_implications": "Detailed financial analysis for Yale context",
+            "reputation_management": "Reputation and brand considerations for Yale"
           },
           "compliance_details": {
-            "core_requirements": "Essential compliance requirements for private R1s",
-            "documentation_needs": "Required documentation and record-keeping",
-            "reporting_obligations": "Ongoing reporting requirements",
-            "audit_considerations": "Audit and oversight implications"
+            "core_requirements": "Essential compliance requirements for Yale",
+            "documentation_needs": "Required documentation and record-keeping for Yale units",
+            "reporting_obligations": "Ongoing reporting requirements for Yale",
+            "audit_considerations": "Audit and oversight implications for Yale"
           },
-          "technical_analysis": "Specialized technical aspects for research context",
-          "cross_functional_impacts": "How this affects different areas of a private R1 university",
+          "technical_analysis": "Specialized technical aspects for Yale implementation",
+          "cross_campus_impacts": "How this affects different schools and units at Yale",
           "risk_analysis": {
-            "research_risks": "Risks specific to research operations",
-            "financial_risks": "Financial and endowment-related risks",
-            "compliance_risks": "Risk of non-compliance for private R1 context",
-            "operational_risks": "Day-to-day operational risks",
-            "strategic_risks": "Long-term strategic position risks"
+            "research_risks": "Risks specific to Yale's research operations",
+            "cultural_assets_risks": "Risks related to Yale's cultural collections and programs",
+            "medical_enterprise_risks": "Risks specific to Yale's medical operations",
+            "financial_risks": "Financial and endowment-related risks for Yale",
+            "compliance_risks": "Risk of non-compliance for Yale context",
+            "operational_risks": "Day-to-day operational risks for Yale units",
+            "strategic_risks": "Long-term strategic position risks for Yale"
           },
-          "advocacy_opportunities": "Opportunities for private R1 input on implementation",
+          "advocacy_opportunities": "Opportunities for Yale input on implementation",
           "resource_requirements": {
-            "personnel": "Personnel needs for private R1 implementation",
-            "budget": "Budget implications for private R1 implementation",
-            "technology": "Technology needs for private R1 implementation",
-            "external_expertise": "External expertise needs for private R1 implementation"
-          }
+            "personnel": "Personnel needs for Yale implementation",
+            "budget": "Budget implications for Yale implementation",
+            "technology": "Technology needs for Yale implementation",
+            "external_expertise": "External expertise needs for Yale implementation"
+          },
+          "yale_historical_context": "How this relates to previous similar requirements at Yale",
+          "peer_institution_comparison": "How Yale's situation compares to peer institutions"
         }
       }
     `;

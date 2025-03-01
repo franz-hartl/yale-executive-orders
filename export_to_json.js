@@ -87,6 +87,50 @@ async function exportUniversityImpactAreas() {
   }
 }
 
+// Export Yale-specific impact areas
+async function exportYaleImpactAreas() {
+  try {
+    const query = `
+      SELECT y.*, u.name as related_r1_area_name 
+      FROM yale_impact_areas y
+      LEFT JOIN university_impact_areas u ON y.related_r1_area_id = u.id
+      ORDER BY y.id
+    `;
+    const yaleImpactAreas = await dbAll(query);
+    const outputPath = path.join(outputDir, 'yale_impact_areas.json');
+    await fs.writeFile(outputPath, JSON.stringify(yaleImpactAreas, null, 2));
+    console.log(`Exported ${yaleImpactAreas.length} Yale-specific impact areas to ${outputPath}`);
+    return yaleImpactAreas;
+  } catch (err) {
+    console.error('Error exporting Yale-specific impact areas:', err);
+    // If the table doesn't exist yet, this is non-fatal
+    if (err.message.includes('no such table')) {
+      console.log('Yale impact areas table not available yet - skipping export');
+      return [];
+    }
+    throw err;
+  }
+}
+
+// Export Yale stakeholders
+async function exportYaleStakeholders() {
+  try {
+    const yaleStakeholders = await dbAll('SELECT * FROM yale_stakeholders ORDER BY name');
+    const outputPath = path.join(outputDir, 'yale_stakeholders.json');
+    await fs.writeFile(outputPath, JSON.stringify(yaleStakeholders, null, 2));
+    console.log(`Exported ${yaleStakeholders.length} Yale stakeholders to ${outputPath}`);
+    return yaleStakeholders;
+  } catch (err) {
+    console.error('Error exporting Yale stakeholders:', err);
+    // If the table doesn't exist yet, this is non-fatal
+    if (err.message.includes('no such table')) {
+      console.log('Yale stakeholders table not available yet - skipping export');
+      return [];
+    }
+    throw err;
+  }
+}
+
 // Process and normalize source attribution
 function normalizeSourceAttribution(sources) {
   return sources.map(source => {
@@ -755,6 +799,36 @@ async function exportStatistics() {
       ORDER BY count DESC
     `);
     
+    // Yale-specific impact area stats
+    let yaleImpactAreas = [];
+    try {
+      yaleImpactAreas = await dbAll(`
+        SELECT yia.name, COUNT(*) as count
+        FROM yale_impact_areas yia
+        JOIN order_yale_impact_areas oyia ON yia.id = oyia.yale_impact_area_id
+        GROUP BY yia.name
+        ORDER BY count DESC
+      `);
+    } catch (err) {
+      // This is expected if we haven't populated the Yale data yet
+      console.log('Yale impact area stats not available yet');
+    }
+    
+    // Yale stakeholder stats
+    let yaleStakeholders = [];
+    try {
+      yaleStakeholders = await dbAll(`
+        SELECT ys.name, COUNT(*) as count
+        FROM yale_stakeholders ys
+        JOIN order_yale_stakeholders oys ON ys.id = oys.yale_stakeholder_id
+        GROUP BY ys.name
+        ORDER BY count DESC
+      `);
+    } catch (err) {
+      // This is expected if we haven't populated the Yale data yet
+      console.log('Yale stakeholder stats not available yet');
+    }
+    
     // Category stats
     const categories = await dbAll(`
       SELECT c.name, COUNT(*) as count
@@ -802,6 +876,8 @@ async function exportStatistics() {
     const stats = {
       impactLevels,
       universityImpactAreas,
+      yaleImpactAreas,
+      yaleStakeholders,
       categories,
       timeline,
       externalSources: sourcesStats,
@@ -911,30 +987,59 @@ async function exportMetadata(categories, impactAreas, universityImpactAreas) {
       SELECT * FROM functional_areas ORDER BY name
     `);
     
+    // Get Yale-specific impact areas if available
+    let yaleImpactAreas = [];
+    try {
+      yaleImpactAreas = await dbAll(`
+        SELECT y.*, u.name as related_r1_area_name 
+        FROM yale_impact_areas y
+        LEFT JOIN university_impact_areas u ON y.related_r1_area_id = u.id
+        ORDER BY y.id
+      `);
+    } catch (err) {
+      console.log('Yale impact areas not available for metadata export');
+    }
+    
+    // Get Yale stakeholders if available
+    let yaleStakeholders = [];
+    try {
+      yaleStakeholders = await dbAll('SELECT * FROM yale_stakeholders ORDER BY name');
+    } catch (err) {
+      console.log('Yale stakeholders not available for metadata export');
+    }
+    
     const metadata = {
       categories,
       impactAreas,
       universityImpactAreas,
+      yaleImpactAreas,
+      yaleStakeholders,
       externalSources: formattedSources,
       institutionTypes,
       functionalAreas,
       applicationVersion: '1.3.0',
-      primaryFocus: 'Private R1 Universities',
-      featuredInstitutionTypes: ['Private R1 Universities', 'Private R2 Universities'],
+      primaryFocus: 'Yale University',
+      featuredInstitutionTypes: ['Private R1 Universities', 'Yale-Specific Context'],
       sourceIntegrationVersion: '1.2.0',
       sourceIntegrationFeatures: [
         'Normalized Source Attribution',
         'Combined Analysis Section',
         'Institution-Specific Guidance',
-        'Source-Attributed Impact Areas'
+        'Source-Attributed Impact Areas',
+        'Yale-Specific Context Layer'
       ],
       specializedFocusAreas: [
         'Research Funding & Security',
         'Advanced Research Programs', 
         'International Collaboration',
         'Endowment Management',
-        'Graduate Education'
-      ]
+        'Graduate Education',
+        'Arts & Cultural Heritage',
+        'Medical & Clinical Operations',
+        'Yale College Experience'
+      ],
+      yaleSpecificFocus: true,
+      yaleFocusVersion: '1.0.0'
     };
     
     const outputPath = path.join(outputDir, 'metadata.json');
@@ -957,13 +1062,19 @@ async function exportAll() {
     const categories = await exportCategories();
     const impactAreas = await exportImpactAreas();
     const universityImpactAreas = await exportUniversityImpactAreas();
+    
+    // Export Yale-specific data
+    const yaleImpactAreas = await exportYaleImpactAreas();
+    const yaleStakeholders = await exportYaleStakeholders();
+    
+    // Update metadata to include Yale-specific information
     await exportMetadata(categories, impactAreas, universityImpactAreas);
     
     await exportExecutiveOrders();
     await exportStatistics();
     await exportSystemInfo();
     
-    console.log('All data successfully exported to JSON files with enhanced source integration.');
+    console.log('All data successfully exported to JSON files with enhanced source integration and Yale-specific context.');
   } catch (err) {
     console.error('Error exporting data:', err);
   } finally {
