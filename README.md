@@ -23,6 +23,24 @@ The system consists of the following key components:
 5. **AI Integration**: Anthropic Claude API integration for advanced text processing
 6. **Static Web Interface**: Pure frontend app that runs entirely in the browser
 
+## Documentation Resources
+
+For comprehensive documentation about the system, please refer to these resources:
+
+- [**Documentation Hub**](DOCUMENTATION.md) - Central entry point to all documentation
+- [**Architecture**](ARCHITECTURE.md) - System architecture and components
+- [**Data Flow**](DATA_FLOW.md) - How data moves through the system
+- [**Extension Guide**](EXTENSION_GUIDE.md) - How to extend and customize the system
+- [**Database Schema**](DATABASE_SCHEMA.md) - Reference for the database schema
+
+Recent documentation improvements:
+- Added comprehensive architecture documentation
+- Created detailed data flow diagrams and explanations
+- Documented key architectural decisions and rationales
+- Developed extension patterns documentation
+- Created detailed database schema reference
+- Established a central documentation entry point
+
 ## Private R1 University Impact Areas
 
 Executive orders are classified according to their impact on specific private research university domains:
