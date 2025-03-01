@@ -25,10 +25,17 @@ The `BaseSource` class provides the foundation for all source adapters, defining
 
 Each source adapter handles a specific data source:
 
+#### Core Sources (Government Data)
 - **FederalRegisterSource**: Fetches data from the official Federal Register API
 - **WhiteHouseSource**: Fetches data directly from the White House website
 - **LocalFileSource**: Uses local JSON files as a data source
 - **DatabaseSource**: Reads from and writes to a SQLite database
+
+#### Higher Education & Research Sources
+- **COGRSource**: Fetches executive order analyses from the Council on Governmental Relations
+- **NSFSource**: Fetches implementation guidance from the National Science Foundation
+- **NIHSource**: Fetches policy notices from the National Institutes of Health
+- **ACESource**: Fetches higher education impact analyses from the American Council on Education
 
 ### 3. Source Registry
 
@@ -144,10 +151,17 @@ const orders = await source.fetchOrders({ fromDate: '2023-01-01' });
 yale-executive-orders/
 ├── sources/                   # Data source adapters
 │   ├── base_source.js         # Base class for all sources
+│   │
 │   ├── federal_register_source.js  # Federal Register API source
 │   ├── whitehouse_source.js   # White House website source
 │   ├── local_file_source.js   # Local file source
 │   ├── database_source.js     # SQLite database source
+│   │
+│   ├── cogr_source.js         # Council on Governmental Relations source
+│   ├── nsf_source.js          # National Science Foundation source
+│   ├── nih_source.js          # National Institutes of Health source
+│   ├── ace_source.js          # American Council on Education source
+│   │
 │   └── source_registry.js     # Registry for managing sources
 │
 ├── utils/                     # Shared utilities
@@ -155,7 +169,14 @@ yale-executive-orders/
 │   ├── common.js              # Common utility functions
 │   └── logger.js              # Logging framework
 │
-├── fetch_eo_data.js           # Main script for fetching data
+├── fetch_eo_data.js           # Main script for fetching from core sources
+├── fetch_eo_data_complete.js  # Comprehensive script with all sources
+│
+├── external_sources/          # Storage for specialized source data
+│   ├── cogr/                  # COGR data cache
+│   ├── nsf/                   # NSF data cache
+│   ├── nih/                   # NIH data cache
+│   └── ace/                   # ACE data cache
 │
 └── MODULAR_DATA_SOURCES.md    # This documentation
 ```
