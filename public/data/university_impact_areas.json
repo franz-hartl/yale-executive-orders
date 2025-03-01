@@ -1,37 +1,32 @@
 [
   {
-    "id": 1,
-    "name": "Research Funding & Security",
-    "description": "Impacts on federal research grants, funding priorities, and research security requirements for private R1 institutions"
-  },
-  {
-    "id": 2,
-    "name": "Advanced Research Programs",
-    "description": "Impacts on specialized research initiatives, national laboratories, and high-priority research areas for leading private research universities"
-  },
-  {
     "id": 3,
-    "name": "International Collaboration",
-    "description": "Impacts on international research partnerships, scholar mobility, and global academic initiatives for private R1 institutions"
-  },
-  {
-    "id": 4,
-    "name": "Endowment Management",
-    "description": "Impacts on endowment investment policies, reporting requirements, and financial regulations affecting well-endowed private institutions"
+    "name": "Administrative Compliance",
+    "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
   },
   {
     "id": 5,
-    "name": "Graduate Education",
-    "description": "Impacts on graduate and professional education programs, including funding mechanisms and program requirements at private R1s"
-  },
-  {
-    "id": 6,
     "name": "Public-Private Partnerships",
-    "description": "Changes affecting academic-industry collaborations, tech transfer, and economic development initiatives for private research universities"
+    "description": "Changes affecting university-industry collaborations, tech transfer, and economic development initiatives"
   },
   {
-    "id": 7,
-    "name": "Administrative Compliance",
-    "description": "Compliance requirements, reporting mandates, and regulatory changes specifically affecting private R1 institutions"
+    "id": 1,
+    "name": "Research Funding",
+    "description": "Impacts on federal research grants, funding priorities, and research administration"
+  },
+  {
+    "id": 136,
+    "name": "Research Funding & Science Policy",
+    "description": "Impact on federal research grants, funding priorities, research security, and national science initiatives across all institution types"
+  },
+  {
+    "id": 2,
+    "name": "Student Aid & Higher Education Finance",
+    "description": "Changes to student financial aid, federal student loans, and university funding mechanisms"
+  },
+  {
+    "id": 4,
+    "name": "Workforce & Employment Policy",
+    "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity"
   }
 ]

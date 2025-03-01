@@ -110,6 +110,11 @@
       "description": "Impacts on federal research grants, funding priorities, and research administration"
     },
     {
+      "id": 136,
+      "name": "Research Funding & Science Policy",
+      "description": "Impact on federal research grants, funding priorities, research security, and national science initiatives across all institution types"
+    },
+    {
       "id": 2,
       "name": "Student Aid & Higher Education Finance",
       "description": "Changes to student financial aid, federal student loans, and university funding mechanisms"
@@ -119,5 +124,188 @@
       "name": "Workforce & Employment Policy",
       "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity"
     }
-  ]
+  ],
+  "yaleImpactAreas": [],
+  "yaleStakeholders": [],
+  "externalSources": [
+    {
+      "id": 4,
+      "name": "ACE Policy Briefs",
+      "abbreviation": "ACE",
+      "url": "https://www.acenet.edu/Policy-Advocacy/Pages/default.aspx",
+      "description": "American Council on Education policy briefs and analysis of executive orders affecting higher education institutions.",
+      "last_updated": "2025-02-28T21:29:54.940Z",
+      "fetch_frequency": "monthly",
+      "order_count": 0,
+      "last_fetch": null
+    },
+    {
+      "id": 1,
+      "name": "COGR Executive Order Tracker",
+      "abbreviation": "COGR",
+      "url": "https://www.cogr.edu/cogr-resources",
+      "description": "The Council on Governmental Relations (COGR) maintains a tracker of executive orders relevant to research institutions. This source provides detailed analysis of EOs affecting higher education research.",
+      "last_updated": "2025-02-28T21:29:54.932Z",
+      "fetch_frequency": "monthly",
+      "order_count": 0,
+      "last_fetch": null
+    },
+    {
+      "id": 3,
+      "name": "NIH Policy Notices",
+      "abbreviation": "NIH",
+      "url": "https://grants.nih.gov/policy/index.htm",
+      "description": "National Institutes of Health policy notices, which often contain information about how executive orders affect NIH grants and operations.",
+      "last_updated": "2025-02-28T21:36:52.103Z",
+      "fetch_frequency": "bi-weekly",
+      "order_count": 0,
+      "last_fetch": null
+    },
+    {
+      "id": 2,
+      "name": "NSF Implementation Pages",
+      "abbreviation": "NSF",
+      "url": "https://www.nsf.gov/news/policies_and_procedures/",
+      "description": "National Science Foundation pages detailing how executive orders are being implemented in grant procedures and requirements.",
+      "last_updated": "2025-02-28T21:29:54.934Z",
+      "fetch_frequency": "bi-weekly",
+      "order_count": 2,
+      "last_fetch": "2025-02-28T21:29:54.939Z"
+    }
+  ],
+  "institutionTypes": [
+    {
+      "id": 4,
+      "name": "Baccalaureate Colleges",
+      "description": "Institutions where baccalaureate degrees represent at least 50% of all degrees awarded"
+    },
+    {
+      "id": 5,
+      "name": "Community Colleges",
+      "description": "Associate's degree-granting institutions with primarily 2-year programs"
+    },
+    {
+      "id": 3,
+      "name": "Master's Universities",
+      "description": "Institutions awarding at least 50 master's degrees annually but fewer doctoral degrees"
+    },
+    {
+      "id": 1,
+      "name": "R1 Research Universities",
+      "description": "Doctoral universities with very high research activity (annual research expenditures >$100M)"
+    },
+    {
+      "id": 2,
+      "name": "R2 Research Universities",
+      "description": "Doctoral universities with high research activity (annual research expenditures $50M-$100M)"
+    },
+    {
+      "id": 6,
+      "name": "Specialized Institutions",
+      "description": "Institutions focused on specific fields (medical schools, art schools, etc.)"
+    },
+    {
+      "id": 9,
+      "name": "State-Funded Public",
+      "description": "Public institutions with significant state appropriations"
+    },
+    {
+      "id": 8,
+      "name": "Tuition-Dependent Private",
+      "description": "Private institutions deriving majority of revenue from tuition"
+    },
+    {
+      "id": 7,
+      "name": "Well-Endowed Private",
+      "description": "Private institutions with substantial endowments (>$1B)"
+    }
+  ],
+  "functionalAreas": [
+    {
+      "id": 2,
+      "name": "Academic Programs",
+      "description": "Functions related to curriculum, instruction, and academic management"
+    },
+    {
+      "id": 9,
+      "name": "Administrative Operations",
+      "description": "Functions related to institutional management and daily operations"
+    },
+    {
+      "id": 5,
+      "name": "Diversity Initiatives",
+      "description": "Functions related to DEI, civil rights compliance, and inclusion programs"
+    },
+    {
+      "id": 10,
+      "name": "Financial Operations",
+      "description": "Functions related to institutional finance, accounting, and budget"
+    },
+    {
+      "id": 4,
+      "name": "International Programs",
+      "description": "Functions related to international students, study abroad, and global partnerships"
+    },
+    {
+      "id": 11,
+      "name": "Legal Affairs",
+      "description": "Functions related to legal compliance and risk management"
+    },
+    {
+      "id": 8,
+      "name": "Public-Private Partnerships",
+      "description": "Functions related to industry collaboration and external partnerships"
+    },
+    {
+      "id": 6,
+      "name": "Regulatory Compliance",
+      "description": "Functions related to federal and state regulatory requirements"
+    },
+    {
+      "id": 1,
+      "name": "Research Operations",
+      "description": "Functions related to research administration, grants management, and research conduct"
+    },
+    {
+      "id": 3,
+      "name": "Student Aid & Financing",
+      "description": "Functions related to financial aid, scholarships, and student financing"
+    },
+    {
+      "id": 12,
+      "name": "Technology Infrastructure",
+      "description": "Functions related to IT systems, data management, and digital resources"
+    },
+    {
+      "id": 7,
+      "name": "Workforce & Employment",
+      "description": "Functions related to faculty/staff employment, labor relations, and HR"
+    }
+  ],
+  "applicationVersion": "2.0.0",
+  "primaryFocus": "Yale University",
+  "featuredInstitutionTypes": [
+    "Yale University"
+  ],
+  "sourceIntegrationVersion": "2.0.0",
+  "sourceIntegrationFeatures": [
+    "Simplified Source Integration",
+    "Yale Department Structure",
+    "Yale-Specific Impact Areas",
+    "Yale Department Mapping",
+    "Yale Compliance Workflow"
+  ],
+  "specializedFocusAreas": [
+    "Research Funding & Security",
+    "Advanced Research Programs",
+    "International Collaboration",
+    "Endowment Management",
+    "Graduate Education",
+    "Arts & Cultural Heritage",
+    "Medical & Clinical Operations",
+    "Yale College Experience",
+    "Athletics & Student Activities"
+  ],
+  "yaleSpecificFocus": true,
+  "yaleFocusVersion": "2.0.0"
 }

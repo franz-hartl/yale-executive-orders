@@ -1,0 +1,16 @@
+{
+  "date": "2025-02-28T21:36:52.102Z",
+  "status": "using_sample",
+  "urls_checked": [
+    "https://grants.nih.gov/policy/index.htm",
+    "https://grants.nih.gov/grants/policy/nihgps/index.html",
+    "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-012.html",
+    "https://grants.nih.gov/policy/clinical-trials.htm",
+    "https://grants.nih.gov/policy/data-sharing.htm"
+  ],
+  "message": "Using sample NIH notices data for testing",
+  "results": [],
+  "notices_count": 3,
+  "notices_path": "/Users/franzhartl/yale-executive-orders/external_sources/nih/nih-notices-sample-2025-02-28T21-36-52-103Z.json",
+  "is_sample": true
+}

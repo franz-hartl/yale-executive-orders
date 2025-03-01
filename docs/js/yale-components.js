@@ -3,12 +3,7 @@
  * Combined JavaScript implementation for all Yale UI components
  */
 
-// Import component scripts
-import './yale-components/accessibility.js';
-import './yale-components/tabs.js';
-import './yale-components/accordion.js';
-import './yale-components/modal.js';
-import './yale-components/toast.js';
+// Component scripts are loaded directly in the HTML
 
 // Initialize all components when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {

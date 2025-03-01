@@ -27,6 +27,10 @@
       "notes": null
     }
   ],
+  "differentiated_impacts": {},
+  "compliance_timelines": {},
+  "impact_scoring": [],
+  "implementation_resources": [],
   "compliance_actions": [],
   "has_plain_language_summary": true,
   "has_executive_brief": true,
@@ -35,5 +39,35 @@
     "executive_brief",
     "standard",
     "comprehensive"
-  ]
+  ],
+  "sources": [],
+  "yale_guidance": {
+    "yale_university": {
+      "relevance_score": 3,
+      "affected_departments": [],
+      "primary_departments": [],
+      "secondary_departments": [],
+      "action_items": [],
+      "compliance_actions": [],
+      "impact_areas": [],
+      "source_insights": {
+        "key_takeaways": [],
+        "implementation_references": [],
+        "resource_links": []
+      }
+    }
+  },
+  "simplified_impact_analysis": {
+    "Administrative Compliance": {
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
+    }
+  },
+  "simplified_source_analysis": {
+    "summary": "This executive order strengthens Second Amendment protections and may limit university policies regarding firearms on campus. Yale will need to review its campus safety policies to ensure compliance with potential new federal guidelines, while balancing safety considerations within state law parameters.",
+    "extended_analysis": "Executive Order 2025-02636, \"Protecting Second Amendment Rights,\" represents a significant federal policy shift with potential implications for Yale University's campus safety protocols, administrative policies, and legal compliance framework.\n\nPOLICY IMPLICATIONS AND LEGAL CONSIDERATIONS:\nYale University currently maintains a weapons policy that prohibits firearms on campus property, consistent with Connecticut state law. This executive order creates several important legal and policy considerations:\n\n1. Federal-State-University Policy Interface: The executive order potentially creates a complex legal landscape where Yale must navigate between federal directives, state law, and institutional safety priorities. Connecticut maintains strict gun control laws that Yale's current policies align with, creating potential jurisdictional questions about which regulations take precedence.\n\n2. Regulatory Compliance Review: Yale will need to conduct a comprehensive review of its current firearms policies, examining:\n   - Campus weapons prohibition policies\n   - Security protocols for campus buildings and events\n   - Housing agreements and residential life policies\n   - Event security guidelines\n   - Campus police procedures\n\n3. Legal Risk Assessment: The university's Office of General Counsel will need to evaluate potential legal exposure related to policy changes or maintenance of current policies, particularly regarding liability, insurance considerations, and compliance with contradictory federal and state directives.\n\nCAMPUS SAFETY AND SECURITY OPERATIONS:\nYale maintains a comprehensive security infrastructure that may require adjustment based on the executive order:\n\n1. Security Protocols: Current entry procedures, especially for high-security areas like laboratories, performance venues, and administrative buildings, may need reevaluation.\n\n2. Yale Police Department Operations: The Yale Police Department, which employs approximately 100 officers, may need to modify training, protocols, and response procedures based on potential policy changes.\n\n3. Emergency Management: Campus emergency response plans may require updates to address scenarios involving lawfully carried firearms on campus, if policy changes result from the executive order.\n\nFINANCIAL IMPLICATIONS:\nThe financial impact on Yale will primarily manifest through administrative and operational adaptations:\n\n1. Policy Development and Implementation: Costs associated with legal review, policy development, stakeholder consultation, and implementation of any necessary changes (estimated at $100,000-$200,000).\n\n2. Security System Modifications: Potential adjustments to physical security infrastructure if current systems need modification to align with new requirements (variable cost depending on scope of changes).\n\n3. Training Requirements: Additional training for security personnel, residential staff, and other employees to address policy changes (estimated at $50,000-$100,000).\n\n4. Communication Campaigns: Comprehensive communication efforts to explain policy changes to the university community (estimated at $30,000-$50,000).\n\nSTAKEHOLDER IMPACT AND MANAGEMENT:\nThe executive order potentially affects various university constituencies differently:\n\n1. Student Concerns: Many students may express concerns about potential changes to campus weapons policies, requiring careful communication and clarification of actual policy implications.\n\n2. Faculty and Staff Considerations: Employment policies and workplace safety concerns will need addressing through appropriate consultation and communication channels.\n\n3. Community Relations: Yale's relationship with the city of New Haven may require additional attention if campus weapons policies change, given the urban setting of the university.\n\n4. Donor and Alumni Relations: Policy changes may generate strong opinions among some donors and alumni, requiring strategic communication approaches.\n\nSTRATEGIC RESPONSE OPTIONS:\nYale has several potential approaches to responding to this executive order:\n\n1. Minimum Compliance Approach: Identify the specific requirements of the order and make only those adjustments absolutely necessary to maintain compliance while preserving core campus safety priorities.\n\n2. Collaborative Engagement: Work with peer institutions, higher education associations, and legal experts to develop consistent approaches and potentially seek clarification on the order's application to private universities.\n\n3. Differentiated Policy Framework: Develop nuanced policies that may vary by campus location or function, potentially maintaining stricter protocols in sensitive areas while adjusting policies in others.\n\n4. Proactive Communication Strategy: Regardless of policy decisions, develop comprehensive communication plans that emphasize Yale's continued commitment to campus safety while acknowledging the changing regulatory environment.\n\nThe executive order represents a medium impact on Yale University operations, primarily affecting Administrative Compliance procedures and potentially Workforce & Employment Policy regarding security personnel. The university faces challenges in balancing federal compliance with state law requirements and institutional safety priorities, requiring careful legal analysis and strategic planning.",
+    "source_insights": []
+  }
 }

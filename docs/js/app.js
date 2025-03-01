@@ -5,30 +5,22 @@
  * including data loading, table rendering, filtering, and UI management.
  */
 
-// Initialize Yale Component Library
+// Yale Component Library references
 let yaleModal;
 let yaleToast;
 
 // Wait for DOM to be fully loaded before running code
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Yale Component Library
-    if (typeof initYaleAccessibility === 'function') {
-        initYaleAccessibility();
-    }
-    
-    if (typeof initYaleTabs === 'function') {
-        initYaleTabs();
-    }
-    
-    if (typeof initYaleAccordion === 'function') {
-        initYaleAccordion();
-    }
-    
-    if (typeof initYaleModal === 'function') {
+    // Reference Yale component instances or create them if needed
+    if (window.YaleModal) {
+        yaleModal = window.YaleModal;
+    } else if (typeof initYaleModal === 'function') {
         yaleModal = initYaleModal();
     }
     
-    if (typeof initYaleToast === 'function') {
+    if (window.YaleToast) {
+        yaleToast = window.YaleToast;
+    } else if (typeof initYaleToast === 'function') {
         yaleToast = initYaleToast();
     }
     
@@ -53,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Detail view elements
     const detailView = document.getElementById('detail-view');
     const closeDetailBtn = document.getElementById('close-detail-btn');
+    const closeDetailBtnBottom = document.getElementById('close-detail-btn-bottom');
     const detailTitle = document.getElementById('detail-title');
     const detailOrderNumber = document.getElementById('detail-order-number');
     const detailPresident = document.getElementById('detail-president');
@@ -108,17 +101,30 @@ document.addEventListener('DOMContentLoaded', () => {
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 // Remove active class from all tabs
-                tabs.forEach(t => t.classList.remove('active'));
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.classList.remove('yale-tab-button--active');
+                });
                 
                 // Add active class to clicked tab
                 tab.classList.add('active');
+                tab.classList.add('yale-tab-button--active');
                 
                 // Hide all tab contents
-                tabContents.forEach(content => content.classList.add('hidden'));
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                    content.classList.add('yale-tab-content--hidden');
+                });
                 
                 // Show selected tab content
-                const tabName = tab.getAttribute('data-tab');
-                document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+                const tabTarget = tab.getAttribute('data-tab-target') || tab.getAttribute('data-tab');
+                if (tabTarget) {
+                    const tabContent = document.getElementById(tabTarget);
+                    if (tabContent) {
+                        tabContent.classList.remove('hidden');
+                        tabContent.classList.remove('yale-tab-content--hidden');
+                    }
+                }
             });
         });
     }
@@ -132,13 +138,28 @@ document.addEventListener('DOMContentLoaded', () => {
         filterUniversityArea.addEventListener('change', applyFilters);
         clearFiltersBtn.addEventListener('click', clearFilters);
         
-        // Close detail view
+        // Close detail view (top button)
         closeDetailBtn.addEventListener('click', () => {
-            detailView.classList.add('hidden');
+            if (yaleModal) {
+                yaleModal.closeModal(detailView);
+            } else {
+                detailView.classList.add('hidden');
+                detailView.classList.add('yale-modal__backdrop--hidden');
+            }
+        });
+        
+        // Close detail view (bottom button)
+        closeDetailBtnBottom.addEventListener('click', () => {
+            if (yaleModal) {
+                yaleModal.closeModal(detailView);
+            } else {
+                detailView.classList.add('hidden');
+                detailView.classList.add('yale-modal__backdrop--hidden');
+            }
         });
         
         // Sort headers
-        document.querySelectorAll('.sort-header').forEach(header => {
+        document.querySelectorAll('.yale-table__sort-header, .sort-header').forEach(header => {
             header.addEventListener('click', () => {
                 const field = header.getAttribute('data-sort');
                 if (field === sortField) {
@@ -147,21 +168,44 @@ document.addEventListener('DOMContentLoaded', () => {
                     sortField = field;
                     sortDirection = 'desc';
                 }
+                
+                // Update sort icons
+                document.querySelectorAll('.yale-table__sort-header, .sort-header').forEach(h => {
+                    const icon = h.querySelector('.yale-table__sort-icon i, .sort-icon i');
+                    if (icon) {
+                        if (h.getAttribute('data-sort') === sortField) {
+                            icon.className = sortDirection === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down';
+                        } else {
+                            icon.className = 'fas fa-sort';
+                        }
+                    }
+                });
+                
                 renderTable();
             });
         });
         
-        // Close when clicking outside
+        // Close when clicking outside (handled by yale-component library, but adding fallback)
         window.addEventListener('click', (e) => {
             if (e.target === detailView) {
-                detailView.classList.add('hidden');
+                if (yaleModal) {
+                    yaleModal.closeModal(detailView);
+                } else {
+                    detailView.classList.add('hidden');
+                    detailView.classList.add('yale-modal__backdrop--hidden');
+                }
             }
         });
         
-        // Escape key closes modal
+        // Escape key closes modal (handled by yale-component library, but adding fallback)
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !detailView.classList.contains('hidden')) {
-                detailView.classList.add('hidden');
+            if (e.key === 'Escape' && !detailView.classList.contains('yale-modal__backdrop--hidden')) {
+                if (yaleModal) {
+                    yaleModal.closeModal(detailView);
+                } else {
+                    detailView.classList.add('hidden');
+                    detailView.classList.add('yale-modal__backdrop--hidden');
+                }
             }
         });
     }
@@ -300,35 +344,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Show the detail view using Yale Modal if available
             if (yaleModal) {
-                // Setup modal with content from detail view
-                const modalContent = detailView.innerHTML;
-                
-                // Create Yale modal structure
-                const modalId = 'order-detail-modal';
-                let modalElement = document.getElementById(modalId);
-                
-                if (!modalElement) {
-                    modalElement = document.createElement('div');
-                    modalElement.id = modalId;
-                    modalElement.className = 'yale-modal__backdrop yale-modal__backdrop--hidden';
-                    modalElement.setAttribute('role', 'dialog');
-                    modalElement.setAttribute('aria-modal', 'true');
-                    modalElement.setAttribute('aria-labelledby', 'detail-title');
-                    
-                    modalElement.innerHTML = `
-                        <div class="yale-modal__content yale-modal__content--lg">
-                            ${detailView.querySelector('.modal-content').innerHTML}
-                        </div>
-                    `;
-                    
-                    document.body.appendChild(modalElement);
-                }
-                
-                // Open the Yale modal
-                yaleModal.openModal(modalElement);
+                // Use the existing modal structure directly
+                yaleModal.openModal(detailView);
             } else {
                 // Fallback to original implementation
                 detailView.classList.remove('hidden');
+                detailView.classList.remove('yale-modal__backdrop--hidden');
             }
             
             // Hide loading
@@ -750,6 +771,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // Add click event to open detail view
             row.addEventListener('click', () => {
                 openDetailView(order.id);
+            });
+            
+            // Add keyboard accessibility for table rows
+            row.setAttribute('tabindex', '0');
+            row.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openDetailView(order.id);
+                }
             });
             
             // Add the row to the table

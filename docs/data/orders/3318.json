@@ -33,6 +33,10 @@
       "notes": null
     }
   ],
+  "differentiated_impacts": {},
+  "compliance_timelines": {},
+  "impact_scoring": [],
+  "implementation_resources": [],
   "compliance_actions": [],
   "has_plain_language_summary": true,
   "has_executive_brief": true,
@@ -41,5 +45,41 @@
     "executive_brief",
     "standard",
     "comprehensive"
-  ]
+  ],
+  "sources": [],
+  "yale_guidance": {
+    "yale_university": {
+      "relevance_score": 4,
+      "affected_departments": [],
+      "primary_departments": [],
+      "secondary_departments": [],
+      "action_items": [],
+      "compliance_actions": [],
+      "impact_areas": [],
+      "source_insights": {
+        "key_takeaways": [],
+        "implementation_references": [],
+        "resource_links": []
+      }
+    }
+  },
+  "simplified_impact_analysis": {
+    "Research Funding": {
+      "description": "Impacts on federal research grants, funding priorities, and research administration",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
+    },
+    "Administrative Compliance": {
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
+    }
+  },
+  "simplified_source_analysis": {
+    "summary": "This executive order restricts certain gender-affirming procedures for minors, which may impact Yale School of Medicine protocols, research activities, and potentially create compliance obligations for Yale Health and clinical services. Policy recalibration and careful navigation of conflicting state and federal requirements will be necessary.",
+    "extended_analysis": "Executive Order 2025-02194, \"Protecting Children From Chemical and Surgical Mutilation,\" represents a significant federal policy intervention in the area of transgender healthcare for minors. This order has substantial implications for Yale University across multiple dimensions, particularly for its medical, healthcare, and research enterprises.\n\nCLINICAL PRACTICE IMPLICATIONS:\nYale School of Medicine and Yale New Haven Hospital system provide comprehensive healthcare services, including some gender-affirming care. This executive order creates several considerations for clinical practice:\n\n1. Clinical Protocols: Existing protocols for transgender healthcare for patients under 18 will require comprehensive review and potential modification to ensure compliance with federal directives while maintaining appropriate standards of care within legal parameters.\n\n2. Referral Networks: Yale's system of referrals to specialists for gender-affirming care may require recalibration, particularly for minor patients who might previously have been referred for certain treatments now potentially restricted.\n\n3. Informed Consent Procedures: Documentation and procedures for discussing treatment options, risks, benefits, and alternatives with patients and families will likely need enhancement to reflect changing regulatory frameworks.\n\n4. Multi-State Considerations: Yale New Haven Health operates across Connecticut, Rhode Island, and New York, potentially creating complex compliance challenges if state laws conflict with federal directives.\n\nMEDICAL EDUCATION AND TRAINING IMPACT:\nAs a premier medical education institution, Yale faces several considerations:\n\n1. Curriculum Adjustments: Medical school and residency training in specialties including pediatrics, endocrinology, psychiatry, and adolescent medicine may require curriculum modifications to address changing regulatory frameworks while still providing comprehensive education.\n\n2. Clinical Training Experiences: Rotations and clinical experiences involving transgender healthcare for minors may need restructuring to ensure compliance while maintaining educational quality.\n\n3. Continuing Medical Education: Programs for practicing clinicians may need expansion to address navigating complex and potentially conflicting regulatory frameworks in this area.\n\nRESEARCH IMPLICATIONS:\nYale conducts significant research related to transgender health outcomes and approaches:\n\n1. Research Protocols: Ongoing studies involving minors and gender-affirming interventions may require review and potential modification to ensure compliance with the executive order.\n\n2. Federal Funding: Research grants from federal agencies like NIH for studies in this area may face new restrictions or requirements, potentially affecting Yale's research portfolio.\n\n3. IRB Considerations: Yale's Institutional Review Board will need updated guidance for reviewing research protocols involving transgender minors to ensure regulatory compliance while supporting appropriate scientific inquiry.\n\nHEALTH INSURANCE AND COVERAGE POLICIES:\nYale Health provides insurance coverage for students and some employees:\n\n1. Coverage Policies: Yale Health will need to review and potentially adjust coverage policies for gender-affirming care for dependent minors to align with federal requirements.\n\n2. Self-Funded Plan Considerations: As a self-funded plan, Yale Health has certain flexibility in coverage determinations but will still need to navigate federal requirements carefully.\n\n3. Documentation Requirements: Enhanced documentation and review procedures may be necessary for certain treatments to demonstrate appropriate consideration of federal guidelines.\n\nLEGAL AND COMPLIANCE CONSIDERATIONS:\nThe executive order creates several legal navigation challenges:\n\n1. Federal-State Law Tensions: Yale must carefully navigate potential conflicts between this federal executive order and Connecticut state laws regarding transgender healthcare.\n\n2. Professional Standards Alignment: Potential tensions between federal directives and guidelines from medical professional associations like the American Academy of Pediatrics or the Endocrine Society will require thoughtful resolution.\n\n3. Liability Considerations: Risk management strategies may need enhancement to address potential liability concerns arising from changing standards of care and regulatory requirements.\n\nSTAKEHOLDER IMPACT AND MANAGEMENT:\nVarious university constituencies will be affected differently:\n\n1. Faculty Concerns: Some medical faculty may have professional or ethical concerns about restrictions on evidence-based practices, requiring thoughtful engagement.\n\n2. Student Education: Medical, nursing, and public health students need appropriate education about navigating complex regulatory environments while providing ethical, evidence-based care.\n\n3. Patient Population: Yale serves transgender minors and their families who may require clear communication about changing policies and continued support within legal parameters.\n\nSTRATEGIC RESPONSE OPTIONS:\nYale has several potential approaches to responding to this executive order:\n\n1. Policy Working Group: Establish a multidisciplinary team including medical, legal, and ethics experts to develop cohesive implementation strategies.\n\n2. Stakeholder Engagement: Proactively engage with affected communities, including medical providers, patients, and advocacy groups to understand concerns and communicate transparently about policy changes.\n\n3. Clinical Guidance Development: Create clear, comprehensive guidance for clinicians navigating the new regulatory framework while maintaining commitment to patient welfare within legal boundaries.\n\n4. Research Adaptation: Develop strategies for continuing valuable research in transgender healthcare while ensuring complete compliance with evolving regulatory requirements.\n\nThe executive order represents a high impact on specific aspects of Yale University's operations, particularly its medical and healthcare enterprises. While not affecting the entire university, the implications for Yale School of Medicine, Yale Health, and related clinical and research activities are substantial. The primary university impact areas include Administrative Compliance and Research Funding, with particular focus on clinical practice parameters and research protocols.",
+    "source_insights": []
+  }
 }

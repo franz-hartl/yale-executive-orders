@@ -1,0 +1,148 @@
+{
+  "id": 3347,
+  "order_number": "EO 14110",
+  "title": "NSF Implementation of Executive Order on Safe, Secure, and Trustworthy Artificial Intelligence",
+  "signing_date": null,
+  "publication_date": null,
+  "president": null,
+  "summary": null,
+  "full_text": null,
+  "url": null,
+  "impact_level": null,
+  "status": null,
+  "implementation_phase": null,
+  "added_date": "2025-02-28 21:28:41",
+  "last_updated": "2025-02-28 21:28:41",
+  "plain_language_summary": null,
+  "executive_brief": null,
+  "comprehensive_analysis": null,
+  "categories": [],
+  "impact_areas": [],
+  "university_impact_areas": [
+    {
+      "name": "Research Funding",
+      "description": "Impacts on federal research grants, funding priorities, and research administration",
+      "notes": null
+    }
+  ],
+  "differentiated_impacts": {},
+  "compliance_timelines": {},
+  "impact_scoring": [],
+  "implementation_resources": [],
+  "compliance_actions": [],
+  "has_plain_language_summary": false,
+  "has_executive_brief": false,
+  "has_comprehensive_analysis": false,
+  "summary_formats_available": [],
+  "sources": [
+    {
+      "name": "NSF Implementation Pages",
+      "abbreviation": "NSF",
+      "url": "https://www.nsf.gov/news/policies_and_procedures/",
+      "reference_id": null,
+      "fetch_date": "2025-02-28T21:29:54.939Z",
+      "data": {
+        "implementation_references": [
+          {
+            "title": "NSF AI Portal",
+            "url": "https://www.nsf.gov/cise/ai.jsp",
+            "executive_order": "EO 14110",
+            "context": "NSF establishes new requirements for AI research in response to Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence.",
+            "source_page": "https://beta.nsf.gov/policies"
+          },
+          {
+            "title": "Implementation of AI Executive Order",
+            "url": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697",
+            "executive_order": "EO 14110",
+            "context": "NSF Director Sethuraman Panchanathan highlights how the agency is aligning resources to support the objectives of Executive Order 14110 on Safe, Secure, and Trustworthy AI.",
+            "source_page": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697"
+          }
+        ],
+        "extracted_date": "2025-02-28T21:29:54.934Z",
+        "nsf_relevant": true,
+        "is_sample": true
+      }
+    }
+  ],
+  "yale_guidance": {
+    "yale_university": {
+      "relevance_score": 1,
+      "affected_departments": [],
+      "primary_departments": [],
+      "secondary_departments": [],
+      "action_items": [],
+      "compliance_actions": [],
+      "impact_areas": [],
+      "source_insights": {
+        "key_takeaways": [
+          {
+            "source": "NSF",
+            "content": "NSF establishes new requirements for AI research in response to Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence.",
+            "url": "https://www.nsf.gov/cise/ai.jsp"
+          },
+          {
+            "source": "NSF",
+            "content": "NSF Director Sethuraman Panchanathan highlights how the agency is aligning resources to support the objectives of Executive Order 14110 on Safe, Secure, and Trustworthy AI.",
+            "url": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697"
+          }
+        ],
+        "implementation_references": [
+          {
+            "title": "NSF AI Portal",
+            "url": "https://www.nsf.gov/cise/ai.jsp",
+            "source": "NSF",
+            "date": null,
+            "description": "NSF establishes new requirements for AI research in response to Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence."
+          },
+          {
+            "title": "Implementation of AI Executive Order",
+            "url": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697",
+            "source": "NSF",
+            "date": null,
+            "description": "NSF Director Sethuraman Panchanathan highlights how the agency is aligning resources to support the objectives of Executive Order 14110 on Safe, Secure, and Trustworthy AI."
+          }
+        ],
+        "resource_links": [
+          {
+            "title": "NSF AI Portal",
+            "url": "https://www.nsf.gov/cise/ai.jsp",
+            "source": "NSF"
+          },
+          {
+            "title": "Implementation of AI Executive Order",
+            "url": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697",
+            "source": "NSF"
+          }
+        ]
+      }
+    }
+  },
+  "simplified_impact_analysis": {
+    "Research Funding": {
+      "description": "Impacts on federal research grants, funding priorities, and research administration",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
+    }
+  },
+  "simplified_source_analysis": {
+    "summary": "",
+    "extended_analysis": "",
+    "source_insights": [
+      {
+        "source": "NSF",
+        "name": "NSF Implementation Pages",
+        "title": "NSF AI Portal",
+        "text": "NSF establishes new requirements for AI research in response to Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence.",
+        "url": "https://www.nsf.gov/cise/ai.jsp"
+      },
+      {
+        "source": "NSF",
+        "name": "NSF Implementation Pages",
+        "title": "Implementation of AI Executive Order",
+        "text": "NSF Director Sethuraman Panchanathan highlights how the agency is aligning resources to support the objectives of Executive Order 14110 on Safe, Secure, and Trustworthy AI.",
+        "url": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697"
+      }
+    ]
+  }
+}

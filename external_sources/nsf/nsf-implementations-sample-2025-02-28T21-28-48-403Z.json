@@ -1,0 +1,45 @@
+[
+  {
+    "order_number": "EO 14028",
+    "title": "NSF Implementation of Executive Order on Improving the Nation's Cybersecurity",
+    "source_specific_data": {
+      "implementation_references": [
+        {
+          "title": "Cybersecurity Requirements for NSF Grantees",
+          "url": "https://www.nsf.gov/bfa/dias/policy/cybersecurity.jsp",
+          "executive_order": "EO 14028",
+          "context": "NSF has updated its cybersecurity requirements for grantees in accordance with Executive Order 14028.",
+          "source_page": "https://www.nsf.gov/bfa/dias/policy/pappg.jsp"
+        }
+      ],
+      "extracted_date": "2025-02-28T21:28:48.403Z",
+      "nsf_relevant": true,
+      "is_sample": true
+    }
+  },
+  {
+    "order_number": "EO 14110",
+    "title": "NSF Implementation of Executive Order on Safe, Secure, and Trustworthy Artificial Intelligence",
+    "source_specific_data": {
+      "implementation_references": [
+        {
+          "title": "NSF AI Portal",
+          "url": "https://www.nsf.gov/cise/ai.jsp",
+          "executive_order": "EO 14110",
+          "context": "NSF establishes new requirements for AI research in response to Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence.",
+          "source_page": "https://beta.nsf.gov/policies"
+        },
+        {
+          "title": "Implementation of AI Executive Order",
+          "url": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697",
+          "executive_order": "EO 14110",
+          "context": "NSF Director Sethuraman Panchanathan highlights how the agency is aligning resources to support the objectives of Executive Order 14110 on Safe, Secure, and Trustworthy AI.",
+          "source_page": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697"
+        }
+      ],
+      "extracted_date": "2025-02-28T21:28:48.403Z",
+      "nsf_relevant": true,
+      "is_sample": true
+    }
+  }
+]

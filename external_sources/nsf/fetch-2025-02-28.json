@@ -1,0 +1,15 @@
+{
+  "date": "2025-02-28T21:29:54.934Z",
+  "status": "using_sample",
+  "urls_checked": [
+    "https://www.nsf.gov/bfa/dias/policy/pappg.jsp",
+    "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697",
+    "https://beta.nsf.gov/policies",
+    "https://www.nsf.gov/od/odi/compliance_resources.jsp"
+  ],
+  "message": "Using sample NSF implementation data for testing",
+  "results": [],
+  "implementations_count": 2,
+  "implementations_path": "/Users/franzhartl/yale-executive-orders/external_sources/nsf/nsf-implementations-sample-2025-02-28T21-29-54-934Z.json",
+  "is_sample": true
+}

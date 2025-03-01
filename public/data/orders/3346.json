@@ -1,0 +1,117 @@
+{
+  "id": 3346,
+  "order_number": "EO 14028",
+  "title": "NSF Implementation of Executive Order on Improving the Nation's Cybersecurity",
+  "signing_date": null,
+  "publication_date": null,
+  "president": null,
+  "summary": null,
+  "full_text": null,
+  "url": null,
+  "impact_level": null,
+  "status": null,
+  "implementation_phase": null,
+  "added_date": "2025-02-28 21:28:41",
+  "last_updated": "2025-02-28 21:28:41",
+  "plain_language_summary": null,
+  "executive_brief": null,
+  "comprehensive_analysis": null,
+  "categories": [],
+  "impact_areas": [],
+  "university_impact_areas": [
+    {
+      "name": "Research Funding",
+      "description": "Impacts on federal research grants, funding priorities, and research administration",
+      "notes": null
+    }
+  ],
+  "differentiated_impacts": {},
+  "compliance_timelines": {},
+  "impact_scoring": [],
+  "implementation_resources": [],
+  "compliance_actions": [],
+  "has_plain_language_summary": false,
+  "has_executive_brief": false,
+  "has_comprehensive_analysis": false,
+  "summary_formats_available": [],
+  "sources": [
+    {
+      "name": "NSF Implementation Pages",
+      "abbreviation": "NSF",
+      "url": "https://www.nsf.gov/news/policies_and_procedures/",
+      "reference_id": null,
+      "fetch_date": "2025-02-28T21:29:54.937Z",
+      "data": {
+        "implementation_references": [
+          {
+            "title": "Cybersecurity Requirements for NSF Grantees",
+            "url": "https://www.nsf.gov/bfa/dias/policy/cybersecurity.jsp",
+            "executive_order": "EO 14028",
+            "context": "NSF has updated its cybersecurity requirements for grantees in accordance with Executive Order 14028.",
+            "source_page": "https://www.nsf.gov/bfa/dias/policy/pappg.jsp"
+          }
+        ],
+        "extracted_date": "2025-02-28T21:29:54.934Z",
+        "nsf_relevant": true,
+        "is_sample": true
+      }
+    }
+  ],
+  "yale_guidance": {
+    "yale_university": {
+      "relevance_score": 1,
+      "affected_departments": [],
+      "primary_departments": [],
+      "secondary_departments": [],
+      "action_items": [],
+      "compliance_actions": [],
+      "impact_areas": [],
+      "source_insights": {
+        "key_takeaways": [
+          {
+            "source": "NSF",
+            "content": "NSF has updated its cybersecurity requirements for grantees in accordance with Executive Order 14028.",
+            "url": "https://www.nsf.gov/bfa/dias/policy/cybersecurity.jsp"
+          }
+        ],
+        "implementation_references": [
+          {
+            "title": "Cybersecurity Requirements for NSF Grantees",
+            "url": "https://www.nsf.gov/bfa/dias/policy/cybersecurity.jsp",
+            "source": "NSF",
+            "date": null,
+            "description": "NSF has updated its cybersecurity requirements for grantees in accordance with Executive Order 14028."
+          }
+        ],
+        "resource_links": [
+          {
+            "title": "Cybersecurity Requirements for NSF Grantees",
+            "url": "https://www.nsf.gov/bfa/dias/policy/cybersecurity.jsp",
+            "source": "NSF"
+          }
+        ]
+      }
+    }
+  },
+  "simplified_impact_analysis": {
+    "Research Funding": {
+      "description": "Impacts on federal research grants, funding priorities, and research administration",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
+    }
+  },
+  "simplified_source_analysis": {
+    "summary": "",
+    "extended_analysis": "",
+    "source_insights": [
+      {
+        "source": "NSF",
+        "name": "NSF Implementation Pages",
+        "title": "Cybersecurity Requirements for NSF Grantees",
+        "text": "NSF has updated its cybersecurity requirements for grantees in accordance with Executive Order 14028.",
+        "url": "https://www.nsf.gov/bfa/dias/policy/cybersecurity.jsp"
+      }
+    ]
+  }
+}

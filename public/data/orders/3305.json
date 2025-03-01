@@ -33,6 +33,10 @@
       "notes": null
     }
   ],
+  "differentiated_impacts": {},
+  "compliance_timelines": {},
+  "impact_scoring": [],
+  "implementation_resources": [],
   "compliance_actions": [],
   "has_plain_language_summary": true,
   "has_executive_brief": true,
@@ -41,5 +45,41 @@
     "executive_brief",
     "standard",
     "comprehensive"
-  ]
+  ],
+  "sources": [],
+  "yale_guidance": {
+    "yale_university": {
+      "relevance_score": 3,
+      "affected_departments": [],
+      "primary_departments": [],
+      "secondary_departments": [],
+      "action_items": [],
+      "compliance_actions": [],
+      "impact_areas": [],
+      "source_insights": {
+        "key_takeaways": [],
+        "implementation_references": [],
+        "resource_links": []
+      }
+    }
+  },
+  "simplified_impact_analysis": {
+    "Administrative Compliance": {
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
+    },
+    "Workforce & Employment Policy": {
+      "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
+    }
+  },
+  "simplified_source_analysis": {
+    "summary": "This executive order expands access to in vitro fertilization (IVF) services, which has implications for Yale's healthcare plans, medical school, and affiliated hospital system. While it creates potential research and clinical practice opportunities, it primarily requires administrative compliance with new coverage mandates.",
+    "extended_analysis": "Executive Order 2025-03064, \"Expanding Access to In Vitro Fertilization,\" will have multifaceted implications for Yale University's operations, particularly in healthcare benefits administration, medical education, clinical services, and research activities.\n\nEMPLOYEE BENEFITS IMPLICATIONS:\nThe most direct financial impact on Yale will be in its role as an employer providing health benefits to approximately 14,000+ faculty and staff. The order likely mandates expanded coverage for fertility treatments in employer-sponsored health plans. Yale will need to:\n1. Review current health plan fertility coverage provisions\n2. Calculate actuarial cost increases from expanded IVF coverage requirements\n3. Potentially renegotiate terms with insurance providers\n4. Adjust budget allocations for employee benefits\n\nPreliminary estimates suggest this could increase healthcare benefit costs by 1-3%, representing a significant but manageable financial adjustment. This will require coordination between Human Resources, Benefits Administration, and Financial Planning departments.\n\nYALE SCHOOL OF MEDICINE IMPACTS:\nAs a premier medical education institution, Yale School of Medicine will experience both challenges and opportunities:\n1. Curriculum updates: Enhanced focus on reproductive medicine in medical education\n2. Training program expansion: Possible increase in reproductive endocrinology fellowships\n3. Clinical rotations: Expanded opportunities in fertility clinics\n4. Research directions: Potential for increased federal funding for fertility research\n\nFaculty may need to develop new educational materials and clinical protocols, requiring time and resource allocation, but also creating valuable research and educational opportunities.\n\nYALE NEW HAVEN HOSPITAL SYSTEM IMPLICATIONS:\nYale's affiliated hospital system will likely see operational impacts including:\n1. Service demand increases: Possible 10-20% growth in fertility clinic services\n2. Capital requirements: Potential needs for expanded clinical space and equipment\n3. Staffing adjustments: Additional specialists and support staff for fertility services\n4. Billing and reimbursement changes: Adapting to new coverage requirements\n\nWhile initial capital investments may be substantial, increased service volume could generate positive financial returns within 2-3 years, potentially becoming a growth area for the healthcare system.\n\nRESEARCH IMPLICATIONS:\nYale's research enterprise may benefit from:\n1. Enhanced funding opportunities in reproductive medicine\n2. Expanded clinical research patient pools\n3. Potential for industry partnerships in fertility treatment advancement\n4. Opportunities for interdisciplinary research spanning medicine, ethics, and public policy\n\nADMINISTRATIVE COMPLIANCE:\nSignificant administrative efforts will be required, including:\n1. Policy development and implementation\n2. Compliance monitoring and reporting\n3. Staff training on new requirements\n4. Communication strategies for employees and patients\n\nThe order will necessitate coordination across multiple university units including Legal Counsel, Compliance, Human Resources, the School of Medicine, and the hospital system.\n\nIn summary, while Executive Order 2025-03064 will create some financial pressures through increased benefit costs and administrative burden, it also presents strategic opportunities for Yale to strengthen its position in reproductive medicine research, education, and clinical care. The medium-term financial outlook could be positive if Yale effectively leverages these opportunities. The overall impact is assessed as Medium, primarily affecting Healthcare and Education categories, with Administrative Compliance being the primary university impact area.",
+    "source_insights": []
+  }
 }

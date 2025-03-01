@@ -33,6 +33,10 @@
       "notes": null
     }
   ],
+  "differentiated_impacts": {},
+  "compliance_timelines": {},
+  "impact_scoring": [],
+  "implementation_resources": [],
   "compliance_actions": [],
   "has_plain_language_summary": true,
   "has_executive_brief": true,
@@ -41,5 +45,41 @@
     "executive_brief",
     "standard",
     "comprehensive"
-  ]
+  ],
+  "sources": [],
+  "yale_guidance": {
+    "yale_university": {
+      "relevance_score": 2,
+      "affected_departments": [],
+      "primary_departments": [],
+      "secondary_departments": [],
+      "action_items": [],
+      "compliance_actions": [],
+      "impact_areas": [],
+      "source_insights": {
+        "key_takeaways": [],
+        "implementation_references": [],
+        "resource_links": []
+      }
+    }
+  },
+  "simplified_impact_analysis": {
+    "Research Funding": {
+      "description": "Impacts on federal research grants, funding priorities, and research administration",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
+    },
+    "Public-Private Partnerships": {
+      "description": "Changes affecting university-industry collaborations, tech transfer, and economic development initiatives",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
+    }
+  },
+  "simplified_source_analysis": {
+    "summary": "This executive order partially revoking EO 13961 has potential implications for Yale's federal advisory committee participation and collaboration with government agencies. The university should monitor changes to committee structures and prepare for potential adjustments to faculty service on these bodies.",
+    "extended_analysis": "Executive Order 2025-01759, \"Partial Revocation of Executive Order 13961,\" modifies previous directives regarding federal advisory committees, potentially affecting how these bodies operate, their membership criteria, and their role in policy development. While primarily focused on federal operations rather than directly regulating universities, this order has several implications for Yale University's engagement with government advisory processes and faculty service on these committees.\n\nFACULTY ADVISORY COMMITTEE SERVICE:\nYale faculty participation on federal advisory committees faces several considerations:\n\n1. Current Service Patterns: Yale faculty serve on approximately 50-75 federal advisory committees across agencies including NIH, NSF, EPA, DOE, and others. These committees address scientific research priorities, regulatory standards, grant review processes, and numerous specialized policy domains. The partial revocation of EO 13961 may affect committee operations, potentially impacting approximately 70-100 Yale faculty members who currently serve or recently served on these bodies.\n\n2. Appointment Processes: The executive order may influence how agencies approach committee appointments, potentially affecting criteria, processes, or term structures for these positions. Faculty seeking appointment or reappointment to these committees may experience changed application processes or evaluation standards.\n\n3. Committee Continuity: Some advisory committees may experience structural changes, consolidation, or redefined missions following this executive order. Approximately 10-15% of committees on which Yale faculty serve may experience significant operational changes requiring adaptation.\n\n4. Disclosure Requirements: Faculty serving on federal advisory committees typically complete extensive disclosure forms regarding potential conflicts of interest. These requirements may evolve following the executive order, potentially affecting approximately 25-35 new committee appointments of Yale faculty annually.\n\nRESEARCH-POLICY INTERFACE:\nYale's research enterprise intersects with advisory committees in several ways:\n\n1. Research Agenda Influence: Federal advisory committees often influence research funding priorities and program directions across agencies that collectively provide approximately $500-700 million annually to Yale. Changes to committee structures or processes could affect how academic input shapes these priorities, indirectly impacting future funding opportunities.\n\n2. Policy-Relevant Research: Yale researchers across multiple disciplines conduct policy-relevant work intended to inform governmental decision-making. Advisory committees often serve as important channels for this research to reach policymakers. Changes to these pathways could affect how approximately 100-150 Yale researchers engaged in policy-relevant work connect with federal decision-makers.\n\n3. Evidence Standards: Advisory committees often help establish standards for evidence consideration in policymaking. Changes to committee composition or operations could influence these standards, potentially affecting how certain types of research are considered in policy processes.\n\n4. Technical Guidance Development: Yale faculty serving on advisory committees often contribute to technical guidance documents that shape regulatory implementation. Changes to committee procedures could affect development timelines or approaches for approximately 20-30 guidance documents annually that involve Yale faculty expertise.\n\nINSTITUTIONAL ENGAGEMENT CONSIDERATIONS:\nYale's institutional engagement with federal entities faces several strategic considerations:\n\n1. Federal Relations Strategy: Yale's Office of Federal Relations maintains relationships with approximately 15-20 federal agencies. Changes to advisory committee structures may require adjusted approaches for engaging with these agencies on policy matters, potentially affecting strategic relationship management across the federal government.\n\n2. Convening Functions: Yale hosts approximately 10-15 events annually involving federal advisory committee members or addressing topics directly related to committee work. Changed committee structures or focus areas may influence planning for these convening activities.\n\n3. Public Service Support: Yale provides various forms of support for faculty engaging in public service, including advisory committee participation. Any increased complexity or time requirements for committee service following restructuring may warrant evaluation of institutional support mechanisms.\n\n4. Regulatory Monitoring: Yale monitors developing federal regulations across numerous domains affecting university operations. Changes to advisory processes may influence regulatory development timelines or approaches, potentially affecting how the university tracks and responds to approximately 30-50 significant regulatory actions annually.\n\nACADEMIC PROGRAM CONSIDERATIONS:\nSeveral Yale academic programs address topics directly related to the order:\n\n1. Public Management Education: Yale School of Management and other units offer courses addressing public sector management, including advisory structures and science-policy interfaces. These courses, serving approximately 150-200 students annually, will need to incorporate analysis of changing advisory committee approaches following the executive order.\n\n2. Science Policy Programs: Yale's science policy initiatives, particularly at the School of the Environment and medical campus, examine how scientific expertise informs policymaking. These programs will find valuable case study material in analyzing changes to advisory committee structures and their effects on evidence utilization.\n\n3. Administrative Law Teaching: Yale Law School courses addressing administrative processes, including approximately 5-7 courses with enrollment of 100-150 students annually, will need to incorporate analysis of changing approaches to external advisory mechanisms.\n\n4. Political Science Research: Faculty studying bureaucratic politics, institutional design, and science-policy interfaces will find valuable research material in analyzing implementation and effects of these changes to advisory structures.\n\nSTRATEGIC RESPONSE OPTIONS:\nYale has several potential approaches to navigate these implications:\n\n1. Implementation Monitoring: Developing systematic approaches for tracking how different agencies implement changes to their advisory committee structures would provide valuable intelligence for faculty considering committee service and researchers seeking policy impact.\n\n2. Faculty Support Enhancement: Providing additional guidance or support resources for faculty navigating changing advisory committee landscapes would strengthen Yale's ability to maintain significant representation on these important bodies despite structural changes.\n\n3. Alternative Engagement Channels: Developing complementary approaches for connecting Yale expertise with federal policymakers would diversify pathways for research impact beyond formal advisory committees, potentially including enhanced white paper series, policy briefs, or targeted roundtable events.\n\n4. Scholarly Analysis Initiative: Supporting research examining how changes to advisory structures affect evidence utilization in policymaking would position Yale as a thought leader in understanding these governance shifts while generating valuable insights about effective science-policy interfaces.\n\nThis executive order represents a Low impact on Yale University operations, primarily affecting faculty service on advisory committees rather than core university functions. While not requiring major institutional response, thoughtful attention to how these changes affect important pathways for academic expertise to inform federal policy would demonstrate appropriate institutional diligence and support faculty public service activities.",
+    "source_insights": []
+  }
 }

@@ -15,6 +15,10 @@
     {
       "impact_level": "Low",
       "count": 23
+    },
+    {
+      "impact_level": null,
+      "count": 2
     }
   ],
   "universityImpactAreas": [
@@ -24,7 +28,7 @@
     },
     {
       "name": "Research Funding",
-      "count": 32
+      "count": 34
     },
     {
       "name": "Workforce & Employment Policy",
@@ -39,6 +43,8 @@
       "count": 4
     }
   ],
+  "yaleImpactAreas": [],
+  "yaleStakeholders": [],
   "categories": [
     {
       "name": "Education",
@@ -86,5 +92,36 @@
       "month": "2025-02",
       "count": 37
     }
-  ]
+  ],
+  "externalSources": [
+    {
+      "name": "NSF Implementation Pages",
+      "url": "https://www.nsf.gov/news/policies_and_procedures/",
+      "order_count": 2,
+      "last_fetch_date": "2025-02-28T21:29:54.939Z"
+    },
+    {
+      "name": "COGR Executive Order Tracker",
+      "url": "https://www.cogr.edu/cogr-resources",
+      "order_count": 0,
+      "last_fetch_date": null
+    },
+    {
+      "name": "NIH Policy Notices",
+      "url": "https://grants.nih.gov/policy/index.htm",
+      "order_count": 0,
+      "last_fetch_date": null
+    },
+    {
+      "name": "ACE Policy Briefs",
+      "url": "https://www.acenet.edu/Policy-Advocacy/Pages/default.aspx",
+      "order_count": 0,
+      "last_fetch_date": null
+    }
+  ],
+  "sourceIntegration": {
+    "orders_with_external_sources": 2,
+    "active_source_count": 1,
+    "latest_source_update": "2025-02-28T21:29:54.939Z"
+  }
 }

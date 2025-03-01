@@ -28,6 +28,10 @@
       "notes": null
     }
   ],
+  "differentiated_impacts": {},
+  "compliance_timelines": {},
+  "impact_scoring": [],
+  "implementation_resources": [],
   "compliance_actions": [],
   "has_plain_language_summary": true,
   "has_executive_brief": true,
@@ -36,5 +40,35 @@
     "executive_brief",
     "standard",
     "comprehensive"
-  ]
+  ],
+  "sources": [],
+  "yale_guidance": {
+    "yale_university": {
+      "relevance_score": 2,
+      "affected_departments": [],
+      "primary_departments": [],
+      "secondary_departments": [],
+      "action_items": [],
+      "compliance_actions": [],
+      "impact_areas": [],
+      "source_insights": {
+        "key_takeaways": [],
+        "implementation_references": [],
+        "resource_links": []
+      }
+    }
+  },
+  "simplified_impact_analysis": {
+    "Administrative Compliance": {
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
+    }
+  },
+  "simplified_source_analysis": {
+    "summary": "This executive order reinstates military personnel discharged due to COVID-19 vaccination refusal. While Yale is not directly regulated by military policies, potential impacts include adjustments to veteran student services, ROTC program policies, and healthcare research considerations.",
+    "extended_analysis": "Executive Order 2025-02180, \"Reinstating Service Members Discharged Under the Military's COVID-19 Vaccination Mandate,\" revokes previous military COVID-19 vaccination requirements and creates pathways for reinstatement of service members discharged due to vaccination refusal. While primarily affecting military operations rather than academic institutions, this order creates several peripheral implications for Yale University's programs that intersect with military service, veteran education, and healthcare policy.\n\nVETERAN STUDENT IMPLICATIONS:\nYale enrolls veteran students across its schools and programs who may be affected by this policy change:\n\n1. Enrollment Opportunities: Veterans previously discharged due to vaccination refusal may now become eligible for education benefits, potentially expanding the pool of military-affiliated applicants to Yale programs.\n\n2. Benefits Administration: Yale's Office of Veteran Affairs, which processes military education benefits, may need to adapt to policy changes regarding reinstated service members' benefit eligibility and documentation requirements.\n\n3. Academic Continuity: Current Yale students who are reservists may face deployment or status changes following reinstatement, potentially requiring academic accommodations or leave-of-absence support.\n\n4. Support Services: Yale's veteran support programs may need to address potential diverse perspectives among veteran students regarding vaccination policies and military service requirements.\n\nROTC PROGRAM CONSIDERATIONS:\nYale's Reserve Officers' Training Corps programs maintain close alignment with military policies:\n\n1. Policy Alignment: ROTC programs will need to adjust their health and vaccination requirements to match updated military protocols, ensuring consistent standards between university requirements and military service expectations.\n\n2. Scholarship Administration: Any ROTC cadets who may have faced scholarship complications due to vaccination requirements may now require status reviews and potential administrative adjustments.\n\n3. Training Protocols: Health screening and documentation requirements for ROTC training activities, particularly for off-campus exercises or summer training programs, may require revision to align with updated military standards.\n\nHEALTHCARE POLICY IMPLICATIONS:\nAs both a healthcare provider and research institution, Yale faces several policy considerations:\n\n1. Yale Health Protocols: While Yale can maintain its own healthcare and vaccination policies as a private institution, it may choose to review its approach to vaccination requirements and exemption processes in light of changing federal positions.\n\n2. Clinical Research Considerations: Research programs studying COVID-19 vaccination effectiveness, particularly those with military populations or funding, may need to account for changing vaccination patterns in study designs and analyses.\n\n3. Healthcare Education: Yale School of Medicine, School of Nursing, and School of Public Health may incorporate this policy shift into teaching cases regarding public health policy, institutional vaccination requirements, and ethical considerations in population health.\n\nLEGAL AND COMPLIANCE CONSIDERATIONS:\nThe executive order creates several policy navigation points:\n\n1. Federal Funding Intersection: Yale should monitor whether other federal funding sources beyond direct military programs begin to adopt similar approaches to vaccination requirements, which could affect broader research and educational grants.\n\n2. Employment Policies: Yale's status as a private employer allows it to maintain its own vaccination policies for employees, but it may choose to review these in light of evolving federal approaches.\n\n3. Connecticut State Law Navigation: The university will continue to navigate any potential tensions between state public health requirements and changing federal approaches to vaccination mandates.\n\nFINANCIAL IMPLICATIONS:\nThe financial impact on Yale University is expected to be minimal:\n\n1. Administrative Adjustments: Minor costs associated with updating policies and procedures for military-affiliated programs.\n\n2. Potential Enrollment Effects: Possible modest increases in veteran student enrollment following service reinstatements, which would bring associated tuition revenue and financial aid considerations.\n\n3. Research Funding: Limited potential effects on research grants studying vaccination policies or military health outcomes, which may need methodological adjustments.\n\nSTRATEGIC CONSIDERATIONS:\nYale should consider several approaches in response to this executive order:\n\n1. Policy Review: Conduct a targeted review of vaccination requirements in programs with significant military or veteran participation to ensure appropriate alignment while maintaining institutional public health standards.\n\n2. Stakeholder Communication: Develop clear communication for military-affiliated students and ROTC participants regarding how Yale will navigate any policy differences between university and military requirements.\n\n3. Research Adaptation: Support researchers in fields affected by changing vaccination patterns in incorporating these policy shifts into their methodological approaches.\n\n4. Balanced Implementation: Maintain appropriate distinction between direct military policy changes (which must be implemented in ROTC and similar programs) and broader university health policies (where Yale retains institutional autonomy).\n\nThe executive order represents a low impact on Yale University operations. While creating tangible considerations for specific programs involving military-affiliated populations, it does not fundamentally affect core university operations or require substantial policy overhauls. The primary university impact areas are Administrative Compliance (particularly for ROTC and veteran programs) with minimal effects on Research Funding and Workforce & Employment Policy.",
+    "source_insights": []
+  }
 }
