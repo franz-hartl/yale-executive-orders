@@ -2,6 +2,7 @@
  * export_to_json.js
  * 
  * This script exports data from the SQLite database to JSON files for use in a static GitHub Pages site.
+ * Enhanced version with integrated source data for Phase 5 implementation.
  */
 
 const sqlite3 = require('sqlite3').verbose();
@@ -86,6 +87,300 @@ async function exportUniversityImpactAreas() {
   }
 }
 
+// Process and normalize source attribution
+function normalizeSourceAttribution(sources) {
+  return sources.map(source => {
+    return {
+      name: source.source_name,
+      abbreviation: getSourceAbbreviation(source.source_name),
+      url: source.source_url,
+      reference_id: source.external_reference_id,
+      fetch_date: source.fetch_date,
+      data: source.specificData || null
+    };
+  });
+}
+
+// Get abbreviation for a source name
+function getSourceAbbreviation(sourceName) {
+  const abbreviations = {
+    'COGR Executive Order Tracker': 'COGR',
+    'NSF Implementation Pages': 'NSF',
+    'NIH Policy Notices': 'NIH',
+    'ACE Policy Briefs': 'ACE'
+  };
+  
+  return abbreviations[sourceName] || sourceName.split(' ').map(word => word[0]).join('');
+}
+
+// Generate institution-specific guidance based on multiple sources
+function generateInstitutionGuidance(order, sources, differentiatedImpacts) {
+  const institutionTypes = Object.keys(differentiatedImpacts || {});
+  const guidance = {};
+  
+  // If no differentiated impacts, return empty guidance
+  if (institutionTypes.length === 0) return guidance;
+  
+  institutionTypes.forEach(instType => {
+    // Initialize guidance object for this institution type
+    guidance[instType] = {
+      relevance_score: calculateRelevanceScore(order, instType, differentiatedImpacts),
+      action_items: [],
+      exemptions: [],
+      source_considerations: {}
+    };
+    
+    // Add source-specific guidance
+    sources.forEach(source => {
+      if (!source.specificData) return;
+      
+      const sourceData = source.specificData;
+      const sourceAbbrev = getSourceAbbreviation(source.source_name);
+      
+      // Extract guidance from source data
+      let sourceGuidance = [];
+      
+      if (sourceData.implementation_references) {
+        sourceData.implementation_references.forEach(ref => {
+          if (ref.institution_specific_guidance && ref.institution_specific_guidance[instType]) {
+            sourceGuidance.push({
+              title: ref.title || 'Implementation Reference',
+              guidance: ref.institution_specific_guidance[instType],
+              url: ref.url || null
+            });
+          }
+          
+          // Check for exemptions
+          if (ref.exemptions && ref.exemptions.includes(instType)) {
+            guidance[instType].exemptions.push({
+              source: sourceAbbrev,
+              description: `Exemption noted in ${ref.title || 'implementation reference'}`
+            });
+          }
+          
+          // Check for action items
+          if (ref.action_items) {
+            ref.action_items.forEach(item => {
+              if (!item.institution_type || item.institution_type === instType) {
+                guidance[instType].action_items.push({
+                  title: item.title,
+                  description: item.description,
+                  deadline: item.deadline || null,
+                  source: sourceAbbrev
+                });
+              }
+            });
+          }
+        });
+      }
+      
+      // Add this source's considerations
+      if (sourceGuidance.length > 0) {
+        guidance[instType].source_considerations[sourceAbbrev] = sourceGuidance;
+      }
+    });
+    
+    // De-duplicate action items
+    guidance[instType].action_items = deduplicateActionItems(guidance[instType].action_items);
+  });
+  
+  return guidance;
+}
+
+// Calculate relevance score for an institution type
+function calculateRelevanceScore(order, instType, differentiatedImpacts) {
+  let score = 0;
+  
+  // Consider impact level
+  const impactLevel = order.impact_level;
+  if (impactLevel === 'Critical') score += 5;
+  else if (impactLevel === 'High') score += 4;
+  else if (impactLevel === 'Medium') score += 3;
+  else if (impactLevel === 'Low') score += 2;
+  else score += 1;
+  
+  // Consider differentiated impacts
+  const impacts = differentiatedImpacts[instType] || {};
+  const impactScores = Object.values(impacts).map(i => i.score || 0);
+  
+  if (impactScores.length > 0) {
+    const avgImpactScore = impactScores.reduce((sum, score) => sum + score, 0) / impactScores.length;
+    score += avgImpactScore;
+  }
+  
+  // Normalize to 1-10 scale
+  score = Math.min(10, Math.max(1, Math.round(score)));
+  
+  return score;
+}
+
+// Remove duplicate action items
+function deduplicateActionItems(actionItems) {
+  const uniqueItems = [];
+  const titleMap = new Map();
+  
+  actionItems.forEach(item => {
+    const key = item.title.toLowerCase();
+    if (!titleMap.has(key)) {
+      titleMap.set(key, item);
+      uniqueItems.push(item);
+    } else {
+      // If we have a duplicate, merge the sources
+      const existing = titleMap.get(key);
+      if (existing.source !== item.source) {
+        existing.source = `${existing.source}, ${item.source}`;
+      }
+    }
+  });
+  
+  return uniqueItems;
+}
+
+// Generate integrated source-aware impact analysis
+function generateSourceAwareImpactAnalysis(order, sources, universityImpactAreas) {
+  const impactAnalysis = {};
+  
+  // Initialize with primary university impact areas
+  universityImpactAreas.forEach(area => {
+    impactAnalysis[area.name] = {
+      description: area.description,
+      notes: area.notes || null,
+      source_insights: {},
+      consensus_rating: 'Neutral',
+      perspectives: []
+    };
+  });
+  
+  // Add source-specific insights
+  sources.forEach(source => {
+    if (!source.specificData) return;
+    
+    const sourceData = source.specificData;
+    const sourceAbbrev = getSourceAbbreviation(source.source_name);
+    
+    // Process impact areas from this source
+    if (sourceData.implementation_references) {
+      sourceData.implementation_references.forEach(ref => {
+        if (ref.impact_areas) {
+          Object.keys(ref.impact_areas).forEach(areaName => {
+            if (!impactAnalysis[areaName]) {
+              // If this is a new impact area not in our primary list, add it
+              impactAnalysis[areaName] = {
+                description: null,
+                notes: null,
+                source_insights: {},
+                consensus_rating: 'Neutral',
+                perspectives: []
+              };
+            }
+            
+            // Add this source's perspective
+            impactAnalysis[areaName].source_insights[sourceAbbrev] = {
+              impact: ref.impact_areas[areaName].impact || 'Neutral',
+              description: ref.impact_areas[areaName].description || null,
+              url: ref.url || null
+            };
+            
+            // Add to perspectives list
+            impactAnalysis[areaName].perspectives.push({
+              source: sourceAbbrev,
+              impact: ref.impact_areas[areaName].impact || 'Neutral',
+              insight: ref.impact_areas[areaName].description || null
+            });
+          });
+        }
+      });
+    }
+  });
+  
+  // Calculate consensus ratings
+  Object.keys(impactAnalysis).forEach(areaName => {
+    const perspectives = impactAnalysis[areaName].perspectives;
+    
+    if (perspectives.length > 0) {
+      // Calculate consensus
+      const impactRatings = {
+        'Positive': 0,
+        'Negative': 0,
+        'Neutral': 0,
+        'Mixed': 0
+      };
+      
+      perspectives.forEach(p => {
+        if (impactRatings[p.impact] !== undefined) {
+          impactRatings[p.impact]++;
+        } else {
+          impactRatings['Neutral']++;
+        }
+      });
+      
+      // Determine consensus
+      let maxRating = 'Neutral';
+      let maxCount = 0;
+      
+      Object.keys(impactRatings).forEach(rating => {
+        if (impactRatings[rating] > maxCount) {
+          maxCount = impactRatings[rating];
+          maxRating = rating;
+        }
+      });
+      
+      impactAnalysis[areaName].consensus_rating = maxRating;
+    }
+  });
+  
+  return impactAnalysis;
+}
+
+// Generate combined analysis section from multiple sources
+function generateCombinedAnalysis(order, sources) {
+  // Base analysis from the order itself
+  let combinedAnalysis = {
+    summary: order.summary || "",
+    extended_analysis: order.comprehensive_analysis || "",
+    source_contributions: {},
+    key_perspectives: []
+  };
+  
+  // Add source-specific analyses
+  sources.forEach(source => {
+    if (!source.specificData) return;
+    
+    const sourceData = source.specificData;
+    const sourceAbbrev = getSourceAbbreviation(source.source_name);
+    
+    let sourceAnalysis = null;
+    let sourceURL = null;
+    
+    // Extract analysis from implementation references
+    if (sourceData.implementation_references && sourceData.implementation_references.length > 0) {
+      const mainRef = sourceData.implementation_references[0]; // Use the first reference as primary
+      sourceAnalysis = mainRef.analysis || mainRef.context || null;
+      sourceURL = mainRef.url || null;
+    }
+    
+    // If we have analysis from this source, add it
+    if (sourceAnalysis) {
+      combinedAnalysis.source_contributions[sourceAbbrev] = {
+        text: sourceAnalysis,
+        url: sourceURL
+      };
+      
+      // Add to key perspectives if substantive
+      if (sourceAnalysis.length > 100) {
+        combinedAnalysis.key_perspectives.push({
+          source: sourceAbbrev,
+          summary: sourceAnalysis.substring(0, 150) + "...",
+          full_text: sourceAnalysis,
+          url: sourceURL
+        });
+      }
+    }
+  });
+  
+  return combinedAnalysis;
+}
+
 // Export executive orders with all related data
 async function exportExecutiveOrders() {
   try {
@@ -139,8 +434,8 @@ async function exportExecutiveOrders() {
         WHERE os.order_id = ?
       `, [order.id]);
       
-      // Format sources data for export
-      const formattedSources = sources.map(source => {
+      // Parse source_specific_data for each source
+      const sourcesWithParsedData = sources.map(source => {
         let specificData = null;
         try {
           if (source.source_specific_data) {
@@ -151,13 +446,13 @@ async function exportExecutiveOrders() {
         }
         
         return {
-          name: source.source_name,
-          url: source.source_url,
-          reference_id: source.external_reference_id,
-          fetch_date: source.fetch_date,
-          data: specificData
+          ...source,
+          specificData
         };
       });
+      
+      // Format sources with normalized attribution
+      const normalizedSources = normalizeSourceAttribution(sourcesWithParsedData);
       
       // Check which summary types exist
       let hasPlainSummary = false;
@@ -277,7 +572,12 @@ async function exportExecutiveOrders() {
         ORDER BY ir.resource_type, ir.title
       `, [order.id]);
       
-      // Return enriched order
+      // Generate enhanced source-integrated data
+      const institutionGuidance = generateInstitutionGuidance(order, sourcesWithParsedData, formattedImpacts);
+      const sourceAwareImpactAnalysis = generateSourceAwareImpactAnalysis(order, sourcesWithParsedData, universityImpactAreas);
+      const combinedAnalysis = generateCombinedAnalysis(order, sourcesWithParsedData);
+      
+      // Return enriched order with enhanced source integration
       return {
         ...order,
         categories: categories.map(c => c.name),
@@ -300,7 +600,11 @@ async function exportExecutiveOrders() {
           ...(hasPlainSummary ? ['standard'] : []),
           ...(hasComprehensiveAnalysis ? ['comprehensive'] : [])
         ],
-        sources: formattedSources
+        // Enhanced source integration fields
+        sources: normalizedSources,
+        institution_specific_guidance: institutionGuidance,
+        source_aware_impact_analysis: sourceAwareImpactAnalysis,
+        integrated_analysis: combinedAnalysis
       };
     }));
     
@@ -308,6 +612,15 @@ async function exportExecutiveOrders() {
     const outputPath = path.join(outputDir, 'executive_orders.json');
     await fs.writeFile(outputPath, JSON.stringify(fullOrders, null, 2));
     console.log(`Exported ${fullOrders.length} executive orders to ${outputPath}`);
+    
+    // Write processed orders file with minimized duplication
+    const processedOutputPath = path.join(outputDir, 'processed_executive_orders.json');
+    const processedOrders = fullOrders.map(order => {
+      const { plain_language_summary, executive_brief, comprehensive_analysis, ...minimalOrder } = order;
+      return minimalOrder;
+    });
+    await fs.writeFile(processedOutputPath, JSON.stringify(processedOrders, null, 2));
+    console.log(`Exported ${processedOrders.length} processed orders to ${processedOutputPath}`);
     
     // Also save individual orders for direct access
     const individualDir = path.join(outputDir, 'orders');
@@ -406,15 +719,27 @@ async function exportStatistics() {
       ORDER BY month
     `);
     
-    // External source stats
+    // Enhanced external source stats
     const sourcesStats = await dbAll(`
       SELECT 
         sm.source_name as name,
-        COUNT(DISTINCT os.order_id) as order_count
+        sm.source_url as url,
+        COUNT(DISTINCT os.order_id) as order_count,
+        MAX(os.fetch_date) as last_fetch_date
       FROM source_metadata sm
       LEFT JOIN order_sources os ON sm.id = os.source_id
       GROUP BY sm.id
       ORDER BY order_count DESC
+    `);
+    
+    // Additional stats for source integration
+    const sourceIntegrationStats = await dbAll(`
+      SELECT
+        COUNT(DISTINCT os.order_id) as orders_with_external_sources,
+        COUNT(DISTINCT sm.id) as active_source_count,
+        MAX(os.fetch_date) as latest_source_update
+      FROM order_sources os
+      JOIN source_metadata sm ON os.source_id = sm.id
     `);
     
     // Combine all stats
@@ -423,7 +748,8 @@ async function exportStatistics() {
       universityImpactAreas,
       categories,
       timeline,
-      externalSources: sourcesStats
+      externalSources: sourcesStats,
+      sourceIntegration: sourceIntegrationStats[0]
     };
     
     // Write to file
@@ -443,14 +769,16 @@ async function exportSystemInfo() {
   try {
     const orderCount = (await dbAll('SELECT COUNT(*) as count FROM executive_orders'))[0].count;
     
-    // Get source information
+    // Get enhanced source information
     const sources = await dbAll(`
       SELECT 
         sm.source_name,
         sm.source_url,
         sm.description,
         sm.last_updated,
-        COUNT(DISTINCT os.order_id) as order_count
+        sm.fetch_frequency,
+        COUNT(DISTINCT os.order_id) as order_count,
+        MAX(os.fetch_date) as last_fetch_date
       FROM source_metadata sm
       LEFT JOIN order_sources os ON sm.id = os.source_id
       GROUP BY sm.id
@@ -461,15 +789,18 @@ async function exportSystemInfo() {
       topicName: 'Higher Education Executive Order Analysis',
       topicDescription: 'Analysis of executive orders and their impact on higher education institutions nationwide',
       orderCount: orderCount,
-      version: '1.1.0',
+      version: '1.2.0', // Increment version for the enhanced JSON export
       lastUpdated: new Date().toISOString(),
       isStaticVersion: true,
-      notes: 'This is a static version of the Higher Education Executive Order Analysis system, deployed on GitHub Pages',
+      notes: 'Enhanced static export with integrated source data analysis and institution-specific guidance',
       externalSources: sources.map(source => ({
         name: source.source_name,
+        abbreviation: getSourceAbbreviation(source.source_name),
         url: source.source_url,
         description: source.description,
         lastUpdated: source.last_updated,
+        fetchFrequency: source.fetch_frequency,
+        lastFetch: source.last_fetch_date,
         orderCount: source.order_count
       }))
     };
@@ -488,10 +819,30 @@ async function exportSystemInfo() {
 // Export metadata (categories, impact areas, etc.) as a single file
 async function exportMetadata(categories, impactAreas, universityImpactAreas) {
   try {
-    // Get source metadata
+    // Get enhanced source metadata
     const sources = await dbAll(`
-      SELECT * FROM source_metadata ORDER BY source_name
+      SELECT 
+        sm.*,
+        COUNT(DISTINCT os.order_id) as order_count,
+        MAX(os.fetch_date) as last_fetch_date
+      FROM source_metadata sm
+      LEFT JOIN order_sources os ON sm.id = os.source_id
+      GROUP BY sm.id
+      ORDER BY sm.source_name
     `);
+    
+    // Format source metadata
+    const formattedSources = sources.map(source => ({
+      id: source.id,
+      name: source.source_name,
+      abbreviation: getSourceAbbreviation(source.source_name),
+      url: source.source_url,
+      description: source.description,
+      last_updated: source.last_updated,
+      fetch_frequency: source.fetch_frequency,
+      order_count: source.order_count,
+      last_fetch: source.last_fetch_date
+    }));
     
     // Get institution types
     const institutionTypes = await dbAll(`
@@ -507,9 +858,16 @@ async function exportMetadata(categories, impactAreas, universityImpactAreas) {
       categories,
       impactAreas,
       universityImpactAreas,
-      externalSources: sources,
+      externalSources: formattedSources,
       institutionTypes,
-      functionalAreas
+      functionalAreas,
+      sourceIntegrationVersion: '1.2.0',
+      sourceIntegrationFeatures: [
+        'Normalized Source Attribution',
+        'Combined Analysis Section',
+        'Institution-Specific Guidance',
+        'Source-Attributed Impact Areas'
+      ]
     };
     
     const outputPath = path.join(outputDir, 'metadata.json');
@@ -538,7 +896,7 @@ async function exportAll() {
     await exportStatistics();
     await exportSystemInfo();
     
-    console.log('All data successfully exported to JSON files.');
+    console.log('All data successfully exported to JSON files with enhanced source integration.');
   } catch (err) {
     console.error('Error exporting data:', err);
   } finally {

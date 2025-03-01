@@ -8,7 +8,9 @@ This project provides an AI-powered system for analyzing executive orders and th
 2. **University-Focused Classification**: Tailored categorization system specifically for higher education impact
 3. **Plain Language Summaries**: Accessible explanations of complex executive orders for non-legal experts
 4. **Comprehensive Data Organization**: Well-structured JSON files for executive orders with full-text search and filtering capabilities
-5. **Interactive Interface**: Clean, table-based UI for browsing, filtering, and accessing order details
+5. **Integrated Data Sources**: Combines multiple authoritative sources (COGR, NSF, NIH, ACE) with intelligent merging of analyses
+6. **Institution-Specific Guidance**: Provides tailored recommendations for different institution types based on multiple sources
+7. **Interactive Interface**: Clean, table-based UI for browsing, filtering, and accessing order details
 
 ## System Architecture
 
@@ -85,9 +87,20 @@ node generate_plain_summaries.js
 ### 4. Export Data to Static Files
 
 ```bash
-# Export all data to JSON files for the static app
-node export_to_json.js
+# Export all data to JSON files for the static app with enhanced source integration
+npm run export
+
+# Export and test the enhanced JSON structure
+npm run export:test
 ```
+
+The export process now includes sophisticated integration of external source data with:
+- Normalized source attribution with standardized metadata
+- Combined analysis that merges perspectives from multiple sources
+- Institution-specific guidance tailored for different university types
+- Source-attributed impact analysis showing consensus across sources
+
+For complete details on the enhanced JSON structure, see `ENHANCED_JSON_STRUCTURE.md`.
 
 ### 5. Test the Static Website Locally
 
@@ -157,3 +170,5 @@ The project includes several documentation files:
 - `GITHUB_PAGES_INSTRUCTIONS.md`: Detailed guide for GitHub Pages deployment
 - `AI_PIPELINE_EXPLANATION.md`: Details of the AI integration
 - `PROJECT_STRUCTURE.md`: Overview of the project files and architecture
+- `ENHANCED_JSON_STRUCTURE.md`: Documentation of the enhanced JSON export with integrated source data
+- `DATA_SOURCES.md`: Information about external data sources and integration

@@ -1,6 +1,6 @@
 {
   "name": "yale-executive-order-assistant",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "AI-powered system for analyzing executive orders and their impact on Yale University",
   "main": "mcp_server.js",
   "scripts": {
@@ -12,10 +12,15 @@
     "fetch": "node fetch_orders.js",
     "fetch:external": "node fetch_external_sources.js",
     "fetch:external:test": "NODE_ENV=test node fetch_external_sources.js",
+    "export": "node export_to_json.js",
+    "export:test": "node export_to_json.js && node test_enhanced_export.js",
     "test:nsf": "node test_nsf_fetch.js",
     "test:nih": "node test_nih_fetch.js",
     "test:integration": "node test_nih_integration.js",
-    "update": "node fetch_orders.js && node sqlite_setup.js"
+    "test:export": "node test_enhanced_export.js",
+    "test:export:structure": "node test_enhanced_export_structure.js",
+    "update": "node fetch_orders.js && node sqlite_setup.js",
+    "deploy": "node export_to_json.js && ./update_and_deploy.sh"
   },
   "dependencies": {
     "axios": "^1.8.1",
