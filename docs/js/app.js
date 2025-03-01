@@ -42,6 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const systemInfo = document.getElementById('system-info');
     const updateDate = document.getElementById('update-date');
     
+    // Pagination elements
+    let paginationContainer; // We'll create this dynamically
+    
     // Detail view elements
     const detailView = document.getElementById('detail-view');
     const closeDetailBtn = document.getElementById('close-detail-btn');
@@ -79,6 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let systemInfoData = {};
     let sortField = 'signing_date';
     let sortDirection = 'desc';
+    
+    // Pagination settings
+    const PAGE_SIZE = 25; // Show 25 orders per page
+    let currentPage = 1;
+    let totalPages = 1;
     
     // =====================================================================
     // INITIALIZATION
@@ -282,18 +290,33 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             showLoading('Loading data...');
             
-            // Load all data in parallel for better performance
+            // Load metadata and system info first, then executive orders
+            // This provides a better user experience as it allows UI setup
+            // before loading the large dataset
             await Promise.all([
                 getMetadata(),
-                getExecutiveOrders(),
-                getSystemInfo(),
-                getStatistics()
+                getSystemInfo()
             ]);
+            
+            // Setup filter options as soon as we have metadata
+            populateFilterOptions();
+            
+            // Show a specific loading message for the large data file
+            showLoading('Loading executive orders...');
+            
+            // Load the large datasets sequentially to avoid memory pressure
+            await getExecutiveOrders();
+            
+            // Load statistics last as it's non-critical
+            try {
+                await getStatistics();
+            } catch (error) {
+                console.warn('Statistics could not be loaded, continuing anyway:', error);
+            }
             
             hideLoading();
             
-            // Setup and render
-            populateFilterOptions();
+            // Render the table only after all data is loaded
             renderTable();
             
         } catch (error) {
@@ -331,13 +354,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch executive orders data
     async function getExecutiveOrders() {
         try {
+            // Use a streaming approach to handle the large JSON file
             const response = await fetch('data/processed_executive_orders.json');
             if (!response.ok) {
                 throw new Error(`Status: ${response.status}`);
             }
             
-            allExecutiveOrders = await response.json();
-            filteredOrders = [...allExecutiveOrders];
+            // Process the response as a readable stream for better memory efficiency
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let chunks = '';
+            
+            // Show progress during the load
+            showLoading('Downloading data...');
+            
+            // Read the data in chunks
+            while (true) {
+                const { done, value } = await reader.read();
+                
+                if (done) {
+                    break;
+                }
+                
+                // Accumulate text chunks
+                chunks += decoder.decode(value, { stream: true });
+                
+                // Update loading message to show progress
+                showLoading('Processing data...');
+            }
+            
+            // Final decode to ensure all data is processed
+            chunks += decoder.decode();
+            
+            // Parse the JSON data
+            try {
+                showLoading('Parsing data...');
+                allExecutiveOrders = JSON.parse(chunks);
+                filteredOrders = [...allExecutiveOrders];
+            } catch (parseError) {
+                console.error('Error parsing JSON:', parseError);
+                throw new Error('Failed to parse executive orders data.');
+            }
             
         } catch (error) {
             console.error('Error getting executive orders:', error);
@@ -763,6 +820,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return searchMatch && categoryMatch && impactLevelMatch && universityAreaMatch;
         });
         
+        // Reset to first page when filters change
+        currentPage = 1;
+        
         // Re-render the table with the filtered orders
         renderTable();
     }
@@ -777,6 +837,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset filteredOrders to all orders
         filteredOrders = [...allExecutiveOrders];
         
+        // Reset to first page
+        currentPage = 1;
+        
         // Re-render the table
         renderTable();
     }
@@ -785,6 +848,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderTable() {
         // Sort the filtered orders
         sortOrders();
+        
+        // Update pagination
+        updatePagination();
         
         // Clear the table body
         eoTableBody.innerHTML = '';
@@ -803,14 +869,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 </td>
             `;
             eoTableBody.appendChild(row);
+            
+            // Hide pagination when no results
+            if (paginationContainer) {
+                paginationContainer.style.display = 'none';
+            }
+            
             return;
         }
         
-        // We don't need to add the keyboard navigation event listener here
-        // It should be added only once during initialization
+        // Show pagination when we have results
+        if (paginationContainer) {
+            paginationContainer.style.display = 'flex';
+        }
         
-        // Create a row for each filtered order
-        filteredOrders.forEach((order, index) => {
+        // Calculate pagination indexes
+        const startIndex = (currentPage - 1) * PAGE_SIZE;
+        const endIndex = Math.min(startIndex + PAGE_SIZE, filteredOrders.length);
+        
+        // Get only the orders for the current page
+        const ordersToDisplay = filteredOrders.slice(startIndex, endIndex);
+        
+        // Create a row for each filtered order for the current page
+        ordersToDisplay.forEach((order, index) => {
             const row = document.createElement('tr');
             row.classList.add('hover:bg-gray-50', 'cursor-pointer');
             row.setAttribute('data-order-id', order.id);
@@ -906,6 +987,139 @@ document.addEventListener('DOMContentLoaded', () => {
     // =====================================================================
     // UTILITY FUNCTIONS
     // =====================================================================
+    
+    // Update pagination controls
+    function updatePagination() {
+        // Calculate total pages
+        totalPages = Math.ceil(filteredOrders.length / PAGE_SIZE);
+        
+        // Reset current page if it's beyond the total pages
+        if (currentPage > totalPages && totalPages > 0) {
+            currentPage = totalPages;
+        }
+        
+        // Create pagination container if it doesn't exist
+        if (!paginationContainer) {
+            paginationContainer = document.createElement('div');
+            paginationContainer.className = 'yale-pagination yale-mt-md yale-mb-lg';
+            
+            // Insert after the table
+            const tableWrapper = eoTableBody.closest('.yale-table-wrapper');
+            if (tableWrapper && tableWrapper.parentNode) {
+                tableWrapper.parentNode.insertBefore(paginationContainer, tableWrapper.nextSibling);
+            }
+        }
+        
+        // Generate pagination HTML
+        let paginationHTML = '';
+        
+        // Add info text
+        const startIndex = (currentPage - 1) * PAGE_SIZE + 1;
+        const endIndex = Math.min(startIndex + PAGE_SIZE - 1, filteredOrders.length);
+        
+        paginationHTML += `
+            <div class="yale-pagination__info">
+                Showing ${filteredOrders.length > 0 ? startIndex : 0} to ${endIndex} of ${filteredOrders.length} orders
+            </div>
+            <div class="yale-pagination__controls">
+        `;
+        
+        // Add previous button
+        paginationHTML += `
+            <button class="yale-btn yale-btn--outline yale-btn--sm ${currentPage === 1 ? 'yale-btn--disabled' : ''}" 
+                    ${currentPage === 1 ? 'disabled' : ''} 
+                    data-page="prev" aria-label="Previous page">
+                <i class="fas fa-chevron-left yale-btn__icon--left"></i>
+                Previous
+            </button>
+        `;
+        
+        // Add page buttons
+        // Display a limited number of page links to avoid clutter
+        const maxPageButtons = 5;
+        let startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
+        let endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+        
+        // Adjust start page if we're near the end
+        if (endPage - startPage + 1 < maxPageButtons && startPage > 1) {
+            startPage = Math.max(1, endPage - maxPageButtons + 1);
+        }
+        
+        // First page link if needed
+        if (startPage > 1) {
+            paginationHTML += `
+                <button class="yale-btn yale-btn--outline yale-btn--sm" data-page="1">1</button>
+            `;
+            
+            if (startPage > 2) {
+                paginationHTML += `<span class="yale-pagination__ellipsis">...</span>`;
+            }
+        }
+        
+        // Page number buttons
+        for (let i = startPage; i <= endPage; i++) {
+            paginationHTML += `
+                <button class="yale-btn yale-btn--outline yale-btn--sm ${i === currentPage ? 'yale-btn--active' : ''}" 
+                        data-page="${i}">${i}</button>
+            `;
+        }
+        
+        // Last page link if needed
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                paginationHTML += `<span class="yale-pagination__ellipsis">...</span>`;
+            }
+            
+            paginationHTML += `
+                <button class="yale-btn yale-btn--outline yale-btn--sm" data-page="${totalPages}">${totalPages}</button>
+            `;
+        }
+        
+        // Add next button
+        paginationHTML += `
+            <button class="yale-btn yale-btn--outline yale-btn--sm ${currentPage === totalPages ? 'yale-btn--disabled' : ''}" 
+                    ${currentPage === totalPages ? 'disabled' : ''} 
+                    data-page="next" aria-label="Next page">
+                Next
+                <i class="fas fa-chevron-right yale-btn__icon--right"></i>
+            </button>
+        `;
+        
+        paginationHTML += '</div>'; // Close pagination controls
+        
+        // Set the HTML and add event listeners
+        paginationContainer.innerHTML = paginationHTML;
+        
+        // Add event listeners for pagination buttons
+        paginationContainer.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', handlePaginationClick);
+        });
+    }
+    
+    // Handle pagination button clicks
+    function handlePaginationClick(event) {
+        const button = event.currentTarget;
+        let newPage = button.getAttribute('data-page');
+        
+        if (newPage === 'prev') {
+            newPage = currentPage - 1;
+        } else if (newPage === 'next') {
+            newPage = currentPage + 1;
+        } else {
+            newPage = parseInt(newPage, 10);
+        }
+        
+        if (newPage !== currentPage && newPage >= 1 && newPage <= totalPages) {
+            currentPage = newPage;
+            renderTable();
+            
+            // Scroll to top of table for better UX
+            const tableTop = eoTableBody.closest('.yale-table-wrapper');
+            if (tableTop) {
+                tableTop.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }
     
     // Handle keyboard navigation within the table
     function handleTableKeyboardNavigation(event) {
@@ -1013,6 +1227,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="yale-loading">
                     <div class="yale-loading__spinner yale-loading__spinner--lg"></div>
                     <p id="loading-message" class="yale-loading__text">${message}</p>
+                    <p id="loading-submessage" class="yale-text-sm yale-text-muted yale-mt-sm">Please be patient while data loads</p>
                 </div>
             `;
             document.body.appendChild(loadingElement);
@@ -1020,14 +1235,21 @@ document.addEventListener('DOMContentLoaded', () => {
             // Update existing message
             document.getElementById('loading-message').textContent = message;
             loadingElement.classList.remove('hidden');
+            loadingElement.classList.remove('yale-loading--exiting');
         }
     }
     
-    // Hide the loading message
+    // Hide the loading message with a smooth transition
     function hideLoading() {
         const loadingElement = document.getElementById('loading-indicator');
         if (loadingElement) {
-            loadingElement.classList.add('hidden');
+            // Add exiting class for animation
+            loadingElement.classList.add('yale-loading--exiting');
+            
+            // Remove after animation completes
+            setTimeout(() => {
+                loadingElement.classList.add('hidden');
+            }, 300);
         }
     }
     
