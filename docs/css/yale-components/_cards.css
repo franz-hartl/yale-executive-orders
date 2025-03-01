@@ -56,28 +56,29 @@
   box-shadow: var(--card-depth);
 }
 
-/* Filter Card - Used for command/filter bars (Yale design with sharp corners) */
+/* Filter Card - Yale News style */
 .yale-filter-card {
   background-color: white;
   border: 1px solid var(--border-light);
-  border-radius: 0; /* Yale design uses square corners */
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: none; /* Yale design avoids shadows for a cleaner look */
-  border-top: 3px solid var(--yale-blue); /* Yale-style accent border at top */
+  box-shadow: none;
+  border-top: 3px solid var(--yale-blue);
+  margin-bottom: var(--space-lg);
 }
 
 .yale-filter-card__header {
-  height: 44px; /* Slightly taller for Yale design */
+  height: 48px;
   display: flex;
   align-items: center;
-  padding: 0 var(--space-lg); /* More horizontal padding */
-  background-color: rgba(0, 53, 107, 0.05);
+  padding: 0 var(--space-lg);
+  background-color: var(--light-blue);
   border-bottom: 1px solid var(--border-light);
 }
 
 .yale-filter-card__title {
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 700;
   color: var(--yale-blue);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -85,13 +86,13 @@
 }
 
 .yale-filter-card__body {
-  padding: var(--space-lg) var(--space-xl); /* Yale design uses more padding */
+  padding: var(--space-lg) var(--space-lg);
 }
 
 .yale-filter-card__footer {
-  padding: var(--space-md) var(--space-xl); /* Yale design uses more horizontal padding */
+  padding: var(--space-md) var(--space-lg);
   border-top: 1px solid var(--border-light);
-  background-color: var(--background-secondary);
+  background-color: var(--light-blue);
   display: flex;
   justify-content: flex-end;
 }

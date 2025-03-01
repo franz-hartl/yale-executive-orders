@@ -1,57 +1,65 @@
 /**
  * Yale Component Library - Variables
- * Core design tokens including colors, typography, spacing
+ * Core design tokens matching Yale News website guidelines
  */
 
 :root {
-  /* Yale Core Colors */
-  --yale-blue: #00356B; /* Yale Blue (Primary) */
-  --yale-blue-light: #286DC0; /* Secondary blue */
-  --yale-blue-dark: #0A3161; /* Darker blue */
-  --yale-gray: #A6A6A6; /* Yale Grey */
+  /* Primary Yale Colors */
+  --yale-blue: rgb(30, 56, 102); /* Yale Blue - text, links, and accents */
+  --white: rgb(255, 255, 255); /* Background and text on dark backgrounds */
+  --black: rgb(0, 0, 0); /* Used for body text */
   
-  /* Accent/Status Colors */
-  --yale-accent: #BD5319; /* Yale tertiary accent */
+  /* Secondary Colors */
+  --light-blue: rgb(231, 241, 247); /* Used for backgrounds and highlights */
+  --yale-accent-blue: rgb(20, 106, 255); /* Used for interactive elements */
+  --yale-gold: rgb(255, 213, 90); /* Used for accents and highlights */
+  --medium-gray: rgb(122, 116, 113); /* Used for secondary text */
+  --dark-gray: rgb(61, 61, 61); /* Used for tertiary text */
+  
+  /* Transparency Variants */
+  --yale-accent-blue-transparent: rgba(20, 106, 255, 0.2); /* Used for hover states */
+  --yale-blue-transparent: rgba(30, 56, 102, 0.8); /* Used for overlays */
+  
+  /* Aliases for backward compatibility */
+  --background-primary: var(--white);
+  --background-secondary: var(--light-blue);
+  --background-tertiary: rgb(243, 247, 250); /* Slightly darker than light blue */
+  
+  --text-primary: var(--black);
+  --text-secondary: var(--medium-gray);
+  --text-muted: var(--dark-gray);
+  
+  /* Status Colors */
   --status-green: #2E7D32;
-  --status-amber: #BD5319;
-  --status-red: #C62828;
-  
-  /* Surface/Background Colors */
-  --background-primary: #FFFFFF;
-  --background-secondary: #F5F7FA;
-  --background-tertiary: #EDF2F7;
-  
-  /* Text Colors */
-  --text-primary: #212121;
-  --text-secondary: #4A5568;
-  --text-muted: #718096;
+  --status-amber: #F59E0B;
+  --status-red: #DC2626;
   
   /* Border/Shadow */
   --border-light: #E2E8F0;
-  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --card-depth: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --card-shadow: none; /* Yale News doesn't use shadows */
+  --card-depth: none; /* Yale News doesn't use shadows */
   
   /* Interaction */
-  --hover-overlay: rgba(0, 53, 107, 0.05);
-  --active-overlay: rgba(0, 53, 107, 0.1);
-  --focus-ring: 0 0 0 3px rgba(40, 109, 192, 0.5);
+  --hover-overlay: var(--yale-accent-blue-transparent);
+  --active-overlay: var(--yale-blue-transparent);
+  --focus-ring: 0 0 0 2px rgba(30, 56, 102, 0.4);
   
-  /* Spacing Scale - Yale prefers more whitespace in key areas */
-  --space-xs: 0.375rem;  /* 6px */
-  --space-sm: 0.75rem;   /* 12px */
-  --space-md: 1.25rem;   /* 20px */
-  --space-lg: 2rem;      /* 32px */
-  --space-xl: 2.5rem;    /* 40px */
-  --space-2xl: 3.5rem;   /* 56px */
+  /* Spacing System - Directly from Yale News */
+  --space-xs: 0.75rem;    /* 12px */
+  --space-sm: 1rem;       /* 16px */
+  --space-md: 1.25rem;    /* 20px */
+  --space-lg: 2.5rem;     /* 40px */
+  --space-xl: 7.5rem;     /* 120px */
+  --space-2xl: 9.375rem;  /* 150px */
   
   /* Animation */
-  --transition-standard: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-enter: 300ms cubic-bezier(0.0, 0, 0.2, 1);
-  --transition-exit: 250ms cubic-bezier(0.4, 0, 1, 1);
+  --transition-standard: 200ms ease-in-out;
+  --transition-enter: 200ms ease-out;
+  --transition-exit: 150ms ease-in;
   
-  /* Border Radius - Yale uses sharper corners */
-  --radius-sm: 0; /* 0px - sharp corners for most elements */
-  --radius-base: 0; /* 0px - no rounding */
-  --radius-md: 0.125rem; /* 2px - minimal rounding when needed */
-  --radius-lg: 0.25rem; /* 4px - slight rounding for selected elements */
+  /* Border Radius - Yale News uses no rounded corners */
+  --radius-sm: 0;
+  --radius-base: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
 }

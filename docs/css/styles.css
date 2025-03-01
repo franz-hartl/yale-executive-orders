@@ -24,37 +24,48 @@
   display: none !important;
 }
 
-/* System Info Bar - Yale design with no rounded corners */
+/* System Info Bar - Yale News style */
 .system-info-bar {
-  background-color: rgba(0, 53, 107, 0.05);
-  padding: 1rem 1.25rem; /* Yale prefers more padding */
-  margin-bottom: 2rem; /* More whitespace below */
-  border-radius: 0; /* Sharp corners per Yale design */
-  border-left: 3px solid var(--yale-blue); /* Yale-style accent border */
+  background-color: var(--light-blue);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2.5rem;
+  border-radius: 0;
+  border-left: 3px solid var(--yale-blue);
+  font-family: 'Open Sans', sans-serif;
 }
 
-/* Yale Header - properly styled per Yale guidelines */
+/* Yale Header - styled per Yale News website */
 .yale-header {
   border-bottom: 1px solid #e2e8f0;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
   position: relative;
+  background-color: white;
 }
 
 .yale-header h1 {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 700;
   letter-spacing: -0.01em;
-  margin-bottom: 0;
+  margin-bottom: 0.5rem;
+  color: var(--yale-blue);
+  line-height: 1.2;
 }
 
 @media (min-width: 768px) {
   .yale-header h1 {
-    font-size: 1.75rem;
+    font-size: 2.5rem;
   }
 }
 
-/* Yale-style non-blocking Status Indicator */
+.yale-header__description {
+  font-size: 1.125rem;
+  color: var(--medium-gray);
+  max-width: 42rem;
+  line-height: 1.5;
+}
+
+/* Yale News-style Status Indicator */
 .yale-status-indicator {
   display: flex;
   align-items: center;
@@ -65,9 +76,10 @@
   margin-left: auto;
   margin-right: 1rem;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   max-width: 100%;
   overflow: hidden;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .yale-spinner {
@@ -100,6 +112,43 @@
 /* Loading Indicator (deprecated) */
 .yale-loading--overlay {
   display: none; /* Hide by default now that we have a better solution */
+}
+
+/* Yale News style footer */
+.yale-footer {
+  background-color: var(--yale-blue);
+  color: white;
+  padding: 3rem 0;
+  margin-top: 4rem;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.yale-footer a {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.yale-footer a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.yale-footer p {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
+.yale-footer__links {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .yale-footer__links {
+    margin-top: 0;
+  }
 }
 
 /* Pagination Styles */

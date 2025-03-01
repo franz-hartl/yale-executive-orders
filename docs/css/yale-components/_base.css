@@ -1,59 +1,59 @@
 /**
  * Yale Component Library - Base Styles
- * Typography and base element styling
+ * Typography and base element styling based on Yale News website
  */
 
-/* Import Open Sans font */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+/* Import Open Sans font with Yale-specific weights */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
-/* Base Elements - Yale design system emphasizes clean typography and generous spacing */
+/* Base Elements - Matching Yale News website */
 body {
-  font-family: "Open Sans", system-ui, -apple-system, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   background-color: var(--background-primary);
-  color: var(--text-primary);
-  line-height: 1.6; /* Yale prefers slightly more line height */
+  color: var(--black);
+  line-height: 1.5;
   margin: 0;
   padding: 0;
-  letter-spacing: 0.015em; /* Yale prefers slightly more letter spacing */
-  -webkit-font-smoothing: antialiased; /* For better text rendering */
+  font-size: 16px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Typography - Enhanced for mobile and desktop */
+/* Typography - Matching Yale News styling */
 h1, h2, h3, h4, h5, h6,
 .yale-h1, .yale-h2, .yale-h3, .yale-h4, .yale-h5, .yale-h6 {
+  font-family: 'Open Sans', sans-serif;
   color: var(--yale-blue);
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 0;
-  margin-bottom: var(--space-md);
-  line-height: 1.3;
+  margin-bottom: var(--space-lg);
+  line-height: 1.2;
 }
 
-/* Mobile-first typography with responsive sizing */
-h1, .yale-h1 { font-size: 1.5rem; letter-spacing: -0.01em; }
-h2, .yale-h2 { font-size: 1.35rem; letter-spacing: -0.01em; }
-h3, .yale-h3 { font-size: 1.2rem; }
-h4, .yale-h4 { font-size: 1.1rem; }
-h5, .yale-h5 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
-h6, .yale-h6 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+/* Yale News typography sizing */
+h1, .yale-h1 { font-size: 2.5rem; margin-bottom: var(--space-md); }
+h2, .yale-h2 { font-size: 2rem; margin-bottom: var(--space-md); }
+h3, .yale-h3 { font-size: 1.5rem; margin-bottom: var(--space-sm); }
+h4, .yale-h4 { font-size: 1.25rem; margin-bottom: var(--space-sm); }
+h5, .yale-h5 { font-size: 1.125rem; margin-bottom: var(--space-xs); }
+h6, .yale-h6 { font-size: 1rem; margin-bottom: var(--space-xs); }
 
-/* Desktop typography adjustments */
-@media (min-width: 768px) {
-  h1, .yale-h1 { font-size: 1.75rem; }
-  h2, .yale-h2 { font-size: 1.5rem; }
+/* Mobile typography adjustments */
+@media (max-width: 599px) {
+  h1, .yale-h1 { font-size: 2rem; }
+  h2, .yale-h2 { font-size: 1.75rem; }
   h3, .yale-h3 { font-size: 1.25rem; }
-  h4, .yale-h4 { font-size: 1.125rem; }
-  h5, .yale-h5 { font-size: 1rem; }
-  h6, .yale-h6 { font-size: 0.875rem; }
 }
 
 /* Paragraphs */
 p {
   margin-top: 0;
   margin-bottom: var(--space-md);
+  line-height: 1.6;
 }
 
-/* Links */
+/* Links - Matching Yale News */
 a, .yale-link {
   color: var(--yale-blue);
   text-decoration: none;
@@ -61,13 +61,26 @@ a, .yale-link {
 }
 
 a:hover, .yale-link:hover {
-  color: var(--yale-blue-light);
   text-decoration: underline;
+  color: var(--yale-accent-blue);
 }
 
 a:focus, .yale-link:focus {
   outline: none;
-  box-shadow: var(--focus-ring);
+  text-decoration: underline;
+}
+
+/* Content Container - Matching Yale News */
+.yale-container {
+  width: 100%;
+  padding: 0 var(--space-md);
+  margin: 0 auto;
+}
+
+@media (min-width: 1070px) {
+  .yale-container {
+    padding: 0 var(--space-xl);
+  }
 }
 
 /* Text utility classes */
@@ -78,13 +91,12 @@ a:focus, .yale-link:focus {
 .yale-text-2xl { font-size: 1.5rem; }
 
 .yale-text-regular { font-weight: 400; }
-.yale-text-medium { font-weight: 500; }
 .yale-text-semibold { font-weight: 600; }
 .yale-text-bold { font-weight: 700; }
 
-.yale-text-primary { color: var(--text-primary); }
-.yale-text-secondary { color: var(--text-secondary); }
-.yale-text-muted { color: var(--text-muted); }
+.yale-text-primary { color: var(--black); }
+.yale-text-secondary { color: var(--medium-gray); }
+.yale-text-muted { color: var(--dark-gray); }
 .yale-text-yale-blue { color: var(--yale-blue); }
 
 /* List styles */
@@ -97,12 +109,11 @@ ol.yale-list {
 
 ul.yale-list li,
 ol.yale-list li {
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-sm);
+  line-height: 1.6;
 }
 
-/* Monospace text */
-.yale-text-mono {
-  font-family: "SF Mono", "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace;
-  font-size: 0.9em;
-  letter-spacing: -0.02em;
+/* Yale-specific vertical rhythm */
+.yale-vertical-rhythm > * + * {
+  margin-top: var(--space-lg);
 }
