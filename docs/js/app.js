@@ -94,6 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Set up event listeners
         setupEventListeners();
+        
+        // Add keyboard navigation for table
+        if (eoTableBody) {
+            eoTableBody.addEventListener('keydown', handleTableKeyboardNavigation);
+        }
     }
     
     // Set up tab functionality
@@ -177,9 +182,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
             
-            // Call initially and on resize
+            // Call initially and set up a debounced resize handler
             handleMobileLayout();
-            window.addEventListener('resize', handleMobileLayout);
+            
+            // Debounced resize handler to prevent excessive calls
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                // Clear previous timeout
+                if (resizeTimeout) {
+                    clearTimeout(resizeTimeout);
+                }
+                
+                // Set new timeout to run after resize completes
+                resizeTimeout = setTimeout(handleMobileLayout, 250);
+            });
         }
         
         // Close detail view (top button)
@@ -213,14 +229,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     sortDirection = 'desc';
                 }
                 
-                // Update sort icons
+                // Update sort icons - only update them if needed
                 document.querySelectorAll('.yale-table__sort-header, .sort-header').forEach(h => {
+                    const currentField = h.getAttribute('data-sort');
                     const icon = h.querySelector('.yale-table__sort-icon i, .sort-icon i');
+                    
                     if (icon) {
-                        if (h.getAttribute('data-sort') === sortField) {
-                            icon.className = sortDirection === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down';
-                        } else {
-                            icon.className = 'fas fa-sort';
+                        // Only change class if needed to avoid unnecessary DOM updates
+                        const isActiveSort = currentField === sortField;
+                        const newClass = isActiveSort 
+                            ? (sortDirection === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down')
+                            : 'fas fa-sort';
+                            
+                        if (icon.className !== newClass) {
+                            icon.className = newClass;
                         }
                     }
                 });
@@ -695,16 +717,27 @@ document.addEventListener('DOMContentLoaded', () => {
             let searchMatch = true;
             if (searchText !== '') {
                 // Split search into words to allow partial word matching
-                const searchWords = searchText.toLowerCase().split(/\s+/).filter(word => word.length > 0);
+                // Only include words with minimum length of 2 for better performance
+                const searchWords = searchText.toLowerCase().split(/\s+/).filter(word => word.length > 1);
                 
-                // Check if each word appears in any searchable field
-                searchMatch = searchWords.every(word => {
-                    return (order.title && order.title.toLowerCase().includes(word)) ||
-                           (order.order_number && order.order_number.toLowerCase().includes(word)) ||
-                           (order.summary && order.summary.toLowerCase().includes(word)) ||
-                           (order.president && order.president.toLowerCase().includes(word)) ||
-                           (order.categories && order.categories.some(cat => cat.toLowerCase().includes(word)));
-                });
+                if (searchWords.length > 0) {
+                    // Prepare searchable text once for better performance
+                    const orderText = [
+                        order.title || '',
+                        order.order_number || '',
+                        order.summary || '',
+                        order.president || ''
+                    ].join(' ').toLowerCase();
+                    
+                    // Check if each word appears in the combined text
+                    searchMatch = searchWords.every(word => orderText.includes(word));
+                    
+                    // Only check categories if still no match (categories are an array - more expensive to search)
+                    if (!searchMatch && order.categories && order.categories.length) {
+                        const categoriesText = order.categories.join(' ').toLowerCase();
+                        searchMatch = searchWords.every(word => categoriesText.includes(word));
+                    }
+                }
             }
             
             // Category filter
@@ -773,11 +806,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // Setup for keyboard navigation
-        let rowIndex = 0;
-        
-        // Add keyboard navigation to table
-        eoTableBody.addEventListener('keydown', handleTableKeyboardNavigation);
+        // We don't need to add the keyboard navigation event listener here
+        // It should be added only once during initialization
         
         // Create a row for each filtered order
         filteredOrders.forEach((order, index) => {
