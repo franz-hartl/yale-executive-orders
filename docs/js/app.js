@@ -98,6 +98,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Set up tab functionality
     function setupTabs() {
+        // Let the Yale component library handle tab functionality if available
+        if (typeof window.Yale !== 'undefined' && window.Yale.refresh) {
+            // Refresh Yale components to ensure tabs are initialized
+            window.Yale.refresh();
+            return;
+        }
+        
+        // Fallback implementation if Yale component library isn't available
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 // Remove active class from all tabs
@@ -137,6 +145,42 @@ document.addEventListener('DOMContentLoaded', () => {
         filterImpactLevel.addEventListener('change', applyFilters);
         filterUniversityArea.addEventListener('change', applyFilters);
         clearFiltersBtn.addEventListener('click', clearFilters);
+        
+        // Mobile filter toggle
+        const mobileFiltersToggle = document.getElementById('mobile-filters-toggle');
+        const filtersRow = document.getElementById('filters-row');
+        
+        if (mobileFiltersToggle && filtersRow) {
+            mobileFiltersToggle.addEventListener('click', () => {
+                // Toggle filters visibility
+                filtersRow.classList.toggle('yale-hidden');
+                
+                // Toggle button icon and text
+                const icon = mobileFiltersToggle.querySelector('i');
+                if (icon) {
+                    if (filtersRow.classList.contains('yale-hidden')) {
+                        icon.className = 'fas fa-filter yale-btn__icon--right';
+                        mobileFiltersToggle.querySelector('span').textContent = 'Show Filters';
+                    } else {
+                        icon.className = 'fas fa-times yale-btn__icon--right';
+                        mobileFiltersToggle.querySelector('span').textContent = 'Hide Filters';
+                    }
+                }
+            });
+            
+            // Initially hide filters on mobile screens
+            const handleMobileLayout = () => {
+                if (window.innerWidth < 768) {
+                    filtersRow.classList.add('yale-hidden');
+                } else {
+                    filtersRow.classList.remove('yale-hidden');
+                }
+            };
+            
+            // Call initially and on resize
+            handleMobileLayout();
+            window.addEventListener('resize', handleMobileLayout);
+        }
         
         // Close detail view (top button)
         closeDetailBtn.addEventListener('click', () => {
@@ -185,29 +229,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         
-        // Close when clicking outside (handled by yale-component library, but adding fallback)
-        window.addEventListener('click', (e) => {
-            if (e.target === detailView) {
-                if (yaleModal) {
-                    yaleModal.closeModal(detailView);
-                } else {
+        // Only add these event listeners if Yale Modal is not available
+        // This prevents duplicate event handling as the Yale Component Library 
+        // already handles these cases
+        if (!window.YaleModal && !yaleModal) {
+            // Close when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === detailView) {
                     detailView.classList.add('hidden');
                     detailView.classList.add('yale-modal__backdrop--hidden');
                 }
-            }
-        });
-        
-        // Escape key closes modal (handled by yale-component library, but adding fallback)
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !detailView.classList.contains('yale-modal__backdrop--hidden')) {
-                if (yaleModal) {
-                    yaleModal.closeModal(detailView);
-                } else {
+            });
+            
+            // Escape key closes modal
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !detailView.classList.contains('yale-modal__backdrop--hidden')) {
                     detailView.classList.add('hidden');
                     detailView.classList.add('yale-modal__backdrop--hidden');
                 }
-            }
-        });
+            });
+        }
     }
     
     // =====================================================================
@@ -650,10 +691,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // Start with all orders and apply each filter
         filteredOrders = allExecutiveOrders.filter(order => {
             // Search text filter (search in title, order number, and summary)
-            const searchMatch = searchText === '' || 
-                (order.title && order.title.toLowerCase().includes(searchText)) ||
-                (order.order_number && order.order_number.toLowerCase().includes(searchText)) ||
-                (order.summary && order.summary.toLowerCase().includes(searchText));
+            // Using improved search that handles multiple words and partial matches
+            let searchMatch = true;
+            if (searchText !== '') {
+                // Split search into words to allow partial word matching
+                const searchWords = searchText.toLowerCase().split(/\s+/).filter(word => word.length > 0);
+                
+                // Check if each word appears in any searchable field
+                searchMatch = searchWords.every(word => {
+                    return (order.title && order.title.toLowerCase().includes(word)) ||
+                           (order.order_number && order.order_number.toLowerCase().includes(word)) ||
+                           (order.summary && order.summary.toLowerCase().includes(word)) ||
+                           (order.president && order.president.toLowerCase().includes(word)) ||
+                           (order.categories && order.categories.some(cat => cat.toLowerCase().includes(word)));
+                });
+            }
             
             // Category filter
             const categoryMatch = categoryFilter === '' || 
@@ -663,14 +715,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const impactLevelMatch = impactLevelFilter === '' || 
                 (order.impact_level && order.impact_level === impactLevelFilter);
             
-            // University impact area filter
+            // University impact area filter - handles both string and object formats
             const universityAreaMatch = universityAreaFilter === '' || 
                 (order.university_impact_areas && 
-                 order.university_impact_areas.some(area => 
-                    typeof area === 'string' 
-                        ? area === universityAreaFilter 
-                        : area.name === universityAreaFilter
-                 ));
+                 order.university_impact_areas.some(area => {
+                    if (typeof area === 'string') {
+                        return area === universityAreaFilter;
+                    } else if (area && area.name) {
+                        return area.name === universityAreaFilter;
+                    }
+                    return false;
+                 }));
             
             return searchMatch && categoryMatch && impactLevelMatch && universityAreaMatch;
         });
@@ -718,8 +773,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
+        // Setup for keyboard navigation
+        let rowIndex = 0;
+        
+        // Add keyboard navigation to table
+        eoTableBody.addEventListener('keydown', handleTableKeyboardNavigation);
+        
         // Create a row for each filtered order
-        filteredOrders.forEach(order => {
+        filteredOrders.forEach((order, index) => {
             const row = document.createElement('tr');
             row.classList.add('hover:bg-gray-50', 'cursor-pointer');
             row.setAttribute('data-order-id', order.id);
@@ -775,6 +836,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Add keyboard accessibility for table rows
             row.setAttribute('tabindex', '0');
+            row.setAttribute('data-row-index', index);
             row.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -814,6 +876,50 @@ document.addEventListener('DOMContentLoaded', () => {
     // =====================================================================
     // UTILITY FUNCTIONS
     // =====================================================================
+    
+    // Handle keyboard navigation within the table
+    function handleTableKeyboardNavigation(event) {
+        if (!['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) {
+            return;
+        }
+        
+        const rows = Array.from(eoTableBody.querySelectorAll('tr[data-row-index]'));
+        if (rows.length === 0) return;
+        
+        // Find the currently focused row
+        const currentRow = document.activeElement;
+        let currentIndex = -1;
+        
+        if (currentRow && currentRow.tagName === 'TR' && currentRow.hasAttribute('data-row-index')) {
+            currentIndex = parseInt(currentRow.getAttribute('data-row-index'), 10);
+        }
+        
+        // Calculate new focus index based on key
+        let newIndex;
+        switch (event.key) {
+            case 'ArrowUp':
+                newIndex = currentIndex > 0 ? currentIndex - 1 : 0;
+                break;
+            case 'ArrowDown':
+                newIndex = currentIndex < rows.length - 1 ? currentIndex + 1 : rows.length - 1;
+                break;
+            case 'Home':
+                newIndex = 0;
+                break;
+            case 'End':
+                newIndex = rows.length - 1;
+                break;
+            default:
+                return;
+        }
+        
+        // Find row with matching index and focus it
+        const targetRow = rows.find(row => parseInt(row.getAttribute('data-row-index'), 10) === newIndex);
+        if (targetRow) {
+            event.preventDefault(); // Prevent default scrolling
+            targetRow.focus();
+        }
+    }
     
     // Create HTML for tags (categories)
     function createTagsHTML(tags) {

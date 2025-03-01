@@ -19,6 +19,11 @@
   padding: 0.5rem;
 }
 
+/* Mobile helper classes */
+.yale-hidden {
+  display: none !important;
+}
+
 /* System Info Bar */
 .system-info-bar {
   background-color: rgba(0, 53, 107, 0.05);
