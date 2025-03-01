@@ -308,17 +308,16 @@ async function initializeReferenceData() {
           [area.name, area.description]);
       }
       
-      // Insert institution types
+      // Insert institution types (prioritizing Private R1 institutions)
       const institutionTypes = [
-        { name: 'R1 Research Universities', description: 'Doctoral universities with very high research activity (annual research expenditures >$100M)' },
-        { name: 'R2 Research Universities', description: 'Doctoral universities with high research activity (annual research expenditures $50M-$100M)' },
-        { name: 'Master\'s Universities', description: 'Institutions awarding at least 50 master\'s degrees annually but fewer doctoral degrees' },
-        { name: 'Baccalaureate Colleges', description: 'Institutions where baccalaureate degrees represent at least 50% of all degrees awarded' },
-        { name: 'Community Colleges', description: 'Associate\'s degree-granting institutions with primarily 2-year programs' },
-        { name: 'Specialized Institutions', description: 'Institutions focused on specific fields (medical schools, art schools, etc.)' },
-        { name: 'Well-Endowed Private', description: 'Private institutions with substantial endowments (>$1B)' },
-        { name: 'Tuition-Dependent Private', description: 'Private institutions deriving majority of revenue from tuition' },
-        { name: 'State-Funded Public', description: 'Public institutions with significant state appropriations' }
+        { name: 'Private R1 Universities', description: 'Private doctoral universities with very high research activity (annual research expenditures >$100M)', priority: 1 },
+        { name: 'Private R2 Universities', description: 'Private doctoral universities with high research activity (annual research expenditures $50M-$100M)', priority: 2 },
+        { name: 'Public R1 Universities', description: 'Public doctoral universities with very high research activity (annual research expenditures >$100M)', priority: 3 },
+        { name: 'Public R2 Universities', description: 'Public doctoral universities with high research activity (annual research expenditures $50M-$100M)', priority: 4 },
+        { name: 'Master\'s Universities', description: 'Institutions awarding at least 50 master\'s degrees annually but fewer doctoral degrees', priority: 5 },
+        { name: 'Baccalaureate Colleges', description: 'Institutions where baccalaureate degrees represent at least 50% of all degrees awarded', priority: 6 },
+        { name: 'Community Colleges', description: 'Associate\'s degree-granting institutions with primarily 2-year programs', priority: 7 },
+        { name: 'Specialized Institutions', description: 'Institutions focused on specific fields (medical schools, art schools, etc.)', priority: 8 }
       ];
       
       for (const type of institutionTypes) {
@@ -356,17 +355,16 @@ async function initializeReferenceData() {
       if (institutionTypeCount.count === 0) {
         console.log('Initializing institution types...');
         
-        // Insert institution types
+        // Insert institution types (prioritizing Private R1 institutions)
         const institutionTypes = [
-          { name: 'R1 Research Universities', description: 'Doctoral universities with very high research activity (annual research expenditures >$100M)' },
-          { name: 'R2 Research Universities', description: 'Doctoral universities with high research activity (annual research expenditures $50M-$100M)' },
-          { name: 'Master\'s Universities', description: 'Institutions awarding at least 50 master\'s degrees annually but fewer doctoral degrees' },
-          { name: 'Baccalaureate Colleges', description: 'Institutions where baccalaureate degrees represent at least 50% of all degrees awarded' },
-          { name: 'Community Colleges', description: 'Associate\'s degree-granting institutions with primarily 2-year programs' },
-          { name: 'Specialized Institutions', description: 'Institutions focused on specific fields (medical schools, art schools, etc.)' },
-          { name: 'Well-Endowed Private', description: 'Private institutions with substantial endowments (>$1B)' },
-          { name: 'Tuition-Dependent Private', description: 'Private institutions deriving majority of revenue from tuition' },
-          { name: 'State-Funded Public', description: 'Public institutions with significant state appropriations' }
+          { name: 'Private R1 Universities', description: 'Private doctoral universities with very high research activity (annual research expenditures >$100M)', priority: 1 },
+          { name: 'Private R2 Universities', description: 'Private doctoral universities with high research activity (annual research expenditures $50M-$100M)', priority: 2 },
+          { name: 'Public R1 Universities', description: 'Public doctoral universities with very high research activity (annual research expenditures >$100M)', priority: 3 },
+          { name: 'Public R2 Universities', description: 'Public doctoral universities with high research activity (annual research expenditures $50M-$100M)', priority: 4 },
+          { name: 'Master\'s Universities', description: 'Institutions awarding at least 50 master\'s degrees annually but fewer doctoral degrees', priority: 5 },
+          { name: 'Baccalaureate Colleges', description: 'Institutions where baccalaureate degrees represent at least 50% of all degrees awarded', priority: 6 },
+          { name: 'Community Colleges', description: 'Associate\'s degree-granting institutions with primarily 2-year programs', priority: 7 },
+          { name: 'Specialized Institutions', description: 'Institutions focused on specific fields (medical schools, art schools, etc.)', priority: 8 }
         ];
         
         for (const type of institutionTypes) {

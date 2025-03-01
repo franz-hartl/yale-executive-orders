@@ -1,6 +1,6 @@
-# Yale University Executive Order Analysis Assistant
+# Yale University Executive Order Analysis Assistant for Private R1 Institutions
 
-This project provides an AI-powered system for analyzing executive orders and their impact on higher education institutions through a static GitHub Pages website. The system integrates data from multiple authoritative sources (COGR, NSF, NIH, ACE) to provide comprehensive analysis of executive orders with institution-specific guidance, helping administrators understand compliance requirements, operational impacts, and necessary actions through plain language summaries, categorization, and a user-friendly interface.
+This project provides an AI-powered system for analyzing executive orders and their impact on private R1 research universities through a static GitHub Pages website. The newly refocused tool prioritizes the needs of private research-intensive institutions while still maintaining broader capabilities. The system integrates data from multiple authoritative sources (COGR, NSF, NIH, ACE) to provide comprehensive analysis of executive orders with institution-specific guidance, helping research university administrators understand compliance requirements, operational impacts, and necessary actions through plain language summaries, categorization, and a user-friendly interface.
 
 ## Core Features
 
@@ -23,34 +23,45 @@ The system consists of the following key components:
 5. **AI Integration**: Anthropic Claude API integration for advanced text processing
 6. **Static Web Interface**: Pure frontend app that runs entirely in the browser
 
-## University-Focused Impact Areas
+## Private R1 University Impact Areas
 
-Executive orders are classified according to their impact on specific university domains:
+Executive orders are classified according to their impact on specific private research university domains:
 
-### Research Funding
+### Research Funding & Security
 - Federal research grants and funding priorities
 - NSF, NIH, and other agency grant programs
-- Research security and foreign collaboration policies
+- Research security requirements and export controls
+- Specialized research program compliance
 
-### Student Aid & Higher Education Finance
-- Student financial aid and federal loan programs
-- Pell Grant and scholarship initiatives
-- Education financing and tuition assistance
+### Advanced Research Programs
+- National laboratory partnerships
+- Strategic research initiatives
+- High-priority research areas
+- Advanced computing and supercomputing resources
 
-### Administrative Compliance
-- Regulatory reporting requirements
-- Title IX and civil rights compliance
-- Federal mandates for universities
+### International Collaboration
+- Visa regulations for international faculty and researchers
+- Global academic partnerships
+- Scholar mobility and exchange programs
+- International research security compliance
 
-### Workforce & Employment Policy
-- Visa regulations for international faculty and students
-- Employment policies and labor regulations
-- Diversity and inclusion requirements
+### Endowment Management
+- Investment policy regulations
+- Reporting requirements for large endowments
+- Financial regulations affecting institutional investments
+- Donor relationships and gift management compliance
+
+### Graduate Education
+- Graduate student funding mechanisms
+- Postdoctoral researcher regulations
+- Advanced degree program requirements
+- Specialized fellowship and training grant compliance
 
 ### Public-Private Partnerships
 - University-industry collaboration frameworks
 - Technology transfer and commercialization
-- Economic development initiatives involving higher education
+- Economic development initiatives
+- Research park and innovation district regulations
 
 ## Prerequisites
 
@@ -174,6 +185,7 @@ This will:
 
 The project includes several documentation files:
 
+- `PRIVATE_R1_FOCUS.md`: Details on the refocus to private R1 institutions
 - `GITHUB_PAGES_INSTRUCTIONS.md`: Detailed guide for GitHub Pages deployment
 - `AI_PIPELINE_EXPLANATION.md`: Details of the AI integration
 - `PROJECT_STRUCTURE.md`: Overview of the project files and architecture
@@ -182,3 +194,24 @@ The project includes several documentation files:
 - `WORKFLOW.md`: Step-by-step workflow for updating the system
 - `API_README.md`: API documentation with enhanced JSON structure details
 - `PHASE5_SUMMARY.md`: Summary of the enhanced JSON export implementation
+
+## Private R1 Focus Implementation
+
+With the 1.3.0 update, the application has been refocused to prioritize private R1 research universities in two phases:
+
+### Phase 1: Schema and Taxonomy Refinement
+1. **Specialized Impact Areas**: Redefined to address research-intensive university needs
+2. **Institution Type Prioritization**: Private R1 institutions now receive highest priority
+3. **Default Focus**: UI and data presentation prioritize private research university perspectives
+4. **Schema Optimization**: Database and export functions maintain compatibility while prioritizing R1-relevant fields
+
+For complete details on Phase 1, see `PRIVATE_R1_FOCUS.md`.
+
+### Phase 2: AI Prompt and Analysis Refinement
+1. **R1-Focused AI Prompts**: Complete overhaul of AI system prompts to focus on private R1 perspectives
+2. **Analysis Structure Redesign**: Specialized templates with R1-specific research impact sections
+3. **Content Prioritization**: Enhanced focus on research security, funding, and international collaboration
+4. **Specialized Content Areas**: New sections for research competitiveness, talent acquisition, and institutional autonomy
+5. **Reanalysis System**: New script to identify and regenerate the most relevant executive orders for private R1s
+
+For complete details on Phase 2, see `PRIVATE_R1_PROMPTS.md`.

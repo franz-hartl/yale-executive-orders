@@ -140,7 +140,7 @@ async function generateMultiLevelSummaries(order) {
   try {
     // Create a streamlined prompt for Claude with essential information
     const prompt = `
-      Create three different levels of summaries for this executive order for higher education administrators, focusing on differentiated impact by institution type:
+      Create three different levels of summaries for this executive order specifically for private R1 research university administrators. Focus entirely on the implications, requirements, and implementation steps for private research universities with very high research activity:
 
       EXECUTIVE ORDER INFORMATION:
       Title: ${order.title}
@@ -155,165 +155,139 @@ async function generateMultiLevelSummaries(order) {
       
       Additional Text: ${order.full_text || ''}
       
+      FORMAT YOUR RESPONSE SPECIFICALLY FOR PRIVATE R1 RESEARCH UNIVERSITIES, focusing on their unique characteristics:
+      - Very high research activity (annual research expenditures >$100M)
+      - Substantial endowments
+      - Significant international presence
+      - Strong graduate and professional programs
+      - Extensive research infrastructure
+      
       Format your response as JSON with this structure:
       {
-        "executive_brief": "1-2 sentence TL;DR summary with institution variation note if applicable",
+        "executive_brief": "1-2 sentence TL;DR summary specifically for private R1 universities",
         "standard_summary": {
-          "title": "Clear title",
-          "overview": "Concise explanation",
-          "bottom_line": "Critical takeaway",
-          "impact_matrix": {
-            "r1_universities": "Impact assessment",
-            "r2_universities": "Impact assessment",
-            "masters_universities": "Impact assessment",
-            "baccalaureate_colleges": "Impact assessment",
-            "community_colleges": "Impact assessment",
-            "specialized_institutions": "Impact assessment"
-          },
+          "title": "Clear title focused on private R1 implications",
+          "overview": "Concise explanation for research universities",
+          "bottom_line": "Critical takeaway for private R1 administrators",
+          "impact_rating": "Impact level specifically for private R1s (Critical/High/Moderate/Low/Minimal)",
+          "key_research_implications": "How this affects research operations and funding",
           "key_functional_areas": [
-            {"area": "Area 1", "description": "Impact details"},
-            {"area": "Area 2", "description": "Impact details"},
-            {"area": "Area 3", "description": "Impact details"}
+            {"area": "Research Area 1", "description": "Impact details for research universities"},
+            {"area": "Area 2", "description": "Impact details for private R1s"},
+            {"area": "Area 3", "description": "Impact details for research-intensive context"}
           ],
-          "action_needed": "Yes/No with justification and exemption notes",
-          "important_dates": ["MM/DD/YYYY: description with variation notes"],
+          "action_needed": "Yes/No with justification for private R1 context",
+          "important_dates": ["MM/DD/YYYY: description relevant to private R1 universities"],
           "affected_departments": ["Department 1", "Department 2", "Department 3"],
           "immediate_steps": [
-            {"action": "Step 1", "variations": "Institution-specific notes"},
-            {"action": "Step 2", "variations": "Institution-specific notes"}
+            {"action": "Step 1 for private R1 implementation"},
+            {"action": "Step 2 for private R1 implementation"}
           ],
           "short_term_actions": [
-            {"action": "Action 1", "variations": "Institution-specific notes"},
-            {"action": "Action 2", "variations": "Institution-specific notes"}
+            {"action": "Action 1 for private R1 implementation"},
+            {"action": "Action 2 for private R1 implementation"}
           ],
-          "long_term_considerations": ["Consideration 1", "Consideration 2"],
+          "long_term_considerations": ["Private R1 consideration 1", "Private R1 consideration 2"],
           "resource_requirements": {
-            "personnel": "Personnel needs with variation notes",
-            "budget": "Budget implications with variation notes",
-            "technology": "Technology changes with variation notes",
-            "external_expertise": "External expertise with variation notes"
+            "personnel": "Personnel needs for private R1 implementation",
+            "budget": "Budget implications for private R1 implementation",
+            "technology": "Technology changes for private R1 implementation",
+            "external_expertise": "External expertise for private R1 implementation"
           }
         },
         "comprehensive_analysis": {
-          "title": "Detailed title",
-          "overview": "Thorough explanation",
-          "bottom_line": "Critical takeaway with nuance",
-          "institution_impact_matrix": {
-            "r1_universities": {
-              "overall_impact": "Impact level (1-5) with explanation",
-              "key_affected_areas": ["Area 1", "Area 2", "Area 3"],
-              "relative_burden": "Assessment of relative implementation burden"
-            },
-            "r2_universities": {
-              "overall_impact": "Impact level (1-5) with explanation",
-              "key_affected_areas": ["Area 1", "Area 2"],
-              "relative_burden": "Assessment of relative implementation burden"
-            },
-            "masters_universities": {
-              "overall_impact": "Impact level (1-5) with explanation",
-              "key_affected_areas": ["Area 1", "Area 2"],
-              "relative_burden": "Assessment of relative implementation burden"
-            },
-            "baccalaureate_colleges": {
-              "overall_impact": "Impact level (1-5) with explanation",
-              "key_affected_areas": ["Area 1", "Area 2"],
-              "relative_burden": "Assessment of relative implementation burden"
-            },
-            "community_colleges": {
-              "overall_impact": "Impact level (1-5) with explanation",
-              "key_affected_areas": ["Area 1", "Area 2"],
-              "relative_burden": "Assessment of relative implementation burden"
-            },
-            "specialized_institutions": {
-              "overall_impact": "Impact level (1-5) with explanation",
-              "key_affected_areas": ["Area 1", "Area 2"],
-              "relative_burden": "Assessment of relative implementation burden"
-            }
+          "title": "Detailed title with private R1 focus",
+          "overview": "Thorough explanation for private research universities",
+          "bottom_line": "Critical takeaway with private R1 nuance",
+          "research_impact_analysis": {
+            "research_security": "Impact on research security requirements",
+            "international_collaboration": "Impact on international research partnerships",
+            "funding_implications": "Impact on research funding mechanisms",
+            "compliance_burden": "Assessment of compliance requirements",
+            "competitive_position": "How this affects institutional competitive position"
           },
-          "functional_area_impacts": [
+          "key_focus_areas": [
             {
-              "area": "Area 1", 
-              "description": "Detailed impact analysis",
-              "institution_variations": "How impact varies by institution type"
+              "area": "Research Area 1", 
+              "description": "Detailed impact analysis for private R1 context",
+              "implementation_considerations": "Specific implementation details for research universities"
             },
             {
               "area": "Area 2", 
-              "description": "Detailed impact analysis",
-              "institution_variations": "How impact varies by institution type"
+              "description": "Detailed impact analysis for private R1 context",
+              "implementation_considerations": "Specific implementation details for research universities"
             }
           ],
-          "exemptions_special_provisions": "Detailed analysis of any exemptions or special provisions",
-          "policy_background": "Historical and policy context",
-          "legal_framework": "Legal and regulatory details",
-          "industry_context": "Higher education sector context",
-          "action_needed": "Yes/No with detailed justification and exemption notes",
+          "exemptions_special_provisions": "Detailed analysis of any exemptions relevant to private R1 universities",
+          "policy_background": "Historical and policy context relevant to research universities",
+          "legal_framework": "Legal and regulatory details most relevant to private R1s",
+          "research_sector_context": "How this affects the research university landscape",
+          "action_needed": "Yes/No with detailed justification for private R1 universities",
           "important_dates": [
             {
               "date": "MM/DD/YYYY", 
-              "description": "detailed description",
-              "institution_variations": "Timeline variations by institution type"
+              "description": "detailed description relevant to private R1 implementation",
+              "priority_level": "Importance level for private R1 administrators"
             }
           ],
-          "affected_departments": ["Department 1", "Department 2", "Department 3"],
-          "immediate_steps": [
+          "affected_departments": {
+            "primary": ["Most affected departments at private R1s"],
+            "secondary": ["Secondarily affected departments at private R1s"]
+          },
+          "implementation_strategy": [
             {
-              "action": "Detailed step 1", 
-              "r1_focus": "R1-specific guidance",
-              "small_institution_focus": "Small institution guidance"
+              "phase": "Immediate (0-30 days)",
+              "actions": [
+                "Detailed private R1 step 1", 
+                "Detailed private R1 step 2"
+              ],
+              "key_considerations": "Critical implementation factors"
             },
             {
-              "action": "Detailed step 2", 
-              "r1_focus": "R1-specific guidance",
-              "small_institution_focus": "Small institution guidance"
-            }
-          ],
-          "short_term_actions": [
-            {
-              "action": "Detailed action 1",
-              "institution_variations": "Action variations by institution type"
+              "phase": "Short-term (1-3 months)",
+              "actions": [
+                "Detailed private R1 action 1",
+                "Detailed private R1 action 2"
+              ],
+              "key_considerations": "Critical implementation factors"
             },
             {
-              "action": "Detailed action 2",
-              "institution_variations": "Action variations by institution type"
+              "phase": "Long-term (4+ months)",
+              "actions": [
+                "Detailed private R1 action 1",
+                "Detailed private R1 action 2"
+              ],
+              "key_considerations": "Critical implementation factors"
             }
           ],
-          "long_term_considerations": ["Detailed consideration 1", "Detailed consideration 2"],
+          "specialized_analysis": {
+            "research_competitiveness": "How this affects competitive position in research",
+            "talent_acquisition": "Impact on faculty/researcher recruitment and retention",
+            "institutional_autonomy": "Effects on institutional independence and governance",
+            "financial_implications": "Detailed financial analysis for private R1 context",
+            "reputation_management": "Reputation and brand considerations"
+          },
           "compliance_details": {
-            "general_requirements": "Universal compliance requirements",
-            "r1_requirements": "R1-specific requirements",
-            "small_institution_requirements": "Small institution requirements"
+            "core_requirements": "Essential compliance requirements for private R1s",
+            "documentation_needs": "Required documentation and record-keeping",
+            "reporting_obligations": "Ongoing reporting requirements",
+            "audit_considerations": "Audit and oversight implications"
           },
-          "technical_analysis": "Specialized technical aspects",
-          "cross_functional_impacts": "How this affects different areas",
+          "technical_analysis": "Specialized technical aspects for research context",
+          "cross_functional_impacts": "How this affects different areas of a private R1 university",
           "risk_analysis": {
-            "general_risks": "Universal compliance risks",
-            "r1_specific_risks": "Risks specific to research universities",
-            "small_institution_risks": "Risks specific to smaller institutions"
+            "research_risks": "Risks specific to research operations",
+            "financial_risks": "Financial and endowment-related risks",
+            "compliance_risks": "Risk of non-compliance for private R1 context",
+            "operational_risks": "Day-to-day operational risks",
+            "strategic_risks": "Long-term strategic position risks"
           },
-          "competitive_implications": "Advantages/disadvantages for different institution types",
-          "long_term_vision": "Future higher education landscape impact",
-          "advocacy_opportunities": "Input opportunities on implementation",
+          "advocacy_opportunities": "Opportunities for private R1 input on implementation",
           "resource_requirements": {
-            "personnel": {
-              "large_institutions": "Personnel needs for large institutions",
-              "medium_institutions": "Personnel needs for medium institutions",
-              "small_institutions": "Personnel needs for small institutions"
-            },
-            "budget": {
-              "large_institutions": "Budget implications for large institutions",
-              "medium_institutions": "Budget implications for medium institutions",
-              "small_institutions": "Budget implications for small institutions"
-            },
-            "technology": {
-              "large_institutions": "Technology needs for large institutions",
-              "medium_institutions": "Technology needs for medium institutions",
-              "small_institutions": "Technology needs for small institutions"
-            },
-            "external_expertise": {
-              "large_institutions": "External expertise for large institutions",
-              "medium_institutions": "External expertise for medium institutions",
-              "small_institutions": "External expertise for small institutions"
-            }
+            "personnel": "Personnel needs for private R1 implementation",
+            "budget": "Budget implications for private R1 implementation",
+            "technology": "Technology needs for private R1 implementation",
+            "external_expertise": "External expertise needs for private R1 implementation"
           }
         }
       }
@@ -325,16 +299,16 @@ async function generateMultiLevelSummaries(order) {
       {
         model: "claude-3-opus-20240229",
         max_tokens: 3500,
-        system: "You are an expert in higher education administration with specialized expertise in policy domains relevant to colleges and universities of all types. You have deep expertise in institutional differentiation and understand how federal policies affect various institutions differently based on their type, size, mission, resources, and other characteristics.
+        system: "You are an expert in private R1 research university administration with specialized expertise in policy domains relevant to research-intensive private universities. You have deep expertise in how federal policies specifically affect private research universities with very high research activity, substantial endowments, and significant international presence.
         
-Your primary role is to translate complex executive orders into clear, actionable summaries for higher education administrators while explicitly addressing how impacts, requirements, and implementation steps vary across different institutional contexts. You recognize that the higher education sector is diverse - from large R1 research universities with medical schools to small community colleges with workforce development missions.
+Your primary role is to translate complex executive orders into clear, actionable summaries for private R1 university administrators, focusing specifically on the implications, requirements, and implementation steps for these institutions. While you may briefly mention other institution types for context, your analysis should always prioritize and emphasize the private R1 university perspective.
 
 You have particular expertise in:
-1. Research Funding & Science Policy - Understanding how research requirements scale with institution size and research volume
-2. Diversity, Equity & Inclusion - Analyzing impacts across institutions with different student demographics and missions
-3. Immigration & International Programs - Evaluating how international engagement level affects policy impacts
-4. Labor & Employment - Assessing workforce implications with sensitivity to institution size and staffing models
-5. Regulatory Compliance - Identifying threshold-based requirements and exemptions based on institution type",
+1. Research Funding & Security - Understanding complex research security requirements, export controls, and international collaboration oversight that affect major research universities
+2. Advanced Research Programs - Analyzing impacts on specialized research initiatives, major laboratory operations, and high-priority research areas
+3. International Collaboration - Evaluating effects on global academic partnerships, scholar mobility, and international research networks
+4. Endowment Management - Assessing implications for large endowment investment policies, reporting requirements, and financial regulations
+5. Graduate Education - Understanding impacts on doctoral programs, postdoctoral researchers, and research training grants",
         messages: [
           {
             role: "user",
@@ -361,7 +335,10 @@ You have particular expertise in:
       // Format the executive brief
       const executiveBrief = `
         <div class="executive-brief" style="font-family: Arial, sans-serif; max-width: 800px; line-height: 1.5; padding: 1rem; background-color: #f0f9ff; border-left: 4px solid #2563eb; font-weight: 500; margin-bottom: 1.5rem;">
-          <h2 style="color: #1e3a8a; font-size: 1.25rem; margin-bottom: 0.5rem;">Executive Brief</h2>
+          <div style="margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="color: #1e3a8a; font-size: 1.25rem; margin: 0;">Executive Brief</h2>
+            <div style="font-size: 0.75rem; background-color: #dbeafe; padding: 0.25rem 0.5rem; border-radius: 0.25rem; color: #1e40af;">PRIVATE R1 FOCUS</div>
+          </div>
           <p>${summaries.executive_brief}</p>
         </div>
       `;
@@ -371,56 +348,26 @@ You have particular expertise in:
         <div class="summary-container" style="font-family: Arial, sans-serif; max-width: 800px; line-height: 1.5;">
           <!-- Executive Summary Section -->
           <div class="executive-summary" style="margin-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem;">
+            <div style="background-color: #f0f9ff; padding: 0.5rem; margin-bottom: 0.5rem; display: inline-block; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600; color: #2563eb;">PRIVATE R1 UNIVERSITY ANALYSIS</div>
             <h2 style="color: #2563eb; font-size: 1.5rem; margin-bottom: 0.5rem;">${summaries.standard_summary.title}</h2>
             <p style="font-size: 1rem; margin-bottom: 1rem;"><strong>Overview:</strong> ${summaries.standard_summary.overview}</p>
             <p style="font-size: 1rem; background-color: #f0f9ff; padding: 0.75rem; border-left: 4px solid #2563eb; font-weight: 500;">
-              <strong>Bottom Line:</strong> ${summaries.standard_summary.bottom_line}
+              <strong>Bottom Line for Private R1s:</strong> ${summaries.standard_summary.bottom_line}
             </p>
           </div>
           
-          <!-- Institution-Specific Impacts Section -->
+          <!-- Private R1 Impact Section -->
           <div class="impacts" style="margin-bottom: 1.5rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Institution-Specific Impacts:</h3>
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Private R1 University Impact:</h3>
             
-            <!-- Impact Matrix Table -->
-            <div style="margin-bottom: 1.5rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Impact by Institution Type:</h4>
-              <div style="overflow-x: auto;">
-                <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
-                  <thead>
-                    <tr style="background-color: #f3f4f6; text-align: left;">
-                      <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Institution Type</th>
-                      <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Impact Assessment</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb; font-weight: 500;">R1 Research Universities</td>
-                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${summaries.standard_summary.impact_matrix.r1_universities}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb; font-weight: 500;">R2 Research Universities</td>
-                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${summaries.standard_summary.impact_matrix.r2_universities}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb; font-weight: 500;">Master's Universities</td>
-                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${summaries.standard_summary.impact_matrix.masters_universities}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb; font-weight: 500;">Baccalaureate Colleges</td>
-                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${summaries.standard_summary.impact_matrix.baccalaureate_colleges}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb; font-weight: 500;">Community Colleges</td>
-                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${summaries.standard_summary.impact_matrix.community_colleges}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb; font-weight: 500;">Specialized Institutions</td>
-                      <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${summaries.standard_summary.impact_matrix.specialized_institutions}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            <!-- Impact Rating -->
+            <div style="margin-bottom: 1rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem; border-left: 4px solid #2563eb;">
+              <p style="margin: 0; font-weight: 600; color: #2563eb;">Impact Rating for Private R1 Universities: ${summaries.standard_summary.impact_rating}</p>
+            </div>
+            
+            <!-- Research Implications -->
+            <div style="margin-bottom: 1rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
+              <p><strong>Research Implications:</strong> ${summaries.standard_summary.key_research_implications}</p>
             </div>
             
             <!-- Key Functional Areas -->
@@ -452,9 +399,9 @@ You have particular expertise in:
             </div>
           </div>
           
-          <!-- Differentiated Action Plan Section -->
+          <!-- Private R1 Action Plan Section -->
           <div class="action-plan" style="margin-bottom: 1.5rem; border-top: 1px solid #e5e7eb; padding-top: 1rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Differentiated Action Plan:</h3>
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Private R1 Implementation Plan:</h3>
             
             <p style="font-weight: 500; margin-bottom: 1rem; ${summaries.standard_summary.action_needed.startsWith('Yes') ? 'color: #b91c1c;' : 'color: #047857;'}">
               <strong>Action Required:</strong> ${summaries.standard_summary.action_needed}
@@ -464,8 +411,7 @@ You have particular expertise in:
               <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Immediate Steps (0-30 days):</h4>
               ${summaries.standard_summary.immediate_steps.map(step => `
                 <div style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
-                  <p style="margin-bottom: 0.25rem;"><strong>${step.action}</strong></p>
-                  <p style="margin: 0; font-size: 0.875rem; color: #4b5563; font-style: italic;">${step.variations}</p>
+                  <p style="margin: 0;"><strong>${step.action}</strong></p>
                 </div>
               `).join('')}
             </div>
@@ -474,8 +420,7 @@ You have particular expertise in:
               <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Short-term Actions (1-3 months):</h4>
               ${summaries.standard_summary.short_term_actions.map(action => `
                 <div style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
-                  <p style="margin-bottom: 0.25rem;"><strong>${action.action}</strong></p>
-                  <p style="margin: 0; font-size: 0.875rem; color: #4b5563; font-style: italic;">${action.variations}</p>
+                  <p style="margin: 0;"><strong>${action.action}</strong></p>
                 </div>
               `).join('')}
             </div>
@@ -490,7 +435,7 @@ You have particular expertise in:
           
           <!-- Resource Requirements Section -->
           <div class="resources" style="margin-bottom: 1rem; background-color: #f9fafb; padding: 1rem; border-radius: 0.375rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Resource Requirements by Institution Type:</h3>
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Resource Requirements for Private R1 Implementation:</h3>
             <div style="display: grid; gap: 1rem;">
               <div>
                 <p><strong>Personnel:</strong> ${summaries.standard_summary.resource_requirements.personnel}</p>
@@ -506,6 +451,10 @@ You have particular expertise in:
               </div>
             </div>
           </div>
+          
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; text-align: center; font-size: 0.875rem; color: #6b7280;">
+            Analysis specifically tailored for private R1 research universities
+          </div>
         </div>
       `;
       
@@ -514,93 +463,67 @@ You have particular expertise in:
         <div class="comprehensive-analysis" style="font-family: Arial, sans-serif; max-width: 800px; line-height: 1.5;">
           <!-- Executive Summary Section -->
           <div class="executive-summary" style="margin-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem;">
+            <div style="background-color: #f0f9ff; padding: 0.5rem; margin-bottom: 0.5rem; display: inline-block; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600; color: #2563eb;">PRIVATE R1 UNIVERSITY COMPREHENSIVE ANALYSIS</div>
             <h2 style="color: #2563eb; font-size: 1.5rem; margin-bottom: 0.5rem;">${summaries.comprehensive_analysis.title}</h2>
             <p style="font-size: 1rem; margin-bottom: 1rem;"><strong>Overview:</strong> ${summaries.comprehensive_analysis.overview}</p>
             <p style="font-size: 1rem; background-color: #f0f9ff; padding: 0.75rem; border-left: 4px solid #2563eb; font-weight: 500;">
-              <strong>Bottom Line:</strong> ${summaries.comprehensive_analysis.bottom_line}
+              <strong>Bottom Line for Private R1s:</strong> ${summaries.comprehensive_analysis.bottom_line}
             </p>
           </div>
           
-          <!-- Institution Impact Matrix Section -->
-          <div class="impact-matrix" style="margin-bottom: 2rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 1rem;">Institution Type Impact Matrix</h3>
+          <!-- Research Impact Analysis Section -->
+          <div class="research-impact" style="margin-bottom: 2rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 1rem;">Research Impact Analysis</h3>
             
-            <!-- R1 Research Universities -->
             <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
               <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
-                <h4 style="margin: 0; font-size: 1.1rem;">R1 Research Universities</h4>
+                <h4 style="margin: 0; font-size: 1.1rem;">Research Security</h4>
               </div>
               <div style="padding: 1rem;">
-                <p><strong>Overall Impact:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.r1_universities.overall_impact}</p>
-                <p><strong>Key Affected Areas:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.r1_universities.key_affected_areas.join(', ')}</p>
-                <p><strong>Relative Burden:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.r1_universities.relative_burden}</p>
+                <p>${summaries.comprehensive_analysis.research_impact_analysis.research_security}</p>
               </div>
             </div>
             
-            <!-- R2 Research Universities -->
             <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
               <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
-                <h4 style="margin: 0; font-size: 1.1rem;">R2 Research Universities</h4>
+                <h4 style="margin: 0; font-size: 1.1rem;">International Collaboration</h4>
               </div>
               <div style="padding: 1rem;">
-                <p><strong>Overall Impact:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.r2_universities.overall_impact}</p>
-                <p><strong>Key Affected Areas:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.r2_universities.key_affected_areas.join(', ')}</p>
-                <p><strong>Relative Burden:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.r2_universities.relative_burden}</p>
+                <p>${summaries.comprehensive_analysis.research_impact_analysis.international_collaboration}</p>
               </div>
             </div>
             
-            <!-- Master's Universities -->
             <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
               <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
-                <h4 style="margin: 0; font-size: 1.1rem;">Master's Universities</h4>
+                <h4 style="margin: 0; font-size: 1.1rem;">Funding Implications</h4>
               </div>
               <div style="padding: 1rem;">
-                <p><strong>Overall Impact:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.masters_universities.overall_impact}</p>
-                <p><strong>Key Affected Areas:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.masters_universities.key_affected_areas.join(', ')}</p>
-                <p><strong>Relative Burden:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.masters_universities.relative_burden}</p>
+                <p>${summaries.comprehensive_analysis.research_impact_analysis.funding_implications}</p>
               </div>
             </div>
             
-            <!-- Baccalaureate Colleges -->
             <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
               <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
-                <h4 style="margin: 0; font-size: 1.1rem;">Baccalaureate Colleges</h4>
+                <h4 style="margin: 0; font-size: 1.1rem;">Compliance Burden</h4>
               </div>
               <div style="padding: 1rem;">
-                <p><strong>Overall Impact:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.baccalaureate_colleges.overall_impact}</p>
-                <p><strong>Key Affected Areas:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.baccalaureate_colleges.key_affected_areas.join(', ')}</p>
-                <p><strong>Relative Burden:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.baccalaureate_colleges.relative_burden}</p>
+                <p>${summaries.comprehensive_analysis.research_impact_analysis.compliance_burden}</p>
               </div>
             </div>
             
-            <!-- Community Colleges -->
             <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
               <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
-                <h4 style="margin: 0; font-size: 1.1rem;">Community Colleges</h4>
+                <h4 style="margin: 0; font-size: 1.1rem;">Competitive Position</h4>
               </div>
               <div style="padding: 1rem;">
-                <p><strong>Overall Impact:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.community_colleges.overall_impact}</p>
-                <p><strong>Key Affected Areas:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.community_colleges.key_affected_areas.join(', ')}</p>
-                <p><strong>Relative Burden:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.community_colleges.relative_burden}</p>
-              </div>
-            </div>
-            
-            <!-- Specialized Institutions -->
-            <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
-              <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
-                <h4 style="margin: 0; font-size: 1.1rem;">Specialized Institutions</h4>
-              </div>
-              <div style="padding: 1rem;">
-                <p><strong>Overall Impact:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.specialized_institutions.overall_impact}</p>
-                <p><strong>Key Affected Areas:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.specialized_institutions.key_affected_areas.join(', ')}</p>
-                <p><strong>Relative Burden:</strong> ${summaries.comprehensive_analysis.institution_impact_matrix.specialized_institutions.relative_burden}</p>
+                <p>${summaries.comprehensive_analysis.research_impact_analysis.competitive_position}</p>
               </div>
             </div>
           </div>
           
           <!-- Context Section -->
           <div class="context" style="margin-bottom: 1.5rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Policy Context:</h3>
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Policy Context for Research Universities:</h3>
             
             <div style="margin-bottom: 1rem;">
               <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Policy Background:</h4>
@@ -613,8 +536,8 @@ You have particular expertise in:
             </div>
             
             <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Higher Education Context:</h4>
-              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.industry_context}</p>
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Research Sector Context:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.research_sector_context}</p>
             </div>
             
             <div style="margin-bottom: 1rem;">
@@ -623,31 +546,31 @@ You have particular expertise in:
             </div>
           </div>
           
-          <!-- Functional Area Impacts Section -->
-          <div class="impacts" style="margin-bottom: 1.5rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Functional Area Impacts:</h3>
+          <!-- Key Focus Areas Section -->
+          <div class="key-focus-areas" style="margin-bottom: 1.5rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Key Focus Areas for Private R1s:</h3>
             <div style="margin-bottom: 1rem;">
-              ${summaries.comprehensive_analysis.functional_area_impacts.map(impact => `
+              ${summaries.comprehensive_analysis.key_focus_areas.map(area => `
                 <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
                   <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
-                    <h4 style="margin: 0; font-size: 1.1rem;">${impact.area}</h4>
+                    <h4 style="margin: 0; font-size: 1.1rem;">${area.area}</h4>
                   </div>
                   <div style="padding: 1rem;">
-                    <p style="margin-bottom: 0.75rem;">${impact.description}</p>
-                    <p style="margin: 0; font-style: italic; color: #4b5563;"><strong>Institution Variations:</strong> ${impact.institution_variations}</p>
+                    <p style="margin-bottom: 0.75rem;">${area.description}</p>
+                    <p style="margin: 0; font-style: italic; color: #4b5563;"><strong>Implementation Considerations:</strong> ${area.implementation_considerations}</p>
                   </div>
                 </div>
               `).join('')}
             </div>
             
-            <!-- Important Dates with Variations -->
+            <!-- Important Dates with Priority Levels -->
             ${Array.isArray(summaries.comprehensive_analysis.important_dates) && summaries.comprehensive_analysis.important_dates.length > 0 ? `
               <div style="margin-bottom: 1.5rem;">
-                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Important Dates with Institution Variations:</h4>
+                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Important Dates for Private R1 Implementation:</h4>
                 ${summaries.comprehensive_analysis.important_dates.map(date => `
                   <div style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
                     <p style="margin-bottom: 0.25rem;"><strong>${date.date}:</strong> ${date.description}</p>
-                    <p style="margin: 0; font-size: 0.875rem; color: #4b5563; font-style: italic;"><strong>Institution Variations:</strong> ${date.institution_variations}</p>
+                    <p style="margin: 0; font-size: 0.875rem; color: #4b5563; font-style: italic;"><strong>Priority Level:</strong> ${date.priority_level}</p>
                   </div>
                 `).join('')}
               </div>
@@ -655,23 +578,119 @@ You have particular expertise in:
             
             <div style="margin-bottom: 1rem;">
               <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Affected Departments:</h4>
-              <p>${summaries.comprehensive_analysis.affected_departments.join(', ')}</p>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                  <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem; color: #2563eb;">Primary:</h5>
+                  <ul style="margin: 0; padding-left: 1.5rem;">
+                    ${summaries.comprehensive_analysis.affected_departments.primary.map(dept => `<li>${dept}</li>`).join('')}
+                  </ul>
+                </div>
+                <div>
+                  <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem; color: #4b5563;">Secondary:</h5>
+                  <ul style="margin: 0; padding-left: 1.5rem;">
+                    ${summaries.comprehensive_analysis.affected_departments.secondary.map(dept => `<li>${dept}</li>`).join('')}
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
           
-          <!-- Implementation Specifics -->
-          <div class="implementation" style="margin-bottom: 1.5rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Differentiated Implementation Details:</h3>
+          <!-- Implementation Strategy -->
+          <div class="implementation-strategy" style="margin-bottom: 1.5rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Private R1 Implementation Strategy:</h3>
             
-            <div style="margin-bottom: 1.5rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Compliance Requirements by Institution Type:</h4>
-              <div style="padding: 1rem; background-color: #f9fafb; border-radius: 0.375rem; margin-bottom: 0.75rem;">
-                <p style="margin-bottom: 0.5rem;"><strong>General Requirements:</strong> ${summaries.comprehensive_analysis.compliance_details.general_requirements}</p>
-                <p style="margin-bottom: 0.5rem;"><strong>R1-Specific Requirements:</strong> ${summaries.comprehensive_analysis.compliance_details.r1_requirements}</p>
-                <p style="margin-bottom: 0rem;"><strong>Small Institution Requirements:</strong> ${summaries.comprehensive_analysis.compliance_details.small_institution_requirements}</p>
+            ${summaries.comprehensive_analysis.implementation_strategy.map(phase => `
+              <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+                <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                  <h4 style="margin: 0; font-size: 1.1rem;">${phase.phase}</h4>
+                </div>
+                <div style="padding: 1rem;">
+                  <ul style="margin-top: 0; margin-bottom: 0.75rem; padding-left: 1.5rem;">
+                    ${phase.actions.map(action => `<li style="margin-bottom: 0.25rem;">${action}</li>`).join('')}
+                  </ul>
+                  <p style="margin: 0; font-style: italic; color: #4b5563;"><strong>Key Considerations:</strong> ${phase.key_considerations}</p>
+                </div>
+              </div>
+            `).join('')}
+            
+            <p style="font-weight: 500; margin: 1rem 0; ${summaries.comprehensive_analysis.action_needed.startsWith('Yes') ? 'color: #b91c1c;' : 'color: #047857;'}">
+              <strong>Action Required:</strong> ${summaries.comprehensive_analysis.action_needed}
+            </p>
+          </div>
+          
+          <!-- Specialized Analysis Section -->
+          <div class="specialized-analysis" style="margin-bottom: 1.5rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Specialized Analysis for Private R1 Universities:</h3>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Research Competitiveness:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.specialized_analysis.research_competitiveness}</p>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Talent Acquisition:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.specialized_analysis.talent_acquisition}</p>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Institutional Autonomy:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.specialized_analysis.institutional_autonomy}</p>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Financial Implications:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.specialized_analysis.financial_implications}</p>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Reputation Management:</h4>
+              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.specialized_analysis.reputation_management}</p>
+            </div>
+          </div>
+          
+          <!-- Compliance Details Section -->
+          <div class="compliance-details" style="margin-bottom: 1.5rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Private R1 Compliance Details:</h3>
+            
+            <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+              <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                <h4 style="margin: 0; font-size: 1.1rem;">Core Requirements</h4>
+              </div>
+              <div style="padding: 1rem;">
+                <p>${summaries.comprehensive_analysis.compliance_details.core_requirements}</p>
               </div>
             </div>
             
+            <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+              <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                <h4 style="margin: 0; font-size: 1.1rem;">Documentation Needs</h4>
+              </div>
+              <div style="padding: 1rem;">
+                <p>${summaries.comprehensive_analysis.compliance_details.documentation_needs}</p>
+              </div>
+            </div>
+            
+            <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+              <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                <h4 style="margin: 0; font-size: 1.1rem;">Reporting Obligations</h4>
+              </div>
+              <div style="padding: 1rem;">
+                <p>${summaries.comprehensive_analysis.compliance_details.reporting_obligations}</p>
+              </div>
+            </div>
+            
+            <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+              <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                <h4 style="margin: 0; font-size: 1.1rem;">Audit Considerations</h4>
+              </div>
+              <div style="padding: 1rem;">
+                <p>${summaries.comprehensive_analysis.compliance_details.audit_considerations}</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Technical Analysis & Cross-Functional Impacts -->
+          <div style="margin-bottom: 1.5rem;">
             <div style="margin-bottom: 1rem;">
               <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Technical Analysis:</h4>
               <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.technical_analysis}</p>
@@ -681,157 +700,89 @@ You have particular expertise in:
               <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Cross-Functional Impacts:</h4>
               <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.cross_functional_impacts}</p>
             </div>
+          </div>
+          
+          <!-- Risk Analysis Section -->
+          <div class="risk-analysis" style="margin-bottom: 1.5rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Risk Analysis for Private R1 Universities:</h3>
             
-            <div style="margin-bottom: 1.5rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Risk Analysis by Institution Type:</h4>
-              <div style="padding: 1rem; background-color: #f9fafb; border-radius: 0.375rem; margin-bottom: 0.75rem;">
-                <p style="margin-bottom: 0.5rem;"><strong>General Risks:</strong> ${summaries.comprehensive_analysis.risk_analysis.general_risks}</p>
-                <p style="margin-bottom: 0.5rem;"><strong>R1-Specific Risks:</strong> ${summaries.comprehensive_analysis.risk_analysis.r1_specific_risks}</p>
-                <p style="margin-bottom: 0rem;"><strong>Small Institution Risks:</strong> ${summaries.comprehensive_analysis.risk_analysis.small_institution_risks}</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.75rem; margin-bottom: 1rem;">
+              <div style="border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+                <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                  <h4 style="margin: 0; font-size: 1rem;">Research Risks</h4>
+                </div>
+                <div style="padding: 0.75rem;">
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.risk_analysis.research_risks}</p>
+                </div>
+              </div>
+              
+              <div style="border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+                <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                  <h4 style="margin: 0; font-size: 1rem;">Financial Risks</h4>
+                </div>
+                <div style="padding: 0.75rem;">
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.risk_analysis.financial_risks}</p>
+                </div>
+              </div>
+              
+              <div style="border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+                <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                  <h4 style="margin: 0; font-size: 1rem;">Compliance Risks</h4>
+                </div>
+                <div style="padding: 0.75rem;">
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.risk_analysis.compliance_risks}</p>
+                </div>
+              </div>
+              
+              <div style="border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+                <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                  <h4 style="margin: 0; font-size: 1rem;">Operational Risks</h4>
+                </div>
+                <div style="padding: 0.75rem;">
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.risk_analysis.operational_risks}</p>
+                </div>
+              </div>
+              
+              <div style="border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
+                <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+                  <h4 style="margin: 0; font-size: 1rem;">Strategic Risks</h4>
+                </div>
+                <div style="padding: 0.75rem;">
+                  <p style="margin: 0;">${summaries.comprehensive_analysis.risk_analysis.strategic_risks}</p>
+                </div>
               </div>
             </div>
           </div>
           
-          <!-- Strategic Considerations -->
-          <div class="strategic" style="margin-bottom: 1.5rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Strategic Considerations:</h3>
-            
-            <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Competitive Implications:</h4>
-              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.competitive_implications}</p>
-            </div>
-            
-            <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Long-term Vision:</h4>
-              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.long_term_vision}</p>
-            </div>
-            
-            <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Advocacy Opportunities:</h4>
-              <p style="margin-bottom: 1rem;">${summaries.comprehensive_analysis.advocacy_opportunities}</p>
-            </div>
-          </div>
-          
-          <!-- Differentiated Action Plan Section -->
-          <div class="action-plan" style="margin-bottom: 1.5rem; border-top: 1px solid #e5e7eb; padding-top: 1rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Institution-Specific Action Plan:</h3>
-            
-            <p style="font-weight: 500; margin-bottom: 1rem; ${summaries.comprehensive_analysis.action_needed.startsWith('Yes') ? 'color: #b91c1c;' : 'color: #047857;'}">
-              <strong>Action Required:</strong> ${summaries.comprehensive_analysis.action_needed}
-            </p>
-            
-            <div style="margin-bottom: 1.5rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Immediate Steps (0-30 days):</h4>
-              ${summaries.comprehensive_analysis.immediate_steps.map(step => `
-                <div style="margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; overflow: hidden;">
-                  <div style="background-color: #f3f4f6; padding: 0.75rem; border-bottom: 1px solid #e5e7eb;">
-                    <h5 style="margin: 0; font-size: 1rem;">${step.action}</h5>
-                  </div>
-                  <div style="padding: 1rem;">
-                    <p style="margin-bottom: 0.5rem;"><strong>For R1 Institutions:</strong> ${step.r1_focus}</p>
-                    <p style="margin: 0;"><strong>For Small Institutions:</strong> ${step.small_institution_focus}</p>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-            
-            <div style="margin-bottom: 1.5rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Short-term Actions (1-3 months):</h4>
-              ${summaries.comprehensive_analysis.short_term_actions.map(action => `
-                <div style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;">
-                  <p style="margin-bottom: 0.25rem;"><strong>${action.action}</strong></p>
-                  <p style="margin: 0; font-size: 0.875rem; color: #4b5563; font-style: italic;"><strong>Institution Variations:</strong> ${action.institution_variations}</p>
-                </div>
-              `).join('')}
-            </div>
-            
-            <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Long-term Considerations:</h4>
-              <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
-                ${summaries.comprehensive_analysis.long_term_considerations.map(consideration => `<li>${consideration}</li>`).join('')}
-              </ul>
-            </div>
+          <!-- Advocacy Opportunities -->
+          <div style="margin-bottom: 1.5rem; padding: 1rem; background-color: #f0f9ff; border-radius: 0.375rem;">
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Advocacy Opportunities:</h3>
+            <p>${summaries.comprehensive_analysis.advocacy_opportunities}</p>
           </div>
           
           <!-- Resource Requirements Section -->
           <div class="resources" style="margin-bottom: 1rem; background-color: #f9fafb; padding: 1rem; border-radius: 0.375rem;">
-            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Resource Requirements by Institution Size:</h3>
+            <h3 style="color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;">Resource Requirements for Private R1 Implementation:</h3>
             
-            <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Personnel:</h4>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0.75rem;">
-                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Large Institutions:</p>
-                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.personnel.large_institutions}</p>
-                </div>
-                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Medium Institutions:</p>
-                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.personnel.medium_institutions}</p>
-                </div>
-                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Small Institutions:</p>
-                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.personnel.small_institutions}</p>
-                </div>
+            <div style="display: grid; gap: 1rem;">
+              <div>
+                <p><strong>Personnel:</strong> ${summaries.comprehensive_analysis.resource_requirements.personnel}</p>
               </div>
-            </div>
-            
-            <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Budget:</h4>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0.75rem;">
-                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Large Institutions:</p>
-                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.budget.large_institutions}</p>
-                </div>
-                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Medium Institutions:</p>
-                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.budget.medium_institutions}</p>
-                </div>
-                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Small Institutions:</p>
-                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.budget.small_institutions}</p>
-                </div>
+              <div>
+                <p><strong>Budget:</strong> ${summaries.comprehensive_analysis.resource_requirements.budget}</p>
               </div>
-            </div>
-            
-            <div style="margin-bottom: 1rem;">
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Technology:</h4>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0.75rem;">
-                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Large Institutions:</p>
-                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.technology.large_institutions}</p>
-                </div>
-                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Medium Institutions:</p>
-                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.technology.medium_institutions}</p>
-                </div>
-                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Small Institutions:</p>
-                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.technology.small_institutions}</p>
-                </div>
+              <div>
+                <p><strong>Technology:</strong> ${summaries.comprehensive_analysis.resource_requirements.technology}</p>
               </div>
-            </div>
-            
-            <div>
-              <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">External Expertise:</h4>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0.75rem;">
-                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Large Institutions:</p>
-                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.external_expertise.large_institutions}</p>
-                </div>
-                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Medium Institutions:</p>
-                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.external_expertise.medium_institutions}</p>
-                </div>
-                <div style="padding: 0.75rem; background-color: white; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 0.25rem 0; font-weight: 500;">Small Institutions:</p>
-                  <p style="margin: 0;">${summaries.comprehensive_analysis.resource_requirements.external_expertise.small_institutions}</p>
-                </div>
+              <div>
+                <p><strong>External Expertise:</strong> ${summaries.comprehensive_analysis.resource_requirements.external_expertise}</p>
               </div>
             </div>
           </div>
           
-          <div style="font-size: 0.75rem; color: #6b7280; text-align: right; margin-top: 1rem;">
-            Summary generated by Claude AI on ${new Date().toLocaleDateString()}
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; text-align: center; font-size: 0.875rem; color: #6b7280;">
+            Comprehensive analysis specifically tailored for private R1 research universities<br>
+            Generated by Claude AI on ${new Date().toLocaleDateString()}
           </div>
         </div>
       `;
@@ -920,6 +871,12 @@ async function main() {
     db.close();
   }
 }
+
+// Export functions for use in regenerate_r1_summaries.js
+module.exports = {
+  generateMultiLevelSummaries,
+  saveSummaries
+};
 
 // Run the main function
 main();

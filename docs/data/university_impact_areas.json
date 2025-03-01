@@ -1,37 +1,37 @@
 [
   {
-    "id": 3,
-    "name": "Administrative Compliance",
-    "description": "Compliance requirements, reporting mandates, and regulatory changes affecting higher education administration across institution types"
-  },
-  {
-    "id": 5,
-    "name": "Public-Private Partnerships",
-    "description": "Changes affecting academic-industry collaborations, tech transfer, and economic development initiatives across diverse institutional settings"
-  },
-  {
     "id": 1,
-    "name": "Research Funding",
-    "description": "Impacts on federal research grants, funding priorities, and research administration for all research-active institutions"
+    "name": "Research Funding & Security",
+    "description": "Impacts on federal research grants, funding priorities, and research security requirements for private R1 institutions"
   },
   {
     "id": 2,
-    "name": "Student Aid & Higher Education Finance",
-    "description": "Changes to student financial aid, federal student loans, and institutional funding mechanisms affecting institutions of all types and sizes"
+    "name": "Advanced Research Programs",
+    "description": "Impacts on specialized research initiatives, national laboratories, and high-priority research areas for leading private research universities"
+  },
+  {
+    "id": 3,
+    "name": "International Collaboration",
+    "description": "Impacts on international research partnerships, scholar mobility, and global academic initiatives for private R1 institutions"
   },
   {
     "id": 4,
-    "name": "Workforce & Employment Policy",
-    "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity in higher education institutions"
+    "name": "Endowment Management",
+    "description": "Impacts on endowment investment policies, reporting requirements, and financial regulations affecting well-endowed private institutions"
+  },
+  {
+    "id": 5,
+    "name": "Graduate Education",
+    "description": "Impacts on graduate and professional education programs, including funding mechanisms and program requirements at private R1s"
   },
   {
     "id": 6,
-    "name": "Institutional Accessibility",
-    "description": "Impacts on educational access, affordability, and inclusion across diverse student populations and institution types"
+    "name": "Public-Private Partnerships",
+    "description": "Changes affecting academic-industry collaborations, tech transfer, and economic development initiatives for private research universities"
   },
   {
     "id": 7,
-    "name": "Academic Freedom & Curriculum",
-    "description": "Impacts on instructional policy, academic freedom, and curriculum requirements across different institutional contexts"
+    "name": "Administrative Compliance",
+    "description": "Compliance requirements, reporting mandates, and regulatory changes specifically affecting private R1 institutions"
   }
 ]

@@ -113,21 +113,48 @@ function getSourceAbbreviation(sourceName) {
   return abbreviations[sourceName] || sourceName.split(' ').map(word => word[0]).join('');
 }
 
-// Generate institution-specific guidance based on multiple sources
+// Generate institution-specific guidance based on multiple sources, prioritizing Private R1 Universities
 function generateInstitutionGuidance(order, sources, differentiatedImpacts) {
   const institutionTypes = Object.keys(differentiatedImpacts || {});
   const guidance = {};
   
-  // If no differentiated impacts, return empty guidance
-  if (institutionTypes.length === 0) return guidance;
+  // If no differentiated impacts, create default guidance for Private R1 Universities
+  if (institutionTypes.length === 0) {
+    guidance['Private R1 Universities'] = {
+      relevance_score: calculateRelevanceScore(order, 'Private R1 Universities', {}),
+      action_items: [],
+      exemptions: [],
+      source_considerations: {},
+      isPriority: true
+    };
+    return guidance;
+  }
   
-  institutionTypes.forEach(instType => {
+  // Define institution type priorities
+  const institutionPriorities = {
+    'Private R1 Universities': 1,
+    'Private R2 Universities': 2,
+    'Public R1 Universities': 3,
+    'Public R2 Universities': 4,
+    'Master\'s Universities': 5,
+    'Baccalaureate Colleges': 6,
+    'Community Colleges': 7,
+    'Specialized Institutions': 8
+  };
+  
+  // Sort institution types by priority
+  const sortedInstitutionTypes = institutionTypes.sort((a, b) => {
+    return (institutionPriorities[a] || 99) - (institutionPriorities[b] || 99);
+  });
+  
+  sortedInstitutionTypes.forEach(instType => {
     // Initialize guidance object for this institution type
     guidance[instType] = {
       relevance_score: calculateRelevanceScore(order, instType, differentiatedImpacts),
       action_items: [],
       exemptions: [],
-      source_considerations: {}
+      source_considerations: {},
+      isPriority: instType === 'Private R1 Universities'
     };
     
     // Add source-specific guidance
@@ -240,15 +267,44 @@ function deduplicateActionItems(actionItems) {
 function generateSourceAwareImpactAnalysis(order, sources, universityImpactAreas) {
   const impactAnalysis = {};
   
-  // Initialize with primary university impact areas
+  // Initialize with primary university impact areas - prioritize those most relevant to Private R1s
+  const priorityOrder = [
+    "Research Funding & Security",
+    "Advanced Research Programs",
+    "International Collaboration",
+    "Endowment Management", 
+    "Graduate Education",
+    "Public-Private Partnerships",
+    "Administrative Compliance"
+  ];
+  
+  // First add R1-specific impact areas in priority order
+  priorityOrder.forEach(areaName => {
+    const area = universityImpactAreas.find(a => a.name === areaName);
+    if (area) {
+      impactAnalysis[area.name] = {
+        description: area.description,
+        notes: area.notes || null,
+        source_insights: {},
+        consensus_rating: 'Neutral',
+        perspectives: [],
+        isPriority: true
+      };
+    }
+  });
+  
+  // Then add any remaining areas
   universityImpactAreas.forEach(area => {
-    impactAnalysis[area.name] = {
-      description: area.description,
-      notes: area.notes || null,
-      source_insights: {},
-      consensus_rating: 'Neutral',
-      perspectives: []
-    };
+    if (!impactAnalysis[area.name]) {
+      impactAnalysis[area.name] = {
+        description: area.description,
+        notes: area.notes || null,
+        source_insights: {},
+        consensus_rating: 'Neutral',
+        perspectives: [],
+        isPriority: false
+      };
+    }
   });
   
   // Add source-specific insights
@@ -786,13 +842,14 @@ async function exportSystemInfo() {
     `);
     
     const systemInfo = {
-      topicName: 'Higher Education Executive Order Analysis',
-      topicDescription: 'Analysis of executive orders and their impact on higher education institutions nationwide',
+      topicName: 'Private R1 University Executive Order Analysis',
+      topicDescription: 'Analysis of executive orders and their impact on private R1 research universities',
       orderCount: orderCount,
-      version: '1.2.0', // Increment version for the enhanced JSON export
+      version: '1.3.0', // Increment version for the Private R1 focus
       lastUpdated: new Date().toISOString(),
       isStaticVersion: true,
-      notes: 'Enhanced static export with integrated source data analysis and institution-specific guidance',
+      notes: 'Refocused export prioritizing private R1 research universities with specialized impact analysis',
+      primaryFocus: 'Private R1 Universities',
       externalSources: sources.map(source => ({
         name: source.source_name,
         abbreviation: getSourceAbbreviation(source.source_name),
@@ -861,12 +918,22 @@ async function exportMetadata(categories, impactAreas, universityImpactAreas) {
       externalSources: formattedSources,
       institutionTypes,
       functionalAreas,
+      applicationVersion: '1.3.0',
+      primaryFocus: 'Private R1 Universities',
+      featuredInstitutionTypes: ['Private R1 Universities', 'Private R2 Universities'],
       sourceIntegrationVersion: '1.2.0',
       sourceIntegrationFeatures: [
         'Normalized Source Attribution',
         'Combined Analysis Section',
         'Institution-Specific Guidance',
         'Source-Attributed Impact Areas'
+      ],
+      specializedFocusAreas: [
+        'Research Funding & Security',
+        'Advanced Research Programs', 
+        'International Collaboration',
+        'Endowment Management',
+        'Graduate Education'
       ]
     };
     
