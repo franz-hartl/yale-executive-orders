@@ -114,7 +114,7 @@
   display: none; /* Hide by default now that we have a better solution */
 }
 
-/* Yale News style footer */
+/* Yale style footer - based on Yale.edu */
 .yale-footer {
   background-color: var(--yale-blue);
   color: white;
@@ -126,28 +126,63 @@
 .yale-footer a {
   color: white;
   text-decoration: none;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .yale-footer a:hover {
-  opacity: 0.8;
   text-decoration: underline;
+  opacity: 0.9;
 }
 
 .yale-footer p {
   margin: 0;
+  margin-bottom: 0.75rem;
   font-size: 0.9375rem;
 }
 
+.yale-footer__logo {
+  margin-bottom: 1.5rem;
+}
+
+.yale-footer__heading {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .yale-footer__links {
-  display: flex;
-  gap: 2rem;
-  margin-top: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 2rem;
+}
+
+.yale-footer__links li {
+  margin-bottom: 0.75rem;
+}
+
+.yale-footer__link {
+  font-size: 0.875rem;
+  display: inline-block;
+}
+
+.yale-footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2rem;
+  margin-top: 2rem;
+}
+
+.yale-opacity-70 {
+  opacity: 0.7;
 }
 
 @media (min-width: 768px) {
-  .yale-footer__links {
-    margin-top: 0;
+  .yale-footer__nav {
+    display: flex;
+    gap: 4rem;
   }
 }
 

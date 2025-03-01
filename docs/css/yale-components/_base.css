@@ -117,3 +117,46 @@ ol.yale-list li {
 .yale-vertical-rhythm > * + * {
   margin-top: var(--space-lg);
 }
+
+/* Accessibility Helpers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Visible only on focus - for skip links */
+.sr-only-focusable:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip link styling */
+.yale-skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--yale-blue);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.2s ease;
+}
+
+.yale-skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--yale-accent-blue);
+}
