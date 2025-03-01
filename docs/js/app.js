@@ -354,19 +354,101 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch executive orders data
     async function getExecutiveOrders() {
         try {
+            // First fetch the metadata index that contains info about available orders
+            showLoading('Loading executive order index...');
+            
+            const indexResponse = await fetch('data/orders_index.json');
+            
+            // If the index file doesn't exist, fall back to the old approach
+            if (!indexResponse.ok) {
+                console.warn('Orders index not found, falling back to monolithic JSON file');
+                return await getLegacyExecutiveOrders();
+            }
+            
+            // Process the index data
+            const indexData = await indexResponse.json();
+            const totalOrders = indexData.total;
+            const batchSize = indexData.batchSize || 50;
+            const totalBatches = Math.ceil(totalOrders / batchSize);
+            
+            showLoading(`Loading executive orders (0/${totalOrders})...`);
+            
+            // Load all data batches in sequence
+            allExecutiveOrders = [];
+            let loadedCount = 0;
+            
+            for (let batchNum = 1; batchNum <= totalBatches; batchNum++) {
+                showLoading(`Loading batch ${batchNum}/${totalBatches}...`);
+                
+                try {
+                    const batchResponse = await fetch(`data/batches/orders_batch_${batchNum}.json`);
+                    if (!batchResponse.ok) {
+                        throw new Error(`Failed to load batch ${batchNum}`);
+                    }
+                    
+                    const batchData = await batchResponse.json();
+                    allExecutiveOrders = [...allExecutiveOrders, ...batchData];
+                    
+                    loadedCount += batchData.length;
+                    showLoading(`Loading executive orders (${loadedCount}/${totalOrders})...`);
+                } catch (batchError) {
+                    console.error(`Error loading batch ${batchNum}:`, batchError);
+                    showError(`Failed to load some executive orders (batch ${batchNum})`);
+                    // Continue with what we have
+                    break;
+                }
+            }
+            
+            // Set filtered orders to the complete dataset
+            filteredOrders = [...allExecutiveOrders];
+            
+            // If we didn't get any orders, fallback to the legacy approach
+            if (allExecutiveOrders.length === 0) {
+                console.warn('No orders loaded from batches, falling back to monolithic JSON file');
+                return await getLegacyExecutiveOrders();
+            }
+            
+        } catch (error) {
+            console.error('Error getting executive orders:', error);
+            showError('Failed to load executive orders.');
+            
+            // Try the legacy approach as a fallback
+            try {
+                await getLegacyExecutiveOrders();
+            } catch (fallbackError) {
+                console.error('Fallback loading also failed:', fallbackError);
+                throw error; // Re-throw the original error
+            }
+        }
+    }
+    
+    // Legacy method for loading executive orders from a single large file
+    async function getLegacyExecutiveOrders() {
+        try {
+            showLoading('Fetching executive orders (legacy method)...');
+            
             // Use a streaming approach to handle the large JSON file
             const response = await fetch('data/processed_executive_orders.json');
             if (!response.ok) {
                 throw new Error(`Status: ${response.status}`);
             }
             
-            // Process the response as a readable stream for better memory efficiency
+            showLoading('Processing data (legacy method)...');
+            
+            // First try the simpler approach which might work for smaller files
+            try {
+                const jsonData = await response.json();
+                allExecutiveOrders = jsonData;
+                filteredOrders = [...allExecutiveOrders];
+                return;
+            } catch (jsonError) {
+                console.warn('Direct JSON parsing failed, trying stream approach:', jsonError);
+            }
+            
+            // Fall back to manual streaming for very large files
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
             let chunks = '';
-            
-            // Show progress during the load
-            showLoading('Downloading data...');
             
             // Read the data in chunks
             while (true) {
@@ -378,26 +460,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Accumulate text chunks
                 chunks += decoder.decode(value, { stream: true });
-                
-                // Update loading message to show progress
-                showLoading('Processing data...');
             }
             
             // Final decode to ensure all data is processed
             chunks += decoder.decode();
             
             // Parse the JSON data
-            try {
-                showLoading('Parsing data...');
-                allExecutiveOrders = JSON.parse(chunks);
-                filteredOrders = [...allExecutiveOrders];
-            } catch (parseError) {
-                console.error('Error parsing JSON:', parseError);
-                throw new Error('Failed to parse executive orders data.');
-            }
+            showLoading('Parsing data (legacy method)...');
+            allExecutiveOrders = JSON.parse(chunks);
+            filteredOrders = [...allExecutiveOrders];
             
         } catch (error) {
-            console.error('Error getting executive orders:', error);
+            console.error('Legacy loading method failed:', error);
             showError('Failed to load executive orders.');
             throw error;
         }

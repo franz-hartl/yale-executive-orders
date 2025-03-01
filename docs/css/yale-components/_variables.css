@@ -36,22 +36,22 @@
   --active-overlay: rgba(0, 53, 107, 0.1);
   --focus-ring: 0 0 0 3px rgba(40, 109, 192, 0.5);
   
-  /* Spacing Scale */
-  --space-xs: 0.25rem;  /* 4px */
-  --space-sm: 0.5rem;   /* 8px */
-  --space-md: 1rem;     /* 16px */
-  --space-lg: 1.5rem;   /* 24px */
-  --space-xl: 2rem;     /* 32px */
-  --space-2xl: 3rem;    /* 48px */
+  /* Spacing Scale - Yale prefers more whitespace in key areas */
+  --space-xs: 0.375rem;  /* 6px */
+  --space-sm: 0.75rem;   /* 12px */
+  --space-md: 1.25rem;   /* 20px */
+  --space-lg: 2rem;      /* 32px */
+  --space-xl: 2.5rem;    /* 40px */
+  --space-2xl: 3.5rem;   /* 56px */
   
   /* Animation */
   --transition-standard: 300ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-enter: 300ms cubic-bezier(0.0, 0, 0.2, 1);
   --transition-exit: 250ms cubic-bezier(0.4, 0, 1, 1);
   
-  /* Border Radius */
-  --radius-sm: 0.125rem; /* 2px */
-  --radius-base: 0.25rem; /* 4px */
-  --radius-md: 0.375rem; /* 6px */
-  --radius-lg: 0.5rem; /* 8px */
+  /* Border Radius - Yale uses sharper corners */
+  --radius-sm: 0; /* 0px - sharp corners for most elements */
+  --radius-base: 0; /* 0px - no rounding */
+  --radius-md: 0.125rem; /* 2px - minimal rounding when needed */
+  --radius-lg: 0.25rem; /* 4px - slight rounding for selected elements */
 }

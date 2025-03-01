@@ -6,15 +6,17 @@
 /* Import Open Sans font */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
-/* Base Elements */
+/* Base Elements - Yale design system emphasizes clean typography and generous spacing */
 body {
   font-family: "Open Sans", system-ui, -apple-system, sans-serif;
   background-color: var(--background-primary);
   color: var(--text-primary);
-  line-height: 1.5;
+  line-height: 1.6; /* Yale prefers slightly more line height */
   margin: 0;
   padding: 0;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.015em; /* Yale prefers slightly more letter spacing */
+  -webkit-font-smoothing: antialiased; /* For better text rendering */
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Typography - Enhanced for mobile and desktop */
