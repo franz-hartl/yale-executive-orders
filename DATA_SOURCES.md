@@ -117,12 +117,48 @@ External source data is tracked in two tables:
 - `source_specific_data`: JSON of source-specific metadata
 - `fetch_date`: When this association was created
 
+## Enhanced JSON Export with Integrated Source Data (Phase 5)
+
+The system now features an enhanced JSON export that intelligently combines information from all external sources:
+
+1. **Normalized Source Attribution**
+   - Standardized metadata for each source (name, abbreviation, URL, reference ID)
+   - Consistent formatting across all source data
+   - Clear identification of data provenance
+
+2. **Combined Analysis**
+   - Integration of perspectives from multiple sources
+   - Merged analyses that maintain proper attribution
+   - Key insights highlighted from each source
+
+3. **Institution-Specific Guidance**
+   - Tailored recommendations for different institution types based on multiple sources
+   - Relevance scoring derived from impact analysis and source data
+   - Source-specific guidance organized by institution type
+
+4. **Source-Attributed Impact Areas**
+   - Impact analysis for each relevant area showing which sources contributed information
+   - Consensus ratings calculated from multiple sources
+   - Preservation of differing perspectives when sources disagree
+
+**Implementation Details:**
+- Located in `export_to_json.js` with functions like `normalizeSourceAttribution()`, `generateInstitutionGuidance()`, etc.
+- Documented in `ENHANCED_JSON_STRUCTURE.md`
+- Testing script available as `test_enhanced_export_structure.js`
+
+**Usage:**
+```bash
+npm run export
+npm run test:export:structure
+```
+
 ## Next Steps
 
-1. **Enhance COGR integration (Phase 2)**: Parse extracted text to identify specific executive orders and extract structured data
-2. **Improve NSF integration (Phase 2)**: Fix URL handling and enhance pattern matching for more accurate EO detection
-3. **Enhance NIH integration (Phase 3)**: Add pagination to scan more notice archives and improve date extraction
-4. **Implement ACE source integration (Phase 3)**: Extract relevant ACE policy briefs following a similar approach
+1. **Enhance COGR integration**: Parse extracted text to identify specific executive orders and extract structured data
+2. **Improve NSF integration**: Fix URL handling and enhance pattern matching for more accurate EO detection
+3. **Enhance NIH integration**: Add pagination to scan more notice archives and improve date extraction
+4. **Implement ACE source integration**: Extract relevant ACE policy briefs following a similar approach
 5. **Add comprehensive integration tests**: Ensure reliable functioning with mock responses and sample data 
 6. **Create unified data access layer**: Develop API endpoints to expose the combined data from multiple sources
 7. **Extend NIH notice parser**: Improve categorization of NIH notices based on content analysis
+8. **UI Integration**: Update the frontend to display the enhanced data structure with source information

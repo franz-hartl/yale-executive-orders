@@ -7,8 +7,11 @@ This API provides comprehensive functionality for tracking, categorizing, and an
 - **Full REST API**: Complete CRUD operations for executive orders
 - **Categorization**: Automatically categorizes executive orders by topic and impact area
 - **University-specific Impact Analysis**: Specialized categorization for university impact areas
+- **External Source Integration**: Data from authoritative sources like COGR, NSF, NIH, and ACE
+- **Integrated Multi-Source Analysis**: Combines perspectives from multiple sources with consensus ratings
+- **Institution-Specific Guidance**: Tailored recommendations for different higher education institution types
 - **Full-text Search**: Powerful search capabilities across all executive order content
-- **Filterable Results**: Multiple filtering options for narrowing down results
+- **Filterable Results**: Multiple filtering options including by source and institution type
 - **Compliance Management**: Track compliance requirements and deadlines
 - **SQLite Database**: Easy to set up with no external dependencies
 
@@ -53,6 +56,8 @@ Optional query parameters:
 - `impact_level`: Filter by impact level (Critical, High, Medium, Low)
 - `president`: Filter by president name
 - `search`: Full-text search across order content
+- `source`: Filter by source name (COGR, NSF, NIH, ACE)
+- `institution_type`: Filter by institution type relevance
 - `order_by`: Sort field (id, order_number, title, signing_date, president, impact_level)
 - `order_dir`: Sort direction (asc, desc)
 - `limit`: Number of results to return (default: 100)
@@ -63,7 +68,7 @@ Optional query parameters:
 GET /api/executive-orders/:id
 ```
 
-Returns detailed information about a single executive order including all categorizations, impact areas, and compliance actions.
+Returns detailed information about a single executive order including all categorizations, impact areas, compliance actions, external source data, institution-specific guidance, and source-aware impact analysis.
 
 #### Create a new executive order
 ```
@@ -146,6 +151,9 @@ Returns statistics about the executive orders, including:
 - Counts by university impact area
 - Counts by category
 - Timeline of orders by month
+- Counts by external source
+- Source integration statistics
+- Consensus ratings distribution
 
 #### Get system information
 ```
@@ -190,7 +198,9 @@ POST /api/executive-orders
 }
 ```
 
-## Database Schema
+## Data Structure
+
+### Database Schema
 
 The system uses an SQLite database with the following main tables:
 
@@ -202,7 +212,60 @@ The system uses an SQLite database with the following main tables:
 - `university_impact_areas`: University-specific impact areas
 - `order_university_impact_areas`: Junction table linking orders to university impact areas
 - `compliance_actions`: Compliance requirements and actions for executive orders
+- `source_metadata`: Information about external data sources
+- `order_sources`: Junction table linking orders to external sources
 - `executive_orders_fts`: Full-text search index for executive orders
+
+### Enhanced JSON Structure
+
+The API returns an enhanced JSON structure with the following key sections:
+
+1. **Normalized Source Attribution**
+   ```json
+   "sources": [
+     {
+       "name": "COGR Executive Order Tracker",
+       "abbreviation": "COGR",
+       "url": "https://www.cogr.edu/cogr-resources",
+       "reference_id": "EO-12345",
+       "fetch_date": "2024-03-15"
+     }
+   ]
+   ```
+
+2. **Institution-Specific Guidance**
+   ```json
+   "institution_specific_guidance": {
+     "R1 Research Universities": {
+       "relevance_score": 8,
+       "action_items": [...],
+       "exemptions": [...],
+       "source_considerations": {...}
+     }
+   }
+   ```
+
+3. **Source-Aware Impact Analysis**
+   ```json
+   "source_aware_impact_analysis": {
+     "Research Funding": {
+       "source_insights": {...},
+       "consensus_rating": "Positive",
+       "perspectives": [...]
+     }
+   }
+   ```
+
+4. **Integrated Analysis**
+   ```json
+   "integrated_analysis": {
+     "summary": "...",
+     "source_contributions": {...},
+     "key_perspectives": [...]
+   }
+   ```
+
+For complete details on the enhanced JSON structure, see `ENHANCED_JSON_STRUCTURE.md`.
 
 ## Contributing
 

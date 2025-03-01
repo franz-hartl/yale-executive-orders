@@ -58,12 +58,31 @@ Follow these steps to add new executive orders, generate institution-specific an
    - Executive Brief: Concise TL;DR with institution variations noted
    - Standard Summary: Comprehensive analysis with institution-specific impact matrix
    - Comprehensive Analysis: Detailed breakdown with resource requirements by institution size
+   
+3a. **Fetch External Source Data** (optional but recommended)
+   ```bash
+   node fetch_external_sources.js
+   ```
+   This fetches and processes data from external authoritative sources:
+   - COGR Executive Order Tracker for research institutions
+   - NSF Implementation Pages for grant procedures
+   - NIH Policy Notices affecting research
+   - ACE Policy Briefs for higher education
 
-4. **Export Differentiated Analysis to Static Files**
+4. **Export Differentiated Analysis to Static Files with Enhanced Source Integration**
    ```bash
    node export_to_json.js
    ```
-   This exports the institution-specific data structures to static JSON files.
+   This exports the institution-specific data structures to static JSON files with enhanced integration of external source data:
+   - Normalized source attribution with standardized metadata
+   - Combined analysis with merged perspectives from multiple sources
+   - Institution-specific guidance tailored for different university types
+   - Source-aware impact analysis with attribution and consensus ratings
+   
+   You can test the enhanced export structure:
+   ```bash
+   npm run test:export:structure
+   ```
 
 5. **Test Locally with Institution Selection**
    ```bash
@@ -181,15 +200,18 @@ For convenience, use the `update_and_deploy.sh` script to automate steps 2-5:
 
 ```
 [Federal/Government Sources] → fetch_*.js → [Institution-Aware Database] → generate_plain_summaries.js
-                                                         ↓                         ↓
-                                                         ↓                [Multi-Level Analysis]
-                                                         ↓                [Institution-Type Matrix]
-                                                         ↓                [Resource Requirements by Size]
-                                                         ↓                         ↓
-                                                  export_to_json.js  ←  [Differentiated Analysis]
-                                                         ↓
-                                       [Institution-Adaptive Static Files] → GitHub Pages → [Interactive Website]
-                                                                                              [Institution Selector]
+                                                   ↓                              ↓
+[External Source Data] → fetch_external_sources.js →                     [Multi-Level Analysis]
+[COGR, NSF, NIH, ACE]                              ↓                     [Institution-Type Matrix]
+                                                   ↓                     [Resource Requirements by Size]
+                                                   ↓                              ↓
+                                            export_to_json.js  ←      [Differentiated Analysis]
+                                                   ↓                              ↑
+                                                   ↓                     [Integrated Source Data]
+                                                   ↓                     [Normalized Attribution]
+                                                   ↓                     [Consensus Analysis]
+                                 [Enhanced Static Files] → GitHub Pages → [Interactive Website]
+                                 [Institution+Source Data]                 [Institution Selector]
 ```
 
 ## Maintenance Tips

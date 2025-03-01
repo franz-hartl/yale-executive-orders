@@ -31,7 +31,7 @@ The project follows a preprocessing-to-static deployment model, providing severa
 
 - `database_setup.js`: Sets up the SQLite database with extended tables for institution-specific analysis
 - `generate_plain_summaries.js`: Creates AI-generated multi-level summaries with institution-specific impact analysis
-- `export_to_json.js`: Exports processed data to static JSON with differentiated impact data
+- `export_to_json.js`: Exports processed data to static JSON with differentiated impact data and integrated source information
 - `update_and_deploy.sh`: Shell script to automate the update and deployment process
 
 ### Data Collection Scripts
@@ -40,6 +40,13 @@ The project follows a preprocessing-to-static deployment model, providing severa
 - `fetch_recent_orders.js`: Fetches only recent executive orders
 - `fetch_historical_orders.js`: Fetches historical executive orders
 - `fetch_whitehouse_orders.js`: Fetches orders directly from whitehouse.gov
+- `fetch_external_sources.js`: Fetches and processes data from external authoritative sources (COGR, NSF, NIH, ACE)
+
+### Enhanced JSON Export
+
+- `test_enhanced_export_structure.js`: Tests the enhanced JSON structure with integrated source data
+- `ENHANCED_JSON_STRUCTURE.md`: Documents the enhanced JSON structure with integrated sources
+- `PHASE5_SUMMARY.md`: Summarizes the implementation of the enhanced JSON export
 
 ### Institution Analysis Framework
 
@@ -77,7 +84,11 @@ The data flows through the system in these stages:
    - Community Colleges
    - Specialized Institutions
    - Public vs. Private considerations
-5. **Export**: Processed data with institution-specific analysis is exported to static JSON files
+5. **Export**: Processed data with institution-specific analysis is exported to static JSON files with enhanced integration of source data:
+   - Normalized source attribution with standardized metadata
+   - Combined analysis with merged perspectives from multiple sources
+   - Institution-specific guidance tailored for different university types
+   - Source-aware impact analysis with attribution and consensus ratings
 6. **Deployment**: Static files with institutional variations are deployed to GitHub Pages
 
 ## Development Workflow
