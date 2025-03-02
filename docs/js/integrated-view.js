@@ -59,7 +59,7 @@ document.addEventListener('click', function(event) {
 });
 
 // Also initialize when modal is shown (Yale components specific)
-if (typeof yaleModal \!== 'undefined') {
+if (typeof yaleModal !== 'undefined') {
     console.log("Yale modal detected, adding event listener");
     yaleModal.on('modal:after-open', function() {
         console.log("Modal opened event from Yale components");
