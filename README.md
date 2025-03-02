@@ -150,6 +150,10 @@ The platform is designed for extension in several dimensions:
 - Anthropic API key (for AI-powered data processing)
 - Internet connection (for data collection)
 
+### MCP Client
+
+The project now includes a Model Context Protocol (MCP) client that allows for easy querying of executive orders data through Claude. For details, see [MCP_README.md](MCP_README.md).
+
 ### Quick Start
 
 1. **Environment Setup**
