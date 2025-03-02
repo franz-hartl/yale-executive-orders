@@ -8,6 +8,7 @@
     "start:simple": "node start_server.js simple",
     "start:full": "node start_server.js full",
     "start:api": "node api_server.js",
+    "start:mcp": "node mcp_server.js",
     "setup:db": "node sqlite_setup.js",
     "setup:intelligence-hub": "node database_setup.js && node init_intelligence_hub.js && node export_to_json.js",
     "fetch": "node fetch_orders.js",
@@ -21,6 +22,7 @@
     "test:export": "node test_enhanced_export.js",
     "test:export:structure": "node test_enhanced_export_structure.js",
     "test:intelligence-hub": "node test_intelligence_hub.js",
+    "test:mcp": "node test_mcp_client.js",
     "update": "node fetch_orders.js && node sqlite_setup.js",
     "update:intelligence-hub": "node init_intelligence_hub.js && node export_to_json.js",
     "deploy": "node export_to_json.js && ./update_and_deploy.sh",
@@ -29,7 +31,10 @@
     "workflow:minimal": "node run_workflow.js --workflow minimal",
     "workflow:standard": "node run_workflow.js --workflow standard",
     "workflow:nocache": "node run_workflow.js --no-save",
-    "workflow:intelligence-hub": "node run_workflow.js --workflow intelligence-hub"
+    "workflow:intelligence-hub": "node run_workflow.js --workflow intelligence-hub",
+    "mcp:client": "node mcp_llm_integration.js",
+    "mcp:static": "node static_mcp_client.js",
+    "mcp:setup": "node setup_static_mcp.js"
   },
   "dependencies": {
     "axios": "^1.8.1",
