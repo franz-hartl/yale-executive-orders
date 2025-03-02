@@ -1,8 +1,9 @@
 /**
  * fetch_external_sources.js
  * 
- * This script integrates data from external authoritative sources into the executive orders database.
- * It fetches, parses, and normalizes data from organizations like COGR, NSF, NIH, and ACE.
+ * This script integrates data from external authoritative sources into the executive orders database
+ * using the new source data management system. It fetches, parses, and normalizes data from 
+ * organizations like COGR, NSF, NIH, and ACE.
  */
 
 const sqlite3 = require('sqlite3').verbose();
