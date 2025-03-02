@@ -15,6 +15,9 @@ const IntelligenceHub = (function() {
     let intelligenceHubTab = null;
     let intelligenceHubContent = null;
     
+    // Debug flag
+    const DEBUG = true;
+    
     // =====================================================================
     // INITIALIZATION
     // =====================================================================
@@ -103,14 +106,22 @@ const IntelligenceHub = (function() {
             </div>
         `;
         
+        if (DEBUG) {
+            console.log("Loading Intelligence Hub for order:", orderId);
+            console.log("Order data:", orderData);
+            console.log("Intelligence Hub data available:", orderData.intelligence_hub ? true : false);
+        }
+        
         // Check if Intelligence Hub data exists
         if (!orderData.intelligence_hub) {
+            if (DEBUG) console.log("No Intelligence Hub data found in order data");
             showNoDataMessage();
             return;
         }
         
         // Store the Intelligence Hub data
         currentHub = orderData.intelligence_hub;
+        if (DEBUG) console.log("Intelligence Hub data:", currentHub);
         
         // Render Intelligence Hub components
         renderIntelligenceHub();
@@ -1012,3 +1023,6 @@ const IntelligenceHub = (function() {
 document.addEventListener('DOMContentLoaded', function() {
     IntelligenceHub.init();
 });
+
+// Explicitly set IntelligenceHub as a global to ensure it's accessible
+window.IntelligenceHub = IntelligenceHub;
