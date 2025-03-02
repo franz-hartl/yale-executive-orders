@@ -372,16 +372,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Process the index data
             const indexData = await indexResponse.json();
-            const totalOrders = indexData.total;
-            const batchSize = indexData.batchSize || 0;
             
-            // If batchSize is 0 or not specified, use the legacy approach
-            if (batchSize === 0) {
-                console.log('Batch size is 0, using monolithic JSON file');
-                return await getLegacyExecutiveOrders();
-            }
-            
-            const totalBatches = Math.ceil(totalOrders / batchSize);
+            // For GitHub Pages deployment, always use the legacy approach
+            // This ensures we don't try to load batch files that don't exist
+            console.log('GitHub Pages deployment detected, using monolithic JSON file');
+            return await getLegacyExecutiveOrders();
             
             showLoadingStatusIndicator(`Loading executive orders (0/${totalOrders})...`);
             
