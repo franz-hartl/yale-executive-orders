@@ -373,7 +373,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // Process the index data
             const indexData = await indexResponse.json();
             const totalOrders = indexData.total;
-            const batchSize = indexData.batchSize || 50;
+            const batchSize = indexData.batchSize || 0;
+            
+            // If batchSize is 0 or not specified, use the legacy approach
+            if (batchSize === 0) {
+                console.log('Batch size is 0, using monolithic JSON file');
+                return await getLegacyExecutiveOrders();
+            }
+            
             const totalBatches = Math.ceil(totalOrders / batchSize);
             
             showLoadingStatusIndicator(`Loading executive orders (0/${totalOrders})...`);
@@ -388,7 +395,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     const batchResponse = await fetch(`data/batches/orders_batch_${batchNum}.json`);
                     if (!batchResponse.ok) {
-                        throw new Error(`Failed to load batch ${batchNum}`);
+                        console.warn(`Batch ${batchNum} not found, falling back to monolithic JSON file`);
+                        return await getLegacyExecutiveOrders();
                     }
                     
                     const batchData = await batchResponse.json();
@@ -398,20 +406,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     showLoadingStatusIndicator(`Loading executive orders (${loadedCount}/${totalOrders})...`);
                 } catch (batchError) {
                     console.error(`Error loading batch ${batchNum}:`, batchError);
-                    showError(`Failed to load some executive orders (batch ${batchNum})`);
-                    // Continue with what we have
-                    break;
+                    console.warn('Error with batch loading, falling back to monolithic JSON file');
+                    return await getLegacyExecutiveOrders();
                 }
             }
             
             // Set filtered orders to the complete dataset
             filteredOrders = [...allExecutiveOrders];
-            
-            // If we didn't get any orders, fallback to the legacy approach
-            if (allExecutiveOrders.length === 0) {
-                console.warn('No orders loaded from batches, falling back to monolithic JSON file');
-                return await getLegacyExecutiveOrders();
-            }
             
         } catch (error) {
             console.error('Error getting executive orders:', error);
