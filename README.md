@@ -99,6 +99,26 @@ While maintaining a flexible architecture that could be adapted to other institu
 
 5. **Impact Assessment**: Customized impact scoring for Yale's operational environment
 
+## Sustainable Maintenance Design
+
+The platform is specifically architected for sustainable long-term maintenance in a changing policy landscape:
+
+1. **Source Isolation**: External data sources are isolated in dedicated modules, allowing each source to evolve independently without affecting the core system. When a data source changes its format, only its specific adapter requires modification.
+
+2. **Fact-Based Knowledge Model**: By representing information as discrete facts with explicit source attribution, new data can be integrated without disrupting existing information. Each fact has its own lifecycle independent of source changes.
+
+3. **Explicit Conflict Handling**: Rather than hiding or ignoring contradictions between sources, the system explicitly models conflicts with severity classification and resolution strategies, making maintenance of evolving interpretations transparent.
+
+4. **Graceful Degradation**: Templates and documents include fallback mechanisms for missing data, ensuring the system continues to function even when specific sources become unavailable or change their structure.
+
+5. **Automated Workflow**: The workflow system reduces maintenance burden by automating the end-to-end process with robust error handling and recovery capabilities, providing clear visibility into failures.
+
+6. **Data Contracts**: Well-defined contracts between system layers mean that internal implementations can change without cascading effects, as long as the contract is maintained.
+
+7. **Comprehensive Logging**: Detailed logging throughout the system makes troubleshooting and maintenance more efficient, with specific context for each component.
+
+This design philosophy prioritizes "maintainable modularity" - where the benefits of modular design enhance long-term sustainability rather than increasing maintenance complexity.
+
 ## Data Flow
 
 Data flows through the system in these stages:
