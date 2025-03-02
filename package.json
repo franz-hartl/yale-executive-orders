@@ -20,7 +20,11 @@
     "test:export": "node test_enhanced_export.js",
     "test:export:structure": "node test_enhanced_export_structure.js",
     "update": "node fetch_orders.js && node sqlite_setup.js",
-    "deploy": "node export_to_json.js && ./update_and_deploy.sh"
+    "deploy": "node export_to_json.js && ./update_and_deploy.sh",
+    "workflow": "node run_workflow.js",
+    "workflow:minimal": "node run_workflow.js --workflow minimal",
+    "workflow:standard": "node run_workflow.js --workflow standard",
+    "workflow:nocache": "node run_workflow.js --no-save"
   },
   "dependencies": {
     "axios": "^1.8.1",
