@@ -229,6 +229,36 @@ The Yale Executive Orders Analysis Platform represents a novel approach to polic
 
 This project demonstrates how sophisticated AI-powered analysis can be combined with careful knowledge engineering to create a powerful policy analysis platform that provides specific, actionable guidance while maintaining transparency and attribution.
 
+## Testing Strategy
+
+The platform currently employs a targeted testing approach focused on validating key components and integrations:
+
+1. **Component Verification Tests**: Individual tests for major subsystems like the Intelligence Hub, export functionality, and source integration.
+
+2. **Data Structure Validation**: Tests that verify the enhanced JSON structure meets specifications for frontend consumption.
+
+3. **Source Integration Tests**: Specialized tests for external data source adapters (COGR, NIH, NSF).
+
+4. **Manual Workflow Validation**: The workflow system includes comprehensive logging and reporting to detect issues.
+
+### Testing Roadmap
+
+To further enhance system reliability, particularly as the codebase grows, we plan to implement these testing improvements:
+
+1. **Comprehensive Unit Testing**: Implementing systematic unit tests across all modules using Jest or Mocha.
+
+2. **Continuous Integration**: Setting up CI/CD workflows to automatically run tests before deployment.
+
+3. **End-to-End Testing**: Creating automated tests that verify the full workflow from data collection to export.
+
+4. **Mock External Dependencies**: Developing a comprehensive mocking system for external APIs and data sources.
+
+5. **Test Coverage Reporting**: Adding test coverage measurement and reporting to identify untested code paths.
+
+6. **Schema Validation**: Implementing automated schema validation for database operations and JSON exports.
+
+This enhanced testing strategy will provide even greater confidence in system stability during source updates, schema changes, and feature additions.
+
 ## Project Status
 
 This project is actively maintained and regularly updated with new features and executive orders. The current version includes all executive orders through February 2025, with comprehensive analysis for those most relevant to private R1 research universities.
