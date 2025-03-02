@@ -11,10 +11,19 @@ const readline = require('readline');
 
 // Configuration - GitHub Pages URL for Yale Executive Orders
 const STATIC_DATA_URL = 'https://franzhartl.github.io/yale-executive-orders/data';
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+
+// Get Anthropic API key - try multiple sources to support different environments
+const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || 
+                          process.env.REACT_APP_ANTHROPIC_API_KEY || 
+                          process.env.VITE_ANTHROPIC_API_KEY || 
+                          window?.ANTHROPIC_API_KEY;
 
 if (!ANTHROPIC_API_KEY) {
-  console.error('Error: ANTHROPIC_API_KEY environment variable is not set');
+  console.error('Error: ANTHROPIC_API_KEY not found. This could be set as:');
+  console.error('1. Environment variable (for Node.js)');
+  console.error('2. REACT_APP_ANTHROPIC_API_KEY (for React apps)');
+  console.error('3. VITE_ANTHROPIC_API_KEY (for Vite apps)');
+  console.error('4. Window global variable (for browser usage)');
   process.exit(1);
 }
 

@@ -99,6 +99,45 @@ Which executive orders affect international student programs?
 4. **LLM Integration**: The context and your question are sent to Claude
 5. **Response Generation**: Claude analyzes the context and provides an informative response
 
+## Deployment Options
+
+You can use this MCP client in different environments with various deployment options:
+
+### Option 1: Local Development
+
+Run the client on your local machine with:
+```
+npm run mcp:setup
+npm run mcp:static
+```
+
+This is perfect for development and testing.
+
+### Option 2: Web Client (GitHub Pages)
+
+A web-based version of the MCP client is available that runs directly in your browser:
+```
+https://your-username.github.io/yale-executive-orders/mcp-client.html
+```
+
+This version loads data from your GitHub Pages static JSON files and provides the same functionality through a web interface.
+
+### Option 3: GitHub Actions with Secrets
+
+For secure deployment with GitHub Pages, you can use GitHub Secrets to store your Anthropic API key:
+
+1. Go to your GitHub repository
+2. Navigate to Settings > Secrets and variables > Actions
+3. Create a new repository secret named `ANTHROPIC_API_KEY`
+4. Add your Anthropic API key as the value
+5. Use the provided `.github/workflows/deploy-example.yml` as a template for your deployment workflow
+6. The workflow will:
+   - Build your site
+   - Create a config file with the API key
+   - Deploy to GitHub Pages
+
+This approach keeps your API key secure while making it available to your deployed application.
+
 ## Behind the Scenes
 
 The static MCP client is designed to follow the Model Context Protocol pattern, which is a standard way for LLMs to retrieve and use external information.
