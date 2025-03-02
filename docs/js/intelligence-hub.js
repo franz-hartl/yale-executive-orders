@@ -33,61 +33,39 @@ const IntelligenceHub = (function() {
         console.log('Intelligence Hub initialized');
     }
     
-    // Create Intelligence Hub tab
+    // Create Intelligence Hub tab - no longer needed in integrated view
     function createIntelligenceHubTab() {
-        // Get the tabs navigation
-        const tabsNav = document.querySelector('.yale-tabs__nav');
-        if (!tabsNav) return;
+        // In the integrated view, we don't need to create a tab
+        // We directly use the intelligence-hub-tab div that's already in the HTML
         
-        // Check if tab already exists
-        const existingTab = document.querySelector('[data-tab-target="intelligence-hub-tab"]');
-        if (existingTab) {
-            intelligenceHubTab = existingTab;
-            return;
+        // Find the Intelligence Hub container
+        intelligenceHubTab = document.getElementById('intelligence-hub-tab');
+        
+        if (DEBUG) {
+            console.log("Intelligence Hub tab creation skipped (using integrated view)");
         }
-        
-        // Create tab button
-        intelligenceHubTab = document.createElement('button');
-        intelligenceHubTab.id = 'tab-intelligence-hub';
-        intelligenceHubTab.className = 'yale-tab-button yale-tab-button--intelligence-hub';
-        intelligenceHubTab.setAttribute('data-tab-target', 'intelligence-hub-tab');
-        intelligenceHubTab.setAttribute('role', 'tab');
-        intelligenceHubTab.setAttribute('aria-selected', 'false');
-        intelligenceHubTab.setAttribute('aria-controls', 'intelligence-hub-tab');
-        intelligenceHubTab.textContent = 'Intelligence Hub';
-        
-        // Add tab to navigation
-        tabsNav.appendChild(intelligenceHubTab);
     }
     
     // Create Intelligence Hub container
     function createIntelligenceHubContainer() {
-        // Get the tab contents container
-        const tabContents = document.querySelector('.yale-py-md');
-        if (!tabContents) return;
+        // Find existing Intelligence Hub container
+        intelligenceHubContent = document.getElementById('intelligence-hub-tab');
         
-        // Check if container already exists
-        const existingContainer = document.getElementById('intelligence-hub-tab');
-        if (existingContainer) {
-            intelligenceHubContent = existingContainer;
+        if (!intelligenceHubContent) {
+            console.error("Intelligence Hub container not found in the document");
             return;
         }
         
-        // Create tab content container
-        intelligenceHubContent = document.createElement('div');
-        intelligenceHubContent.id = 'intelligence-hub-tab';
-        intelligenceHubContent.className = 'yale-tab-content yale-tab-content--hidden';
-        intelligenceHubContent.setAttribute('role', 'tabpanel');
+        if (DEBUG) {
+            console.log("Found Intelligence Hub container:", intelligenceHubContent);
+        }
         
-        // Add loading state initially
+        // Reset container to loading state
         intelligenceHubContent.innerHTML = `
             <div class="yale-loading">
                 <p class="yale-loading__text">Loading Intelligence Hub...</p>
             </div>
         `;
-        
-        // Add container to tab contents
-        tabContents.appendChild(intelligenceHubContent);
     }
     
     // =====================================================================

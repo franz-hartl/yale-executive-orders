@@ -532,14 +532,23 @@ document.addEventListener('DOMContentLoaded', () => {
             // Update detail view with order information
             populateDetailView(order);
             
-            // Load the summaries
-            fetchPlainLanguageSummary(orderId);
-            fetchExecutiveBrief(orderId);
-            fetchComprehensiveAnalysis(orderId);
+            // Load all content sections in parallel
+            Promise.all([
+                fetchPlainLanguageSummary(orderId),
+                fetchExecutiveBrief(orderId),
+                fetchComprehensiveAnalysis(orderId)
+            ]).then(() => {
+                console.log('All content sections loaded successfully');
+            }).catch(err => {
+                console.error('Error loading content sections:', err);
+            });
             
             // Load Intelligence Hub data if available
             if (window.IntelligenceHub && typeof window.IntelligenceHub.loadOrderIntelligence === 'function') {
+                console.log('Loading Intelligence Hub data for order:', orderId);
                 window.IntelligenceHub.loadOrderIntelligence(orderId, order);
+            } else {
+                console.error('Intelligence Hub module not available');
             }
             
             // Show the detail view using Yale Modal if available
