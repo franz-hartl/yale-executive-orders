@@ -172,7 +172,36 @@
   </style>
   
   <!-- Load config file with API key if available -->
-  <script src="/config/api-config.js"></script>
+  <script>
+    // Safely try to load the config file
+    (function() {
+      function loadScript(src, callback) {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = src;
+        script.onerror = function() {
+          console.warn('Could not load config file: ' + src);
+          if (callback) callback(false);
+        };
+        script.onload = function() {
+          console.log('Config file loaded: ' + src);
+          if (callback) callback(true);
+        };
+        document.head.appendChild(script);
+      }
+      
+      // Try multiple paths for the config file
+      loadScript('./config/api-config.js', function(success) {
+        if (!success) {
+          loadScript('../config/api-config.js', function(success) {
+            if (!success) {
+              console.warn('API config file not found. You will need to provide an API key.');
+            }
+          });
+        }
+      });
+    })();
+  </script>
   
   <!-- Main MCP client script -->
   <script src="mcp-web-client.js"></script>

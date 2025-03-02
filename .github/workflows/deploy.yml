@@ -34,8 +34,16 @@ jobs:
           
       - name: Create config file with API key for client-side
         run: |
+          # Make sure config directory exists in docs
           mkdir -p docs/config
+          
+          # Create the API config file with the secret
           echo "window.ANTHROPIC_API_KEY = '${{ secrets.ANTHROPIC_API_KEY }}';" > docs/config/api-config.js
+          
+          # List the structure to verify
+          echo "Verifying file structure:"
+          ls -la docs/
+          ls -la docs/config/
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1

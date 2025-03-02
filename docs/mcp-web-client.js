@@ -5,8 +5,8 @@
  * that can be used directly from the GitHub Pages site.
  */
 
-// Configuration
-const STATIC_DATA_URL = '/data';
+// Configuration - GitHub Pages data path
+const STATIC_DATA_URL = './data';
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
 const ANTHROPIC_MODEL = 'claude-3-sonnet-20240229';
 
@@ -92,6 +92,20 @@ async function loadData() {
     return true;
   } catch (error) {
     console.error('Error loading data:', error.message);
+    
+    // Additional debug information
+    console.error('Current URL:', window.location.href);
+    console.error('Data URL used:', STATIC_DATA_URL);
+    
+    // Try to list available URLs
+    try {
+      fetch('./').then(r => r.text()).then(html => {
+        console.log('Directory listing attempt:', html.substring(0, 1000));
+      }).catch(e => console.error('Could not list directory:', e));
+    } catch (e) {
+      console.error('Error checking directory:', e);
+    }
+    
     return false;
   }
 }
@@ -242,7 +256,7 @@ async function processUserQuery(userQuery) {
     if (!apiKey) {
       return { 
         success: false, 
-        message: "API key is required to query Claude."
+        message: "API key is required to query Claude. You can get an API key from <a href='https://console.anthropic.com/' target='_blank'>console.anthropic.com</a>. When you return to this page, you'll be prompted to enter your key."
       };
     }
     
@@ -333,7 +347,18 @@ document.addEventListener('DOMContentLoaded', () => {
       resultContainer.innerHTML = `
         <div class="error-message">
           <h3>Error Loading Data</h3>
-          <p>Unable to load executive orders data. Please check your connection and try again.</p>
+          <p>Unable to load executive orders data. This could be due to one of the following issues:</p>
+          <ul>
+            <li>The data files are not available at the expected location</li>
+            <li>There's a network connectivity issue</li>
+            <li>CORS restrictions prevent accessing the data</li>
+          </ul>
+          <p>Technical details:</p>
+          <ul>
+            <li>Looking for data at: ${STATIC_DATA_URL}</li>
+            <li>Current page URL: ${window.location.href}</li>
+          </ul>
+          <p><button onclick="window.location.reload()">Reload Page</button></p>
         </div>
       `;
     }
