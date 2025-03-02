@@ -150,9 +150,19 @@ The platform is designed for extension in several dimensions:
 - Anthropic API key (for AI-powered data processing)
 - Internet connection (for data collection)
 
-### MCP Client
+### Model Context Protocol (MCP) Server
 
-The project now includes a Model Context Protocol (MCP) client that allows for easy querying of executive orders data through Claude. For details, see [MCP_README.md](MCP_README.md).
+The project now includes a Model Context Protocol (MCP) server that allows for easy querying of executive orders data through Claude and other LLMs. This server implements the MCP specification to provide structured access to executive order data.
+
+Key features:
+- Full MCP API implementation with search and context endpoints
+- Support for both SQLite database and GitHub Pages static files
+- Integration examples for Claude and other LLMs
+- Comprehensive documentation
+
+For detailed information, see:
+- [MCP_SERVER_DOCUMENTATION.md](MCP_SERVER_DOCUMENTATION.md) - Server setup and API documentation
+- [docs/api-client-guide.md](docs/api-client-guide.md) - Guide for client applications
 
 ### Quick Start
 

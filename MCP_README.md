@@ -1,29 +1,37 @@
-# Yale Executive Orders MCP Client
+# Yale Executive Orders MCP Server
 
-This project implements a Model Context Protocol (MCP) client for the Yale Executive Orders database. It allows Claude to access and retrieve executive order data as contextual information, enabling more accurate and informed responses to queries about executive orders and their impact on universities.
+This project implements a Model Context Protocol (MCP) server for the Yale Executive Orders database. It allows language models like Claude to access and retrieve executive order data as contextual information, enabling more accurate and informed responses to queries about executive orders and their impact on universities.
 
 ## What is Model Context Protocol (MCP)?
 
 Model Context Protocol (MCP) is a standardized way for large language models (LLMs) to retrieve external information as context for generating responses. It defines how context providers can expose data to LLMs through a consistent API.
 
-## Features
+## Server Features
 
-- **Static MCP Client**: Works directly with JSON files hosted on GitHub Pages - no server required!
+- **Full MCP Implementation**: Implements the Model Context Protocol specification
 - **Rich Data Access**: Provides access to executive orders, categories, impact areas, and more
-- **Intelligent Search**: Finds relevant executive orders based on user queries
-- **Claude Integration**: Seamlessly feeds context to Claude for informative responses
-- **Interactive CLI**: Simple command-line interface for asking questions
-- **Easy Setup**: Quick setup process with the provided setup script
+- **Advanced Search**: Supports full-text search and filtering on multiple criteria
+- **Stateless API**: RESTful API design with JSON responses
+- **Comprehensive Documentation**: Detailed API documentation and usage examples
 
-## Getting Started
+## Architecture Overview
+
+The MCP server has two main components:
+
+1. **API Server**: A Node.js Express server that handles MCP protocol requests
+2. **Database Backend**: SQLite database containing executive orders data
+
+The server provides several MCP endpoints:
+- `/mcp/info` - Information about the server's capabilities
+- `/mcp/search` - Search for executive orders
+- `/mcp/context` - Get specific context by ID
+
+## Running the Server
 
 ### Prerequisites
 
 - Node.js (v16 or later)
-- Anthropic API key (for LLM integration examples)
-- Either:
-  - Yale Executive Orders database (SQLite) for the full server version
-  - Access to the static JSON files for the static client version
+- Yale Executive Orders database (SQLite)
 
 ### Installation
 
@@ -32,142 +40,142 @@ Model Context Protocol (MCP) is a standardized way for large language models (LL
    ```
    npm install
    ```
-3. Add your Anthropic API key to the `.env` file if you want to use the LLM integration:
+
+### Running the Server
+
+Start the MCP server with:
+
+```
+node mcp_server.js
+```
+
+The server will run on port 3001 by default. You can change this by setting the PORT environment variable.
+
+## Connecting to the Server
+
+To use this MCP server with a language model:
+
+### Option 1: Direct API Calls
+
+You can make direct HTTP requests to the server endpoints:
+
+```javascript
+// Example: Search for executive orders
+const response = await fetch('http://localhost:3001/mcp/search', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    query: 'research funding',
+    filters: { president: 'Biden' },
+    limit: 10
+  })
+});
+
+const data = await response.json();
+```
+
+### Option 2: MCP Integration Library
+
+If you're building an application that needs to use this MCP server with Claude or another LLM, you can use our MCP integration library:
+
+```javascript
+const { MCPClient } = require('./mcp_llm_integration.js');
+
+// Create a client instance
+const mcpClient = new MCPClient({
+  serverUrl: 'http://localhost:3001',
+  anthropicApiKey: 'your-api-key'
+});
+
+// Ask a question using the MCP context
+const response = await mcpClient.askWithContext(
+  'How do Biden\'s executive orders impact universities?'
+);
+
+console.log(response);
+```
+
+## Using with GitHub Pages Static Files
+
+This MCP server can also be configured to work with static JSON files hosted on GitHub Pages instead of a live SQLite database. This allows you to deploy a static version of your executive orders data while still providing MCP functionality.
+
+### Setup for GitHub Pages
+
+1. Export your data to JSON files using the export script:
    ```
-   ANTHROPIC_API_KEY=your_api_key
+   node export_to_json.js
    ```
 
-### Quick Setup
+2. This will create JSON files in the `docs/data/` directory:
+   - `executive_orders.json`
+   - `categories.json`
+   - `impact_areas.json`
+   - `university_impact_areas.json`
 
-Run the setup script to configure the static MCP client:
+3. Commit and push these files to GitHub
 
-```
-npm run mcp:setup
-```
+4. Enable GitHub Pages for your repository (Settings > Pages)
 
-This will:
-1. Ask for your Anthropic API key and save it to the `.env` file
-2. Test connectivity to the GitHub Pages data files
-3. Provide instructions for using the client
+5. Your data will be available at:
+   ```
+   https://your-username.github.io/yale-executive-orders/data/
+   ```
 
-### Running the Static MCP Client
+## API Documentation
 
-After setup, run the client with:
-
-```
-npm run mcp:static
-```
-
-This will:
-1. Load executive order data from the GitHub Pages site
-2. Present an interactive command line interface
-3. Allow you to ask questions about executive orders
-4. Search for relevant executive orders based on your query
-5. Use Claude to generate informative responses with the retrieved context
-
-## Usage Examples
-
-### Example Questions
-
-Here are some examples of questions you can ask the MCP client:
+### MCP Info Endpoint
 
 ```
-What executive orders have been issued related to research funding?
+GET /mcp/info
 ```
 
-```
-How do President Biden's executive orders impact university operations?
-```
+Returns information about the server's capabilities.
+
+### MCP Search Endpoint
 
 ```
-What executive orders have the highest impact level for Yale University?
+POST /mcp/search
 ```
 
-```
-What are the compliance requirements for universities from recent executive orders?
-```
+Search for executive orders based on query and filters.
 
-```
-Which executive orders affect international student programs?
-```
-
-### How It Works
-
-1. **Query Processing**: The client extracts key search terms from your question
-2. **Data Retrieval**: It searches through the executive orders data for relevant orders
-3. **Context Formation**: The most relevant orders are formatted as context
-4. **LLM Integration**: The context and your question are sent to Claude
-5. **Response Generation**: Claude analyzes the context and provides an informative response
-
-## Deployment Options
-
-You can use this MCP client in different environments with various deployment options:
-
-### Option 1: Local Development
-
-Run the client on your local machine with:
-```
-npm run mcp:setup
-npm run mcp:static
+Request body:
+```json
+{
+  "query": "string",
+  "filters": {
+    "president": "string",
+    "impact_level": "string",
+    "signing_date_from": "date",
+    "signing_date_to": "date",
+    "category": "string",
+    "impact_area": "string",
+    "university_impact_area": "string"
+  },
+  "limit": "number",
+  "offset": "number"
+}
 ```
 
-This is perfect for development and testing.
+### MCP Context Endpoint
 
-### Option 2: Web Client (GitHub Pages)
-
-A web-based version of the MCP client is available that runs directly in your browser:
 ```
-https://your-username.github.io/yale-executive-orders/mcp-client.html
+POST /mcp/context
 ```
 
-This version loads data from your GitHub Pages static JSON files and provides the same functionality through a web interface.
+Gets detailed information about a specific context item.
 
-### Option 3: GitHub Actions with Secrets
-
-For secure deployment with GitHub Pages, you can use GitHub Secrets to store your Anthropic API key:
-
-1. Go to your GitHub repository
-2. Navigate to Settings > Secrets and variables > Actions
-3. Create a new repository secret named `ANTHROPIC_API_KEY`
-4. Add your Anthropic API key as the value
-5. Use the provided `.github/workflows/deploy-example.yml` as a template for your deployment workflow
-6. The workflow will:
-   - Build your site
-   - Create a config file with the API key
-   - Deploy to GitHub Pages
-
-This approach keeps your API key secure while making it available to your deployed application.
-
-## Behind the Scenes
-
-The static MCP client is designed to follow the Model Context Protocol pattern, which is a standard way for LLMs to retrieve and use external information.
-
-### How the Static Client Works
-
-1. **Data Loading**: The client loads JSON data files from the GitHub Pages site
-2. **Local Processing**: All search operations happen locally in the client
-3. **Smart Search**: The client uses term frequency and relevance scoring to find the most applicable executive orders
-4. **Context Building**: It formats the executive orders into a structured context document
-5. **Claude Integration**: The context is sent to Claude along with your question
-
-### Data Files Used
-
-The client accesses these JSON files from your GitHub Pages site:
-- `processed_executive_orders.json` (or `executive_orders.json` as fallback)
-- `categories.json`
-- `impact_areas.json`
-- `university_impact_areas.json`
-
-## Future Enhancements
-
-1. **Vector Search**: Add semantic search using embeddings for better relevance
-2. **Result Filtering**: Add more filtering options by category, date, etc.
-3. **Local Caching**: Cache data files locally to reduce network requests
-4. **Custom Contexts**: Allow creating specialized context formats for different question types
-5. **Web Interface**: Develop a web-based UI as an alternative to the CLI
+Request body:
+```json
+{
+  "context_type": "executive_order|category|impact_area",
+  "context_id": "string",
+  "detail_level": "basic|standard|comprehensive"
+}
+```
 
 ## About the Yale Executive Orders Project
 
-This client is part of the Yale Executive Orders Analysis project, which aims to analyze executive orders and their impact on Yale University and other higher education institutions. The project uses AI and data analysis to provide insights into policy implications and compliance requirements.
+This server is part of the Yale Executive Orders Analysis project, which aims to analyze executive orders and their impact on Yale University and other higher education institutions. The project uses AI and data analysis to provide insights into policy implications and compliance requirements.
 
 For more information, see the main project README.md.
