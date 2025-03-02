@@ -675,7 +675,109 @@ async function exportExecutiveOrders() {
       const sourceAwareImpactAnalysis = generateSourceAwareImpactAnalysis(order, sourcesWithParsedData, universityImpactAreas);
       const combinedAnalysis = generateCombinedAnalysis(order, sourcesWithParsedData);
       
-      // Return enriched order with enhanced source integration
+      // Get timeline navigator data
+      const timelineEvents = await dbAll(`
+        SELECT * FROM timeline_navigator
+        WHERE order_id = ?
+        ORDER BY event_date
+      `, [order.id]);
+      
+      // Get source intelligence data
+      const sourceIntelligence = await dbAll(`
+        SELECT * FROM source_intelligence
+        WHERE order_id = ?
+        ORDER BY publication_date DESC
+      `, [order.id]);
+      
+      // Get agency guidance
+      const agencyGuidance = await dbAll(`
+        SELECT * FROM agency_guidance
+        WHERE order_id = ?
+        ORDER BY publication_date DESC
+      `, [order.id]);
+      
+      // Get association analysis
+      const associationAnalysis = await dbAll(`
+        SELECT * FROM association_analysis
+        WHERE order_id = ?
+        ORDER BY publication_date DESC
+      `, [order.id]);
+      
+      // Get legal analysis
+      const legalAnalysis = await dbAll(`
+        SELECT * FROM legal_analysis
+        WHERE order_id = ?
+        ORDER BY analysis_date DESC
+      `, [order.id]);
+      
+      // Get Yale response framework
+      const yaleResponseFramework = await dbAll(`
+        SELECT yrf.*, yd.name as department_name
+        FROM yale_response_framework yrf
+        JOIN yale_departments yd ON yrf.yale_department_id = yd.id
+        WHERE yrf.order_id = ?
+      `, [order.id]);
+      
+      // Get action requirements
+      const actionRequirements = await dbAll(`
+        SELECT ar.*, yd.name as department_name
+        FROM action_requirements ar
+        LEFT JOIN yale_departments yd ON ar.yale_department_id = yd.id
+        WHERE ar.order_id = ?
+        ORDER BY ar.priority_level, ar.deadline
+      `, [order.id]);
+      
+      // Get intelligence network (related orders)
+      const intelligenceNetwork = await dbAll(`
+        SELECT network.*, eo.order_number, eo.title
+        FROM intelligence_network network
+        JOIN executive_orders eo ON network.related_order_id = eo.id
+        WHERE network.order_id = ?
+      `, [order.id]);
+      
+      // Build intelligence hub specific data
+      const intelligenceHub = {
+        yale_alert_level: order.yale_alert_level || 'Moderate',
+        core_impact: order.core_impact,
+        what_changed: order.what_changed,
+        yale_imperative: order.yale_imperative,
+        confidence_rating: order.confidence_rating || 0.85,
+        timeline_navigator: {
+          signing_date: order.signing_date,
+          effective_date: order.effective_date,
+          implementation_deadlines: timelineEvents.filter(e => e.is_deadline),
+          yale_decision_points: timelineEvents.filter(e => e.is_yale_decision_point),
+          events: timelineEvents
+        },
+        source_intelligence: {
+          federal_sources: {
+            federal_register: sourceIntelligence.filter(s => s.source_type === 'Federal Register'),
+            agency_guidance: agencyGuidance
+          },
+          analysis_interpretation: {
+            university_associations: associationAnalysis,
+            legal_analysis: legalAnalysis
+          }
+        },
+        yale_response: {
+          framework: yaleResponseFramework,
+          action_requirements: actionRequirements,
+          decision_support: {
+            options: yaleResponseFramework.map(yrf => ({ 
+              department: yrf.department_name,
+              options: yrf.decision_options,
+              strategy: yrf.implementation_strategy
+            }))
+          }
+        },
+        intelligence_network: {
+          predecessor_policies: intelligenceNetwork.filter(n => n.relationship_type === 'Predecessor'),
+          related_orders: intelligenceNetwork.filter(n => n.relationship_type === 'Related'),
+          external_impact: intelligenceNetwork.filter(n => n.relationship_type === 'External')
+        }
+      };
+      
+      // Return enriched order with enhanced source integration and Intelligence Hub data
       return {
         ...order,
         categories: categories.map(c => c.name),
@@ -702,7 +804,9 @@ async function exportExecutiveOrders() {
         sources: normalizedSources,
         yale_guidance: yaleGuidance,
         simplified_impact_analysis: sourceAwareImpactAnalysis,
-        simplified_source_analysis: combinedAnalysis
+        simplified_source_analysis: combinedAnalysis,
+        // Intelligence Hub data
+        intelligence_hub: intelligenceHub
       };
     }));
     

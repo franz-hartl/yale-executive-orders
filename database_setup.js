@@ -54,7 +54,7 @@ function dbAll(sql, params = []) {
 // Create tables if they don't exist
 async function createTables() {
   try {
-    // Create executive orders table
+    // Create executive orders table with enhanced fields for Intelligence Hub
     await dbRun(`
       CREATE TABLE IF NOT EXISTS executive_orders (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -72,7 +72,15 @@ async function createTables() {
         status TEXT DEFAULT 'Active',
         urgency_rating TEXT,
         resource_intensity TEXT,
-        implementation_timeline TEXT
+        implementation_timeline TEXT,
+        effective_date TEXT,
+        implementation_phase TEXT,
+        yale_alert_level TEXT,
+        core_impact TEXT,
+        yale_imperative TEXT,
+        confidence_rating REAL DEFAULT 0.85,
+        implementation_notes TEXT,
+        what_changed TEXT
       )
     `);
     
@@ -257,6 +265,145 @@ async function createTables() {
       )
     `);
     
+    // Create Timeline Navigator table for tracking implementation milestones
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS timeline_navigator (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER NOT NULL,
+        event_type TEXT NOT NULL,
+        event_date TEXT,
+        event_description TEXT,
+        is_deadline BOOLEAN DEFAULT 0,
+        is_yale_decision_point BOOLEAN DEFAULT 0,
+        status TEXT DEFAULT 'Pending',
+        yale_department_id INTEGER,
+        importance_level TEXT,
+        notes TEXT,
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (yale_department_id) REFERENCES yale_departments(id)
+      )
+    `);
+    
+    // Create Source Intelligence table for tracking different sources of information
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS source_intelligence (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER NOT NULL,
+        source_type TEXT NOT NULL,
+        source_name TEXT NOT NULL,
+        publication_date TEXT,
+        title TEXT,
+        content TEXT,
+        url TEXT,
+        key_provisions TEXT,
+        specific_requirements TEXT,
+        confidence_rating REAL DEFAULT 0.9,
+        yale_relevance_score INTEGER,
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id)
+      )
+    `);
+    
+    // Create Agency Guidance table for tracking agency-specific guidance
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS agency_guidance (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER NOT NULL,
+        agency_name TEXT NOT NULL,
+        publication_date TEXT,
+        title TEXT,
+        summary TEXT,
+        url TEXT,
+        grant_impact TEXT,
+        compliance_guidance TEXT,
+        research_implications TEXT,
+        key_deadlines TEXT,
+        changed_procedures TEXT,
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id)
+      )
+    `);
+    
+    // Create Association Analysis table for tracking university association responses
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS association_analysis (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER NOT NULL,
+        association_name TEXT NOT NULL,
+        publication_date TEXT,
+        title TEXT,
+        summary TEXT,
+        url TEXT,
+        institution_perspective TEXT,
+        sector_guidance TEXT,
+        recommended_actions TEXT,
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id)
+      )
+    `);
+    
+    // Create Legal Analysis table
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS legal_analysis (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER NOT NULL,
+        source TEXT,
+        analysis_date TEXT,
+        challenge_status TEXT,
+        enforcement_prediction TEXT,
+        precedent_references TEXT,
+        legal_implications TEXT,
+        yale_specific_notes TEXT,
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id)
+      )
+    `);
+    
+    // Create Yale Response Framework table
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS yale_response_framework (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER NOT NULL,
+        yale_department_id INTEGER NOT NULL,
+        impact_intensity INTEGER,
+        resource_requirements TEXT,
+        coordination_needs TEXT,
+        decision_options TEXT,
+        implementation_strategy TEXT,
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (yale_department_id) REFERENCES yale_departments(id)
+      )
+    `);
+    
+    // Create Action Requirements table
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS action_requirements (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER NOT NULL,
+        title TEXT NOT NULL,
+        description TEXT,
+        priority_level TEXT NOT NULL,
+        yale_department_id INTEGER,
+        deadline TEXT,
+        status TEXT DEFAULT 'Not Started',
+        resource_impact TEXT,
+        completion_criteria TEXT,
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (yale_department_id) REFERENCES yale_departments(id)
+      )
+    `);
+    
+    // Create Intelligence Network table for connecting related orders
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS intelligence_network (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER NOT NULL,
+        related_order_id INTEGER NOT NULL,
+        relationship_type TEXT NOT NULL,
+        relationship_strength REAL DEFAULT 0.5,
+        description TEXT,
+        yale_implications TEXT,
+        FOREIGN KEY (order_id) REFERENCES executive_orders(id),
+        FOREIGN KEY (related_order_id) REFERENCES executive_orders(id)
+      )
+    `);
+    
     console.log('Database tables created successfully');
     
   } catch (err) {
@@ -265,11 +412,250 @@ async function createTables() {
   }
 }
 
+// Initialize Yale departments with proper hierarchy
+async function initializeYaleDepartments() {
+  try {
+    // Check if Yale departments already exist
+    const departmentCount = await dbGet('SELECT COUNT(*) as count FROM yale_departments');
+    
+    if (departmentCount.count === 0) {
+      console.log('Initializing Yale departments...');
+      
+      // Yale departments with proper structure
+      const yaleDepartments = [
+        { 
+          id: 1,
+          name: 'Office of the President',
+          description: 'Executive leadership of Yale University',
+          contact_info: 'president@yale.edu',
+          parent_department_id: null
+        },
+        { 
+          id: 2,
+          name: 'Office of the Provost',
+          description: 'Chief academic officer responsible for all academic policies and activities',
+          contact_info: 'provost@yale.edu',
+          parent_department_id: null
+        },
+        { 
+          id: 3,
+          name: 'General Counsel',
+          description: 'Legal services for Yale University',
+          contact_info: 'general.counsel@yale.edu',
+          parent_department_id: null
+        },
+        { 
+          id: 4,
+          name: 'Office of Research Administration',
+          description: 'Oversight for research grants, compliance, and research activities',
+          contact_info: 'research.administration@yale.edu',
+          parent_department_id: 2 // Reports to Provost
+        },
+        { 
+          id: 5,
+          name: 'Finance & Administration',
+          description: 'Financial management and administrative operations',
+          contact_info: 'finance@yale.edu',
+          parent_department_id: null
+        },
+        { 
+          id: 6,
+          name: 'Human Resources',
+          description: 'Employment, benefits, and workforce management',
+          contact_info: 'human.resources@yale.edu',
+          parent_department_id: 5 // Reports to Finance & Admin
+        },
+        { 
+          id: 7,
+          name: 'Student Affairs',
+          description: 'Student services, support, and residential life',
+          contact_info: 'student.affairs@yale.edu',
+          parent_department_id: null
+        },
+        { 
+          id: 8,
+          name: 'International Affairs',
+          description: 'International programs, partnerships, and global initiatives',
+          contact_info: 'international@yale.edu',
+          parent_department_id: 2 // Reports to Provost
+        },
+        { 
+          id: 9,
+          name: 'Yale College',
+          description: 'Undergraduate education and residential colleges',
+          contact_info: 'yale.college@yale.edu',
+          parent_department_id: 2 // Reports to Provost
+        },
+        { 
+          id: 10,
+          name: 'Graduate School of Arts & Sciences',
+          description: 'Graduate education and research training',
+          contact_info: 'graduate.school@yale.edu',
+          parent_department_id: 2 // Reports to Provost
+        },
+        { 
+          id: 11,
+          name: 'Yale School of Medicine',
+          description: 'Medical education, research, and clinical practice',
+          contact_info: 'medicine@yale.edu',
+          parent_department_id: 2 // Reports to Provost
+        },
+        { 
+          id: 12,
+          name: 'Yale Arts & Museums',
+          description: 'Arts programs, museums, and cultural collections',
+          contact_info: 'arts@yale.edu',
+          parent_department_id: 2 // Reports to Provost
+        },
+        { 
+          id: 13,
+          name: 'Athletics',
+          description: 'Sports programs and physical education',
+          contact_info: 'athletics@yale.edu',
+          parent_department_id: 7 // Reports to Student Affairs
+        },
+        { 
+          id: 14,
+          name: 'Office of Research Integrity and Compliance',
+          description: 'Research compliance and integrity oversight',
+          contact_info: 'research.integrity@yale.edu',
+          parent_department_id: 4 // Reports to Research Administration
+        },
+        { 
+          id: 15,
+          name: 'Office of Sponsored Projects',
+          description: 'Grant management and research funding administration',
+          contact_info: 'sponsored.projects@yale.edu',
+          parent_department_id: 4 // Reports to Research Administration
+        },
+        { 
+          id: 16,
+          name: 'Office of International Students and Scholars',
+          description: 'Support for international students and visiting scholars',
+          contact_info: 'oiss@yale.edu',
+          parent_department_id: 8 // Reports to International Affairs
+        },
+        { 
+          id: 17,
+          name: 'Information Technology Services',
+          description: 'Technology infrastructure and digital services',
+          contact_info: 'its@yale.edu',
+          parent_department_id: 5 // Reports to Finance & Admin
+        }
+      ];
+      
+      for (const dept of yaleDepartments) {
+        await dbRun(
+          'INSERT INTO yale_departments (id, name, description, contact_info, parent_department_id) VALUES (?, ?, ?, ?, ?)', 
+          [dept.id, dept.name, dept.description, dept.contact_info, dept.parent_department_id]
+        );
+      }
+      
+      console.log(`Imported ${yaleDepartments.length} Yale departments`);
+    } else {
+      console.log(`${departmentCount.count} Yale departments already exist, skipping initialization`);
+    }
+  } catch (err) {
+    console.error('Error initializing Yale departments:', err);
+    // Non-fatal error
+    console.log('Continuing with setup despite Yale department initialization error');
+  }
+}
+
+// Initialize Yale impact areas with specific focus
+async function initializeYaleImpactAreas() {
+  try {
+    // Check if Yale impact areas already exist
+    const impactAreaCount = await dbGet('SELECT COUNT(*) as count FROM yale_impact_areas');
+    
+    if (impactAreaCount.count === 0) {
+      console.log('Initializing Yale impact areas...');
+      
+      // Yale-specific impact areas with mapping to university impact areas
+      const yaleImpactAreas = [
+        {
+          id: 1,
+          name: 'Research Security',
+          description: 'Policies affecting security of research data, materials, or facilities',
+          related_r1_area_id: 1 // Maps to "Research Funding & Science Policy"
+        },
+        {
+          id: 2,
+          name: 'Federal Funding',
+          description: 'Changes to federal funding streams and grant requirements',
+          related_r1_area_id: 1 // Maps to "Research Funding & Science Policy"
+        },
+        {
+          id: 3,
+          name: 'International Collaboration',
+          description: 'Policies affecting international research partnerships and collaboration',
+          related_r1_area_id: 8 // Maps to "Immigration & International Programs"
+        },
+        {
+          id: 4,
+          name: 'Endowment Management',
+          description: 'Regulations affecting university endowments and investment policies',
+          related_r1_area_id: 2 // Maps to "Student Aid & Higher Education Finance" 
+        },
+        {
+          id: 5,
+          name: 'Technology Development',
+          description: 'Policies affecting technology research, development, and transfer',
+          related_r1_area_id: 5 // Maps to "Public-Private Partnerships"
+        },
+        {
+          id: 6,
+          name: 'Medical & Clinical Research',
+          description: 'Regulations affecting medical and clinical research activities',
+          related_r1_area_id: 1 // Maps to "Research Funding & Science Policy"
+        },
+        {
+          id: 7,
+          name: 'Campus Safety',
+          description: 'Policies affecting campus security, emergency management, and reporting',
+          related_r1_area_id: 3 // Maps to "Regulatory Compliance"
+        },
+        {
+          id: 8,
+          name: 'Graduate Education',
+          description: 'Policies specifically affecting graduate and professional education',
+          related_r1_area_id: 7 // Maps to "Academic Freedom & Curriculum"
+        },
+        {
+          id: 9,
+          name: 'Arts & Cultural Heritage',
+          description: 'Policies affecting arts funding, museums, and cultural preservation',
+          related_r1_area_id: 6 // Maps to "Institutional Accessibility"
+        }
+      ];
+      
+      for (const area of yaleImpactAreas) {
+        await dbRun(
+          'INSERT INTO yale_impact_areas (id, name, description, related_r1_area_id) VALUES (?, ?, ?, ?)',
+          [area.id, area.name, area.description, area.related_r1_area_id]
+        );
+      }
+      
+      console.log(`Imported ${yaleImpactAreas.length} Yale-specific impact areas`);
+    } else {
+      console.log(`${impactAreaCount.count} Yale impact areas already exist, skipping initialization`);
+    }
+  } catch (err) {
+    console.error('Error initializing Yale impact areas:', err);
+    // Non-fatal error
+    console.log('Continuing with setup despite Yale impact areas initialization error');
+  }
+}
+
 // Initialize reference data (categories, impact areas, etc.)
 async function initializeReferenceData() {
   try {
     // Check if categories already exist
     const categoryCount = await dbGet('SELECT COUNT(*) as count FROM categories');
+    
+    // Initialize Yale-specific data
+    await initializeYaleDepartments();
+    await initializeYaleImpactAreas();
     
     // Check if Yale-specific impact areas exist
     let yaleImpactAreasCount = 0;
@@ -801,8 +1187,13 @@ async function main() {
     // Import sample data if needed
     await importSampleData();
     
-    // Import from CSV
-    await importFromCSV();
+    // For CSV import, we'll handle the database connection differently
+    // because it uses event-based processing
+    if (fs.existsSync(csvFile)) {
+      console.log(`CSV file found at ${csvFile}. To import it, please run the csv import script separately.`);
+    } else {
+      console.log('CSV file not found, skipping import');
+    }
     
     console.log('Database setup completed successfully');
     

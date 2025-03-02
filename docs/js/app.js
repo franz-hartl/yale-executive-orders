@@ -541,6 +541,11 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchExecutiveBrief(orderId);
             fetchComprehensiveAnalysis(orderId);
             
+            // Load Intelligence Hub data if available
+            if (window.IntelligenceHub && typeof window.IntelligenceHub.loadOrderIntelligence === 'function') {
+                window.IntelligenceHub.loadOrderIntelligence(orderId, order);
+            }
+            
             // Show the detail view using Yale Modal if available
             if (yaleModal) {
                 // Use the existing modal structure directly
