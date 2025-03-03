@@ -183,27 +183,41 @@ const IntegratedView = (function() {
                 // Agency guidance sources
                 if (si.federal_sources.agency_guidance) {
                     hubSources = hubSources.concat(si.federal_sources.agency_guidance.map(src => {
-                        // Create more comprehensive content by combining elements
-                        const combinedContent = `
-                            <strong>Summary:</strong> ${src.summary || 'No summary available'}
-                            ${src.grant_impact ? `<p><strong>Grant Impact:</strong> ${src.grant_impact}</p>` : ''}
-                            ${src.compliance_guidance ? `<p><strong>Compliance Guidance:</strong> ${src.compliance_guidance}</p>` : ''}
+                        // Create a cohesive narrative summary combining all key elements
+                        const narrativeSummary = `
+                            <p class="narrative-summary">
+                              ${src.summary || 'No summary available'} 
+                              ${src.grant_impact ? `${src.grant_impact} ` : ''}
+                              ${src.compliance_guidance ? `${src.compliance_guidance} ` : ''}
+                              ${src.research_implications ? `${src.research_implications} ` : ''}
+                              ${src.key_deadlines ? `Most urgently, ${src.key_deadlines.toLowerCase()} ` : ''}
+                              ${src.changed_procedures ? `This introduces ${src.changed_procedures.toLowerCase()}` : ''}
+                            </p>
                         `;
                         
-                        // Build a detailed requirements list
-                        const requirements = [];
-                        if (src.research_implications) requirements.push(src.research_implications);
-                        if (src.key_deadlines) requirements.push(`<strong>Key Deadlines:</strong> ${src.key_deadlines}`);
-                        if (src.changed_procedures) requirements.push(`<strong>Changed Procedures:</strong> ${src.changed_procedures}`);
+                        // Create a structured details section 
+                        const detailItems = [];
+                        if (src.grant_impact) detailItems.push(`<li><strong>Grant Impact:</strong> ${src.grant_impact}</li>`);
+                        if (src.compliance_guidance) detailItems.push(`<li><strong>Compliance Requirements:</strong> ${src.compliance_guidance}</li>`);
+                        if (src.research_implications) detailItems.push(`<li><strong>Research Implications:</strong> ${src.research_implications}</li>`);
+                        if (src.key_deadlines) detailItems.push(`<li><strong>Key Deadlines:</strong> ${src.key_deadlines}</li>`);
+                        if (src.changed_procedures) detailItems.push(`<li><strong>Process Changes:</strong> ${src.changed_procedures}</li>`);
+                        
+                        const structuredDetails = detailItems.length > 0 ? 
+                            `<div class="source-details-section">
+                                <h4 class="source-details-title">Implementation Details</h4>
+                                <ul class="source-details-list">
+                                    ${detailItems.join('')}
+                                </ul>
+                             </div>` : '';
                         
                         return {
                             name: src.agency_name,
                             abbreviation: src.agency_name.split(' ').map(word => word[0]).join(''),
                             title: src.title || `${src.agency_name} Guidance`,
                             date: src.publication_date,
-                            content: combinedContent,
-                            key_provisions: src.grant_impact,
-                            specific_requirements: requirements.join('<br><br>'),
+                            content: narrativeSummary,
+                            structuredDetails: structuredDetails,
                             url: src.url
                         };
                     }));
@@ -215,26 +229,46 @@ const IntegratedView = (function() {
                 // University associations
                 if (si.analysis_interpretation.university_associations) {
                     hubSources = hubSources.concat(si.analysis_interpretation.university_associations.map(src => {
-                        // Create more comprehensive content
-                        const combinedContent = `
-                            <strong>Summary:</strong> ${src.summary || 'No summary available'}
-                            ${src.institution_perspective ? `<p><strong>Institutional Impact:</strong> ${src.institution_perspective}</p>` : ''}
-                            ${src.sector_guidance ? `<p><strong>Sector Guidance:</strong> ${src.sector_guidance}</p>` : ''}
+                        // Create a cohesive narrative summary 
+                        const narrativeSummary = `
+                            <p class="narrative-summary">
+                              ${src.summary || 'No summary available'} 
+                              ${src.institution_perspective ? `${src.institution_perspective} ` : ''}
+                              ${src.sector_guidance ? `${src.association_name} recommends that ${src.sector_guidance.toLowerCase()} ` : ''}
+                            </p>
                         `;
                         
-                        // Format recommended actions 
-                        const formattedActions = src.recommended_actions ? 
-                            src.recommended_actions.replace(/•/g, '<br>•').replace(/\n/g, '<br>') : 
-                            'No specific recommended actions';
+                        // Format recommended actions as a structured list
+                        let actionsList = '';
+                        if (src.recommended_actions) {
+                            // Extract bullet points or create them from newlines
+                            let actionItems = [];
+                            if (src.recommended_actions.includes('•')) {
+                                actionItems = src.recommended_actions.split('•').filter(item => item.trim());
+                            } else if (src.recommended_actions.includes('\n')) {
+                                actionItems = src.recommended_actions.split('\n').filter(item => item.trim());
+                            } else {
+                                actionItems = [src.recommended_actions];
+                            }
                             
+                            // Create the HTML list
+                            actionsList = `
+                                <div class="source-details-section">
+                                    <h4 class="source-details-title">Recommended Actions</h4>
+                                    <ul class="source-details-list">
+                                        ${actionItems.map(item => `<li>${item.trim()}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            `;
+                        }
+                        
                         return {
                             name: src.association_name,
                             abbreviation: src.association_name.split(' ').map(word => word[0]).join(''),
                             title: src.title || `${src.association_name} Analysis`,
                             date: src.publication_date,
-                            content: combinedContent,
-                            key_provisions: src.institution_perspective,
-                            specific_requirements: `<strong>Recommended Actions:</strong><br>${formattedActions}`,
+                            content: narrativeSummary,
+                            structuredDetails: actionsList,
                             url: src.url
                         };
                     }));
@@ -243,24 +277,33 @@ const IntegratedView = (function() {
                 // Legal analysis
                 if (si.analysis_interpretation.legal_analysis) {
                     hubSources = hubSources.concat(si.analysis_interpretation.legal_analysis.map(src => {
-                        // Create comprehensive legal analysis content
-                        const combinedContent = `
-                            <strong>Status:</strong> ${src.challenge_status || 'Status not specified'}
-                            ${src.legal_implications ? `<p><strong>Legal Implications:</strong> ${src.legal_implications}</p>` : ''}
-                            ${src.enforcement_prediction ? `<p><strong>Enforcement Prediction:</strong> ${src.enforcement_prediction}</p>` : ''}
-                            ${src.precedent_references ? `<p><strong>Precedent References:</strong> ${src.precedent_references}</p>` : ''}
+                        // Create narrative legal analysis content
+                        const narrativeSummary = `
+                            <p class="narrative-summary">
+                              Current status: ${src.challenge_status || 'No legal challenges identified'}. 
+                              ${src.legal_implications ? `${src.legal_implications} ` : ''}
+                              ${src.enforcement_prediction ? `Regarding enforcement, ${src.enforcement_prediction.toLowerCase()} ` : ''}
+                              ${src.precedent_references ? `This order's design is ${src.precedent_references.toLowerCase()}` : ''}
+                            </p>
                         `;
+                        
+                        // Create Yale-specific guidance section
+                        const yaleSpecificGuidance = src.yale_specific_notes ? `
+                            <div class="source-details-section yale-specific-guidance">
+                                <h4 class="source-details-title">Yale-Specific Guidance</h4>
+                                <div class="yale-guidance-content">
+                                    ${src.yale_specific_notes}
+                                </div>
+                            </div>
+                        ` : '';
                         
                         return {
                             name: src.source || 'Yale Legal Analysis',
                             abbreviation: 'YLA',
                             title: 'Legal Analysis and Compliance Assessment',
                             date: src.analysis_date,
-                            content: combinedContent,
-                            key_provisions: src.enforcement_prediction,
-                            specific_requirements: src.yale_specific_notes ? 
-                                `<strong>Yale-Specific Notes:</strong><br>${src.yale_specific_notes}` : 
-                                'No Yale-specific notes available',
+                            content: narrativeSummary,
+                            structuredDetails: yaleSpecificGuidance,
                             url: null
                         };
                     }));
@@ -327,23 +370,7 @@ const IntegratedView = (function() {
                             <p>${source.content || source.summary || 'No content available'}</p>
                         </div>
                         
-                        ${source.key_provisions ? `
-                            <div class="source-card__section">
-                                <h4 class="source-card__section-title">Key Provisions</h4>
-                                <div class="source-card__section-content">
-                                    ${formatBulletPoints(source.key_provisions)}
-                                </div>
-                            </div>
-                        ` : ''}
-                        
-                        ${source.specific_requirements ? `
-                            <div class="source-card__section">
-                                <h4 class="source-card__section-title">Specific Requirements</h4>
-                                <div class="source-card__section-content">
-                                    ${formatBulletPoints(source.specific_requirements)}
-                                </div>
-                            </div>
-                        ` : ''}
+                        ${source.structuredDetails ? source.structuredDetails : ''}
                         
                         ${source.reference_id ? `
                             <div class="source-attribution">

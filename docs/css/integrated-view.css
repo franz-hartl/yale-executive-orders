@@ -226,7 +226,56 @@
   color: #ffffff;
 }
 
-/* Source card section styles */
+/* Narrative summary styles */
+.narrative-summary {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  color: #333;
+  text-align: justify;
+}
+
+/* Source details section */
+.source-details-section {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #e5e7eb;
+}
+
+.source-details-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #00356b;
+  letter-spacing: 0.02em;
+}
+
+.source-details-list {
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.source-details-list li {
+  margin-bottom: 0.5rem;
+}
+
+/* Yale specific guidance */
+.yale-specific-guidance {
+  background-color: rgba(0, 53, 107, 0.05);
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+  border-left: 3px solid #00356b;
+}
+
+.yale-guidance-content {
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+/* Legacy source card section styles - keeping for backward compatibility */
 .source-card__section {
   margin-top: 1rem;
   padding-top: 0.75rem;
