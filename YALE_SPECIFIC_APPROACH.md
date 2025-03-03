@@ -24,7 +24,7 @@ The platform now uses a specialized taxonomy designed to align with Yale Univers
 
 2. **Research Security & Export Control**
    - Security requirements, export controls, foreign research collaborations
-   - Maps to: RISO, Export Controls, Vice Provost for Research Compliance
+   - Maps to: RISO, Export Controls, Office of Research Compliance
 
 3. **International & Immigration**
    - International students, scholar mobility, visa regulations
