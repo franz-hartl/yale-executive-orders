@@ -30,8 +30,8 @@ The platform now uses a specialized taxonomy designed to align with Yale Univers
    - International students, scholar mobility, visa regulations
    - Maps to: OISS, Federal/State Relations, Global Strategy
 
-4. **DEI (Diversity, Equity & Inclusion)**
-   - Diversity initiatives, equal opportunity programs, inclusion efforts
+4. **Community & Belonging**
+   - Community building, belonging initiatives, educational equity
    - Maps to: Office of Institutional Equity, Title IX Coordinator, Cultural Centers
 
 5. **Campus Safety & Student Affairs**

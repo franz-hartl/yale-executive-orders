@@ -22,8 +22,8 @@
   },
   {
     "id": 4,
-    "name": "DEI (Diversity, Equity & Inclusion)",
-    "description": "Impacts on Yale's diversity initiatives, equal opportunity programs, and inclusion efforts",
+    "name": "Community & Belonging",
+    "description": "Impacts on Yale's community building, belonging initiatives, and educational equity",
     "primary_yale_department_id": 1,
     "secondary_yale_department_ids": [3, 4]
   },

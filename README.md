@@ -209,7 +209,7 @@ Executive orders are classified according to their impact on Yale University's s
 - **Research & Innovation**: Federal grants, funding priorities, research initiatives
 - **Research Security & Export Control**: Security requirements, export controls, foreign research collaborations
 - **International & Immigration**: International students, scholar mobility, visa regulations
-- **DEI (Diversity, Equity & Inclusion)**: Diversity initiatives, equal opportunity programs, inclusion efforts
+- **Community & Belonging**: Community building, belonging initiatives, educational equity
 - **Campus Safety & Student Affairs**: Campus safety, student life, residential colleges
 - **Faculty & Workforce**: Faculty administration, employment policies, workforce management
 - **Healthcare & Public Health**: Yale School of Medicine, Yale Health, public health initiatives
