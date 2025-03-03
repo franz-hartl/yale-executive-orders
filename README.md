@@ -6,6 +6,36 @@ This project implements a comprehensive knowledge extraction system for executiv
 
 The system extracts structured knowledge from executive orders and related documents, transforms it into standardized representations, and enhances it with Yale-specific categorization and context. The extracted knowledge can be used for analyzing policy impacts, tracking compliance requirements, and generating narratives for Yale stakeholders.
 
+## Philosophy
+
+The Yale Executive Orders Knowledge Extraction System is built on these philosophical principles:
+
+1. **Knowledge as Structured Insight**: We believe that unstructured text becomes truly valuable when transformed into structured, interconnected knowledge that reveals patterns and implications not apparent in the raw text.
+
+2. **Context-Sensitive Understanding**: Executive orders must be understood within their specific institutional context. What matters to Yale University differs from what matters to other organizations.
+
+3. **Multi-Dimensional Analysis**: No single extraction approach captures all aspects of policy documents. By using multiple specialized extractors, we gain a richer understanding of the material.
+
+4. **Evidence-Based Confidence**: All extractions include confidence scores and evidence, making the system's reliability transparent and auditable.
+
+5. **Open Knowledge**: This project embraces openness, allowing anyone to extract, analyze, and share structured knowledge from executive orders.
+
+## Data Sources
+
+The system integrates data from multiple authoritative sources:
+
+1. **Federal Register API**: Official source for executive orders with full text and metadata.
+
+2. **White House Website**: Direct source for the most recent executive orders.
+
+3. **Higher Education Policy Sources**:
+   - **Council on Governmental Relations (COGR)**: Research institution-focused analyses
+   - **National Science Foundation (NSF)**: Implementation guidance for research grants
+   - **National Institutes of Health (NIH)**: Policy notices for biomedical research
+   - **American Council on Education (ACE)**: Higher education sector-wide analysis
+
+4. **Local Database**: SQLite database for cached and processed executive order data.
+
 ## Key Components
 
 ### Knowledge Schemas
@@ -41,7 +71,7 @@ The system extracts structured knowledge from executive orders and related docum
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/yale-executive-orders.git
+   git clone https://github.com/franz-hartl/yale-executive-orders.git
    cd yale-executive-orders
    ```
 
@@ -154,6 +184,10 @@ The extraction process follows these steps:
 - Narrative generation from extracted knowledge
 - Interactive visualization of extracted knowledge
 
+## Contributing
+
+Contributions to this project are welcome. Please feel free to submit pull requests, open issues, or suggest enhancements.
+
 ## License
 
-This project is proprietary and confidential, developed for Yale University's internal use.
+This project is open source and available under the MIT License. The approach and methodologies can be adapted for other institutions with similar needs.
