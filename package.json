@@ -14,11 +14,13 @@
     "test:export:structure": "node test_enhanced_export_structure.js",
     "test:intelligence-hub": "node test_intelligence_hub.js",
     "test:mcp": "node test_mcp_client.js",
+    "test:scraper": "jest tests/__tests__/scraper",
     "start": "node server.js",
     "setup": "node database_setup.js",
     "fetch": "node fetch_eo_data.js",
     "analyze": "node analyze_new_orders.js",
     "export": "node export_to_json.js",
+    "scrape": "node ai_scraper.js",
     "deploy": "node update_and_deploy.sh",
     "workflow": "node run_workflow.js",
     "docs:server": "cd docs && npx http-server",
@@ -53,6 +55,8 @@
     "coverageDirectory": "coverage",
     "collectCoverageFrom": [
       "extraction/extractors/*.js",
+      "config/*.js",
+      "*.js",
       "!**/node_modules/**",
       "!**/tests/**"
     ],

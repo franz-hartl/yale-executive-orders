@@ -7,6 +7,8 @@
 - "Do One Thing Well": Create focused modules with clear responsibilities
 - "Write Programs to Work Together": Design composable components that can be chained
 - "Make Each Program Do One Thing Well": Favor single-purpose tools over monolithic solutions
+- "Configuration over Hardcoding": Use central configuration files for changeable aspects
+- "Divide and Conquer": Break large problems (like long texts) into smaller, manageable pieces
 - Use resources efficiently (AI tokens, computation)
 - "Simplicity, Clarity, Generality": Prefer simple solutions that generalize well
 - Make maintenance-focused decisions
@@ -18,12 +20,14 @@
 ## Commands
 - `npm run setup` - Initialize/update SQLite database
 - `npm run export` - Export DB data to static JSON files 
+- `npm run scrape` - Run the AI-powered web scraper
 - `npm run docs:server` - Test static site locally
 - `npm run test` - Run all Jest tests
 - `npm test -- -t "pattern"` - Run tests matching pattern
 - `npm test -- path/to/test.js` - Run specific test file
 - `npm run test:watch` - Run tests in watch mode
 - `npm run test:coverage` - Generate test coverage report
+- `npm run test:scraper` - Run scraper configuration tests
 - `npm run lint` - Run ESLint on codebase
 
 ## Code Style Guidelines

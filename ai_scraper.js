@@ -2,54 +2,56 @@ const puppeteer = require('puppeteer');
 const fs = require('fs').promises;
 const axios = require('axios');
 require('dotenv').config();
+const scraperConfig = require('./config/scraper_config');
+const TextChunker = require('./utils/text_chunker');
 
 class AIWebScraper {
   constructor() {
     this.browser = null;
     this.dataSources = [
       {
-        name: 'Federal Register',
-        baseUrl: 'https://www.federalregister.gov/presidential-documents/executive-orders',
-        selectors: {
-          orderList: '.document-list .document-wrapper',
-          title: '.title a',
-          date: '.metadata .date',
-          number: '.metadata .executive-order-number'
-        }
+        name: scraperConfig.federalRegister.name,
+        baseUrl: scraperConfig.federalRegister.baseUrl,
+        selectors: scraperConfig.federalRegister.selectors
       },
       {
-        name: 'White House',
-        baseUrl: 'https://www.whitehouse.gov/briefing-room/presidential-actions/',
-        selectors: {
-          orderList: '.news-item-wrapper',
-          title: '.news-item__title a',
-          date: '.news-item__date'
-        }
+        name: scraperConfig.whiteHouse.name,
+        baseUrl: scraperConfig.whiteHouse.baseUrl,
+        selectors: scraperConfig.whiteHouse.selectors
       },
-      // Additional sources can be added here
+      // Additional sources are configured in scraper_config.js
     ];
     this.extractedData = [];
+    this.config = scraperConfig; // Store config for later use
+    this.textChunker = new TextChunker(); // For handling long documents
   }
 
   async initialize() {
     this.browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      headless: this.config.browser.headless,
+      args: this.config.browser.args
     });
   }
 
-  async scrapeSource(source, pageLimit = 5) {
+  async scrapeSource(source, pageLimit = null) {
+    // Use pageLimit from config if not provided
+    pageLimit = pageLimit || this.config.general.pageLimit;
     console.log(`Scraping data from ${source.name}...`);
     let allOrders = [];
 
     for (let pageNum = 1; pageNum <= pageLimit; pageNum++) {
-      const url = pageNum > 1 ? `${source.baseUrl}?page=${pageNum}` : source.baseUrl;
+      // Use pagination parameter from config if available
+      const paginationParam = this.getSourceConfig(source.name).paginationParam || 'page';
+      const url = pageNum > 1 ? `${source.baseUrl}?${paginationParam}=${pageNum}` : source.baseUrl;
       
       const page = await this.browser.newPage();
-      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
+      await page.setUserAgent(this.config.browser.userAgent);
       
       try {
-        await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
+        await page.goto(url, { 
+          waitUntil: this.config.browser.waitUntil, 
+          timeout: this.config.browser.timeout 
+        });
         
         // Check if the page structure matches expected selectors
         const hasExpectedStructure = await page.evaluate((selector) => {
@@ -90,36 +92,45 @@ class AIWebScraper {
     
     return allOrders;
   }
+  
+  /**
+   * Get source-specific configuration
+   * @param {string} sourceName Name of the source
+   * @returns {Object} Source configuration or empty object if not found
+   */
+  getSourceConfig(sourceName) {
+    // Convert source name to camelCase for config lookup
+    const sourceKey = sourceName.toLowerCase()
+      .replace(/[^\w\s]/g, '')
+      .replace(/\s(.)/g, ($1) => $1.toUpperCase())
+      .replace(/\s/g, '')
+      .replace(/^(.)/, ($1) => $1.toLowerCase());
+    
+    return this.config[sourceKey] || {};
+  }
 
   async extractWithAI(htmlContent, sourceName) {
     try {
+      // Get AI extraction config
+      const aiConfig = this.config.aiExtraction;
+      
       // Simplified content for API request
       const simplifiedHtml = htmlContent.substring(0, 100000); // Limit content size
+
+      // Prepare prompt from template
+      const prompt = aiConfig.promptTemplate
+        .replace('{{sourceName}}', sourceName)
+        .replace('{{htmlContent}}', simplifiedHtml);
 
       // Call Anthropic API
       const response = await axios.post(
         'https://api.anthropic.com/v1/messages',
         {
-          model: "claude-3-haiku-20240307",
-          max_tokens: 2000,
+          model: aiConfig.model,
+          max_tokens: aiConfig.maxTokens,
+          temperature: aiConfig.temperature,
           system: "You are an expert assistant that extracts structured data from HTML content.",
-          messages: [
-            {
-              role: "user",
-              content: `Extract executive order information from ${sourceName} in the HTML content below. 
-Extract all executive orders from the content.
-For each executive order, extract:
-1. Title
-2. Date (publication or signing date)
-3. Executive Order number (if available)
-4. URL to the full text (if available)
-
-Return your response as a valid JSON array of objects with these fields.
-
-HTML Content:
-${simplifiedHtml}`
-            }
-          ]
+          messages: [{ role: "user", content: prompt }]
         },
         {
           headers: {
@@ -155,14 +166,32 @@ ${simplifiedHtml}`
 
       try {
         const page = await this.browser.newPage();
-        await page.goto(order.url, { waitUntil: 'networkidle2', timeout: 60000 });
+        await page.goto(order.url, { 
+          waitUntil: this.config.browser.waitUntil, 
+          timeout: this.config.browser.timeout 
+        });
         
-        // Extract the full text
+        // Extract the full text using available selectors
         const fullText = await page.evaluate(() => {
-          const contentElement = document.querySelector('.body-content') || 
-                                document.querySelector('article') || 
-                                document.querySelector('.main-content');
-          return contentElement ? contentElement.textContent.trim() : '';
+          // Try common content selectors in order of likelihood
+          const selectors = [
+            '.body-content',
+            'article', 
+            '.main-content',
+            '.order-content',
+            '#main-content',
+            '.content-area'
+          ];
+          
+          for (const selector of selectors) {
+            const contentElement = document.querySelector(selector);
+            if (contentElement) {
+              return contentElement.textContent.trim();
+            }
+          }
+          
+          // Fallback to using the entire body content
+          return document.body.textContent.trim();
         });
 
         // Enrich with AI analysis
@@ -181,52 +210,34 @@ ${simplifiedHtml}`
 
   async enrichWithAI(order, fullText) {
     try {
-      // Truncate full text to fit within token limits
-      const truncatedText = fullText.substring(0, 15000);
+      // Get AI enrichment config
+      const aiConfig = this.config.aiEnrichment;
+      
+      // Check if we need to chunk the text due to length
+      if (fullText.length > this.config.chunking.chunkingThreshold && this.config.chunking.enabled) {
+        console.log(`Text is ${fullText.length} characters long, splitting into chunks for processing...`);
+        return await this.processLongTextWithChunking(order, fullText, aiConfig);
+      }
+      
+      // For shorter texts, process normally
+      const truncatedText = fullText.substring(0, this.config.general.contentTruncationSize);
+
+      // Prepare prompt from template
+      const prompt = aiConfig.promptTemplate
+        .replace('{{title}}', order.title)
+        .replace('{{number}}', order.number || 'Unknown')
+        .replace('{{date}}', order.date || 'Unknown')
+        .replace('{{fullText}}', truncatedText);
 
       // Call Anthropic API
       const response = await axios.post(
         'https://api.anthropic.com/v1/messages',
         {
-          model: "claude-3-opus-20240229",  // Using Opus for deeper analysis
-          max_tokens: 1500,
+          model: aiConfig.model,
+          max_tokens: aiConfig.maxTokens,
+          temperature: aiConfig.temperature,
           system: "You are an expert in government policy analysis, specializing in executive orders across all policy domains, with particular knowledge of how executive orders impact Yale University and higher education institutions.",
-          messages: [
-            {
-              role: "user",
-              content: `Analyze this executive order and extract/generate the following information:
-1. A 2-3 sentence summary of the order
-2. Key impact(s) on society, government, and/or private sector
-3. Policy area tags (e.g., "healthcare", "education", "environment", "technology")
-4. Affected sectors 
-5. Determine the president who issued this order
-
-Yale University Specific Analysis:
-6. Identify which Yale-specific impact areas are relevant (select from the list below):
-   - Research & Innovation: Federal grants, funding priorities, research initiatives
-   - Research Security & Export Control: Security requirements, export controls, foreign collaborations
-   - International & Immigration: International students, scholar mobility, visa regulations
-   - Community & Belonging: Community building, belonging initiatives, educational equity
-   - Campus Safety & Student Affairs: Campus safety, student life, residential colleges
-   - Faculty & Workforce: Faculty administration, employment policies, workforce management
-   - Healthcare & Public Health: Yale School of Medicine, Yale Health, public health initiatives
-   - Financial & Operations: Financial operations, endowment management, facilities, IT
-   - Governance & Legal: Governance structure, legal compliance, university policies
-   - Academic Programs: Academic programming, curriculum, and teaching across schools
-   - Arts & Cultural Heritage: Yale's museums, collections, performances, and cultural programming
-   - Athletics & Student Activities: Yale's sports programs and extracurricular activities
-
-7. For each identified Yale impact area, provide a brief explanation of why it's relevant
-
-Executive Order Title: ${order.title}
-Executive Order Number: ${order.number || 'Unknown'}
-Date: ${order.date || 'Unknown'}
-Full Text:
-${truncatedText}
-
-Return the information in JSON format with these fields: summary, impact, policyTags, affectedSectors, president, yaleImpactAreas (as an array of objects with "name" and "relevance" properties)`
-            }
-          ]
+          messages: [{ role: "user", content: prompt }]
         },
         {
           headers: {
@@ -244,27 +255,11 @@ Return the information in JSON format with these fields: summary, impact, policy
       if (jsonMatch) {
         const enrichment = JSON.parse(jsonMatch[0]);
         
-        // Map Yale impact areas to their numeric IDs for database integration
-        const yaleImpactAreaMapping = {
-          "Research & Innovation": 1,
-          "Research Security & Export Control": 2,
-          "International & Immigration": 3,
-          "Community & Belonging": 4,
-          "Campus Safety & Student Affairs": 5,
-          "Faculty & Workforce": 6,
-          "Healthcare & Public Health": 7,
-          "Financial & Operations": 8,
-          "Governance & Legal": 9,
-          "Academic Programs": 10,
-          "Arts & Cultural Heritage": 11,
-          "Athletics & Student Activities": 12
-        };
-        
         // Convert Yale impact areas to include IDs for easier database integration
         if (enrichment.yaleImpactAreas && Array.isArray(enrichment.yaleImpactAreas)) {
           enrichment.yaleImpactAreasWithIds = enrichment.yaleImpactAreas.map(area => ({
             ...area,
-            id: yaleImpactAreaMapping[area.name] || null
+            id: this.config.yaleImpactAreaMapping[area.name] || null
           }));
         }
         
@@ -278,6 +273,118 @@ Return the information in JSON format with these fields: summary, impact, policy
       return order;
     }
   }
+  
+  /**
+   * Process a long text by splitting it into chunks, analyzing each chunk,
+   * and merging the results
+   * @param {Object} order - The order being analyzed
+   * @param {string} fullText - The full text of the order
+   * @param {Object} aiConfig - The AI enrichment configuration
+   * @returns {Object} The enriched order with merged analysis
+   */
+  async processLongTextWithChunking(order, fullText, aiConfig) {
+    try {
+      // Split the text into chunks
+      const chunks = this.textChunker.chunkText(fullText, {
+        orderNumber: order.number,
+        orderTitle: order.title,
+        orderDate: order.date
+      });
+      
+      console.log(`Split text into ${chunks.length} chunks for processing`);
+      
+      // Process each chunk
+      const chunkResults = [];
+      
+      for (let i = 0; i < chunks.length; i++) {
+        const chunk = chunks[i];
+        console.log(`Processing chunk ${i+1} of ${chunks.length} (${chunk.originalText.length} characters)`);
+        
+        // Prepare prompt from template
+        const prompt = aiConfig.promptTemplate
+          .replace('{{title}}', order.title)
+          .replace('{{number}}', order.number || 'Unknown')
+          .replace('{{date}}', order.date || 'Unknown')
+          .replace('{{fullText}}', chunk.text);
+
+        // Call Anthropic API
+        const response = await axios.post(
+          'https://api.anthropic.com/v1/messages',
+          {
+            model: aiConfig.model,
+            max_tokens: aiConfig.maxTokens,
+            temperature: aiConfig.temperature,
+            system: "You are an expert in government policy analysis, specializing in executive orders across all policy domains, with particular knowledge of how executive orders impact Yale University and higher education institutions.",
+            messages: [{ role: "user", content: prompt }]
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'anthropic-version': '2023-06-01',
+              'x-api-key': process.env.ANTHROPIC_API_KEY
+            }
+          }
+        );
+
+        const responseText = response.data.content[0].text;
+        
+        // Extract JSON from the response
+        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+          try {
+            const enrichment = JSON.parse(jsonMatch[0]);
+            // Add chunk metadata to the result
+            chunkResults.push({
+              ...enrichment,
+              chunkIndex: chunk.chunkIndex,
+              totalChunks: chunk.totalChunks,
+              isChunked: true,
+              metadata: chunk.metadata
+            });
+          } catch (parseError) {
+            console.error(`Error parsing JSON from chunk ${i+1}:`, parseError.message);
+          }
+        } else {
+          console.log(`Chunk ${i+1} did not return valid JSON:`, responseText.substring(0, 100) + '...');
+        }
+      }
+      
+      // Merge the chunk results
+      if (chunkResults.length === 0) {
+        console.log('No valid chunk results were obtained, falling back to truncated text');
+        // Fall back to processing a truncated version of the text
+        const truncatedText = fullText.substring(0, this.config.general.contentTruncationSize);
+        return await this.enrichWithAI(order, truncatedText);
+      }
+      
+      const mergedResults = this.textChunker.mergeChunkResults(chunkResults);
+      
+      // Convert Yale impact areas to include IDs for easier database integration
+      if (mergedResults.yaleImpactAreas && Array.isArray(mergedResults.yaleImpactAreas)) {
+        mergedResults.yaleImpactAreasWithIds = mergedResults.yaleImpactAreas.map(area => ({
+          ...area,
+          id: this.config.yaleImpactAreaMapping[area.name] || null
+        }));
+      }
+      
+      console.log(`Successfully merged results from ${chunkResults.length} chunks`);
+      
+      // Return the merged results along with the original order data
+      return { 
+        ...order, 
+        ...mergedResults,
+        processingMethod: 'chunked',
+        chunksProcessed: chunkResults.length
+      };
+      
+    } catch (error) {
+      console.error('Error during chunked processing:', error.message);
+      // Fall back to processing a truncated version of the text
+      console.log('Falling back to truncated text processing');
+      const truncatedText = fullText.substring(0, this.config.general.contentTruncationSize);
+      return await this.enrichWithAI(order, truncatedText);
+    }
+  }
 
   // Return all orders without filtering for financial relevance
   async processOrders(orders) {
@@ -288,6 +395,9 @@ Return the information in JSON format with these fields: summary, impact, policy
   async scrapeAndProcess() {
     try {
       await this.initialize();
+      
+      // Load additional sources dynamically from config
+      this.loadSourcesFromConfig();
       
       let allOrders = [];
       for (const source of this.dataSources) {
@@ -305,8 +415,11 @@ Return the information in JSON format with these fields: summary, impact, policy
       
       console.log(`Processing ${processedOrders.length} executive orders`);
       
-      // Save the results
-      await fs.writeFile('./executive_orders.json', JSON.stringify(processedOrders, null, 2));
+      // Save the results using paths from config
+      await fs.writeFile(
+        this.config.general.outputJsonPath, 
+        JSON.stringify(processedOrders, null, 2)
+      );
       
       // Create CSV output
       const headers = ['Number', 'Title', 'Date', 'President', 'Summary', 'Impact', 'Policy Tags', 'Affected Sectors', 'URL'];
@@ -327,7 +440,7 @@ Return the information in JSON format with these fields: summary, impact, policy
         csvContent += row.join(',') + '\n';
       }
       
-      await fs.writeFile('./executive_orders.csv', csvContent);
+      await fs.writeFile(this.config.general.outputCsvPath, csvContent);
       
       console.log('Scraping and processing complete!');
     } catch (error) {
@@ -335,6 +448,49 @@ Return the information in JSON format with these fields: summary, impact, policy
     } finally {
       if (this.browser) await this.browser.close();
     }
+  }
+  
+  /**
+   * Load additional sources from config
+   */
+  loadSourcesFromConfig() {
+    // Check for NSF source in config
+    if (this.config.nsf) {
+      this.dataSources.push({
+        name: this.config.nsf.name,
+        baseUrl: this.config.nsf.baseUrl,
+        selectors: this.config.nsf.selectors
+      });
+    }
+    
+    // Check for NIH source in config
+    if (this.config.nih) {
+      this.dataSources.push({
+        name: this.config.nih.name,
+        baseUrl: this.config.nih.baseUrl,
+        selectors: this.config.nih.selectors
+      });
+    }
+    
+    // Check for COGR source in config
+    if (this.config.cogr) {
+      this.dataSources.push({
+        name: this.config.cogr.name,
+        baseUrl: this.config.cogr.baseUrl,
+        selectors: this.config.cogr.selectors
+      });
+    }
+    
+    // Check for ACE source in config
+    if (this.config.ace) {
+      this.dataSources.push({
+        name: this.config.ace.name,
+        baseUrl: this.config.ace.baseUrl,
+        selectors: this.config.ace.selectors
+      });
+    }
+    
+    console.log(`Loaded ${this.dataSources.length} data sources from configuration`);
   }
 }
 
