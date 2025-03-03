@@ -1,21 +1,19 @@
 name: Direct Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
+    # Only run manually
+
+permissions:
+  contents: write
+  pages: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Create API config file
-        run: |
-          mkdir -p docs/config
-          echo "window.ANTHROPIC_API_KEY = '${{ secrets.ANTHROPIC_API_KEY }}';" > docs/config/api-config.js
+        uses: actions/checkout@v4
           
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

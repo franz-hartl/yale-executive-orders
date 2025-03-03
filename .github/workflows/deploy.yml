@@ -1,12 +1,11 @@
 name: Deploy Yale Executive Orders to GitHub Pages
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
+    # Only run manually
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -15,12 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: 'npm'
           
       - name: Install dependencies
@@ -28,25 +27,9 @@ jobs:
         
       - name: Build static site
         run: npm run export
-        env:
-          # Pass the API key to the build process
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          
-      - name: Create config file with API key for client-side
-        run: |
-          # Make sure config directory exists in docs
-          mkdir -p docs/config
-          
-          # Create the API config file with the secret
-          echo "window.ANTHROPIC_API_KEY = '${{ secrets.ANTHROPIC_API_KEY }}';" > docs/config/api-config.js
-          
-          # List the structure to verify
-          echo "Verifying file structure:"
-          ls -la docs/
-          ls -la docs/config/
-          
+        
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: './docs'
 
@@ -59,4 +42,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
