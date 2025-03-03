@@ -1,13 +1,13 @@
 /**
  * logger.js
  * 
- * Provides logging utilities for the Yale Executive Orders analysis jobs
+ * Simple logging utility for the Yale Executive Orders project.
+ * Provides consistent logging across the application.
  */
 
-const fs = require('fs');
-const path = require('path');
-
-// Define log levels
+/**
+ * Log levels
+ */
 const LOG_LEVELS = {
   ERROR: 0,
   WARN: 1,
@@ -15,142 +15,90 @@ const LOG_LEVELS = {
   DEBUG: 3
 };
 
-// Default log level
+/**
+ * Current logging level (defaults to INFO)
+ */
 let currentLogLevel = LOG_LEVELS.INFO;
 
-// Log file path
-let logFilePath = null;
-
 /**
- * Initialize the logger with configuration options
- * @param {Object} options Logger configuration options
- * @param {string} options.logLevel Log level (ERROR, WARN, INFO, DEBUG)
- * @param {string} options.logFile Path to log file (optional)
+ * Set the current log level
+ * @param {string|number} level Log level to set
  */
-function initLogger(options = {}) {
-  // Set log level
-  if (options.logLevel && LOG_LEVELS[options.logLevel] !== undefined) {
-    currentLogLevel = LOG_LEVELS[options.logLevel];
-  }
-  
-  // Set log file if provided
-  if (options.logFile) {
-    logFilePath = path.resolve(options.logFile);
-    
-    // Create log directory if it doesn't exist
-    const logDir = path.dirname(logFilePath);
-    if (!fs.existsSync(logDir)) {
-      fs.mkdirSync(logDir, { recursive: true });
+function setLogLevel(level) {
+  if (typeof level === 'string') {
+    const upperLevel = level.toUpperCase();
+    if (LOG_LEVELS[upperLevel] !== undefined) {
+      currentLogLevel = LOG_LEVELS[upperLevel];
+    } else {
+      console.warn(`Unknown log level: ${level}, defaulting to INFO`);
+      currentLogLevel = LOG_LEVELS.INFO;
     }
-    
-    // Write logger initialization message
-    writeToLogFile(`Logger initialized at ${new Date().toISOString()}\n`);
-  }
-}
-
-/**
- * Write a message to the log file if configured
- * @param {string} message Message to write
- */
-function writeToLogFile(message) {
-  if (logFilePath) {
-    try {
-      fs.appendFileSync(logFilePath, message + '\n');
-    } catch (error) {
-      console.error(`Error writing to log file: ${error.message}`);
+  } else if (typeof level === 'number') {
+    if (level >= 0 && level <= 3) {
+      currentLogLevel = level;
+    } else {
+      console.warn(`Invalid log level number: ${level}, defaulting to INFO`);
+      currentLogLevel = LOG_LEVELS.INFO;
     }
   }
 }
 
 /**
- * Format a log message with timestamp and level
+ * Format log message with timestamp and category
+ * @param {string} category Log category
  * @param {string} level Log level
  * @param {string} message Log message
  * @returns {string} Formatted log message
  */
-function formatLogMessage(level, message) {
+function formatLogMessage(category, level, message) {
   const timestamp = new Date().toISOString();
-  return `[${timestamp}] [${level}] ${message}`;
+  return `[${timestamp}] [${category}] [${level}] ${message}`;
 }
 
 /**
- * Log an error message
- * @param {string} message Error message
- * @param {Error} error Error object (optional)
+ * Create a logger instance with specified category
+ * @param {string} category Logger category
+ * @returns {Object} Logger instance
  */
-function error(message, error = null) {
-  if (currentLogLevel >= LOG_LEVELS.ERROR) {
-    const formattedMessage = formatLogMessage('ERROR', message);
-    console.error(formattedMessage);
-    
-    if (error) {
-      console.error(error);
-      writeToLogFile(`${formattedMessage}\n${error.stack}`);
-    } else {
-      writeToLogFile(formattedMessage);
-    }
-  }
-}
-
-/**
- * Log a warning message
- * @param {string} message Warning message
- */
-function warn(message) {
-  if (currentLogLevel >= LOG_LEVELS.WARN) {
-    const formattedMessage = formatLogMessage('WARN', message);
-    console.warn(formattedMessage);
-    writeToLogFile(formattedMessage);
-  }
-}
-
-/**
- * Log an info message
- * @param {string} message Info message
- */
-function info(message) {
-  if (currentLogLevel >= LOG_LEVELS.INFO) {
-    const formattedMessage = formatLogMessage('INFO', message);
-    console.log(formattedMessage);
-    writeToLogFile(formattedMessage);
-  }
-}
-
-/**
- * Log a debug message
- * @param {string} message Debug message
- */
-function debug(message) {
-  if (currentLogLevel >= LOG_LEVELS.DEBUG) {
-    const formattedMessage = formatLogMessage('DEBUG', message);
-    console.log(formattedMessage);
-    writeToLogFile(formattedMessage);
-  }
-}
-
-/**
- * Create a job-specific logger that prefixes messages with the job name
- * @param {string} jobName Name of the job
- * @returns {Object} Job-specific logger
- */
-function createJobLogger(jobName) {
+function createNamedLogger(category = 'YaleEO') {
   return {
-    error: (message, error = null) => error(
-      `[${jobName}] ${message}`, 
-      error
-    ),
-    warn: (message) => warn(`[${jobName}] ${message}`),
-    info: (message) => info(`[${jobName}] ${message}`),
-    debug: (message) => debug(`[${jobName}] ${message}`)
+    error(message, ...args) {
+      if (currentLogLevel >= LOG_LEVELS.ERROR) {
+        console.error(formatLogMessage(category, 'ERROR', message), ...args);
+      }
+    },
+    
+    warn(message, ...args) {
+      if (currentLogLevel >= LOG_LEVELS.WARN) {
+        console.warn(formatLogMessage(category, 'WARN', message), ...args);
+      }
+    },
+    
+    info(message, ...args) {
+      if (currentLogLevel >= LOG_LEVELS.INFO) {
+        console.info(formatLogMessage(category, 'INFO', message), ...args);
+      }
+    },
+    
+    debug(message, ...args) {
+      if (currentLogLevel >= LOG_LEVELS.DEBUG) {
+        console.debug(formatLogMessage(category, 'DEBUG', message), ...args);
+      }
+    }
   };
 }
 
+/**
+ * Default logger instance
+ */
+const defaultLogger = createNamedLogger();
+
 module.exports = {
-  initLogger,
-  error,
-  warn,
-  info,
-  debug,
-  createJobLogger,
-  LOG_LEVELS
+  LOG_LEVELS,
+  setLogLevel,
+  createNamedLogger,
+  error: defaultLogger.error,
+  warn: defaultLogger.warn,
+  info: defaultLogger.info,
+  debug: defaultLogger.debug
 };

@@ -1,284 +1,159 @@
-# Yale Executive Orders Analysis Platform
+# Yale Executive Orders Knowledge Extraction System
 
-The Yale Executive Orders Analysis Platform is a comprehensive system designed to analyze executive orders and their specific impacts on private R1 research universities. This project uses a novel preprocessing-to-static architecture with advanced AI integration to provide institution-specific guidance, making it unique among policy analysis tools.
+This project implements a comprehensive knowledge extraction system for executive orders, with a specific focus on Yale University's needs and use cases.
 
-## Project Philosophy
+## Overview
 
-This project is built around three core philosophical principles:
+The system extracts structured knowledge from executive orders and related documents, transforms it into standardized representations, and enhances it with Yale-specific categorization and context. The extracted knowledge can be used for analyzing policy impacts, tracking compliance requirements, and generating narratives for Yale stakeholders.
 
-1. **Essential Simplicity**: Complexity is managed through clean interfaces and modular design rather than additional abstraction layers. Each component does one thing well, and components are composed to create complex behaviors.
+## Key Components
 
-2. **Knowledge Integration**: Information from multiple authoritative sources is integrated with explicit attribution, conflict management, and confidence scoring. This creates a rich knowledge representation that preserves source integrity while providing unified analysis.
+### Knowledge Schemas
 
-3. **Institutional Contextualization**: Analysis is contextualized for specific institutional types, with particular focus on private R1 research universities. This enables guidance that is tailored to institutional mission, structure, and priorities.
+- `models/knowledge_schema.js`: Basic knowledge representation schemas
+- `models/enhanced_knowledge_schema.js`: Extended schemas with Yale-specific attributes
 
-## System Architecture
+### Knowledge Extraction
 
-The platform employs a sophisticated architecture comprised of interconnected yet independent subsystems:
+- `extraction/knowledge_extractor.js`: Main orchestrator for knowledge extraction
+- Specialized extractors for different knowledge types:
+  - `DateExtractor`: Extracts date information (deadlines, effective dates, etc.)
+  - `RequirementExtractor`: Extracts requirements and obligations
+  - `ImpactExtractor`: Extracts policy impacts on institutions
+  - `EntityExtractor`: Extracts government agencies and other entities
+  - `DefinitionExtractor`: Extracts defined terms and their meanings
+  - `AuthorityExtractor`: Extracts legal authorities cited in orders
 
-### Core System Components
+### Yale-Specific Capabilities
 
-1. **Data Collection Layer**: Fetches executive orders and related data from multiple sources using flexible, source-specific modules.
-
-2. **Storage Layer**: Maintains a structured SQLite database with a well-defined schema for executive orders and related information.
-
-3. **AI Processing Layer**: Utilizes the Anthropic Claude API to generate multi-level analyses with institution-specific contexts.
-
-4. **Knowledge Representation System**: Stores discrete facts about executive orders with source attribution, confidence scoring, and relationship modeling.
-
-5. **Conflict Resolution System**: Identifies and resolves contradictions between information sources with configurable resolution strategies.
-
-6. **Template System**: Creates consistent, tailored documents from executive order data with flexible formatting options.
-
-7. **Intelligence Hub**: Synthesizes information from multiple sources into a unified interface with confidence indicators.
-
-8. **Workflow Controller**: Manages the end-to-end process from data collection to deployment with robust error handling.
-
-9. **Export Layer**: Transforms processed data into static JSON and HTML files with well-defined data contracts.
-
-10. **Presentation Layer**: Provides a responsive, static web interface with filtering and visualization capabilities.
-
-## Key Innovations
-
-### 1. Sophisticated Knowledge Management
-
-The platform implements a fact-based knowledge system where:
-
-- Information is represented as discrete, typed facts with source attribution
-- Facts can have relationships (supports, contradicts, refines) with other facts
-- Every fact has a confidence score and explicit provenance
-- Yale-specific impacts are annotated for each relevant fact
-
-### 2. Intelligent Conflict Resolution
-
-When different sources provide contradictory information, the system:
-
-- Automatically identifies conflicts with severity classification
-- Applies configurable resolution strategies based on source authority
-- Maintains a historical record of all conflicts and resolutions
-- Provides human-in-the-loop resolution for critical conflicts
-
-### 3. Advanced Template System
-
-The flexible template system enables:
-
-- Multiple levels of analysis (executive brief, standard summary, comprehensive)
-- Institution-specific sections that adapt to organizational context
-- Fallback handling for missing information
-- Consistent formatting with customizable renderers
-
-### 4. Workflow Integration
-
-The cohesive workflow system provides:
-
-- End-to-end process management from data collection to deployment
-- State tracking with error handling and recovery
-- Configurable pipeline steps for different use cases
-- Detailed logging and reporting
-
-### 5. Intelligence Hub
-
-The innovative Intelligence Hub presents:
-
-- AI-synthesized executive briefs with confidence indicators
-- Timeline visualization of implementation milestones
-- Source intelligence matrix showing consensus and disagreement
-- Institution-specific response frameworks with action requirements
-
-## Yale-Specific Implementation
-
-While maintaining a flexible architecture that could be adapted to other institutions, the current implementation is specifically tailored for Yale University:
-
-1. **Research Focus**: Special emphasis on research funding, security, and international collaboration
-
-2. **Yale Impact Areas**: Custom impact areas aligned with Yale's institutional priorities
-
-3. **Departmental Structure**: Integration with Yale's organizational structure for routing and responsibility assignment
-
-4. **Compliance Framework**: Yale-specific compliance checklists and action requirements
-
-5. **Impact Assessment**: Customized impact scoring for Yale's operational environment
-
-## Sustainable Maintenance Design
-
-The platform is specifically architected for sustainable long-term maintenance in a changing policy landscape:
-
-1. **Source Isolation**: External data sources are isolated in dedicated modules, allowing each source to evolve independently without affecting the core system. When a data source changes its format, only its specific adapter requires modification.
-
-2. **Fact-Based Knowledge Model**: By representing information as discrete facts with explicit source attribution, new data can be integrated without disrupting existing information. Each fact has its own lifecycle independent of source changes.
-
-3. **Explicit Conflict Handling**: Rather than hiding or ignoring contradictions between sources, the system explicitly models conflicts with severity classification and resolution strategies, making maintenance of evolving interpretations transparent.
-
-4. **Graceful Degradation**: Templates and documents include fallback mechanisms for missing data, ensuring the system continues to function even when specific sources become unavailable or change their structure.
-
-5. **Automated Workflow**: The workflow system reduces maintenance burden by automating the end-to-end process with robust error handling and recovery capabilities, providing clear visibility into failures.
-
-6. **Data Contracts**: Well-defined contracts between system layers mean that internal implementations can change without cascading effects, as long as the contract is maintained.
-
-7. **Comprehensive Logging**: Detailed logging throughout the system makes troubleshooting and maintenance more efficient, with specific context for each component.
-
-This design philosophy prioritizes "maintainable modularity" - where the benefits of modular design enhance long-term sustainability rather than increasing maintenance complexity.
-
-## Data Flow
-
-Data flows through the system in these stages:
-
-1. **Collection**: Executive orders and related data are collected from various sources
-2. **Storage**: Normalized data is stored in a structured SQLite database
-3. **Knowledge Extraction**: Discrete facts are extracted and stored with source attribution
-4. **Conflict Resolution**: Contradictions between sources are identified and resolved
-5. **AI Analysis**: Multi-level summaries and impact assessments are generated
-6. **Template Rendering**: Consistent documents are created from structured data
-7. **Export**: Processed data is exported to static JSON and HTML files
-8. **Deployment**: Static files are deployed to GitHub Pages for browser access
-
-## Extension Capabilities
-
-The platform is designed for extension in several dimensions:
-
-1. **New Data Sources**: Add sources with source-specific modules in the `sources/` directory
-2. **Institution Customization**: Extend with institution-specific tables and analysis
-3. **Template Expansion**: Create new templates for different document types
-4. **Advanced Visualizations**: Add new visualization components to the presentation layer
-5. **Integration Points**: Connect with external systems via well-defined interfaces
+- Maps extracted knowledge to Yale impact areas
+- Identifies relevant Yale stakeholders
+- Calculates Yale-specific relevance scores
+- Provides institution-specific context and impact assessment
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v16 or later)
-- Anthropic API key (for AI-powered data processing)
-- Internet connection (for data collection)
+- Node.js (v14 or later)
 
-### Model Context Protocol (MCP) Server
+### Installation
 
-The project now includes a Model Context Protocol (MCP) server that allows for easy querying of executive orders data through Claude and other LLMs. This server implements the MCP specification to provide structured access to executive order data.
-
-Key features:
-- Full MCP API implementation with search and context endpoints
-- Support for both SQLite database and GitHub Pages static files
-- Integration examples for Claude and other LLMs
-- Comprehensive documentation
-
-For detailed information, see:
-- [MCP_SERVER_DOCUMENTATION.md](MCP_SERVER_DOCUMENTATION.md) - Server setup and API documentation
-- [docs/api-client-guide.md](docs/api-client-guide.md) - Guide for client applications
-
-### Quick Start
-
-1. **Environment Setup**
-
-   Create a `.env` file in the project root directory with:
-   ```
-   # Required for AI functionality
-   ANTHROPIC_API_KEY=your_api_key
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/yale-executive-orders.git
+   cd yale-executive-orders
    ```
 
-2. **Install Dependencies**
-
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-3. **Run the Full Workflow**
+## Usage Example
 
-   ```bash
-   npm run workflow
-   ```
+```javascript
+const { KnowledgeExtractor } = require('./extraction/knowledge_extractor');
 
-   This will execute the entire process:
-   - Fetch executive orders from sources
-   - Process and store in the database
-   - Generate AI-powered analysis
-   - Export to static files
-   - Deploy to the docs/ directory
+// Create knowledge extractor
+const extractor = new KnowledgeExtractor();
 
-4. **View the Website**
+// Sample executive order data
+const executiveOrderData = {
+  sourceId: 'eo12345',
+  sourceName: 'Executive Order 12345',
+  order_number: '12345',
+  title: 'Executive Order Title',
+  full_text: '...' // Full text of the order
+};
 
-   ```bash
-   cd docs
-   npx http-server
-   ```
+// Extract knowledge
+const extractedKnowledge = await extractor.extractAll(executiveOrderData);
 
-   Then open http://localhost:8080 in your browser.
+// Access extracted knowledge
+console.log(extractedKnowledge.requirements); // List of requirements
+console.log(extractedKnowledge.yaleImpactAreas); // Yale impact areas
+```
 
-## Yale-Specific Impact Taxonomy
+See `tests/extractor_example.js` for a complete working example.
 
-Executive orders are classified according to their impact on Yale University's specific organizational structure and priorities:
+## Knowledge Types
 
-- **Research & Innovation**: Federal grants, funding priorities, research initiatives
-- **Research Security & Export Control**: Security requirements, export controls, foreign research collaborations
-- **International & Immigration**: International students, scholar mobility, visa regulations
-- **Community & Belonging**: Community building, belonging initiatives, educational equity
-- **Campus Safety & Student Affairs**: Campus safety, student life, residential colleges
-- **Faculty & Workforce**: Faculty administration, employment policies, workforce management
-- **Healthcare & Public Health**: Yale School of Medicine, Yale Health, public health initiatives
-- **Financial & Operations**: Financial operations, endowment management, facilities, IT
-- **Governance & Legal**: Governance structure, legal compliance, university policies
+The system extracts and structures the following types of knowledge:
 
-This taxonomy maps directly to Yale's organizational units, ensuring that analysis is immediately relevant and actionable for Yale administrators. For more details on the Yale-specific approach, see [Yale-Specific Approach](YALE_SPECIFIC_APPROACH.md).
+1. **Dates**: Deadlines, effective dates, implementation milestones
+2. **Requirements**: Obligations, mandates, reporting requirements
+3. **Impacts**: Policy impacts on institutions and operations
+4. **Entities**: Government agencies, roles, departments
+5. **Definitions**: Defined terms and their meanings
+6. **Authorities**: Legal authorities, statutes, constitutional provisions
 
-## Documentation Resources
+## Yale Impact Areas
 
-For comprehensive documentation about specific subsystems:
+The system maps extracted knowledge to Yale-specific impact areas:
 
-- [Architecture](ARCHITECTURE.md) - System architecture and components
-- [Data Flow](DATA_FLOW.md) - How data moves through the system
-- [Extension Guide](EXTENSION_GUIDE.md) - How to extend and customize the system
-- [Database Schema](DATABASE_SCHEMA.md) - Reference for the database schema
-- [Knowledge System](KNOWLEDGE_README.md) - Fact-based knowledge representation
-- [Conflict Handling](CONFLICT_HANDLING_README.md) - Conflict detection and resolution
-- [Template System](TEMPLATE_SYSTEM_README.md) - Document generation system
-- [Intelligence Hub](INTELLIGENCE_HUB_README.md) - Integrated intelligence presentation
-- [Workflow Integration](WORKFLOW_INTEGRATION_SUMMARY.md) - End-to-end process automation
-- [Yale-Specific Approach](YALE_SPECIFIC_APPROACH.md) - Yale-specific taxonomy and implementation
+1. Research and Innovation
+2. Export Controls and Security
+3. International Programs
+4. Community and Belonging
+5. Campus Safety
+6. Workforce and Employment
+7. Healthcare Operations
+8. Financial and Physical Resources
+9. Governance and Legal
+10. Academic Programs
+11. Arts and Cultural Heritage
+12. Athletics and Recreation
 
-## Why This Project Matters
+## Development
 
-The Yale Executive Orders Analysis Platform represents a novel approach to policy analysis with several distinctive characteristics:
+### Project Structure
 
-1. **Source Integration with Attribution**: Unlike traditional systems that either present sources separately or merge them without attribution, this platform integrates multiple sources while maintaining explicit attribution, enabling both unified analysis and source verification.
+```
+yale-executive-orders/
+├── models/
+│   ├── knowledge_schema.js
+│   └── enhanced_knowledge_schema.js
+├── extraction/
+│   └── knowledge_extractor.js
+├── utils/
+│   └── logger.js
+└── tests/
+    └── extractor_example.js
+```
 
-2. **Explicit Conflict Management**: The platform doesn't hide contradictions between sources but explicitly models them, classifies their severity, and provides mechanisms for resolution, creating greater transparency in policy interpretation.
+### Running the Example
 
-3. **Institution-Specific Context**: By focusing analysis on specific institutional contexts (primarily private R1 universities), the platform provides more actionable guidance than general-purpose policy analysis tools.
+```bash
+node tests/extractor_example.js
+```
 
-4. **Preprocessing-to-Static Architecture**: The architecture processes all data in advance and delivers it through static files, providing excellent performance and scalability without runtime server requirements.
+## How the Extraction Works
 
-5. **Knowledge-Centric Design**: The platform treats policy information as a knowledge representation problem rather than a simple document management problem, enabling richer analysis and relationships.
+The extraction process follows these steps:
 
-This project demonstrates how sophisticated AI-powered analysis can be combined with careful knowledge engineering to create a powerful policy analysis platform that provides specific, actionable guidance while maintaining transparency and attribution.
+1. **Initialize Extractors**: The `KnowledgeExtractor` initializes specialized extractors for different knowledge types.
 
-## Testing Strategy
+2. **Process Source Text**: Each extractor analyzes the executive order text using sophisticated pattern matching.
 
-The platform currently employs a targeted testing approach focused on validating key components and integrations:
+3. **Extract Structured Knowledge**: Extractors identify dates, requirements, entities, definitions, and authorities.
 
-1. **Component Verification Tests**: Individual tests for major subsystems like the Intelligence Hub, export functionality, and source integration.
+4. **Enhance with Yale Context**: The system maps extracted knowledge to Yale-specific impact areas and stakeholders.
 
-2. **Data Structure Validation**: Tests that verify the enhanced JSON structure meets specifications for frontend consumption.
+5. **Merge and Cross-Reference**: The orchestrator merges all extracted knowledge into a unified representation.
 
-3. **Source Integration Tests**: Specialized tests for external data source adapters (COGR, NIH, NSF).
+6. **Calculate Confidence**: Each extraction includes confidence scores based on extraction quality.
 
-4. **Manual Workflow Validation**: The workflow system includes comprehensive logging and reporting to detect issues.
+7. **Output Structured Knowledge**: The resulting knowledge is provided in a structured format for further use.
 
-### Testing Roadmap
+## Future Enhancements
 
-To further enhance system reliability, particularly as the codebase grows, we plan to implement these testing improvements:
+- Integration with AI-powered extraction services
+- Expanded Yale-specific mapping capabilities
+- Cross-source knowledge integration
+- Narrative generation from extracted knowledge
+- Interactive visualization of extracted knowledge
 
-1. **Comprehensive Unit Testing**: Implementing systematic unit tests across all modules using Jest or Mocha.
+## License
 
-2. **Continuous Integration**: Setting up CI/CD workflows to automatically run tests before deployment.
-
-3. **End-to-End Testing**: Creating automated tests that verify the full workflow from data collection to export.
-
-4. **Mock External Dependencies**: Developing a comprehensive mocking system for external APIs and data sources.
-
-5. **Test Coverage Reporting**: Adding test coverage measurement and reporting to identify untested code paths.
-
-6. **Schema Validation**: Implementing automated schema validation for database operations and JSON exports.
-
-This enhanced testing strategy will provide even greater confidence in system stability during source updates, schema changes, and feature additions.
-
-## Project Status
-
-This project is actively maintained and regularly updated with new features and executive orders. The current version includes all executive orders through February 2025, with comprehensive analysis for those most relevant to private R1 research universities.
+This project is proprietary and confidential, developed for Yale University's internal use.
