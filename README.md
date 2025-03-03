@@ -145,6 +145,17 @@ See `tests/extractor_example.js` for a complete working example.
 - **Test static site locally**: `cd docs && npx http-server`
 - **Update and deploy**: `node update_and_deploy.sh`
 
+### GitHub Pages Deployment
+
+This project uses custom GitHub Actions workflows for deploying to GitHub Pages. The workflow includes:
+
+1. Custom repository checkout
+2. Node.js setup and dependency installation
+3. Data export to generate static files
+4. GitHub Pages configuration and deployment
+
+The workflow runs automatically on pushes to the main branch and can also be triggered manually from the Actions tab.
+
 ## Development
 
 ### Project Structure

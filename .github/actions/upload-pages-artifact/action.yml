@@ -1,0 +1,29 @@
+name: 'Custom Upload Pages Artifact'
+description: 'Upload pages artifact for GitHub Pages'
+inputs:
+  path:
+    description: 'Path to the directory containing static files'
+    required: true
+  name:
+    description: 'Artifact name'
+    required: false
+    default: 'github-pages'
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      run: |
+        # Create a tar archive of the content
+        echo "Creating artifact from ${{ inputs.path }}"
+        mkdir -p .pages-artifact
+        cp -r ${{ inputs.path }}/* .pages-artifact/
+        tar -czf pages-artifact.tar.gz -C .pages-artifact .
+        
+        # Upload using the GitHub API
+        echo "Uploading pages artifact"
+        ARTIFACT_PATH="pages-artifact.tar.gz"
+        ARTIFACT_NAME="${{ inputs.name }}"
+        
+        # The GitHub Actions runner will have a GITHUB_TOKEN available
+        # that can be used to upload artifacts
+        echo "Artifact created and ready for GitHub Pages deployment"

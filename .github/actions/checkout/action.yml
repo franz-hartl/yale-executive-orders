@@ -1,0 +1,19 @@
+name: 'Custom Checkout'
+description: 'Checkout repository code'
+inputs:
+  ref:
+    description: 'The branch, tag or SHA to checkout'
+    required: false
+    default: ''
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      run: |
+        # Simple checkout operation that clones the repo and checks out the specified ref
+        if [ -n "${{ inputs.ref }}" ]; then
+          git clone https://github.com/${GITHUB_REPOSITORY}.git .
+          git checkout ${{ inputs.ref }}
+        else
+          git clone https://github.com/${GITHUB_REPOSITORY}.git .
+        fi
