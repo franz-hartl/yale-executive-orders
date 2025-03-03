@@ -1,0 +1,152 @@
+{
+  "id": 3348,
+  "order_number": "EO 14081",
+  "title": "NIH Implementation of Executive Order on Advancing Biotechnology and Biomanufacturing",
+  "signing_date": null,
+  "publication_date": null,
+  "president": null,
+  "summary": null,
+  "full_text": null,
+  "url": null,
+  "impact_level": null,
+  "status": null,
+  "implementation_phase": null,
+  "added_date": "2025-03-03 13:51:05",
+  "last_updated": "2025-03-03 13:51:05",
+  "plain_language_summary": null,
+  "executive_brief": null,
+  "comprehensive_analysis": null,
+  "effective_date": null,
+  "yale_alert_level": null,
+  "core_impact": null,
+  "yale_imperative": null,
+  "confidence_rating": 0.85,
+  "what_changed": null,
+  "categories": [
+    "Healthcare"
+  ],
+  "impact_areas": [],
+  "university_impact_areas": [],
+  "yale_impact_areas": [],
+  "yale_stakeholders": [],
+  "differentiated_impacts": {},
+  "compliance_timelines": {},
+  "impact_scoring": [],
+  "implementation_resources": [],
+  "compliance_actions": [],
+  "has_plain_language_summary": false,
+  "has_executive_brief": false,
+  "has_comprehensive_analysis": false,
+  "summary_formats_available": [],
+  "sources": [
+    {
+      "name": "NIH Policy Notices",
+      "abbreviation": "NIH",
+      "url": "https://grants.nih.gov/policy/index.htm",
+      "reference_id": null,
+      "fetch_date": "2025-03-03T13:51:05.551Z",
+      "data": {
+        "implementation_references": [
+          {
+            "notice_id": "NOT-OD-23-021",
+            "title": "Notice of Special Interest: Advancing Biotechnology and Biomanufacturing Initiative",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-021.html",
+            "date": "2023",
+            "executive_order": "EO 14081",
+            "context": "This Notice announces NIH's participation in the implementation of Executive Order 14081 on \"Advancing Biotechnology and Biomanufacturing Innovation for a Sustainable, Safe, and Secure American Bioeconomy.\"",
+            "source_page": "https://grants.nih.gov/grants/guide/index.html"
+          }
+        ],
+        "extracted_date": "2025-03-03T13:51:05.537Z",
+        "nih_relevant": true,
+        "is_sample": true
+      }
+    }
+  ],
+  "yale_guidance": {
+    "yale_university": {
+      "relevance_score": 1,
+      "affected_departments": [],
+      "primary_departments": [],
+      "secondary_departments": [],
+      "action_items": [],
+      "compliance_actions": [],
+      "impact_areas": [],
+      "source_insights": {
+        "key_takeaways": [
+          {
+            "source": "NIH",
+            "content": "This Notice announces NIH's participation in the implementation of Executive Order 14081 on \"Advancing Biotechnology and Biomanufacturing Innovation for a Sustainable, Safe, and Secure American Bioeconomy.\"",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-021.html"
+          }
+        ],
+        "implementation_references": [
+          {
+            "title": "Notice of Special Interest: Advancing Biotechnology and Biomanufacturing Initiative",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-021.html",
+            "source": "NIH",
+            "date": "2023",
+            "description": "This Notice announces NIH's participation in the implementation of Executive Order 14081 on \"Advancing Biotechnology and Biomanufacturing Innovation for a Sustainable, Safe, and Secure American Bioeconomy.\""
+          }
+        ],
+        "resource_links": [
+          {
+            "title": "Notice of Special Interest: Advancing Biotechnology and Biomanufacturing Initiative",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-021.html",
+            "source": "NIH"
+          }
+        ]
+      }
+    }
+  },
+  "simplified_impact_analysis": {},
+  "simplified_source_analysis": {
+    "summary": "",
+    "extended_analysis": "",
+    "source_insights": [
+      {
+        "source": "NIH",
+        "name": "NIH Policy Notices",
+        "title": "Notice of Special Interest: Advancing Biotechnology and Biomanufacturing Initiative",
+        "text": "This Notice announces NIH's participation in the implementation of Executive Order 14081 on \"Advancing Biotechnology and Biomanufacturing Innovation for a Sustainable, Safe, and Secure American Bioeconomy.\"",
+        "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-021.html"
+      }
+    ]
+  },
+  "intelligence_hub": {
+    "yale_alert_level": "Moderate",
+    "core_impact": null,
+    "what_changed": null,
+    "yale_imperative": null,
+    "confidence_rating": 0.85,
+    "timeline_navigator": {
+      "signing_date": null,
+      "effective_date": null,
+      "implementation_deadlines": [],
+      "yale_decision_points": [],
+      "events": []
+    },
+    "source_intelligence": {
+      "federal_sources": {
+        "federal_register": [],
+        "agency_guidance": []
+      },
+      "analysis_interpretation": {
+        "university_associations": [],
+        "legal_analysis": []
+      }
+    },
+    "yale_response": {
+      "framework": [],
+      "action_requirements": [],
+      "decision_support": {
+        "options": []
+      }
+    },
+    "intelligence_network": {
+      "predecessor_policies": [],
+      "related_orders": [],
+      "external_impact": []
+    }
+  }
+}

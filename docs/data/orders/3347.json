@@ -1,7 +1,7 @@
 {
   "id": 3347,
   "order_number": "EO 14110",
-  "title": "NSF Implementation of Executive Order on Safe, Secure, and Trustworthy Artificial Intelligence",
+  "title": "NIH Implementation of Executive Order on Artificial Intelligence",
   "signing_date": null,
   "publication_date": null,
   "president": null,
@@ -22,7 +22,10 @@
   "yale_imperative": null,
   "confidence_rating": 0.85,
   "what_changed": null,
-  "categories": [],
+  "categories": [
+    "Technology",
+    "Healthcare"
+  ],
   "impact_areas": [],
   "university_impact_areas": [
     {
@@ -31,6 +34,8 @@
       "notes": null
     }
   ],
+  "yale_impact_areas": [],
+  "yale_stakeholders": [],
   "differentiated_impacts": {},
   "compliance_timelines": {},
   "impact_scoring": [],
@@ -68,6 +73,38 @@
         "nsf_relevant": true,
         "is_sample": true
       }
+    },
+    {
+      "name": "NIH Policy Notices",
+      "abbreviation": "NIH",
+      "url": "https://grants.nih.gov/policy/index.htm",
+      "reference_id": null,
+      "fetch_date": "2025-03-03T13:51:05.554Z",
+      "data": {
+        "implementation_references": [
+          {
+            "notice_id": "NOT-OD-24-002",
+            "title": "Implementation of the Executive Order on AI in Biomedical Research",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html",
+            "date": "2024",
+            "executive_order": "EO 14110",
+            "context": "This Notice provides information on how NIH is implementing Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence as it relates to biomedical research and data management.",
+            "source_page": "https://grants.nih.gov/policy/clinical-trials.htm"
+          },
+          {
+            "title": "NIH AI Policy Statement",
+            "url": "https://grants.nih.gov/policy/index.htm#ai",
+            "date": "January 15, 2024",
+            "executive_order": "EO 14110",
+            "context": "The National Institutes of Health is committed to ensuring the safe, secure, and trustworthy development and use of artificial intelligence in biomedical research as outlined in Executive Order 14110.",
+            "source_page": "https://grants.nih.gov/policy/index.htm",
+            "content_type": "paragraph"
+          }
+        ],
+        "extracted_date": "2025-03-03T13:51:05.537Z",
+        "nih_relevant": true,
+        "is_sample": true
+      }
     }
   ],
   "yale_guidance": {
@@ -90,6 +127,16 @@
             "source": "NSF",
             "content": "NSF Director Sethuraman Panchanathan highlights how the agency is aligning resources to support the objectives of Executive Order 14110 on Safe, Secure, and Trustworthy AI.",
             "url": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697"
+          },
+          {
+            "source": "NIH",
+            "content": "This Notice provides information on how NIH is implementing Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence as it relates to biomedical research and data management.",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html"
+          },
+          {
+            "source": "NIH",
+            "content": "The National Institutes of Health is committed to ensuring the safe, secure, and trustworthy development and use of artificial intelligence in biomedical research as outlined in Executive Order 14110.",
+            "url": "https://grants.nih.gov/policy/index.htm#ai"
           }
         ],
         "implementation_references": [
@@ -106,6 +153,20 @@
             "source": "NSF",
             "date": null,
             "description": "NSF Director Sethuraman Panchanathan highlights how the agency is aligning resources to support the objectives of Executive Order 14110 on Safe, Secure, and Trustworthy AI."
+          },
+          {
+            "title": "Implementation of the Executive Order on AI in Biomedical Research",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html",
+            "source": "NIH",
+            "date": "2024",
+            "description": "This Notice provides information on how NIH is implementing Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence as it relates to biomedical research and data management."
+          },
+          {
+            "title": "NIH AI Policy Statement",
+            "url": "https://grants.nih.gov/policy/index.htm#ai",
+            "source": "NIH",
+            "date": "January 15, 2024",
+            "description": "The National Institutes of Health is committed to ensuring the safe, secure, and trustworthy development and use of artificial intelligence in biomedical research as outlined in Executive Order 14110."
           }
         ],
         "resource_links": [
@@ -118,6 +179,16 @@
             "title": "Implementation of AI Executive Order",
             "url": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697",
             "source": "NSF"
+          },
+          {
+            "title": "Implementation of the Executive Order on AI in Biomedical Research",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html",
+            "source": "NIH"
+          },
+          {
+            "title": "NIH AI Policy Statement",
+            "url": "https://grants.nih.gov/policy/index.htm#ai",
+            "source": "NIH"
           }
         ]
       }
@@ -148,6 +219,20 @@
         "title": "Implementation of AI Executive Order",
         "text": "NSF Director Sethuraman Panchanathan highlights how the agency is aligning resources to support the objectives of Executive Order 14110 on Safe, Secure, and Trustworthy AI.",
         "url": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697"
+      },
+      {
+        "source": "NIH",
+        "name": "NIH Policy Notices",
+        "title": "Implementation of the Executive Order on AI in Biomedical Research",
+        "text": "This Notice provides information on how NIH is implementing Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence as it relates to biomedical research and data management.",
+        "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html"
+      },
+      {
+        "source": "NIH",
+        "name": "NIH Policy Notices",
+        "title": "NIH AI Policy Statement",
+        "text": "The National Institutes of Health is committed to ensuring the safe, secure, and trustworthy development and use of artificial intelligence in biomedical research as outlined in Executive Order 14110.",
+        "url": "https://grants.nih.gov/policy/index.htm#ai"
       }
     ]
   },
