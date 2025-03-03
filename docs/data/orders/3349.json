@@ -1,0 +1,98 @@
+{
+  "id": 3349,
+  "order_number": "14114",
+  "title": "Ensuring Lawful Governance and Implementing the President's 'Department of Government Efficiency' Deregulatory Initiative",
+  "signing_date": "2024-02-22",
+  "publication_date": "2024-02-25",
+  "president": "Biden",
+  "summary": "Directs federal agencies to review significant regulations and identify those that are unlawful, ineffective, or overly burdensome.",
+  "full_text": "Directs federal agencies to review significant regulations and identify those that are unlawful, ineffective, or overly burdensome.",
+  "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2024/02/22/executive-order-on-ensuring-lawful-governance-and-implementing-the-presidents-department-of-government-efficiency-deregulatory-initiative/",
+  "impact_level": null,
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-03-03 19:01:56",
+  "last_updated": "2025-03-03 19:01:56",
+  "plain_language_summary": null,
+  "executive_brief": null,
+  "comprehensive_analysis": null,
+  "effective_date": null,
+  "yale_alert_level": null,
+  "core_impact": null,
+  "yale_imperative": null,
+  "confidence_rating": 0.85,
+  "what_changed": null,
+  "categories": [],
+  "impact_areas": [],
+  "university_impact_areas": [],
+  "yale_impact_areas": [],
+  "yale_stakeholders": [],
+  "differentiated_impacts": {},
+  "compliance_timelines": {},
+  "impact_scoring": [],
+  "implementation_resources": [],
+  "compliance_actions": [],
+  "has_plain_language_summary": false,
+  "has_executive_brief": false,
+  "has_comprehensive_analysis": false,
+  "summary_formats_available": [],
+  "sources": [],
+  "yale_guidance": {
+    "yale_university": {
+      "relevance_score": 1,
+      "affected_departments": [],
+      "primary_departments": [],
+      "secondary_departments": [],
+      "action_items": [],
+      "compliance_actions": [],
+      "impact_areas": [],
+      "source_insights": {
+        "key_takeaways": [],
+        "implementation_references": [],
+        "resource_links": []
+      }
+    }
+  },
+  "simplified_impact_analysis": {},
+  "simplified_source_analysis": {
+    "summary": "Directs federal agencies to review significant regulations and identify those that are unlawful, ineffective, or overly burdensome.",
+    "extended_analysis": "",
+    "source_insights": []
+  },
+  "intelligence_hub": {
+    "yale_alert_level": "Moderate",
+    "core_impact": null,
+    "what_changed": null,
+    "yale_imperative": null,
+    "confidence_rating": 0.85,
+    "timeline_navigator": {
+      "signing_date": "2024-02-22",
+      "effective_date": null,
+      "implementation_deadlines": [],
+      "yale_decision_points": [],
+      "events": []
+    },
+    "source_intelligence": {
+      "federal_sources": {
+        "federal_register": [],
+        "agency_guidance": []
+      },
+      "analysis_interpretation": {
+        "university_associations": [],
+        "legal_analysis": []
+      }
+    },
+    "yale_response": {
+      "framework": [],
+      "action_requirements": [],
+      "decision_support": {
+        "options": []
+      }
+    },
+    "intelligence_network": {
+      "predecessor_policies": [],
+      "related_orders": [],
+      "external_impact": []
+    }
+  }
+}

@@ -1,346 +1,5 @@
 [
   {
-    "id": 1221,
-    "order_number": "2025-03133",
-    "title": "Commencing the Reduction of the Federal Bureaucracy",
-    "signing_date": "2025-02-25",
-    "publication_date": null,
-    "president": "Trump",
-    "summary": "This executive order aims to reduce the size of the federal bureaucracy by requiring agencies to identify unnecessary positions and functions, and to develop plans to streamline their operations. It also calls for a freeze on new hiring, with exceptions made only for roles deemed essential.",
-    "full_text": "For universities like Yale, this order could lead to a reduction in federal funding and research grants, as well as the potential loss of key personnel who work in administrative and support roles. This could have a significant impact on university finances, requiring budget cuts and adjustments to maintain operations.",
-    "url": "https://www.federalregister.gov/documents/2025/02/25/2025-03133/commencing-the-reduction-of-the-federal-bureaucracy",
-    "impact_level": "High",
-    "status": "Active",
-    "implementation_phase": "Implementation",
-    "added_date": "2025-02-26 15:06:51",
-    "last_updated": "2025-02-26 15:06:51",
-    "effective_date": "2025-03-27",
-    "yale_alert_level": "Low",
-    "core_impact": "This executive order directly impacts Yale's research operations by requiring enhanced compliance measures.",
-    "yale_imperative": "Update policies by 2025-04-01",
-    "confidence_rating": 0.93,
-    "what_changed": "• New reporting requirements for foreign research collaborations\n• Increased security protocols for sensitive research data\n• Modified compliance timeline with extended deadlines",
-    "categories": [
-      "Technology"
-    ],
-    "impact_areas": [
-      "Policy",
-      "Operational"
-    ],
-    "university_impact_areas": [
-      {
-        "name": "Administrative Compliance",
-        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
-        "notes": null
-      }
-    ],
-    "yale_impact_areas": [],
-    "yale_stakeholders": [],
-    "differentiated_impacts": {},
-    "compliance_timelines": {},
-    "impact_scoring": [],
-    "implementation_resources": [],
-    "compliance_actions": [],
-    "has_plain_language_summary": true,
-    "has_executive_brief": true,
-    "has_comprehensive_analysis": true,
-    "summary_formats_available": [
-      "executive_brief",
-      "standard",
-      "comprehensive"
-    ],
-    "sources": [],
-    "yale_guidance": {
-      "yale_university": {
-        "relevance_score": 4,
-        "affected_departments": [],
-        "primary_departments": [],
-        "secondary_departments": [],
-        "action_items": [],
-        "compliance_actions": [],
-        "impact_areas": [],
-        "source_insights": {
-          "key_takeaways": [],
-          "implementation_references": [],
-          "resource_links": []
-        }
-      }
-    },
-    "simplified_impact_analysis": {
-      "Administrative Compliance": {
-        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
-        "notes": null,
-        "source_insights": [],
-        "consensus_rating": "Neutral"
-      }
-    },
-    "simplified_source_analysis": {
-      "summary": "This executive order aims to reduce the size of the federal bureaucracy by requiring agencies to identify unnecessary positions and functions, and to develop plans to streamline their operations. It also calls for a freeze on new hiring, with exceptions made only for roles deemed essential.",
-      "extended_analysis": "\n        <div class=\"comprehensive-analysis\" style=\"font-family: Arial, sans-serif; max-width: 800px; line-height: 1.5;\">\n          <!-- Executive Summary Section -->\n          <div class=\"executive-summary\" style=\"margin-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem;\">\n            <h2 style=\"color: #2563eb; font-size: 1.5rem; margin-bottom: 0.5rem;\">Executive Order 2025-03133: Reducing Federal Bureaucracy Through Workforce Cuts</h2>\n            <p style=\"font-size: 1rem; margin-bottom: 1rem;\"><strong>Overview:</strong> Aimed at downsizing the federal government, this executive order requires all agencies to identify positions and functions that can be eliminated. It imposes an immediate government-wide hiring freeze, with limited exceptions for essential roles. The order is likely to result in decreased federal funding and research support for universities.</p>\n            <p style=\"font-size: 1rem; background-color: #f0f9ff; padding: 0.75rem; border-left: 4px solid #2563eb; font-weight: 500;\">\n              <strong>Bottom Line:</strong> Universities must thoroughly evaluate their exposure to federal funding cuts and personnel losses, developing comprehensive contingency plans to maintain financial and operational stability.\n            </p>\n          </div>\n          \n          <!-- Context Section -->\n          <div class=\"context\" style=\"margin-bottom: 1.5rem;\">\n            <h3 style=\"color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;\">Policy Context:</h3>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Policy Background:</h4>\n              <p style=\"margin-bottom: 1rem;\">This order continues a trend of federal workforce reductions and budget cuts seen in previous administrations, accelerating a shift toward leaner government.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Legal Framework:</h4>\n              <p style=\"margin-bottom: 1rem;\">The order invokes presidential authority to manage executive branch personnel under 5 U.S.C. § 3301 and 3302. Agencies must comply with applicable laws and regulations in executing workforce reductions.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Higher Education Context:</h4>\n              <p style=\"margin-bottom: 1rem;\">Federal funding comprises a significant portion of research budgets, particularly for large universities. Peer institutions will also be exploring ways to mitigate the impact of this order through alternative funding and operating models.</p>\n            </div>\n          </div>\n          \n          <!-- Higher Education Impacts Section -->\n          <div class=\"impacts\" style=\"margin-bottom: 1.5rem;\">\n            <h3 style=\"color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;\">Key Impacts on Higher Education:</h3>\n            <div style=\"margin-bottom: 1rem;\">\n              \n                <div style=\"margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;\">\n                  <p><strong>Sponsored Research:</strong> Reductions in available federal funding will jeopardize existing sponsored projects and decrease opportunities for new research grants.</p>\n                </div>\n              \n                <div style=\"margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;\">\n                  <p><strong>Personnel:</strong> Universities may lose critical administrative and support staff in roles funded fully or partially through federal appropriations.</p>\n                </div>\n              \n                <div style=\"margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;\">\n                  <p><strong>Financial Aid:</strong> Decreases in federal financial aid programs could occur, impacting student access and enrollment.</p>\n                </div>\n              \n                <div style=\"margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;\">\n                  <p><strong>Facilities & Equipment:</strong> Cuts to federal programs may reduce universities' ability to invest in research infrastructure and technology.</p>\n                </div>\n              \n                <div style=\"margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;\">\n                  <p><strong>Partnerships:</strong> Elimination of federal programs and personnel could weaken research collaborations and university-government partnerships.</p>\n                </div>\n              \n            </div>\n            \n            \n              <div style=\"margin-bottom: 1rem;\">\n                <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Important Dates:</h4>\n                <ul style=\"padding-left: 1.5rem; margin-bottom: 1rem;\">\n                  <li>03/15/2025: Agencies submit preliminary workforce reduction proposals</li><li>04/01/2025: OMB provides feedback and negotiates revisions to plans</li><li>05/01/2025: Final agency workforce reduction plans due</li><li>06/01/2025: OMB compiles government-wide implementation plan</li><li>07/01/2025: Agencies announce exceptions to hiring freeze for essential positions</li><li>10/01/2025: Agencies begin executing workforce reductions</li>\n                </ul>\n              </div>\n            \n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Affected Departments:</h4>\n              <p>President and Provost Offices, Research Administration, Government Relations, Financial Planning & Analysis, Budget Office, Sponsored Projects Administration, Human Resources, Facilities Planning & Management, Information Technology</p>\n            </div>\n          </div>\n          \n          <!-- Implementation Specifics -->\n          <div class=\"implementation\" style=\"margin-bottom: 1.5rem;\">\n            <h3 style=\"color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;\">Implementation Details:</h3>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Compliance Requirements:</h4>\n              <p style=\"margin-bottom: 1rem;\">Universities must adhere to relevant Uniform Guidance (2 CFR 200) and Federal Acquisition Regulations (FAR) in managing federal funds. Workforce reductions must comply with WARN Act, ERISA, OWBPA and EEO rules.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Technical Analysis:</h4>\n              <p style=\"margin-bottom: 1rem;\">Grants management and financial systems must adapt to changes in federal award terms and appropriations. HR and payroll systems must accommodate personnel adjustments.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Cross-Functional Impacts:</h4>\n              <p style=\"margin-bottom: 1rem;\">Loss of federal funding and staffing will impact nearly all areas of research universities. Central planning and coordination across academic, financial, administrative, and auxiliary units is essential.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Risk Analysis:</h4>\n              <p style=\"margin-bottom: 1rem;\">Insufficient planning for federal funding cuts creates significant financial and operational risks. Over-reliance on federal appropriations and personnel leaves universities vulnerable to sudden budgetary shocks.</p>\n            </div>\n          </div>\n          \n          <!-- Strategic Considerations -->\n          <div class=\"strategic\" style=\"margin-bottom: 1.5rem;\">\n            <h3 style=\"color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;\">Strategic Considerations:</h3>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Competitive Implications:</h4>\n              <p style=\"margin-bottom: 1rem;\">Universities with strong non-federal funding sources, industry partnerships, and robust scenario planning will fare better. Smaller and less-resourced institutions may struggle more to absorb federal cuts.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Long-term Vision:</h4>\n              <p style=\"margin-bottom: 1rem;\">This order accelerates a shift away from federal support for research universities. Institutions must permanently diversify funding and build flexible cost structures. More university-industry collaboration and innovative public-private partnerships likely.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Advocacy Opportunities:</h4>\n              <p style=\"margin-bottom: 1rem;\">Universities, individually and through associations, should engage OMB, Congress and agencies to inform workforce priorities and cuts. Demonstrating research ROI and economic impact is critical.</p>\n            </div>\n          </div>\n          \n          <!-- Action Plan Section -->\n          <div class=\"action-plan\" style=\"margin-bottom: 1.5rem; border-top: 1px solid #e5e7eb; padding-top: 1rem;\">\n            <h3 style=\"color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;\">Action Plan:</h3>\n            \n            <p style=\"font-weight: 500; margin-bottom: 1rem; color: #b91c1c;\">\n              <strong>Action Required:</strong> Yes - Proactive planning is critical. Universities must comprehensively assess the order's potential financial and operational impacts, develop realistic contingency plans, and effectively communicate with stakeholders.\n            </p>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Immediate Steps (0-30 days):</h4>\n              <ul style=\"padding-left: 1.5rem; margin-bottom: 1rem;\">\n                <li>Inventory all federally-funded research projects, positions, and facilities</li><li>Model best, worst, and likely case funding scenarios</li><li>Prioritize and quantify essential research and administrative functions</li><li>Draft contingency plans for budget and workforce reductions</li>\n              </ul>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Short-term Actions (1-3 months):</h4>\n              <ul style=\"padding-left: 1.5rem; margin-bottom: 1rem;\">\n                <li>Brief leadership on exposure analysis and recommendations</li><li>Evaluate non-federal funding sources and partnerships</li><li>Communicate with principal investigators about potential grant impacts</li>\n              </ul>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Long-term Considerations:</h4>\n              <ul style=\"padding-left: 1.5rem; margin-bottom: 1rem;\">\n                <li>Adjust strategic plans to reduce federal funding dependence</li><li>Streamline administrative functions and invest in automation</li><li>Build state, local, corporate and non-profit research partnerships</li>\n              </ul>\n            </div>\n          </div>\n          \n          <!-- Resource Requirements Section -->\n          <div class=\"resources\" style=\"margin-bottom: 1rem; background-color: #f9fafb; padding: 1rem; border-radius: 0.375rem;\">\n            <h3 style=\"color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;\">Resource Requirements:</h3>\n            <div style=\"display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;\">\n              <div>\n                <p><strong>Personnel:</strong> Dedicated cross-functional planning team. Analytical support from finance, HR and sponsored projects. Senior leadership to engage government stakeholders.</p>\n              </div>\n              <div>\n                <p><strong>Budget:</strong> Funds for scenario modeling, communications, government relations. Investments in corporate and foundation fundraising staff. Resources for bridging impacted salaries and projects.</p>\n              </div>\n              <div>\n                <p><strong>Technology:</strong> Robust scenario modeling and forecasting tools. Upgrades to grants management and HR systems to adapt to changing requirements and workforce.</p>\n              </div>\n              <div>\n                <p><strong>External Expertise:</strong> Consultants with federal budget, agency operations and university research expertise. Government relations strategists. Legal counsel versed in workforce compliance issues.</p>\n              </div>\n            </div>\n          </div>\n          \n          <div style=\"font-size: 0.75rem; color: #6b7280; text-align: right; margin-top: 1rem;\">\n            Summary generated by Claude AI on 2/26/2025\n          </div>\n        </div>\n      ",
-      "source_insights": []
-    },
-    "intelligence_hub": {
-      "yale_alert_level": "Low",
-      "core_impact": "This executive order directly impacts Yale's research operations by requiring enhanced compliance measures.",
-      "what_changed": "• New reporting requirements for foreign research collaborations\n• Increased security protocols for sensitive research data\n• Modified compliance timeline with extended deadlines",
-      "yale_imperative": "Update policies by 2025-04-01",
-      "confidence_rating": 0.93,
-      "timeline_navigator": {
-        "signing_date": "2025-02-25",
-        "effective_date": "2025-03-27",
-        "implementation_deadlines": [
-          {
-            "id": 78,
-            "order_id": 1221,
-            "event_type": "Implementation Deadline",
-            "event_date": "2025-05-25",
-            "event_description": "Institutions must complete initial compliance steps",
-            "is_deadline": 1,
-            "is_yale_decision_point": 0,
-            "status": "Pending",
-            "yale_department_id": 3,
-            "importance_level": "High",
-            "notes": null
-          },
-          {
-            "id": 80,
-            "order_id": 1221,
-            "event_type": "Final Compliance Deadline",
-            "event_date": "2025-08-23",
-            "event_description": "Full compliance with all EO requirements",
-            "is_deadline": 1,
-            "is_yale_decision_point": 0,
-            "status": "Not Started",
-            "yale_department_id": 4,
-            "importance_level": "High",
-            "notes": null
-          }
-        ],
-        "yale_decision_points": [
-          {
-            "id": 79,
-            "order_id": 1221,
-            "event_type": "Yale Decision Point",
-            "event_date": "2025-04-25",
-            "event_description": "Yale must determine compliance approach",
-            "is_deadline": 0,
-            "is_yale_decision_point": 1,
-            "status": "Pending",
-            "yale_department_id": 1,
-            "importance_level": "Critical",
-            "notes": null
-          }
-        ],
-        "events": [
-          {
-            "id": 76,
-            "order_id": 1221,
-            "event_type": "Signing",
-            "event_date": "2025-02-25",
-            "event_description": "Executive Order signed by the President",
-            "is_deadline": 0,
-            "is_yale_decision_point": 0,
-            "status": "Completed",
-            "yale_department_id": null,
-            "importance_level": null,
-            "notes": null
-          },
-          {
-            "id": 77,
-            "order_id": 1221,
-            "event_type": "Effective",
-            "event_date": "2025-03-26",
-            "event_description": "Executive Order takes effect",
-            "is_deadline": 0,
-            "is_yale_decision_point": 0,
-            "status": "Completed",
-            "yale_department_id": null,
-            "importance_level": null,
-            "notes": null
-          },
-          {
-            "id": 79,
-            "order_id": 1221,
-            "event_type": "Yale Decision Point",
-            "event_date": "2025-04-25",
-            "event_description": "Yale must determine compliance approach",
-            "is_deadline": 0,
-            "is_yale_decision_point": 1,
-            "status": "Pending",
-            "yale_department_id": 1,
-            "importance_level": "Critical",
-            "notes": null
-          },
-          {
-            "id": 78,
-            "order_id": 1221,
-            "event_type": "Implementation Deadline",
-            "event_date": "2025-05-25",
-            "event_description": "Institutions must complete initial compliance steps",
-            "is_deadline": 1,
-            "is_yale_decision_point": 0,
-            "status": "Pending",
-            "yale_department_id": 3,
-            "importance_level": "High",
-            "notes": null
-          },
-          {
-            "id": 80,
-            "order_id": 1221,
-            "event_type": "Final Compliance Deadline",
-            "event_date": "2025-08-23",
-            "event_description": "Full compliance with all EO requirements",
-            "is_deadline": 1,
-            "is_yale_decision_point": 0,
-            "status": "Not Started",
-            "yale_department_id": 4,
-            "importance_level": "High",
-            "notes": null
-          }
-        ]
-      },
-      "source_intelligence": {
-        "federal_sources": {
-          "federal_register": [
-            {
-              "id": 16,
-              "order_id": 1221,
-              "source_type": "Federal Register",
-              "source_name": "Federal Register",
-              "publication_date": "2025-03-02",
-              "title": "Federal Register: Commencing the Reduction of the Federal Bureaucracy",
-              "content": "The President of the United States issued Executive Order 2025-03133 establishing new requirements for federal agencies and their stakeholders.",
-              "url": "https://www.federalregister.gov/documents/2025-03133",
-              "key_provisions": "• Section 1: Establishes new security protocols\n• Section 2: Creates reporting requirements\n• Section 3: Sets implementation timelines",
-              "specific_requirements": "• Educational institutions must comply with Section 4 requirements\n• Research security measures in Section 5 apply to all federal grantees\n• Reporting obligations commence within 90 days of effective date",
-              "confidence_rating": 0.9,
-              "yale_relevance_score": null
-            }
-          ],
-          "agency_guidance": []
-        },
-        "analysis_interpretation": {
-          "university_associations": [],
-          "legal_analysis": []
-        }
-      },
-      "yale_response": {
-        "framework": [],
-        "action_requirements": [
-          {
-            "id": 46,
-            "order_id": 1221,
-            "title": "Update Research Security Policy",
-            "description": "Revise university research security policy to incorporate new federal requirements.",
-            "priority_level": "Critical",
-            "yale_department_id": 4,
-            "deadline": "2025-04-25",
-            "status": "In Progress",
-            "resource_impact": "Moderate",
-            "completion_criteria": "Revised policy approved by Provost and communicated to research community",
-            "department_name": "Office of Research Administration"
-          },
-          {
-            "id": 47,
-            "order_id": 1221,
-            "title": "Implement Enhanced Disclosure Process",
-            "description": "Create new disclosure forms and process for international research collaborations.",
-            "priority_level": "Critical",
-            "yale_department_id": 15,
-            "deadline": "2025-05-25",
-            "status": "Not Started",
-            "resource_impact": "High",
-            "completion_criteria": "New forms created, process documented, and training provided to research administrators",
-            "department_name": "Office of Sponsored Projects"
-          },
-          {
-            "id": 49,
-            "order_id": 1221,
-            "title": "Update Compliance Training",
-            "description": "Develop and implement training on new research security requirements.",
-            "priority_level": "High",
-            "yale_department_id": 14,
-            "deadline": "2025-06-04",
-            "status": "Not Started",
-            "resource_impact": "Moderate",
-            "completion_criteria": "Training developed, tested, and made available to research community",
-            "department_name": "Office of Research Integrity and Compliance"
-          },
-          {
-            "id": 48,
-            "order_id": 1221,
-            "title": "Review International Agreements",
-            "description": "Review existing international research agreements for compliance with new requirements.",
-            "priority_level": "High",
-            "yale_department_id": 8,
-            "deadline": "2025-06-24",
-            "status": "Not Started",
-            "resource_impact": "High",
-            "completion_criteria": "All agreements reviewed, issues identified, and remediation plan developed",
-            "department_name": "International Affairs"
-          },
-          {
-            "id": 50,
-            "order_id": 1221,
-            "title": "Establish Monitoring Process",
-            "description": "Create ongoing monitoring process for research security compliance.",
-            "priority_level": "Recommended",
-            "yale_department_id": 4,
-            "deadline": "2025-07-24",
-            "status": "Not Started",
-            "resource_impact": "Moderate",
-            "completion_criteria": "Monitoring process documented and implemented",
-            "department_name": "Office of Research Administration"
-          }
-        ],
-        "decision_support": {
-          "options": []
-        }
-      },
-      "intelligence_network": {
-        "predecessor_policies": [
-          {
-            "id": 28,
-            "order_id": 1221,
-            "related_order_id": 3305,
-            "relationship_type": "Predecessor",
-            "relationship_strength": 0.8,
-            "description": "EO 2025-03064 established the foundation for the requirements expanded in this order.",
-            "yale_implications": "Yale's existing compliance framework for the predecessor order can be extended to cover new requirements.",
-            "order_number": "2025-03064",
-            "title": "Expanding Access to In Vitro Fertilization"
-          }
-        ],
-        "related_orders": [
-          {
-            "id": 29,
-            "order_id": 1221,
-            "related_order_id": 1222,
-            "relationship_type": "Related",
-            "relationship_strength": 0.6,
-            "description": "This order contains complementary provisions related to EO 2025-03138.",
-            "yale_implications": "Compliance efforts should be coordinated between both orders to ensure consistency.",
-            "order_number": "2025-03138",
-            "title": "Ensuring Lawful Governance and Implementing the President's \"Department of Government Efficiency\" Deregulatory Initiative"
-          }
-        ],
-        "external_impact": [
-          {
-            "id": 30,
-            "order_id": 1221,
-            "related_order_id": 1225,
-            "relationship_type": "External",
-            "relationship_strength": 0.4,
-            "description": "This order has implications for Yale's external relationships affected by EO 2025-02928.",
-            "yale_implications": "Review external partnerships and agreements that may be affected by both orders.",
-            "order_number": "2025-02928",
-            "title": "Establishing the National Energy Dominance Council"
-          }
-        ]
-      }
-    }
-  },
-  {
     "id": 1222,
     "order_number": "2025-03138",
     "title": "Ensuring Lawful Governance and Implementing the President's \"Department of Government Efficiency\" Deregulatory Initiative",
@@ -680,420 +339,6 @@
             "title": "Keeping Education Accessible and Ending COVID-19 Vaccine Mandates in Schools"
           }
         ]
-      }
-    }
-  },
-  {
-    "id": 3304,
-    "order_number": "2025-03137",
-    "title": "Ending Taxpayer Subsidization of Open Borders",
-    "signing_date": "2025-02-25",
-    "publication_date": "2025-02-25",
-    "president": "Trump",
-    "summary": "This executive order aims to reduce federal funding for illegal immigration, potentially affecting Yale University's international student services and campus policies related to undocumented students. Yale may need to review its practices and possibly adjust certain programs supporting international or undocumented students.",
-    "full_text": "No full text available",
-    "url": "https://www.federalregister.gov/documents/2025/02/25/2025-03137/ending-taxpayer-subsidization-of-open-borders",
-    "impact_level": "Medium",
-    "status": "Active",
-    "implementation_phase": null,
-    "added_date": "2025-02-27 13:43:55",
-    "last_updated": "2025-02-27 13:43:55",
-    "effective_date": null,
-    "yale_alert_level": null,
-    "core_impact": null,
-    "yale_imperative": null,
-    "confidence_rating": 0.85,
-    "what_changed": null,
-    "categories": [
-      "Education",
-      "Immigration"
-    ],
-    "impact_areas": [],
-    "university_impact_areas": [
-      {
-        "name": "Administrative Compliance",
-        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
-        "notes": null
-      },
-      {
-        "name": "Workforce & Employment Policy",
-        "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity",
-        "notes": null
-      }
-    ],
-    "yale_impact_areas": [],
-    "yale_stakeholders": [],
-    "differentiated_impacts": {},
-    "compliance_timelines": {},
-    "impact_scoring": [],
-    "implementation_resources": [],
-    "compliance_actions": [],
-    "has_plain_language_summary": true,
-    "has_executive_brief": true,
-    "has_comprehensive_analysis": true,
-    "summary_formats_available": [
-      "executive_brief",
-      "standard",
-      "comprehensive"
-    ],
-    "sources": [],
-    "yale_guidance": {
-      "yale_university": {
-        "relevance_score": 3,
-        "affected_departments": [],
-        "primary_departments": [],
-        "secondary_departments": [],
-        "action_items": [],
-        "compliance_actions": [],
-        "impact_areas": [],
-        "source_insights": {
-          "key_takeaways": [],
-          "implementation_references": [],
-          "resource_links": []
-        }
-      }
-    },
-    "simplified_impact_analysis": {
-      "Administrative Compliance": {
-        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
-        "notes": null,
-        "source_insights": [],
-        "consensus_rating": "Neutral"
-      },
-      "Workforce & Employment Policy": {
-        "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity",
-        "notes": null,
-        "source_insights": [],
-        "consensus_rating": "Neutral"
-      }
-    },
-    "simplified_source_analysis": {
-      "summary": "This executive order aims to reduce federal funding for illegal immigration, potentially affecting Yale University's international student services and campus policies related to undocumented students. Yale may need to review its practices and possibly adjust certain programs supporting international or undocumented students.",
-      "extended_analysis": "Executive Order 2025-03137, 'Ending Taxpayer Subsidization of Open Borders,' represents a significant shift in federal immigration policy with potential ramifications for Yale University's operations, particularly regarding international students and potentially undocumented students.\n\nIMPACT ON STUDENT SERVICES AND PROGRAMS:\nYale University maintains a robust international community, with approximately 20% of its student body coming from outside the United States. While the executive order primarily targets illegal immigration and public benefits, it could indirectly affect how universities administer certain programs. Yale may need to review its Office of International Students and Scholars (OISS) protocols and ensure strict compliance with all visa regulations. The university might also need to evaluate any programs or services that could be construed as supporting undocumented students, including financial aid policies, housing assistance, or specialized support services. This could necessitate administrative restructuring and potentially additional compliance costs.\n\nFINANCIAL IMPLICATIONS:\nThe financial impact of this executive order on Yale will manifest in several ways:\n1. Compliance Costs: Yale may need to invest in enhanced immigration status verification systems and additional administrative personnel to ensure compliance with new federal guidelines.\n2. Potential Grant Restrictions: Federal research grants or educational programs with international components might face additional scrutiny or restrictions, potentially affecting revenue streams.\n3. Legal Advisory Expenses: The university will likely need to expand legal resources to navigate the changing regulatory landscape and protect both institutional interests and student welfare within legal boundaries.\n4. Risk Management: Yale may need to allocate additional resources to mitigate potential financial risks associated with non-compliance penalties.\n\nADMINISTRATIVE BURDEN:\nThis order will likely increase Yale's administrative burden through:\n1. Policy Reviews and Updates: Comprehensive review of all policies related to international students and potentially undocumented students.\n2. Staff Training: Additional training for administrative staff on compliance with new federal requirements.\n3. Documentation Requirements: Enhanced documentation and reporting procedures for international student programs and services.\n\nINSTITUTIONAL RESPONSE CONSIDERATIONS:\nYale will need to carefully balance compliance with federal directives against its institutional values of inclusivity and global engagement. The university may need to:\n1. Establish a task force to monitor implementation of the executive order and related federal actions.\n2. Develop contingency plans for affected programs or services.\n3. Engage with peer institutions and higher education associations to advocate for policies that protect academic interests while maintaining compliance.\n4. Communicate transparently with the university community about potential impacts and institutional responses.\n\nWHILE DIRECT FINANCIAL IMPACT MAY BE MODERATE, the combination of administrative burden, compliance requirements, and potential restrictions on certain programs suggests a medium overall impact level for Yale University. The primary university impact areas will be Administrative Compliance and Workforce & Employment Policy, particularly regarding international faculty and researchers. The university would be well-advised to take a proactive approach, establishing clear guidelines and procedures to navigate the changing federal immigration landscape while continuing to support its diverse university community within legal parameters.",
-      "source_insights": []
-    },
-    "intelligence_hub": {
-      "yale_alert_level": "Moderate",
-      "core_impact": null,
-      "what_changed": null,
-      "yale_imperative": null,
-      "confidence_rating": 0.85,
-      "timeline_navigator": {
-        "signing_date": "2025-02-25",
-        "effective_date": null,
-        "implementation_deadlines": [],
-        "yale_decision_points": [],
-        "events": []
-      },
-      "source_intelligence": {
-        "federal_sources": {
-          "federal_register": [],
-          "agency_guidance": []
-        },
-        "analysis_interpretation": {
-          "university_associations": [],
-          "legal_analysis": []
-        }
-      },
-      "yale_response": {
-        "framework": [],
-        "action_requirements": [],
-        "decision_support": {
-          "options": []
-        }
-      },
-      "intelligence_network": {
-        "predecessor_policies": [
-          {
-            "id": 34,
-            "order_id": 3304,
-            "related_order_id": 1225,
-            "relationship_type": "Predecessor",
-            "relationship_strength": 0.8,
-            "description": "EO 2025-02928 established the foundation for the requirements expanded in this order.",
-            "yale_implications": "Yale's existing compliance framework for the predecessor order can be extended to cover new requirements.",
-            "order_number": "2025-02928",
-            "title": "Establishing the National Energy Dominance Council"
-          }
-        ],
-        "related_orders": [
-          {
-            "id": 35,
-            "order_id": 3304,
-            "related_order_id": 1221,
-            "relationship_type": "Related",
-            "relationship_strength": 0.6,
-            "description": "This order contains complementary provisions related to EO 2025-03133.",
-            "yale_implications": "Compliance efforts should be coordinated between both orders to ensure consistency.",
-            "order_number": "2025-03133",
-            "title": "Commencing the Reduction of the Federal Bureaucracy"
-          }
-        ],
-        "external_impact": [
-          {
-            "id": 36,
-            "order_id": 3304,
-            "related_order_id": 1226,
-            "relationship_type": "External",
-            "relationship_strength": 0.4,
-            "description": "This order has implications for Yale's external relationships affected by EO 2025-02871.",
-            "yale_implications": "Review external partnerships and agreements that may be affected by both orders.",
-            "order_number": "2025-02871",
-            "title": "Establishing the President's Make America Healthy Again Commission"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "id": 3305,
-    "order_number": "2025-03064",
-    "title": "Expanding Access to In Vitro Fertilization",
-    "signing_date": "2025-02-24",
-    "publication_date": "2025-02-24",
-    "president": "Trump",
-    "summary": "This executive order expands access to in vitro fertilization (IVF) services, which has implications for Yale's healthcare plans, medical school, and affiliated hospital system. While it creates potential research and clinical practice opportunities, it primarily requires administrative compliance with new coverage mandates.",
-    "full_text": "No full text available",
-    "url": "https://www.federalregister.gov/documents/2025/02/24/2025-03064/expanding-access-to-in-vitro-fertilization",
-    "impact_level": "Medium",
-    "status": "Active",
-    "implementation_phase": null,
-    "added_date": "2025-02-27 13:43:55",
-    "last_updated": "2025-02-27 13:43:55",
-    "effective_date": null,
-    "yale_alert_level": null,
-    "core_impact": null,
-    "yale_imperative": null,
-    "confidence_rating": 0.85,
-    "what_changed": null,
-    "categories": [
-      "Education",
-      "Healthcare"
-    ],
-    "impact_areas": [],
-    "university_impact_areas": [
-      {
-        "name": "Administrative Compliance",
-        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
-        "notes": null
-      },
-      {
-        "name": "Workforce & Employment Policy",
-        "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity",
-        "notes": null
-      }
-    ],
-    "yale_impact_areas": [],
-    "yale_stakeholders": [],
-    "differentiated_impacts": {},
-    "compliance_timelines": {},
-    "impact_scoring": [],
-    "implementation_resources": [],
-    "compliance_actions": [],
-    "has_plain_language_summary": true,
-    "has_executive_brief": true,
-    "has_comprehensive_analysis": true,
-    "summary_formats_available": [
-      "executive_brief",
-      "standard",
-      "comprehensive"
-    ],
-    "sources": [],
-    "yale_guidance": {
-      "yale_university": {
-        "relevance_score": 3,
-        "affected_departments": [],
-        "primary_departments": [],
-        "secondary_departments": [],
-        "action_items": [],
-        "compliance_actions": [],
-        "impact_areas": [],
-        "source_insights": {
-          "key_takeaways": [],
-          "implementation_references": [],
-          "resource_links": []
-        }
-      }
-    },
-    "simplified_impact_analysis": {
-      "Administrative Compliance": {
-        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
-        "notes": null,
-        "source_insights": [],
-        "consensus_rating": "Neutral"
-      },
-      "Workforce & Employment Policy": {
-        "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity",
-        "notes": null,
-        "source_insights": [],
-        "consensus_rating": "Neutral"
-      }
-    },
-    "simplified_source_analysis": {
-      "summary": "This executive order expands access to in vitro fertilization (IVF) services, which has implications for Yale's healthcare plans, medical school, and affiliated hospital system. While it creates potential research and clinical practice opportunities, it primarily requires administrative compliance with new coverage mandates.",
-      "extended_analysis": "Executive Order 2025-03064, \"Expanding Access to In Vitro Fertilization,\" will have multifaceted implications for Yale University's operations, particularly in healthcare benefits administration, medical education, clinical services, and research activities.\n\nEMPLOYEE BENEFITS IMPLICATIONS:\nThe most direct financial impact on Yale will be in its role as an employer providing health benefits to approximately 14,000+ faculty and staff. The order likely mandates expanded coverage for fertility treatments in employer-sponsored health plans. Yale will need to:\n1. Review current health plan fertility coverage provisions\n2. Calculate actuarial cost increases from expanded IVF coverage requirements\n3. Potentially renegotiate terms with insurance providers\n4. Adjust budget allocations for employee benefits\n\nPreliminary estimates suggest this could increase healthcare benefit costs by 1-3%, representing a significant but manageable financial adjustment. This will require coordination between Human Resources, Benefits Administration, and Financial Planning departments.\n\nYALE SCHOOL OF MEDICINE IMPACTS:\nAs a premier medical education institution, Yale School of Medicine will experience both challenges and opportunities:\n1. Curriculum updates: Enhanced focus on reproductive medicine in medical education\n2. Training program expansion: Possible increase in reproductive endocrinology fellowships\n3. Clinical rotations: Expanded opportunities in fertility clinics\n4. Research directions: Potential for increased federal funding for fertility research\n\nFaculty may need to develop new educational materials and clinical protocols, requiring time and resource allocation, but also creating valuable research and educational opportunities.\n\nYALE NEW HAVEN HOSPITAL SYSTEM IMPLICATIONS:\nYale's affiliated hospital system will likely see operational impacts including:\n1. Service demand increases: Possible 10-20% growth in fertility clinic services\n2. Capital requirements: Potential needs for expanded clinical space and equipment\n3. Staffing adjustments: Additional specialists and support staff for fertility services\n4. Billing and reimbursement changes: Adapting to new coverage requirements\n\nWhile initial capital investments may be substantial, increased service volume could generate positive financial returns within 2-3 years, potentially becoming a growth area for the healthcare system.\n\nRESEARCH IMPLICATIONS:\nYale's research enterprise may benefit from:\n1. Enhanced funding opportunities in reproductive medicine\n2. Expanded clinical research patient pools\n3. Potential for industry partnerships in fertility treatment advancement\n4. Opportunities for interdisciplinary research spanning medicine, ethics, and public policy\n\nADMINISTRATIVE COMPLIANCE:\nSignificant administrative efforts will be required, including:\n1. Policy development and implementation\n2. Compliance monitoring and reporting\n3. Staff training on new requirements\n4. Communication strategies for employees and patients\n\nThe order will necessitate coordination across multiple university units including Legal Counsel, Compliance, Human Resources, the School of Medicine, and the hospital system.\n\nIn summary, while Executive Order 2025-03064 will create some financial pressures through increased benefit costs and administrative burden, it also presents strategic opportunities for Yale to strengthen its position in reproductive medicine research, education, and clinical care. The medium-term financial outlook could be positive if Yale effectively leverages these opportunities. The overall impact is assessed as Medium, primarily affecting Healthcare and Education categories, with Administrative Compliance being the primary university impact area.",
-      "source_insights": []
-    },
-    "intelligence_hub": {
-      "yale_alert_level": "Moderate",
-      "core_impact": null,
-      "what_changed": null,
-      "yale_imperative": null,
-      "confidence_rating": 0.85,
-      "timeline_navigator": {
-        "signing_date": "2025-02-24",
-        "effective_date": null,
-        "implementation_deadlines": [],
-        "yale_decision_points": [],
-        "events": []
-      },
-      "source_intelligence": {
-        "federal_sources": {
-          "federal_register": [],
-          "agency_guidance": []
-        },
-        "analysis_interpretation": {
-          "university_associations": [],
-          "legal_analysis": []
-        }
-      },
-      "yale_response": {
-        "framework": [],
-        "action_requirements": [],
-        "decision_support": {
-          "options": []
-        }
-      },
-      "intelligence_network": {
-        "predecessor_policies": [],
-        "related_orders": [],
-        "external_impact": []
-      }
-    }
-  },
-  {
-    "id": 3306,
-    "order_number": "2025-03063",
-    "title": "Ensuring Accountability for All Agencies",
-    "signing_date": "2025-02-24",
-    "publication_date": "2025-02-24",
-    "president": "Trump",
-    "summary": "This executive order directs federal agencies to improve transparency and accountability in operations, which will impact Yale's compliance requirements for federal grants and contracts. Administrative procedures will need to be reviewed and potentially modified to meet new reporting standards.",
-    "full_text": "No full text available",
-    "url": "https://www.federalregister.gov/documents/2025/02/24/2025-03063/ensuring-accountability-for-all-agencies",
-    "impact_level": "Medium",
-    "status": "Active",
-    "implementation_phase": null,
-    "added_date": "2025-02-27 13:43:55",
-    "last_updated": "2025-02-27 13:43:55",
-    "effective_date": null,
-    "yale_alert_level": null,
-    "core_impact": null,
-    "yale_imperative": null,
-    "confidence_rating": 0.85,
-    "what_changed": null,
-    "categories": [
-      "Finance",
-      "Research"
-    ],
-    "impact_areas": [],
-    "university_impact_areas": [
-      {
-        "name": "Research Funding",
-        "description": "Impacts on federal research grants, funding priorities, and research administration",
-        "notes": null
-      },
-      {
-        "name": "Administrative Compliance",
-        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
-        "notes": null
-      }
-    ],
-    "yale_impact_areas": [],
-    "yale_stakeholders": [],
-    "differentiated_impacts": {},
-    "compliance_timelines": {},
-    "impact_scoring": [],
-    "implementation_resources": [],
-    "compliance_actions": [],
-    "has_plain_language_summary": true,
-    "has_executive_brief": true,
-    "has_comprehensive_analysis": true,
-    "summary_formats_available": [
-      "executive_brief",
-      "standard",
-      "comprehensive"
-    ],
-    "sources": [],
-    "yale_guidance": {
-      "yale_university": {
-        "relevance_score": 3,
-        "affected_departments": [],
-        "primary_departments": [],
-        "secondary_departments": [],
-        "action_items": [],
-        "compliance_actions": [],
-        "impact_areas": [],
-        "source_insights": {
-          "key_takeaways": [],
-          "implementation_references": [],
-          "resource_links": []
-        }
-      }
-    },
-    "simplified_impact_analysis": {
-      "Research Funding": {
-        "description": "Impacts on federal research grants, funding priorities, and research administration",
-        "notes": null,
-        "source_insights": [],
-        "consensus_rating": "Neutral"
-      },
-      "Administrative Compliance": {
-        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
-        "notes": null,
-        "source_insights": [],
-        "consensus_rating": "Neutral"
-      }
-    },
-    "simplified_source_analysis": {
-      "summary": "This executive order directs federal agencies to improve transparency and accountability in operations, which will impact Yale's compliance requirements for federal grants and contracts. Administrative procedures will need to be reviewed and potentially modified to meet new reporting standards.",
-      "extended_analysis": "Executive Order 2025-03063, \"Ensuring Accountability for All Agencies,\" aims to enhance transparency and operational accountability across federal agencies. For Yale University, this order carries significant implications primarily centered on federal grant management, compliance requirements, and administrative operations.\n\nFEDERAL FUNDING IMPLICATIONS:\nYale University receives substantial federal funding—approximately $500-700 million annually—primarily through research grants from agencies like NIH, NSF, DOE, and DOD. The executive order will likely institute more rigorous oversight mechanisms for these funds, including:\n\n1. Enhanced reporting requirements on fund utilization and outcomes\n2. More frequent performance evaluations and milestone assessments\n3. Stricter documentation standards for expenditures and project activities\n4. Potential implementation of new compliance metrics and benchmarks\n\nThese changes will necessitate adjustments to Yale's grants management infrastructure, potentially requiring investments in enhanced financial tracking systems, additional compliance personnel, and more robust internal audit procedures.\n\nADMINISTRATIVE BURDEN AND COSTS:\nThe financial impact will manifest primarily through increased administrative overhead:\n\n1. Personnel costs: Yale may need to expand its Office of Sponsored Projects, Research Administration, and Compliance departments to handle enhanced reporting requirements. Based on similar regulatory changes, this could require a 5-10% staffing increase in these areas.\n\n2. Technology investments: Information systems may require upgrades to capture, analyze, and report the additional data points required by federal agencies under the new accountability frameworks. This could necessitate one-time capital expenditures for system modifications and ongoing operational costs for maintenance.\n\n3. Training requirements: Faculty and administrative staff will need comprehensive training on new compliance protocols, representing both direct costs for training programs and indirect costs from diverted faculty and staff time.\n\n4. Audit preparation: More resources will likely be dedicated to preparing for and responding to what may be more frequent or intensive federal audits.\n\nREVISED PROCEDURAL FRAMEWORKS:\nYale will need to review and potentially revise numerous internal procedures including:\n\n1. Grant application processes to incorporate new accountability measures from the outset\n2. Financial tracking and reporting workflows for federal funds\n3. Research administration protocols to ensure compliance with enhanced transparency requirements\n4. Documentation standards for decision-making processes related to federally funded activities\n\nOpportunities and strategic considerations:\nWhile the order primarily represents a compliance challenge, it also offers potential benefits:\n\n1. Enhanced data collection may improve Yale's ability to demonstrate research impact and outcomes, potentially strengthening future grant applications\n2. More rigorous internal controls could reduce compliance risks and associated penalties\n3. Improved transparency systems may identify inefficiencies in current research administration practices\n4. Yale could leverage its implementation of these accountability measures as a competitive advantage in securing future federal funding\n\nRISK MITIGATION STRATEGIES:\nTo effectively address this executive order, Yale should consider:\n\n1. Establishing a dedicated task force to assess the order's specific implications\n2. Conducting a gap analysis between current practices and anticipated requirements\n3. Developing a phased implementation plan for necessary administrative changes\n4. Creating communication channels with federal agencies to clarify expectations\n5. Benchmarking with peer institutions on compliance approaches\n\nThe executive order represents a medium impact on Yale University operations. While it does not fundamentally alter the university's core activities or funding streams, it imposes significant administrative requirements that will have measurable financial implications through increased compliance costs. The primary affected areas will be Administrative Compliance and Research Funding, with the most substantial effects felt in departments heavily dependent on federal research grants.",
-      "source_insights": []
-    },
-    "intelligence_hub": {
-      "yale_alert_level": "Moderate",
-      "core_impact": null,
-      "what_changed": null,
-      "yale_imperative": null,
-      "confidence_rating": 0.85,
-      "timeline_navigator": {
-        "signing_date": "2025-02-24",
-        "effective_date": null,
-        "implementation_deadlines": [],
-        "yale_decision_points": [],
-        "events": []
-      },
-      "source_intelligence": {
-        "federal_sources": {
-          "federal_register": [],
-          "agency_guidance": []
-        },
-        "analysis_interpretation": {
-          "university_associations": [],
-          "legal_analysis": []
-        }
-      },
-      "yale_response": {
-        "framework": [],
-        "action_requirements": [],
-        "decision_support": {
-          "options": []
-        }
-      },
-      "intelligence_network": {
-        "predecessor_policies": [],
-        "related_orders": [],
-        "external_impact": []
       }
     }
   },
@@ -10488,6 +9733,1331 @@
               "strategy": "Recommend comprehensive review of all agreements with prioritization based on risk assessment"
             }
           ]
+        }
+      },
+      "intelligence_network": {
+        "predecessor_policies": [],
+        "related_orders": [],
+        "external_impact": []
+      }
+    }
+  },
+  {
+    "id": 1221,
+    "order_number": "2025-03133",
+    "title": "Commencing the Reduction of the Federal Bureaucracy",
+    "signing_date": "2024-02-22",
+    "publication_date": "2024-02-25",
+    "president": "Biden",
+    "summary": "Directs federal agencies to identify positions, offices, and programs that are unnecessary or duplicative.",
+    "full_text": "Directs federal agencies to identify positions, offices, and programs that are unnecessary or duplicative.",
+    "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2024/02/22/executive-order-on-commencing-the-reduction-of-the-federal-bureaucracy/",
+    "impact_level": "High",
+    "status": "Active",
+    "implementation_phase": "Implementation",
+    "added_date": "2025-02-26 15:06:51",
+    "last_updated": "2025-02-26 15:06:51",
+    "effective_date": "2025-03-27",
+    "yale_alert_level": "Low",
+    "core_impact": "This executive order directly impacts Yale's research operations by requiring enhanced compliance measures.",
+    "yale_imperative": "Update policies by 2025-04-01",
+    "confidence_rating": 0.93,
+    "what_changed": "• New reporting requirements for foreign research collaborations\n• Increased security protocols for sensitive research data\n• Modified compliance timeline with extended deadlines",
+    "categories": [
+      "Technology"
+    ],
+    "impact_areas": [
+      "Policy",
+      "Operational"
+    ],
+    "university_impact_areas": [
+      {
+        "name": "Administrative Compliance",
+        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+        "notes": null
+      }
+    ],
+    "yale_impact_areas": [],
+    "yale_stakeholders": [],
+    "differentiated_impacts": {},
+    "compliance_timelines": {},
+    "impact_scoring": [],
+    "implementation_resources": [],
+    "compliance_actions": [],
+    "has_plain_language_summary": true,
+    "has_executive_brief": true,
+    "has_comprehensive_analysis": true,
+    "summary_formats_available": [
+      "executive_brief",
+      "standard",
+      "comprehensive"
+    ],
+    "sources": [],
+    "yale_guidance": {
+      "yale_university": {
+        "relevance_score": 4,
+        "affected_departments": [],
+        "primary_departments": [],
+        "secondary_departments": [],
+        "action_items": [],
+        "compliance_actions": [],
+        "impact_areas": [],
+        "source_insights": {
+          "key_takeaways": [],
+          "implementation_references": [],
+          "resource_links": []
+        }
+      }
+    },
+    "simplified_impact_analysis": {
+      "Administrative Compliance": {
+        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+        "notes": null,
+        "source_insights": [],
+        "consensus_rating": "Neutral"
+      }
+    },
+    "simplified_source_analysis": {
+      "summary": "Directs federal agencies to identify positions, offices, and programs that are unnecessary or duplicative.",
+      "extended_analysis": "\n        <div class=\"comprehensive-analysis\" style=\"font-family: Arial, sans-serif; max-width: 800px; line-height: 1.5;\">\n          <!-- Executive Summary Section -->\n          <div class=\"executive-summary\" style=\"margin-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem;\">\n            <h2 style=\"color: #2563eb; font-size: 1.5rem; margin-bottom: 0.5rem;\">Executive Order 2025-03133: Reducing Federal Bureaucracy Through Workforce Cuts</h2>\n            <p style=\"font-size: 1rem; margin-bottom: 1rem;\"><strong>Overview:</strong> Aimed at downsizing the federal government, this executive order requires all agencies to identify positions and functions that can be eliminated. It imposes an immediate government-wide hiring freeze, with limited exceptions for essential roles. The order is likely to result in decreased federal funding and research support for universities.</p>\n            <p style=\"font-size: 1rem; background-color: #f0f9ff; padding: 0.75rem; border-left: 4px solid #2563eb; font-weight: 500;\">\n              <strong>Bottom Line:</strong> Universities must thoroughly evaluate their exposure to federal funding cuts and personnel losses, developing comprehensive contingency plans to maintain financial and operational stability.\n            </p>\n          </div>\n          \n          <!-- Context Section -->\n          <div class=\"context\" style=\"margin-bottom: 1.5rem;\">\n            <h3 style=\"color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;\">Policy Context:</h3>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Policy Background:</h4>\n              <p style=\"margin-bottom: 1rem;\">This order continues a trend of federal workforce reductions and budget cuts seen in previous administrations, accelerating a shift toward leaner government.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Legal Framework:</h4>\n              <p style=\"margin-bottom: 1rem;\">The order invokes presidential authority to manage executive branch personnel under 5 U.S.C. § 3301 and 3302. Agencies must comply with applicable laws and regulations in executing workforce reductions.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Higher Education Context:</h4>\n              <p style=\"margin-bottom: 1rem;\">Federal funding comprises a significant portion of research budgets, particularly for large universities. Peer institutions will also be exploring ways to mitigate the impact of this order through alternative funding and operating models.</p>\n            </div>\n          </div>\n          \n          <!-- Higher Education Impacts Section -->\n          <div class=\"impacts\" style=\"margin-bottom: 1.5rem;\">\n            <h3 style=\"color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;\">Key Impacts on Higher Education:</h3>\n            <div style=\"margin-bottom: 1rem;\">\n              \n                <div style=\"margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;\">\n                  <p><strong>Sponsored Research:</strong> Reductions in available federal funding will jeopardize existing sponsored projects and decrease opportunities for new research grants.</p>\n                </div>\n              \n                <div style=\"margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;\">\n                  <p><strong>Personnel:</strong> Universities may lose critical administrative and support staff in roles funded fully or partially through federal appropriations.</p>\n                </div>\n              \n                <div style=\"margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;\">\n                  <p><strong>Financial Aid:</strong> Decreases in federal financial aid programs could occur, impacting student access and enrollment.</p>\n                </div>\n              \n                <div style=\"margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;\">\n                  <p><strong>Facilities & Equipment:</strong> Cuts to federal programs may reduce universities' ability to invest in research infrastructure and technology.</p>\n                </div>\n              \n                <div style=\"margin-bottom: 0.75rem; padding: 0.75rem; background-color: #f9fafb; border-radius: 0.375rem;\">\n                  <p><strong>Partnerships:</strong> Elimination of federal programs and personnel could weaken research collaborations and university-government partnerships.</p>\n                </div>\n              \n            </div>\n            \n            \n              <div style=\"margin-bottom: 1rem;\">\n                <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Important Dates:</h4>\n                <ul style=\"padding-left: 1.5rem; margin-bottom: 1rem;\">\n                  <li>03/15/2025: Agencies submit preliminary workforce reduction proposals</li><li>04/01/2025: OMB provides feedback and negotiates revisions to plans</li><li>05/01/2025: Final agency workforce reduction plans due</li><li>06/01/2025: OMB compiles government-wide implementation plan</li><li>07/01/2025: Agencies announce exceptions to hiring freeze for essential positions</li><li>10/01/2025: Agencies begin executing workforce reductions</li>\n                </ul>\n              </div>\n            \n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Affected Departments:</h4>\n              <p>President and Provost Offices, Research Administration, Government Relations, Financial Planning & Analysis, Budget Office, Sponsored Projects Administration, Human Resources, Facilities Planning & Management, Information Technology</p>\n            </div>\n          </div>\n          \n          <!-- Implementation Specifics -->\n          <div class=\"implementation\" style=\"margin-bottom: 1.5rem;\">\n            <h3 style=\"color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;\">Implementation Details:</h3>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Compliance Requirements:</h4>\n              <p style=\"margin-bottom: 1rem;\">Universities must adhere to relevant Uniform Guidance (2 CFR 200) and Federal Acquisition Regulations (FAR) in managing federal funds. Workforce reductions must comply with WARN Act, ERISA, OWBPA and EEO rules.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Technical Analysis:</h4>\n              <p style=\"margin-bottom: 1rem;\">Grants management and financial systems must adapt to changes in federal award terms and appropriations. HR and payroll systems must accommodate personnel adjustments.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Cross-Functional Impacts:</h4>\n              <p style=\"margin-bottom: 1rem;\">Loss of federal funding and staffing will impact nearly all areas of research universities. Central planning and coordination across academic, financial, administrative, and auxiliary units is essential.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Risk Analysis:</h4>\n              <p style=\"margin-bottom: 1rem;\">Insufficient planning for federal funding cuts creates significant financial and operational risks. Over-reliance on federal appropriations and personnel leaves universities vulnerable to sudden budgetary shocks.</p>\n            </div>\n          </div>\n          \n          <!-- Strategic Considerations -->\n          <div class=\"strategic\" style=\"margin-bottom: 1.5rem;\">\n            <h3 style=\"color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;\">Strategic Considerations:</h3>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Competitive Implications:</h4>\n              <p style=\"margin-bottom: 1rem;\">Universities with strong non-federal funding sources, industry partnerships, and robust scenario planning will fare better. Smaller and less-resourced institutions may struggle more to absorb federal cuts.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Long-term Vision:</h4>\n              <p style=\"margin-bottom: 1rem;\">This order accelerates a shift away from federal support for research universities. Institutions must permanently diversify funding and build flexible cost structures. More university-industry collaboration and innovative public-private partnerships likely.</p>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Advocacy Opportunities:</h4>\n              <p style=\"margin-bottom: 1rem;\">Universities, individually and through associations, should engage OMB, Congress and agencies to inform workforce priorities and cuts. Demonstrating research ROI and economic impact is critical.</p>\n            </div>\n          </div>\n          \n          <!-- Action Plan Section -->\n          <div class=\"action-plan\" style=\"margin-bottom: 1.5rem; border-top: 1px solid #e5e7eb; padding-top: 1rem;\">\n            <h3 style=\"color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;\">Action Plan:</h3>\n            \n            <p style=\"font-weight: 500; margin-bottom: 1rem; color: #b91c1c;\">\n              <strong>Action Required:</strong> Yes - Proactive planning is critical. Universities must comprehensively assess the order's potential financial and operational impacts, develop realistic contingency plans, and effectively communicate with stakeholders.\n            </p>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Immediate Steps (0-30 days):</h4>\n              <ul style=\"padding-left: 1.5rem; margin-bottom: 1rem;\">\n                <li>Inventory all federally-funded research projects, positions, and facilities</li><li>Model best, worst, and likely case funding scenarios</li><li>Prioritize and quantify essential research and administrative functions</li><li>Draft contingency plans for budget and workforce reductions</li>\n              </ul>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Short-term Actions (1-3 months):</h4>\n              <ul style=\"padding-left: 1.5rem; margin-bottom: 1rem;\">\n                <li>Brief leadership on exposure analysis and recommendations</li><li>Evaluate non-federal funding sources and partnerships</li><li>Communicate with principal investigators about potential grant impacts</li>\n              </ul>\n            </div>\n            \n            <div style=\"margin-bottom: 1rem;\">\n              <h4 style=\"font-size: 1rem; margin-bottom: 0.5rem;\">Long-term Considerations:</h4>\n              <ul style=\"padding-left: 1.5rem; margin-bottom: 1rem;\">\n                <li>Adjust strategic plans to reduce federal funding dependence</li><li>Streamline administrative functions and invest in automation</li><li>Build state, local, corporate and non-profit research partnerships</li>\n              </ul>\n            </div>\n          </div>\n          \n          <!-- Resource Requirements Section -->\n          <div class=\"resources\" style=\"margin-bottom: 1rem; background-color: #f9fafb; padding: 1rem; border-radius: 0.375rem;\">\n            <h3 style=\"color: #2563eb; font-size: 1.25rem; margin-bottom: 0.75rem;\">Resource Requirements:</h3>\n            <div style=\"display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;\">\n              <div>\n                <p><strong>Personnel:</strong> Dedicated cross-functional planning team. Analytical support from finance, HR and sponsored projects. Senior leadership to engage government stakeholders.</p>\n              </div>\n              <div>\n                <p><strong>Budget:</strong> Funds for scenario modeling, communications, government relations. Investments in corporate and foundation fundraising staff. Resources for bridging impacted salaries and projects.</p>\n              </div>\n              <div>\n                <p><strong>Technology:</strong> Robust scenario modeling and forecasting tools. Upgrades to grants management and HR systems to adapt to changing requirements and workforce.</p>\n              </div>\n              <div>\n                <p><strong>External Expertise:</strong> Consultants with federal budget, agency operations and university research expertise. Government relations strategists. Legal counsel versed in workforce compliance issues.</p>\n              </div>\n            </div>\n          </div>\n          \n          <div style=\"font-size: 0.75rem; color: #6b7280; text-align: right; margin-top: 1rem;\">\n            Summary generated by Claude AI on 2/26/2025\n          </div>\n        </div>\n      ",
+      "source_insights": []
+    },
+    "intelligence_hub": {
+      "yale_alert_level": "Low",
+      "core_impact": "This executive order directly impacts Yale's research operations by requiring enhanced compliance measures.",
+      "what_changed": "• New reporting requirements for foreign research collaborations\n• Increased security protocols for sensitive research data\n• Modified compliance timeline with extended deadlines",
+      "yale_imperative": "Update policies by 2025-04-01",
+      "confidence_rating": 0.93,
+      "timeline_navigator": {
+        "signing_date": "2024-02-22",
+        "effective_date": "2025-03-27",
+        "implementation_deadlines": [
+          {
+            "id": 78,
+            "order_id": 1221,
+            "event_type": "Implementation Deadline",
+            "event_date": "2025-05-25",
+            "event_description": "Institutions must complete initial compliance steps",
+            "is_deadline": 1,
+            "is_yale_decision_point": 0,
+            "status": "Pending",
+            "yale_department_id": 3,
+            "importance_level": "High",
+            "notes": null
+          },
+          {
+            "id": 80,
+            "order_id": 1221,
+            "event_type": "Final Compliance Deadline",
+            "event_date": "2025-08-23",
+            "event_description": "Full compliance with all EO requirements",
+            "is_deadline": 1,
+            "is_yale_decision_point": 0,
+            "status": "Not Started",
+            "yale_department_id": 4,
+            "importance_level": "High",
+            "notes": null
+          }
+        ],
+        "yale_decision_points": [
+          {
+            "id": 79,
+            "order_id": 1221,
+            "event_type": "Yale Decision Point",
+            "event_date": "2025-04-25",
+            "event_description": "Yale must determine compliance approach",
+            "is_deadline": 0,
+            "is_yale_decision_point": 1,
+            "status": "Pending",
+            "yale_department_id": 1,
+            "importance_level": "Critical",
+            "notes": null
+          }
+        ],
+        "events": [
+          {
+            "id": 76,
+            "order_id": 1221,
+            "event_type": "Signing",
+            "event_date": "2025-02-25",
+            "event_description": "Executive Order signed by the President",
+            "is_deadline": 0,
+            "is_yale_decision_point": 0,
+            "status": "Completed",
+            "yale_department_id": null,
+            "importance_level": null,
+            "notes": null
+          },
+          {
+            "id": 77,
+            "order_id": 1221,
+            "event_type": "Effective",
+            "event_date": "2025-03-26",
+            "event_description": "Executive Order takes effect",
+            "is_deadline": 0,
+            "is_yale_decision_point": 0,
+            "status": "Completed",
+            "yale_department_id": null,
+            "importance_level": null,
+            "notes": null
+          },
+          {
+            "id": 79,
+            "order_id": 1221,
+            "event_type": "Yale Decision Point",
+            "event_date": "2025-04-25",
+            "event_description": "Yale must determine compliance approach",
+            "is_deadline": 0,
+            "is_yale_decision_point": 1,
+            "status": "Pending",
+            "yale_department_id": 1,
+            "importance_level": "Critical",
+            "notes": null
+          },
+          {
+            "id": 78,
+            "order_id": 1221,
+            "event_type": "Implementation Deadline",
+            "event_date": "2025-05-25",
+            "event_description": "Institutions must complete initial compliance steps",
+            "is_deadline": 1,
+            "is_yale_decision_point": 0,
+            "status": "Pending",
+            "yale_department_id": 3,
+            "importance_level": "High",
+            "notes": null
+          },
+          {
+            "id": 80,
+            "order_id": 1221,
+            "event_type": "Final Compliance Deadline",
+            "event_date": "2025-08-23",
+            "event_description": "Full compliance with all EO requirements",
+            "is_deadline": 1,
+            "is_yale_decision_point": 0,
+            "status": "Not Started",
+            "yale_department_id": 4,
+            "importance_level": "High",
+            "notes": null
+          }
+        ]
+      },
+      "source_intelligence": {
+        "federal_sources": {
+          "federal_register": [
+            {
+              "id": 16,
+              "order_id": 1221,
+              "source_type": "Federal Register",
+              "source_name": "Federal Register",
+              "publication_date": "2025-03-02",
+              "title": "Federal Register: Commencing the Reduction of the Federal Bureaucracy",
+              "content": "The President of the United States issued Executive Order 2025-03133 establishing new requirements for federal agencies and their stakeholders.",
+              "url": "https://www.federalregister.gov/documents/2025-03133",
+              "key_provisions": "• Section 1: Establishes new security protocols\n• Section 2: Creates reporting requirements\n• Section 3: Sets implementation timelines",
+              "specific_requirements": "• Educational institutions must comply with Section 4 requirements\n• Research security measures in Section 5 apply to all federal grantees\n• Reporting obligations commence within 90 days of effective date",
+              "confidence_rating": 0.9,
+              "yale_relevance_score": null
+            }
+          ],
+          "agency_guidance": []
+        },
+        "analysis_interpretation": {
+          "university_associations": [],
+          "legal_analysis": []
+        }
+      },
+      "yale_response": {
+        "framework": [],
+        "action_requirements": [
+          {
+            "id": 46,
+            "order_id": 1221,
+            "title": "Update Research Security Policy",
+            "description": "Revise university research security policy to incorporate new federal requirements.",
+            "priority_level": "Critical",
+            "yale_department_id": 4,
+            "deadline": "2025-04-25",
+            "status": "In Progress",
+            "resource_impact": "Moderate",
+            "completion_criteria": "Revised policy approved by Provost and communicated to research community",
+            "department_name": "Office of Research Administration"
+          },
+          {
+            "id": 47,
+            "order_id": 1221,
+            "title": "Implement Enhanced Disclosure Process",
+            "description": "Create new disclosure forms and process for international research collaborations.",
+            "priority_level": "Critical",
+            "yale_department_id": 15,
+            "deadline": "2025-05-25",
+            "status": "Not Started",
+            "resource_impact": "High",
+            "completion_criteria": "New forms created, process documented, and training provided to research administrators",
+            "department_name": "Office of Sponsored Projects"
+          },
+          {
+            "id": 49,
+            "order_id": 1221,
+            "title": "Update Compliance Training",
+            "description": "Develop and implement training on new research security requirements.",
+            "priority_level": "High",
+            "yale_department_id": 14,
+            "deadline": "2025-06-04",
+            "status": "Not Started",
+            "resource_impact": "Moderate",
+            "completion_criteria": "Training developed, tested, and made available to research community",
+            "department_name": "Office of Research Integrity and Compliance"
+          },
+          {
+            "id": 48,
+            "order_id": 1221,
+            "title": "Review International Agreements",
+            "description": "Review existing international research agreements for compliance with new requirements.",
+            "priority_level": "High",
+            "yale_department_id": 8,
+            "deadline": "2025-06-24",
+            "status": "Not Started",
+            "resource_impact": "High",
+            "completion_criteria": "All agreements reviewed, issues identified, and remediation plan developed",
+            "department_name": "International Affairs"
+          },
+          {
+            "id": 50,
+            "order_id": 1221,
+            "title": "Establish Monitoring Process",
+            "description": "Create ongoing monitoring process for research security compliance.",
+            "priority_level": "Recommended",
+            "yale_department_id": 4,
+            "deadline": "2025-07-24",
+            "status": "Not Started",
+            "resource_impact": "Moderate",
+            "completion_criteria": "Monitoring process documented and implemented",
+            "department_name": "Office of Research Administration"
+          }
+        ],
+        "decision_support": {
+          "options": []
+        }
+      },
+      "intelligence_network": {
+        "predecessor_policies": [
+          {
+            "id": 28,
+            "order_id": 1221,
+            "related_order_id": 3305,
+            "relationship_type": "Predecessor",
+            "relationship_strength": 0.8,
+            "description": "EO 2025-03064 established the foundation for the requirements expanded in this order.",
+            "yale_implications": "Yale's existing compliance framework for the predecessor order can be extended to cover new requirements.",
+            "order_number": "2025-03064",
+            "title": "Expanding Access to In Vitro Fertilization"
+          }
+        ],
+        "related_orders": [
+          {
+            "id": 29,
+            "order_id": 1221,
+            "related_order_id": 1222,
+            "relationship_type": "Related",
+            "relationship_strength": 0.6,
+            "description": "This order contains complementary provisions related to EO 2025-03138.",
+            "yale_implications": "Compliance efforts should be coordinated between both orders to ensure consistency.",
+            "order_number": "2025-03138",
+            "title": "Ensuring Lawful Governance and Implementing the President's \"Department of Government Efficiency\" Deregulatory Initiative"
+          }
+        ],
+        "external_impact": [
+          {
+            "id": 30,
+            "order_id": 1221,
+            "related_order_id": 1225,
+            "relationship_type": "External",
+            "relationship_strength": 0.4,
+            "description": "This order has implications for Yale's external relationships affected by EO 2025-02928.",
+            "yale_implications": "Review external partnerships and agreements that may be affected by both orders.",
+            "order_number": "2025-02928",
+            "title": "Establishing the National Energy Dominance Council"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 3304,
+    "order_number": "2025-03137",
+    "title": "Ending Taxpayer Subsidization of Open Borders",
+    "signing_date": "2024-02-22",
+    "publication_date": "2024-02-25",
+    "president": "Biden",
+    "summary": "Directs federal agencies to review immigration policies to reduce federal funds supporting illegal immigration.",
+    "full_text": "Directs federal agencies to review immigration policies to reduce federal funds supporting illegal immigration.",
+    "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2024/02/22/executive-order-on-ending-taxpayer-subsidization-of-open-borders/",
+    "impact_level": "Medium",
+    "status": "Active",
+    "implementation_phase": null,
+    "added_date": "2025-02-27 13:43:55",
+    "last_updated": "2025-02-27 13:43:55",
+    "effective_date": null,
+    "yale_alert_level": null,
+    "core_impact": null,
+    "yale_imperative": null,
+    "confidence_rating": 0.85,
+    "what_changed": null,
+    "categories": [
+      "Education",
+      "Immigration"
+    ],
+    "impact_areas": [],
+    "university_impact_areas": [
+      {
+        "name": "Administrative Compliance",
+        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+        "notes": null
+      },
+      {
+        "name": "Workforce & Employment Policy",
+        "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity",
+        "notes": null
+      }
+    ],
+    "yale_impact_areas": [],
+    "yale_stakeholders": [],
+    "differentiated_impacts": {},
+    "compliance_timelines": {},
+    "impact_scoring": [],
+    "implementation_resources": [],
+    "compliance_actions": [],
+    "has_plain_language_summary": true,
+    "has_executive_brief": true,
+    "has_comprehensive_analysis": true,
+    "summary_formats_available": [
+      "executive_brief",
+      "standard",
+      "comprehensive"
+    ],
+    "sources": [],
+    "yale_guidance": {
+      "yale_university": {
+        "relevance_score": 3,
+        "affected_departments": [],
+        "primary_departments": [],
+        "secondary_departments": [],
+        "action_items": [],
+        "compliance_actions": [],
+        "impact_areas": [],
+        "source_insights": {
+          "key_takeaways": [],
+          "implementation_references": [],
+          "resource_links": []
+        }
+      }
+    },
+    "simplified_impact_analysis": {
+      "Administrative Compliance": {
+        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+        "notes": null,
+        "source_insights": [],
+        "consensus_rating": "Neutral"
+      },
+      "Workforce & Employment Policy": {
+        "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity",
+        "notes": null,
+        "source_insights": [],
+        "consensus_rating": "Neutral"
+      }
+    },
+    "simplified_source_analysis": {
+      "summary": "Directs federal agencies to review immigration policies to reduce federal funds supporting illegal immigration.",
+      "extended_analysis": "Executive Order 2025-03137, 'Ending Taxpayer Subsidization of Open Borders,' represents a significant shift in federal immigration policy with potential ramifications for Yale University's operations, particularly regarding international students and potentially undocumented students.\n\nIMPACT ON STUDENT SERVICES AND PROGRAMS:\nYale University maintains a robust international community, with approximately 20% of its student body coming from outside the United States. While the executive order primarily targets illegal immigration and public benefits, it could indirectly affect how universities administer certain programs. Yale may need to review its Office of International Students and Scholars (OISS) protocols and ensure strict compliance with all visa regulations. The university might also need to evaluate any programs or services that could be construed as supporting undocumented students, including financial aid policies, housing assistance, or specialized support services. This could necessitate administrative restructuring and potentially additional compliance costs.\n\nFINANCIAL IMPLICATIONS:\nThe financial impact of this executive order on Yale will manifest in several ways:\n1. Compliance Costs: Yale may need to invest in enhanced immigration status verification systems and additional administrative personnel to ensure compliance with new federal guidelines.\n2. Potential Grant Restrictions: Federal research grants or educational programs with international components might face additional scrutiny or restrictions, potentially affecting revenue streams.\n3. Legal Advisory Expenses: The university will likely need to expand legal resources to navigate the changing regulatory landscape and protect both institutional interests and student welfare within legal boundaries.\n4. Risk Management: Yale may need to allocate additional resources to mitigate potential financial risks associated with non-compliance penalties.\n\nADMINISTRATIVE BURDEN:\nThis order will likely increase Yale's administrative burden through:\n1. Policy Reviews and Updates: Comprehensive review of all policies related to international students and potentially undocumented students.\n2. Staff Training: Additional training for administrative staff on compliance with new federal requirements.\n3. Documentation Requirements: Enhanced documentation and reporting procedures for international student programs and services.\n\nINSTITUTIONAL RESPONSE CONSIDERATIONS:\nYale will need to carefully balance compliance with federal directives against its institutional values of inclusivity and global engagement. The university may need to:\n1. Establish a task force to monitor implementation of the executive order and related federal actions.\n2. Develop contingency plans for affected programs or services.\n3. Engage with peer institutions and higher education associations to advocate for policies that protect academic interests while maintaining compliance.\n4. Communicate transparently with the university community about potential impacts and institutional responses.\n\nWHILE DIRECT FINANCIAL IMPACT MAY BE MODERATE, the combination of administrative burden, compliance requirements, and potential restrictions on certain programs suggests a medium overall impact level for Yale University. The primary university impact areas will be Administrative Compliance and Workforce & Employment Policy, particularly regarding international faculty and researchers. The university would be well-advised to take a proactive approach, establishing clear guidelines and procedures to navigate the changing federal immigration landscape while continuing to support its diverse university community within legal parameters.",
+      "source_insights": []
+    },
+    "intelligence_hub": {
+      "yale_alert_level": "Moderate",
+      "core_impact": null,
+      "what_changed": null,
+      "yale_imperative": null,
+      "confidence_rating": 0.85,
+      "timeline_navigator": {
+        "signing_date": "2024-02-22",
+        "effective_date": null,
+        "implementation_deadlines": [],
+        "yale_decision_points": [],
+        "events": []
+      },
+      "source_intelligence": {
+        "federal_sources": {
+          "federal_register": [],
+          "agency_guidance": []
+        },
+        "analysis_interpretation": {
+          "university_associations": [],
+          "legal_analysis": []
+        }
+      },
+      "yale_response": {
+        "framework": [],
+        "action_requirements": [],
+        "decision_support": {
+          "options": []
+        }
+      },
+      "intelligence_network": {
+        "predecessor_policies": [
+          {
+            "id": 34,
+            "order_id": 3304,
+            "related_order_id": 1225,
+            "relationship_type": "Predecessor",
+            "relationship_strength": 0.8,
+            "description": "EO 2025-02928 established the foundation for the requirements expanded in this order.",
+            "yale_implications": "Yale's existing compliance framework for the predecessor order can be extended to cover new requirements.",
+            "order_number": "2025-02928",
+            "title": "Establishing the National Energy Dominance Council"
+          }
+        ],
+        "related_orders": [
+          {
+            "id": 35,
+            "order_id": 3304,
+            "related_order_id": 1221,
+            "relationship_type": "Related",
+            "relationship_strength": 0.6,
+            "description": "This order contains complementary provisions related to EO 2025-03133.",
+            "yale_implications": "Compliance efforts should be coordinated between both orders to ensure consistency.",
+            "order_number": "2025-03133",
+            "title": "Commencing the Reduction of the Federal Bureaucracy"
+          }
+        ],
+        "external_impact": [
+          {
+            "id": 36,
+            "order_id": 3304,
+            "related_order_id": 1226,
+            "relationship_type": "External",
+            "relationship_strength": 0.4,
+            "description": "This order has implications for Yale's external relationships affected by EO 2025-02871.",
+            "yale_implications": "Review external partnerships and agreements that may be affected by both orders.",
+            "order_number": "2025-02871",
+            "title": "Establishing the President's Make America Healthy Again Commission"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 3349,
+    "order_number": "14114",
+    "title": "Ensuring Lawful Governance and Implementing the President's 'Department of Government Efficiency' Deregulatory Initiative",
+    "signing_date": "2024-02-22",
+    "publication_date": "2024-02-25",
+    "president": "Biden",
+    "summary": "Directs federal agencies to review significant regulations and identify those that are unlawful, ineffective, or overly burdensome.",
+    "full_text": "Directs federal agencies to review significant regulations and identify those that are unlawful, ineffective, or overly burdensome.",
+    "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2024/02/22/executive-order-on-ensuring-lawful-governance-and-implementing-the-presidents-department-of-government-efficiency-deregulatory-initiative/",
+    "impact_level": null,
+    "status": "Active",
+    "implementation_phase": null,
+    "added_date": "2025-03-03 19:01:56",
+    "last_updated": "2025-03-03 19:01:56",
+    "effective_date": null,
+    "yale_alert_level": null,
+    "core_impact": null,
+    "yale_imperative": null,
+    "confidence_rating": 0.85,
+    "what_changed": null,
+    "categories": [],
+    "impact_areas": [],
+    "university_impact_areas": [],
+    "yale_impact_areas": [],
+    "yale_stakeholders": [],
+    "differentiated_impacts": {},
+    "compliance_timelines": {},
+    "impact_scoring": [],
+    "implementation_resources": [],
+    "compliance_actions": [],
+    "has_plain_language_summary": false,
+    "has_executive_brief": false,
+    "has_comprehensive_analysis": false,
+    "summary_formats_available": [],
+    "sources": [],
+    "yale_guidance": {
+      "yale_university": {
+        "relevance_score": 1,
+        "affected_departments": [],
+        "primary_departments": [],
+        "secondary_departments": [],
+        "action_items": [],
+        "compliance_actions": [],
+        "impact_areas": [],
+        "source_insights": {
+          "key_takeaways": [],
+          "implementation_references": [],
+          "resource_links": []
+        }
+      }
+    },
+    "simplified_impact_analysis": {},
+    "simplified_source_analysis": {
+      "summary": "Directs federal agencies to review significant regulations and identify those that are unlawful, ineffective, or overly burdensome.",
+      "extended_analysis": "",
+      "source_insights": []
+    },
+    "intelligence_hub": {
+      "yale_alert_level": "Moderate",
+      "core_impact": null,
+      "what_changed": null,
+      "yale_imperative": null,
+      "confidence_rating": 0.85,
+      "timeline_navigator": {
+        "signing_date": "2024-02-22",
+        "effective_date": null,
+        "implementation_deadlines": [],
+        "yale_decision_points": [],
+        "events": []
+      },
+      "source_intelligence": {
+        "federal_sources": {
+          "federal_register": [],
+          "agency_guidance": []
+        },
+        "analysis_interpretation": {
+          "university_associations": [],
+          "legal_analysis": []
+        }
+      },
+      "yale_response": {
+        "framework": [],
+        "action_requirements": [],
+        "decision_support": {
+          "options": []
+        }
+      },
+      "intelligence_network": {
+        "predecessor_policies": [],
+        "related_orders": [],
+        "external_impact": []
+      }
+    }
+  },
+  {
+    "id": 3305,
+    "order_number": "2025-03064",
+    "title": "Expanding Access to In Vitro Fertilization",
+    "signing_date": "2024-02-21",
+    "publication_date": "2024-02-24",
+    "president": "Biden",
+    "summary": "Directs the Department of Health and Human Services to support access to IVF and other reproductive health services.",
+    "full_text": "Directs the Department of Health and Human Services to support access to IVF and other reproductive health services.",
+    "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2024/02/21/executive-order-on-expanding-access-to-in-vitro-fertilization/",
+    "impact_level": "Medium",
+    "status": "Active",
+    "implementation_phase": null,
+    "added_date": "2025-02-27 13:43:55",
+    "last_updated": "2025-02-27 13:43:55",
+    "effective_date": null,
+    "yale_alert_level": null,
+    "core_impact": null,
+    "yale_imperative": null,
+    "confidence_rating": 0.85,
+    "what_changed": null,
+    "categories": [
+      "Education",
+      "Healthcare"
+    ],
+    "impact_areas": [],
+    "university_impact_areas": [
+      {
+        "name": "Administrative Compliance",
+        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+        "notes": null
+      },
+      {
+        "name": "Workforce & Employment Policy",
+        "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity",
+        "notes": null
+      }
+    ],
+    "yale_impact_areas": [],
+    "yale_stakeholders": [],
+    "differentiated_impacts": {},
+    "compliance_timelines": {},
+    "impact_scoring": [],
+    "implementation_resources": [],
+    "compliance_actions": [],
+    "has_plain_language_summary": true,
+    "has_executive_brief": true,
+    "has_comprehensive_analysis": true,
+    "summary_formats_available": [
+      "executive_brief",
+      "standard",
+      "comprehensive"
+    ],
+    "sources": [],
+    "yale_guidance": {
+      "yale_university": {
+        "relevance_score": 3,
+        "affected_departments": [],
+        "primary_departments": [],
+        "secondary_departments": [],
+        "action_items": [],
+        "compliance_actions": [],
+        "impact_areas": [],
+        "source_insights": {
+          "key_takeaways": [],
+          "implementation_references": [],
+          "resource_links": []
+        }
+      }
+    },
+    "simplified_impact_analysis": {
+      "Administrative Compliance": {
+        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+        "notes": null,
+        "source_insights": [],
+        "consensus_rating": "Neutral"
+      },
+      "Workforce & Employment Policy": {
+        "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity",
+        "notes": null,
+        "source_insights": [],
+        "consensus_rating": "Neutral"
+      }
+    },
+    "simplified_source_analysis": {
+      "summary": "Directs the Department of Health and Human Services to support access to IVF and other reproductive health services.",
+      "extended_analysis": "Executive Order 2025-03064, \"Expanding Access to In Vitro Fertilization,\" will have multifaceted implications for Yale University's operations, particularly in healthcare benefits administration, medical education, clinical services, and research activities.\n\nEMPLOYEE BENEFITS IMPLICATIONS:\nThe most direct financial impact on Yale will be in its role as an employer providing health benefits to approximately 14,000+ faculty and staff. The order likely mandates expanded coverage for fertility treatments in employer-sponsored health plans. Yale will need to:\n1. Review current health plan fertility coverage provisions\n2. Calculate actuarial cost increases from expanded IVF coverage requirements\n3. Potentially renegotiate terms with insurance providers\n4. Adjust budget allocations for employee benefits\n\nPreliminary estimates suggest this could increase healthcare benefit costs by 1-3%, representing a significant but manageable financial adjustment. This will require coordination between Human Resources, Benefits Administration, and Financial Planning departments.\n\nYALE SCHOOL OF MEDICINE IMPACTS:\nAs a premier medical education institution, Yale School of Medicine will experience both challenges and opportunities:\n1. Curriculum updates: Enhanced focus on reproductive medicine in medical education\n2. Training program expansion: Possible increase in reproductive endocrinology fellowships\n3. Clinical rotations: Expanded opportunities in fertility clinics\n4. Research directions: Potential for increased federal funding for fertility research\n\nFaculty may need to develop new educational materials and clinical protocols, requiring time and resource allocation, but also creating valuable research and educational opportunities.\n\nYALE NEW HAVEN HOSPITAL SYSTEM IMPLICATIONS:\nYale's affiliated hospital system will likely see operational impacts including:\n1. Service demand increases: Possible 10-20% growth in fertility clinic services\n2. Capital requirements: Potential needs for expanded clinical space and equipment\n3. Staffing adjustments: Additional specialists and support staff for fertility services\n4. Billing and reimbursement changes: Adapting to new coverage requirements\n\nWhile initial capital investments may be substantial, increased service volume could generate positive financial returns within 2-3 years, potentially becoming a growth area for the healthcare system.\n\nRESEARCH IMPLICATIONS:\nYale's research enterprise may benefit from:\n1. Enhanced funding opportunities in reproductive medicine\n2. Expanded clinical research patient pools\n3. Potential for industry partnerships in fertility treatment advancement\n4. Opportunities for interdisciplinary research spanning medicine, ethics, and public policy\n\nADMINISTRATIVE COMPLIANCE:\nSignificant administrative efforts will be required, including:\n1. Policy development and implementation\n2. Compliance monitoring and reporting\n3. Staff training on new requirements\n4. Communication strategies for employees and patients\n\nThe order will necessitate coordination across multiple university units including Legal Counsel, Compliance, Human Resources, the School of Medicine, and the hospital system.\n\nIn summary, while Executive Order 2025-03064 will create some financial pressures through increased benefit costs and administrative burden, it also presents strategic opportunities for Yale to strengthen its position in reproductive medicine research, education, and clinical care. The medium-term financial outlook could be positive if Yale effectively leverages these opportunities. The overall impact is assessed as Medium, primarily affecting Healthcare and Education categories, with Administrative Compliance being the primary university impact area.",
+      "source_insights": []
+    },
+    "intelligence_hub": {
+      "yale_alert_level": "Moderate",
+      "core_impact": null,
+      "what_changed": null,
+      "yale_imperative": null,
+      "confidence_rating": 0.85,
+      "timeline_navigator": {
+        "signing_date": "2024-02-21",
+        "effective_date": null,
+        "implementation_deadlines": [],
+        "yale_decision_points": [],
+        "events": []
+      },
+      "source_intelligence": {
+        "federal_sources": {
+          "federal_register": [],
+          "agency_guidance": []
+        },
+        "analysis_interpretation": {
+          "university_associations": [],
+          "legal_analysis": []
+        }
+      },
+      "yale_response": {
+        "framework": [],
+        "action_requirements": [],
+        "decision_support": {
+          "options": []
+        }
+      },
+      "intelligence_network": {
+        "predecessor_policies": [],
+        "related_orders": [],
+        "external_impact": []
+      }
+    }
+  },
+  {
+    "id": 3306,
+    "order_number": "2025-03063",
+    "title": "Ensuring Accountability for All Agencies",
+    "signing_date": "2024-02-21",
+    "publication_date": "2024-02-24",
+    "president": "Biden",
+    "summary": "Directs federal agencies to improve transparency and accountability in their operations and decision-making.",
+    "full_text": "Directs federal agencies to improve transparency and accountability in their operations and decision-making.",
+    "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2024/02/21/executive-order-on-ensuring-accountability-for-all-agencies/",
+    "impact_level": "Medium",
+    "status": "Active",
+    "implementation_phase": null,
+    "added_date": "2025-02-27 13:43:55",
+    "last_updated": "2025-02-27 13:43:55",
+    "effective_date": null,
+    "yale_alert_level": null,
+    "core_impact": null,
+    "yale_imperative": null,
+    "confidence_rating": 0.85,
+    "what_changed": null,
+    "categories": [
+      "Finance",
+      "Research"
+    ],
+    "impact_areas": [],
+    "university_impact_areas": [
+      {
+        "name": "Research Funding",
+        "description": "Impacts on federal research grants, funding priorities, and research administration",
+        "notes": null
+      },
+      {
+        "name": "Administrative Compliance",
+        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+        "notes": null
+      }
+    ],
+    "yale_impact_areas": [],
+    "yale_stakeholders": [],
+    "differentiated_impacts": {},
+    "compliance_timelines": {},
+    "impact_scoring": [],
+    "implementation_resources": [],
+    "compliance_actions": [],
+    "has_plain_language_summary": true,
+    "has_executive_brief": true,
+    "has_comprehensive_analysis": true,
+    "summary_formats_available": [
+      "executive_brief",
+      "standard",
+      "comprehensive"
+    ],
+    "sources": [],
+    "yale_guidance": {
+      "yale_university": {
+        "relevance_score": 3,
+        "affected_departments": [],
+        "primary_departments": [],
+        "secondary_departments": [],
+        "action_items": [],
+        "compliance_actions": [],
+        "impact_areas": [],
+        "source_insights": {
+          "key_takeaways": [],
+          "implementation_references": [],
+          "resource_links": []
+        }
+      }
+    },
+    "simplified_impact_analysis": {
+      "Research Funding": {
+        "description": "Impacts on federal research grants, funding priorities, and research administration",
+        "notes": null,
+        "source_insights": [],
+        "consensus_rating": "Neutral"
+      },
+      "Administrative Compliance": {
+        "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+        "notes": null,
+        "source_insights": [],
+        "consensus_rating": "Neutral"
+      }
+    },
+    "simplified_source_analysis": {
+      "summary": "Directs federal agencies to improve transparency and accountability in their operations and decision-making.",
+      "extended_analysis": "Executive Order 2025-03063, \"Ensuring Accountability for All Agencies,\" aims to enhance transparency and operational accountability across federal agencies. For Yale University, this order carries significant implications primarily centered on federal grant management, compliance requirements, and administrative operations.\n\nFEDERAL FUNDING IMPLICATIONS:\nYale University receives substantial federal funding—approximately $500-700 million annually—primarily through research grants from agencies like NIH, NSF, DOE, and DOD. The executive order will likely institute more rigorous oversight mechanisms for these funds, including:\n\n1. Enhanced reporting requirements on fund utilization and outcomes\n2. More frequent performance evaluations and milestone assessments\n3. Stricter documentation standards for expenditures and project activities\n4. Potential implementation of new compliance metrics and benchmarks\n\nThese changes will necessitate adjustments to Yale's grants management infrastructure, potentially requiring investments in enhanced financial tracking systems, additional compliance personnel, and more robust internal audit procedures.\n\nADMINISTRATIVE BURDEN AND COSTS:\nThe financial impact will manifest primarily through increased administrative overhead:\n\n1. Personnel costs: Yale may need to expand its Office of Sponsored Projects, Research Administration, and Compliance departments to handle enhanced reporting requirements. Based on similar regulatory changes, this could require a 5-10% staffing increase in these areas.\n\n2. Technology investments: Information systems may require upgrades to capture, analyze, and report the additional data points required by federal agencies under the new accountability frameworks. This could necessitate one-time capital expenditures for system modifications and ongoing operational costs for maintenance.\n\n3. Training requirements: Faculty and administrative staff will need comprehensive training on new compliance protocols, representing both direct costs for training programs and indirect costs from diverted faculty and staff time.\n\n4. Audit preparation: More resources will likely be dedicated to preparing for and responding to what may be more frequent or intensive federal audits.\n\nREVISED PROCEDURAL FRAMEWORKS:\nYale will need to review and potentially revise numerous internal procedures including:\n\n1. Grant application processes to incorporate new accountability measures from the outset\n2. Financial tracking and reporting workflows for federal funds\n3. Research administration protocols to ensure compliance with enhanced transparency requirements\n4. Documentation standards for decision-making processes related to federally funded activities\n\nOpportunities and strategic considerations:\nWhile the order primarily represents a compliance challenge, it also offers potential benefits:\n\n1. Enhanced data collection may improve Yale's ability to demonstrate research impact and outcomes, potentially strengthening future grant applications\n2. More rigorous internal controls could reduce compliance risks and associated penalties\n3. Improved transparency systems may identify inefficiencies in current research administration practices\n4. Yale could leverage its implementation of these accountability measures as a competitive advantage in securing future federal funding\n\nRISK MITIGATION STRATEGIES:\nTo effectively address this executive order, Yale should consider:\n\n1. Establishing a dedicated task force to assess the order's specific implications\n2. Conducting a gap analysis between current practices and anticipated requirements\n3. Developing a phased implementation plan for necessary administrative changes\n4. Creating communication channels with federal agencies to clarify expectations\n5. Benchmarking with peer institutions on compliance approaches\n\nThe executive order represents a medium impact on Yale University operations. While it does not fundamentally alter the university's core activities or funding streams, it imposes significant administrative requirements that will have measurable financial implications through increased compliance costs. The primary affected areas will be Administrative Compliance and Research Funding, with the most substantial effects felt in departments heavily dependent on federal research grants.",
+      "source_insights": []
+    },
+    "intelligence_hub": {
+      "yale_alert_level": "Moderate",
+      "core_impact": null,
+      "what_changed": null,
+      "yale_imperative": null,
+      "confidence_rating": 0.85,
+      "timeline_navigator": {
+        "signing_date": "2024-02-21",
+        "effective_date": null,
+        "implementation_deadlines": [],
+        "yale_decision_points": [],
+        "events": []
+      },
+      "source_intelligence": {
+        "federal_sources": {
+          "federal_register": [],
+          "agency_guidance": []
+        },
+        "analysis_interpretation": {
+          "university_associations": [],
+          "legal_analysis": []
+        }
+      },
+      "yale_response": {
+        "framework": [],
+        "action_requirements": [],
+        "decision_support": {
+          "options": []
+        }
+      },
+      "intelligence_network": {
+        "predecessor_policies": [],
+        "related_orders": [],
+        "external_impact": []
+      }
+    }
+  },
+  {
+    "id": 3350,
+    "order_number": "14097",
+    "title": "Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence",
+    "signing_date": "2023-10-30",
+    "publication_date": "2023-11-01",
+    "president": "Biden",
+    "summary": "Establishes new standards for AI safety and security while protecting Americans' privacy, advancing equity, and protecting workers' rights.",
+    "full_text": "Establishes new standards for AI safety and security while protecting Americans' privacy, advancing equity, and protecting workers' rights.",
+    "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2023/10/30/executive-order-on-the-safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence/",
+    "impact_level": null,
+    "status": "Active",
+    "implementation_phase": null,
+    "added_date": "2025-03-03 19:02:01",
+    "last_updated": "2025-03-03 19:02:01",
+    "effective_date": null,
+    "yale_alert_level": null,
+    "core_impact": null,
+    "yale_imperative": null,
+    "confidence_rating": 0.85,
+    "what_changed": null,
+    "categories": [],
+    "impact_areas": [],
+    "university_impact_areas": [],
+    "yale_impact_areas": [],
+    "yale_stakeholders": [],
+    "differentiated_impacts": {},
+    "compliance_timelines": {},
+    "impact_scoring": [],
+    "implementation_resources": [],
+    "compliance_actions": [],
+    "has_plain_language_summary": false,
+    "has_executive_brief": false,
+    "has_comprehensive_analysis": false,
+    "summary_formats_available": [],
+    "sources": [],
+    "yale_guidance": {
+      "yale_university": {
+        "relevance_score": 1,
+        "affected_departments": [],
+        "primary_departments": [],
+        "secondary_departments": [],
+        "action_items": [],
+        "compliance_actions": [],
+        "impact_areas": [],
+        "source_insights": {
+          "key_takeaways": [],
+          "implementation_references": [],
+          "resource_links": []
+        }
+      }
+    },
+    "simplified_impact_analysis": {},
+    "simplified_source_analysis": {
+      "summary": "Establishes new standards for AI safety and security while protecting Americans' privacy, advancing equity, and protecting workers' rights.",
+      "extended_analysis": "",
+      "source_insights": []
+    },
+    "intelligence_hub": {
+      "yale_alert_level": "Moderate",
+      "core_impact": null,
+      "what_changed": null,
+      "yale_imperative": null,
+      "confidence_rating": 0.85,
+      "timeline_navigator": {
+        "signing_date": "2023-10-30",
+        "effective_date": null,
+        "implementation_deadlines": [],
+        "yale_decision_points": [],
+        "events": []
+      },
+      "source_intelligence": {
+        "federal_sources": {
+          "federal_register": [],
+          "agency_guidance": []
+        },
+        "analysis_interpretation": {
+          "university_associations": [],
+          "legal_analysis": []
+        }
+      },
+      "yale_response": {
+        "framework": [],
+        "action_requirements": [],
+        "decision_support": {
+          "options": []
+        }
+      },
+      "intelligence_network": {
+        "predecessor_policies": [],
+        "related_orders": [],
+        "external_impact": []
+      }
+    }
+  },
+  {
+    "id": 3351,
+    "order_number": "14096",
+    "title": "Ensuring the People of East Palestine Are Protected Now and in the Future",
+    "signing_date": "2023-10-26",
+    "publication_date": "2023-10-31",
+    "president": "Biden",
+    "summary": "Directs federal agencies to support cleanup and recovery efforts in East Palestine, Ohio following the February 2023 train derailment.",
+    "full_text": "Directs federal agencies to support cleanup and recovery efforts in East Palestine, Ohio following the February 2023 train derailment.",
+    "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2023/10/26/executive-order-on-ensuring-the-people-of-east-palestine-are-protected-now-and-in-the-future/",
+    "impact_level": null,
+    "status": "Active",
+    "implementation_phase": null,
+    "added_date": "2025-03-03 19:02:02",
+    "last_updated": "2025-03-03 19:02:02",
+    "effective_date": null,
+    "yale_alert_level": null,
+    "core_impact": null,
+    "yale_imperative": null,
+    "confidence_rating": 0.85,
+    "what_changed": null,
+    "categories": [],
+    "impact_areas": [],
+    "university_impact_areas": [],
+    "yale_impact_areas": [],
+    "yale_stakeholders": [],
+    "differentiated_impacts": {},
+    "compliance_timelines": {},
+    "impact_scoring": [],
+    "implementation_resources": [],
+    "compliance_actions": [],
+    "has_plain_language_summary": false,
+    "has_executive_brief": false,
+    "has_comprehensive_analysis": false,
+    "summary_formats_available": [],
+    "sources": [],
+    "yale_guidance": {
+      "yale_university": {
+        "relevance_score": 1,
+        "affected_departments": [],
+        "primary_departments": [],
+        "secondary_departments": [],
+        "action_items": [],
+        "compliance_actions": [],
+        "impact_areas": [],
+        "source_insights": {
+          "key_takeaways": [],
+          "implementation_references": [],
+          "resource_links": []
+        }
+      }
+    },
+    "simplified_impact_analysis": {},
+    "simplified_source_analysis": {
+      "summary": "Directs federal agencies to support cleanup and recovery efforts in East Palestine, Ohio following the February 2023 train derailment.",
+      "extended_analysis": "",
+      "source_insights": []
+    },
+    "intelligence_hub": {
+      "yale_alert_level": "Moderate",
+      "core_impact": null,
+      "what_changed": null,
+      "yale_imperative": null,
+      "confidence_rating": 0.85,
+      "timeline_navigator": {
+        "signing_date": "2023-10-26",
+        "effective_date": null,
+        "implementation_deadlines": [],
+        "yale_decision_points": [],
+        "events": []
+      },
+      "source_intelligence": {
+        "federal_sources": {
+          "federal_register": [],
+          "agency_guidance": []
+        },
+        "analysis_interpretation": {
+          "university_associations": [],
+          "legal_analysis": []
+        }
+      },
+      "yale_response": {
+        "framework": [],
+        "action_requirements": [],
+        "decision_support": {
+          "options": []
+        }
+      },
+      "intelligence_network": {
+        "predecessor_policies": [],
+        "related_orders": [],
+        "external_impact": []
+      }
+    }
+  },
+  {
+    "id": 3352,
+    "order_number": "14039",
+    "title": "Improving Customer Experience and Service Delivery for the American People",
+    "signing_date": "2021-12-13",
+    "publication_date": "2021-12-16",
+    "president": "Biden",
+    "summary": "Directs federal agencies to put people at the center of everything the Government does by improving the public's customer experience with Government services.",
+    "full_text": "Directs federal agencies to put people at the center of everything the Government does by improving the public's customer experience with Government services.",
+    "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2021/12/13/executive-order-on-transforming-federal-customer-experience-and-service-delivery-to-rebuild-trust-in-government/",
+    "impact_level": null,
+    "status": "Active",
+    "implementation_phase": null,
+    "added_date": "2025-03-03 19:02:03",
+    "last_updated": "2025-03-03 19:02:03",
+    "effective_date": null,
+    "yale_alert_level": null,
+    "core_impact": null,
+    "yale_imperative": null,
+    "confidence_rating": 0.85,
+    "what_changed": null,
+    "categories": [],
+    "impact_areas": [],
+    "university_impact_areas": [],
+    "yale_impact_areas": [],
+    "yale_stakeholders": [],
+    "differentiated_impacts": {},
+    "compliance_timelines": {},
+    "impact_scoring": [],
+    "implementation_resources": [],
+    "compliance_actions": [],
+    "has_plain_language_summary": false,
+    "has_executive_brief": false,
+    "has_comprehensive_analysis": false,
+    "summary_formats_available": [],
+    "sources": [],
+    "yale_guidance": {
+      "yale_university": {
+        "relevance_score": 1,
+        "affected_departments": [],
+        "primary_departments": [],
+        "secondary_departments": [],
+        "action_items": [],
+        "compliance_actions": [],
+        "impact_areas": [],
+        "source_insights": {
+          "key_takeaways": [],
+          "implementation_references": [],
+          "resource_links": []
+        }
+      }
+    },
+    "simplified_impact_analysis": {},
+    "simplified_source_analysis": {
+      "summary": "Directs federal agencies to put people at the center of everything the Government does by improving the public's customer experience with Government services.",
+      "extended_analysis": "",
+      "source_insights": []
+    },
+    "intelligence_hub": {
+      "yale_alert_level": "Moderate",
+      "core_impact": null,
+      "what_changed": null,
+      "yale_imperative": null,
+      "confidence_rating": 0.85,
+      "timeline_navigator": {
+        "signing_date": "2021-12-13",
+        "effective_date": null,
+        "implementation_deadlines": [],
+        "yale_decision_points": [],
+        "events": []
+      },
+      "source_intelligence": {
+        "federal_sources": {
+          "federal_register": [],
+          "agency_guidance": []
+        },
+        "analysis_interpretation": {
+          "university_associations": [],
+          "legal_analysis": []
+        }
+      },
+      "yale_response": {
+        "framework": [],
+        "action_requirements": [],
+        "decision_support": {
+          "options": []
+        }
+      },
+      "intelligence_network": {
+        "predecessor_policies": [],
+        "related_orders": [],
+        "external_impact": []
+      }
+    }
+  },
+  {
+    "id": 3354,
+    "order_number": "14058",
+    "title": "Transforming Federal Customer Experience and Service Delivery To Rebuild Trust in Government",
+    "signing_date": "2021-12-13",
+    "publication_date": "2021-12-16",
+    "president": "Biden",
+    "summary": "Directs Federal agencies to improve their service delivery and customer experience for the American people.",
+    "full_text": "Directs Federal agencies to improve their service delivery and customer experience for the American people.",
+    "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2021/12/13/executive-order-on-transforming-federal-customer-experience-and-service-delivery-to-rebuild-trust-in-government/",
+    "impact_level": null,
+    "status": "Active",
+    "implementation_phase": null,
+    "added_date": "2025-03-03 19:02:05",
+    "last_updated": "2025-03-03 19:02:05",
+    "effective_date": null,
+    "yale_alert_level": null,
+    "core_impact": null,
+    "yale_imperative": null,
+    "confidence_rating": 0.85,
+    "what_changed": null,
+    "categories": [],
+    "impact_areas": [],
+    "university_impact_areas": [],
+    "yale_impact_areas": [],
+    "yale_stakeholders": [],
+    "differentiated_impacts": {},
+    "compliance_timelines": {},
+    "impact_scoring": [],
+    "implementation_resources": [],
+    "compliance_actions": [],
+    "has_plain_language_summary": false,
+    "has_executive_brief": false,
+    "has_comprehensive_analysis": false,
+    "summary_formats_available": [],
+    "sources": [],
+    "yale_guidance": {
+      "yale_university": {
+        "relevance_score": 1,
+        "affected_departments": [],
+        "primary_departments": [],
+        "secondary_departments": [],
+        "action_items": [],
+        "compliance_actions": [],
+        "impact_areas": [],
+        "source_insights": {
+          "key_takeaways": [],
+          "implementation_references": [],
+          "resource_links": []
+        }
+      }
+    },
+    "simplified_impact_analysis": {},
+    "simplified_source_analysis": {
+      "summary": "Directs Federal agencies to improve their service delivery and customer experience for the American people.",
+      "extended_analysis": "",
+      "source_insights": []
+    },
+    "intelligence_hub": {
+      "yale_alert_level": "Moderate",
+      "core_impact": null,
+      "what_changed": null,
+      "yale_imperative": null,
+      "confidence_rating": 0.85,
+      "timeline_navigator": {
+        "signing_date": "2021-12-13",
+        "effective_date": null,
+        "implementation_deadlines": [],
+        "yale_decision_points": [],
+        "events": []
+      },
+      "source_intelligence": {
+        "federal_sources": {
+          "federal_register": [],
+          "agency_guidance": []
+        },
+        "analysis_interpretation": {
+          "university_associations": [],
+          "legal_analysis": []
+        }
+      },
+      "yale_response": {
+        "framework": [],
+        "action_requirements": [],
+        "decision_support": {
+          "options": []
+        }
+      },
+      "intelligence_network": {
+        "predecessor_policies": [],
+        "related_orders": [],
+        "external_impact": []
+      }
+    }
+  },
+  {
+    "id": 3353,
+    "order_number": "14008",
+    "title": "Tackling the Climate Crisis at Home and Abroad",
+    "signing_date": "2021-01-27",
+    "publication_date": "2021-02-01",
+    "president": "Biden",
+    "summary": "Places the climate crisis at the center of United States foreign policy and national security and directs a whole-of-government approach to address climate change.",
+    "full_text": "Places the climate crisis at the center of United States foreign policy and national security and directs a whole-of-government approach to address climate change.",
+    "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2021/01/27/executive-order-on-tackling-the-climate-crisis-at-home-and-abroad/",
+    "impact_level": null,
+    "status": "Active",
+    "implementation_phase": null,
+    "added_date": "2025-03-03 19:02:04",
+    "last_updated": "2025-03-03 19:02:04",
+    "effective_date": null,
+    "yale_alert_level": null,
+    "core_impact": null,
+    "yale_imperative": null,
+    "confidence_rating": 0.85,
+    "what_changed": null,
+    "categories": [],
+    "impact_areas": [],
+    "university_impact_areas": [],
+    "yale_impact_areas": [],
+    "yale_stakeholders": [],
+    "differentiated_impacts": {},
+    "compliance_timelines": {},
+    "impact_scoring": [],
+    "implementation_resources": [],
+    "compliance_actions": [],
+    "has_plain_language_summary": false,
+    "has_executive_brief": false,
+    "has_comprehensive_analysis": false,
+    "summary_formats_available": [],
+    "sources": [],
+    "yale_guidance": {
+      "yale_university": {
+        "relevance_score": 1,
+        "affected_departments": [],
+        "primary_departments": [],
+        "secondary_departments": [],
+        "action_items": [],
+        "compliance_actions": [],
+        "impact_areas": [],
+        "source_insights": {
+          "key_takeaways": [],
+          "implementation_references": [],
+          "resource_links": []
+        }
+      }
+    },
+    "simplified_impact_analysis": {},
+    "simplified_source_analysis": {
+      "summary": "Places the climate crisis at the center of United States foreign policy and national security and directs a whole-of-government approach to address climate change.",
+      "extended_analysis": "",
+      "source_insights": []
+    },
+    "intelligence_hub": {
+      "yale_alert_level": "Moderate",
+      "core_impact": null,
+      "what_changed": null,
+      "yale_imperative": null,
+      "confidence_rating": 0.85,
+      "timeline_navigator": {
+        "signing_date": "2021-01-27",
+        "effective_date": null,
+        "implementation_deadlines": [],
+        "yale_decision_points": [],
+        "events": []
+      },
+      "source_intelligence": {
+        "federal_sources": {
+          "federal_register": [],
+          "agency_guidance": []
+        },
+        "analysis_interpretation": {
+          "university_associations": [],
+          "legal_analysis": []
+        }
+      },
+      "yale_response": {
+        "framework": [],
+        "action_requirements": [],
+        "decision_support": {
+          "options": []
         }
       },
       "intelligence_network": {

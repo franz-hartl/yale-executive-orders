@@ -2,12 +2,12 @@
   "id": 3304,
   "order_number": "2025-03137",
   "title": "Ending Taxpayer Subsidization of Open Borders",
-  "signing_date": "2025-02-25",
-  "publication_date": "2025-02-25",
-  "president": "Trump",
-  "summary": "This executive order aims to reduce federal funding for illegal immigration, potentially affecting Yale University's international student services and campus policies related to undocumented students. Yale may need to review its practices and possibly adjust certain programs supporting international or undocumented students.",
-  "full_text": "No full text available",
-  "url": "https://www.federalregister.gov/documents/2025/02/25/2025-03137/ending-taxpayer-subsidization-of-open-borders",
+  "signing_date": "2024-02-22",
+  "publication_date": "2024-02-25",
+  "president": "Biden",
+  "summary": "Directs federal agencies to review immigration policies to reduce federal funds supporting illegal immigration.",
+  "full_text": "Directs federal agencies to review immigration policies to reduce federal funds supporting illegal immigration.",
+  "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2024/02/22/executive-order-on-ending-taxpayer-subsidization-of-open-borders/",
   "impact_level": "Medium",
   "status": "Active",
   "implementation_phase": null,
@@ -86,7 +86,7 @@
     }
   },
   "simplified_source_analysis": {
-    "summary": "This executive order aims to reduce federal funding for illegal immigration, potentially affecting Yale University's international student services and campus policies related to undocumented students. Yale may need to review its practices and possibly adjust certain programs supporting international or undocumented students.",
+    "summary": "Directs federal agencies to review immigration policies to reduce federal funds supporting illegal immigration.",
     "extended_analysis": "Executive Order 2025-03137, 'Ending Taxpayer Subsidization of Open Borders,' represents a significant shift in federal immigration policy with potential ramifications for Yale University's operations, particularly regarding international students and potentially undocumented students.\n\nIMPACT ON STUDENT SERVICES AND PROGRAMS:\nYale University maintains a robust international community, with approximately 20% of its student body coming from outside the United States. While the executive order primarily targets illegal immigration and public benefits, it could indirectly affect how universities administer certain programs. Yale may need to review its Office of International Students and Scholars (OISS) protocols and ensure strict compliance with all visa regulations. The university might also need to evaluate any programs or services that could be construed as supporting undocumented students, including financial aid policies, housing assistance, or specialized support services. This could necessitate administrative restructuring and potentially additional compliance costs.\n\nFINANCIAL IMPLICATIONS:\nThe financial impact of this executive order on Yale will manifest in several ways:\n1. Compliance Costs: Yale may need to invest in enhanced immigration status verification systems and additional administrative personnel to ensure compliance with new federal guidelines.\n2. Potential Grant Restrictions: Federal research grants or educational programs with international components might face additional scrutiny or restrictions, potentially affecting revenue streams.\n3. Legal Advisory Expenses: The university will likely need to expand legal resources to navigate the changing regulatory landscape and protect both institutional interests and student welfare within legal boundaries.\n4. Risk Management: Yale may need to allocate additional resources to mitigate potential financial risks associated with non-compliance penalties.\n\nADMINISTRATIVE BURDEN:\nThis order will likely increase Yale's administrative burden through:\n1. Policy Reviews and Updates: Comprehensive review of all policies related to international students and potentially undocumented students.\n2. Staff Training: Additional training for administrative staff on compliance with new federal requirements.\n3. Documentation Requirements: Enhanced documentation and reporting procedures for international student programs and services.\n\nINSTITUTIONAL RESPONSE CONSIDERATIONS:\nYale will need to carefully balance compliance with federal directives against its institutional values of inclusivity and global engagement. The university may need to:\n1. Establish a task force to monitor implementation of the executive order and related federal actions.\n2. Develop contingency plans for affected programs or services.\n3. Engage with peer institutions and higher education associations to advocate for policies that protect academic interests while maintaining compliance.\n4. Communicate transparently with the university community about potential impacts and institutional responses.\n\nWHILE DIRECT FINANCIAL IMPACT MAY BE MODERATE, the combination of administrative burden, compliance requirements, and potential restrictions on certain programs suggests a medium overall impact level for Yale University. The primary university impact areas will be Administrative Compliance and Workforce & Employment Policy, particularly regarding international faculty and researchers. The university would be well-advised to take a proactive approach, establishing clear guidelines and procedures to navigate the changing federal immigration landscape while continuing to support its diverse university community within legal parameters.",
     "source_insights": []
   },
@@ -97,7 +97,7 @@
     "yale_imperative": null,
     "confidence_rating": 0.85,
     "timeline_navigator": {
-      "signing_date": "2025-02-25",
+      "signing_date": "2024-02-22",
       "effective_date": null,
       "implementation_deadlines": [],
       "yale_decision_points": [],
