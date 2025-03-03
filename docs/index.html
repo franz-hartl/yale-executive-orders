@@ -377,6 +377,12 @@
                             <!-- Populated dynamically -->
                         </select>
                         
+                        <select id="filter-has-resources" class="select-input min-w-[180px]">
+                            <option value="">All Orders</option>
+                            <option value="yes">Has External Resources</option>
+                            <option value="no">No External Resources</option>
+                        </select>
+                        
                         <button id="clear-filters-btn" class="btn-secondary py-2 px-3 flex items-center">
                             <i class="fas fa-times mr-2"></i>Reset
                         </button>
@@ -414,12 +420,13 @@
                                 </div>
                             </th>
                             <th scope="col">Areas</th>
+                            <th scope="col">Resources</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="eo-table-body">
                         <tr>
-                            <td colspan="6" class="text-center py-12">
+                            <td colspan="7" class="text-center py-12">
                                 <div class="flex flex-col items-center">
                                     <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3"></i>
                                     <p class="text-gray-500">Loading executive orders...</p>
@@ -878,7 +885,7 @@
                     console.error('Error loading executive orders:', error);
                     eoTableBody.innerHTML = `
                         <tr>
-                            <td colspan="6" class="text-center py-10 text-red-500">
+                            <td colspan="7" class="text-center py-10 text-red-500">
                                 <div class="flex flex-col items-center">
                                     <i class="fas fa-exclamation-circle text-red-500 text-2xl mb-3"></i>
                                     <p>Error loading executive orders. Please try again later.</p>
@@ -988,6 +995,7 @@
                 const categoryFilter = filterCategory.value;
                 const impactLevelFilter = filterImpactLevel.value;
                 const universityAreaFilter = filterUniversityArea.value;
+                const hasResourcesFilter = document.getElementById('filter-has-resources').value;
                 const searchText = searchInput.value.toLowerCase();
                 
                 // Apply filters
@@ -1015,6 +1023,23 @@
                         });
                         
                         if (!hasMatchingArea) {
+                            return false;
+                        }
+                    }
+                    
+                    // External resources filter
+                    if (hasResourcesFilter) {
+                        const hasResources = order.external_resources && 
+                            Object.keys(order.external_resources || {}).length > 0;
+                            
+                        const hasCommentary = order.related_commentary && 
+                            Object.keys(order.related_commentary || {}).length > 0;
+                        
+                        if (hasResourcesFilter === 'yes' && !hasResources && !hasCommentary) {
+                            return false;
+                        }
+                        
+                        if (hasResourcesFilter === 'no' && (hasResources || hasCommentary)) {
                             return false;
                         }
                     }
@@ -1066,7 +1091,7 @@
                 if (filteredOrders.length === 0) {
                     eoTableBody.innerHTML = `
                         <tr>
-                            <td colspan="6" class="text-center py-10">
+                            <td colspan="7" class="text-center py-10">
                                 <div class="flex flex-col items-center">
                                     <i class="fas fa-filter text-gray-400 text-2xl mb-3"></i>
                                     <p class="text-gray-500">No executive orders match the selected filters.</p>
@@ -1109,6 +1134,31 @@
                         ? (order.summary.length > 120 ? order.summary.substring(0, 120) + '...' : order.summary)
                         : '';
                     
+                    // Check for resources and commentary
+                    const hasExternalResources = order.external_resources && 
+                        Object.keys(order.external_resources || {}).length > 0;
+                        
+                    const hasRelatedCommentary = order.related_commentary && 
+                        Object.keys(order.related_commentary || {}).length > 0;
+                    
+                    // Count total resources
+                    let resourceCount = 0;
+                    if (hasExternalResources) {
+                        Object.values(order.external_resources).forEach(resources => {
+                            resourceCount += resources.length;
+                        });
+                    }
+                    if (hasRelatedCommentary) {
+                        Object.values(order.related_commentary).forEach(comments => {
+                            resourceCount += comments.length;
+                        });
+                    }
+                    
+                    // Create resources badge
+                    const resourceBadge = resourceCount > 0 ? 
+                        `<span class="impact-badge bg-green-100 text-green-800">${resourceCount}</span>` : 
+                        '<span class="text-gray-400 text-sm">None</span>';
+                    
                     // Create table row
                     row.innerHTML = `
                         <td class="font-medium">
@@ -1141,6 +1191,9 @@
                                         `<span class="tag">+${order.university_impact_areas.length - 2}</span>` : '')
                                     : '<span class="text-gray-400 text-sm">None</span>'}
                             </div>
+                        </td>
+                        <td class="text-center">
+                            ${resourceBadge}
                         </td>
                         <td class="whitespace-nowrap">
                             <div class="flex gap-2">
@@ -1259,6 +1312,14 @@
                                 iconClass = 'fas fa-handshake';
                             }
                             
+                            // Check for external resources
+                            const externalResources = order.external_resources && order.external_resources[areaName] ? 
+                                order.external_resources[areaName] : [];
+                                
+                            // Check for related commentary
+                            const relatedCommentary = order.related_commentary && order.related_commentary[areaName] ?
+                                order.related_commentary[areaName] : [];
+                            
                             card.innerHTML = `
                                 <div class="flex items-center mb-2">
                                     <i class="${iconClass} text-[#00356B] mr-2"></i>
@@ -1269,6 +1330,28 @@
                                 </p>
                                 ${areaDescription ? `<p class="text-xs text-gray-500 mt-2">${areaDescription}</p>` : ''}
                                 ${areaNotes ? `<p class="text-xs italic text-gray-600 mt-2 border-t border-gray-100 pt-2">${areaNotes}</p>` : ''}
+                                
+                                ${externalResources.length > 0 ? `
+                                <div class="mt-2 pt-2 border-t border-gray-100">
+                                    <p class="text-xs font-medium text-gray-700">External Resources:</p>
+                                    <div class="flex flex-wrap gap-1 mt-1">
+                                        ${externalResources.map(resource => 
+                                            `<a href="${resource.url}" target="_blank" class="text-xs text-blue-600 hover:text-blue-800 flex items-center">
+                                                <i class="fas fa-external-link-alt text-xs mr-1"></i>${resource.name}
+                                            </a>`).join(' · ')}
+                                    </div>
+                                </div>` : ''}
+                                
+                                ${relatedCommentary.length > 0 ? `
+                                <div class="mt-2 pt-2 border-t border-gray-100">
+                                    <p class="text-xs font-medium text-gray-700">Commentary & Analysis:</p>
+                                    <div class="flex flex-col gap-1 mt-1">
+                                        ${relatedCommentary.map(comment => 
+                                            `<a href="${comment.url}" target="_blank" class="text-xs text-blue-600 hover:text-blue-800 flex items-center">
+                                                <i class="fas fa-comment-alt text-xs mr-1"></i>${comment.source}: ${comment.title}
+                                            </a>`).join('')}
+                                    </div>
+                                </div>` : ''}
                             `;
                             
                             detailUniversityImpactAreas.appendChild(card);
@@ -1372,6 +1455,7 @@
             filterCategory.addEventListener('change', renderExecutiveOrdersTable);
             filterImpactLevel.addEventListener('change', renderExecutiveOrdersTable);
             filterUniversityArea.addEventListener('change', renderExecutiveOrdersTable);
+            document.getElementById('filter-has-resources').addEventListener('change', renderExecutiveOrdersTable);
             
             // Clear filters button
             clearFiltersBtn.addEventListener('click', () => {
@@ -1379,6 +1463,7 @@
                 filterCategory.value = '';
                 filterImpactLevel.value = '';
                 filterUniversityArea.value = '';
+                document.getElementById('filter-has-resources').value = '';
                 renderExecutiveOrdersTable();
             });
             
