@@ -49,15 +49,13 @@ jobs:
         run: npm run export
       
       - name: Setup Pages
-        uses: ./.github/actions/configure-pages
+        uses: actions/configure-pages@v4
       
       - name: Upload artifact
-        uses: ./.github/actions/upload-pages-artifact
+        uses: actions/upload-pages-artifact@v2
         with:
           path: 'docs'
       
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: ./.github/actions/deploy-pages
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/deploy-pages@v3
