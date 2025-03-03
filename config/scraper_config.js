@@ -89,6 +89,8 @@ module.exports = {
     model: "claude-3-haiku-20240307",
     maxTokens: 2000,
     temperature: 0,
+    useCache: true,
+    cacheExpiration: 604800000, // 7 days in milliseconds
     promptTemplate: `Extract executive order information from {{sourceName}} in the HTML content below. 
 Extract all executive orders from the content.
 For each executive order, extract:
@@ -108,6 +110,8 @@ HTML Content:
     model: "claude-3-opus-20240229",
     maxTokens: 1500,
     temperature: 0,
+    useCache: true,
+    cacheExpiration: 604800000, // 7 days in milliseconds
     promptTemplate: `Analyze this executive order and extract/generate the following information:
 1. A 2-3 sentence summary of the order
 2. Key impact(s) on society, government, and/or private sector

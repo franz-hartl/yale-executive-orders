@@ -1,6 +1,6 @@
 # Yale Executive Orders Knowledge Extraction System
 
-This project implements a comprehensive knowledge extraction system for executive orders, with a specific focus on Yale University's needs and use cases.
+This project implements a comprehensive knowledge extraction system for executive orders, with a specific focus on Yale University's needs and use cases. The system includes caching of AI responses to reduce API costs and improve performance.
 
 ## Overview
 
@@ -15,6 +15,8 @@ The system extracts structured knowledge from executive orders and related docum
 - **Template-Based Document Generation**: Creates customized documents for different Yale departments
 - **Static Website Deployment**: Exports processed data to GitHub Pages for easy access
 - **Knowledge-Centric Architecture**: Uses structured fact-based knowledge representation
+- **AI Response Caching**: Filesystem-based caching to reduce API costs and improve performance
+- **Text Chunking**: Handles long documents by splitting into chunks with context preservation
 
 ## Documentation
 

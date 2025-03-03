@@ -26,6 +26,7 @@ The Yale Executive Orders Analysis Platform is a comprehensive system designed t
 - [**Intelligence Hub**](INTELLIGENCE_HUB_README.md) - Integrated intelligence presentation
 - [**Workflow Integration**](WORKFLOW_INTEGRATION_SUMMARY.md) - End-to-end process automation
 - [**AI Pipeline**](AI_PIPELINE_EXPLANATION.md) - AI integration for analysis generation
+- [**AI Caching System**](AI_CACHE_DOCUMENTATION.md) - Filesystem-based caching for AI responses
 - [**Source Management**](MODULAR_DATA_SOURCES.md) - Source integration and management
 
 ### Guides and Tutorials

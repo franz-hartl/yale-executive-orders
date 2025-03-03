@@ -4,6 +4,7 @@ const axios = require('axios');
 require('dotenv').config();
 const scraperConfig = require('./config/scraper_config');
 const TextChunker = require('./utils/text_chunker');
+const aiCache = require('./utils/ai_cache');
 
 class AIWebScraper {
   constructor() {
@@ -122,16 +123,34 @@ class AIWebScraper {
         .replace('{{sourceName}}', sourceName)
         .replace('{{htmlContent}}', simplifiedHtml);
 
-      // Call Anthropic API
+      // Prepare the request object
+      const request = {
+        model: aiConfig.model,
+        max_tokens: aiConfig.maxTokens,
+        temperature: aiConfig.temperature,
+        system: "You are an expert assistant that extracts structured data from HTML content.",
+        messages: [{ role: "user", content: prompt }]
+      };
+
+      // Check if we have a cached response
+      const cachedResponse = aiCache.getCachedResponse(request);
+      if (cachedResponse) {
+        console.log(`Using cached AI extraction for ${sourceName}`);
+        // Use the cached response
+        const responseText = cachedResponse.content[0].text;
+        
+        // Extract JSON from the response
+        const jsonMatch = responseText.match(/\[[\s\S]*\]/);
+        if (jsonMatch) {
+          return JSON.parse(jsonMatch[0]);
+        }
+      }
+
+      // If no cache hit, call the API
+      console.log(`Making AI extraction API call for ${sourceName}`);
       const response = await axios.post(
         'https://api.anthropic.com/v1/messages',
-        {
-          model: aiConfig.model,
-          max_tokens: aiConfig.maxTokens,
-          temperature: aiConfig.temperature,
-          system: "You are an expert assistant that extracts structured data from HTML content.",
-          messages: [{ role: "user", content: prompt }]
-        },
+        request,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -140,6 +159,9 @@ class AIWebScraper {
           }
         }
       );
+
+      // Cache the response for future use
+      aiCache.cacheResponse(request, response.data);
 
       const responseText = response.data.content[0].text;
       
@@ -229,16 +251,43 @@ class AIWebScraper {
         .replace('{{date}}', order.date || 'Unknown')
         .replace('{{fullText}}', truncatedText);
 
-      // Call Anthropic API
+      // Prepare the request object
+      const request = {
+        model: aiConfig.model,
+        max_tokens: aiConfig.maxTokens,
+        temperature: aiConfig.temperature,
+        system: "You are an expert in government policy analysis, specializing in executive orders across all policy domains, with particular knowledge of how executive orders impact Yale University and higher education institutions.",
+        messages: [{ role: "user", content: prompt }]
+      };
+
+      // Check if we have a cached response
+      const cachedResponse = aiCache.getCachedResponse(request);
+      if (cachedResponse) {
+        console.log(`Using cached AI enrichment for "${order.title}"`);
+        const responseText = cachedResponse.content[0].text;
+        
+        // Extract JSON from the response
+        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+          const enrichment = JSON.parse(jsonMatch[0]);
+          
+          // Convert Yale impact areas to include IDs for easier database integration
+          if (enrichment.yaleImpactAreas && Array.isArray(enrichment.yaleImpactAreas)) {
+            enrichment.yaleImpactAreasWithIds = enrichment.yaleImpactAreas.map(area => ({
+              ...area,
+              id: this.config.yaleImpactAreaMapping[area.name] || null
+            }));
+          }
+          
+          return { ...order, ...enrichment };
+        }
+      }
+
+      // If no cache hit, call the API
+      console.log(`Making AI enrichment API call for "${order.title}"`);
       const response = await axios.post(
         'https://api.anthropic.com/v1/messages',
-        {
-          model: aiConfig.model,
-          max_tokens: aiConfig.maxTokens,
-          temperature: aiConfig.temperature,
-          system: "You are an expert in government policy analysis, specializing in executive orders across all policy domains, with particular knowledge of how executive orders impact Yale University and higher education institutions.",
-          messages: [{ role: "user", content: prompt }]
-        },
+        request,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -247,6 +296,9 @@ class AIWebScraper {
           }
         }
       );
+
+      // Cache the response for future use
+      aiCache.cacheResponse(request, response.data);
 
       const responseText = response.data.content[0].text;
       
@@ -307,26 +359,48 @@ class AIWebScraper {
           .replace('{{date}}', order.date || 'Unknown')
           .replace('{{fullText}}', chunk.text);
 
-        // Call Anthropic API
-        const response = await axios.post(
-          'https://api.anthropic.com/v1/messages',
-          {
-            model: aiConfig.model,
-            max_tokens: aiConfig.maxTokens,
-            temperature: aiConfig.temperature,
-            system: "You are an expert in government policy analysis, specializing in executive orders across all policy domains, with particular knowledge of how executive orders impact Yale University and higher education institutions.",
-            messages: [{ role: "user", content: prompt }]
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'anthropic-version': '2023-06-01',
-              'x-api-key': process.env.ANTHROPIC_API_KEY
-            }
-          }
-        );
+        // Prepare the request object
+        const request = {
+          model: aiConfig.model,
+          max_tokens: aiConfig.maxTokens,
+          temperature: aiConfig.temperature,
+          system: "You are an expert in government policy analysis, specializing in executive orders across all policy domains, with particular knowledge of how executive orders impact Yale University and higher education institutions.",
+          messages: [{ role: "user", content: prompt }]
+        };
 
-        const responseText = response.data.content[0].text;
+        // Generate a cache key for this specific chunk, including the chunk index
+        const chunkRequest = {
+          ...request,
+          chunkIndex: chunk.chunkIndex,
+          totalChunks: chunk.totalChunks
+        };
+
+        // Check if we have a cached response for this chunk
+        const cachedResponse = aiCache.getCachedResponse(chunkRequest);
+        let responseText;
+        
+        if (cachedResponse) {
+          console.log(`Using cached AI response for chunk ${i+1} of "${order.title}"`);
+          responseText = cachedResponse.content[0].text;
+        } else {
+          // If no cache hit, call the API
+          console.log(`Making AI API call for chunk ${i+1} of "${order.title}"`);
+          const response = await axios.post(
+            'https://api.anthropic.com/v1/messages',
+            request,
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                'anthropic-version': '2023-06-01',
+                'x-api-key': process.env.ANTHROPIC_API_KEY
+              }
+            }
+          );
+
+          // Cache the response for future use
+          aiCache.cacheResponse(chunkRequest, response.data);
+          responseText = response.data.content[0].text;
+        }
         
         // Extract JSON from the response
         const jsonMatch = responseText.match(/\{[\s\S]*\}/);
@@ -399,6 +473,16 @@ class AIWebScraper {
       // Load additional sources dynamically from config
       this.loadSourcesFromConfig();
       
+      // Clean up expired cache entries
+      const clearedEntries = aiCache.clearExpiredEntries();
+      if (clearedEntries > 0) {
+        console.log(`Cleared ${clearedEntries} expired cache entries`);
+      }
+      
+      // Log cache statistics
+      const cacheStats = aiCache.getStats();
+      console.log(`AI cache stats: ${cacheStats.entries} entries, ${cacheStats.size} KB total size`);
+      
       let allOrders = [];
       for (const source of this.dataSources) {
         const sourceOrders = await this.scrapeSource(source);
@@ -441,6 +525,18 @@ class AIWebScraper {
       }
       
       await fs.writeFile(this.config.general.outputCsvPath, csvContent);
+      
+      // Final cache statistics after processing
+      const finalCacheStats = aiCache.getStats();
+      console.log(`AI cache final stats: ${finalCacheStats.entries} entries, ${finalCacheStats.size} KB total size`);
+      
+      if (finalCacheStats.hitCount > 0 || finalCacheStats.missCount > 0) {
+        console.log(`Cache performance: ${finalCacheStats.hitCount} hits, ${finalCacheStats.missCount} misses, ${finalCacheStats.hitRate}% hit rate`);
+        console.log(`Estimated API cost savings: $${((finalCacheStats.hitCount * 0.015) / 1000).toFixed(2)}`);
+      }
+      
+      // Update cache statistics file
+      aiCache.updateStats();
       
       console.log('Scraping and processing complete!');
     } catch (error) {
