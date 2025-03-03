@@ -867,11 +867,111 @@ async function exportExecutiveOrders() {
     console.log(`Exported executive briefs to ${executiveBriefsDir}`);
     console.log(`Exported comprehensive analyses to ${comprehensiveAnalysesDir}`);
     
+    // Create a search index for faster matching
+    const searchIndex = createSearchIndex(fullOrders);
+    const searchIndexPath = path.join(outputDir, 'search_index.json');
+    await fs.writeFile(searchIndexPath, JSON.stringify(searchIndex, null, 2));
+    console.log(`Exported search index to ${searchIndexPath}`);
+    
     return fullOrders;
   } catch (err) {
     console.error('Error exporting executive orders:', err);
     throw err;
   }
+}
+
+// Create a search index mapping terms to executive order IDs
+function createSearchIndex(orders) {
+  const termIndex = {};
+  
+  // Common stop words to filter out
+  const stopWords = new Set([
+    'a', 'an', 'the', 'and', 'or', 'but', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
+    'in', 'on', 'at', 'to', 'for', 'with', 'by', 'about', 'against', 'between', 'into', 'through',
+    'during', 'before', 'after', 'above', 'below', 'from', 'up', 'down', 'of', 'off', 'over', 'under',
+    'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any',
+    'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own',
+    'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', 'should', 'now'
+  ]);
+  
+  // Process each order
+  orders.forEach(order => {
+    // Combine relevant text fields
+    const textToIndex = `
+      ${order.title || ''} 
+      ${order.summary || ''} 
+      ${(order.categories || []).join(' ')} 
+      ${(order.impact_areas || []).join(' ')}
+      ${(order.university_impact_areas || []).map(uia => uia.name || '').join(' ')}
+    `.toLowerCase();
+    
+    // Extract words
+    const words = textToIndex
+      .replace(/[^\w\s]/g, ' ')  // Replace punctuation with spaces
+      .split(/\s+/)              // Split on whitespace
+      .filter(word => word.length > 2 && !stopWords.has(word)); // Filter out stop words and short words
+    
+    // Extract key phrases (bigrams)
+    const phrases = [];
+    for (let i = 0; i < words.length - 1; i++) {
+      if (!stopWords.has(words[i]) && !stopWords.has(words[i+1])) {
+        phrases.push(`${words[i]} ${words[i+1]}`);
+      }
+    }
+    
+    // Add words to the term index
+    const uniqueWords = new Set(words);
+    uniqueWords.forEach(word => {
+      if (!termIndex[word]) {
+        termIndex[word] = [];
+      }
+      
+      if (!termIndex[word].includes(order.id)) {
+        termIndex[word].push(order.id);
+      }
+    });
+    
+    // Add phrases to the term index
+    const uniquePhrases = new Set(phrases);
+    uniquePhrases.forEach(phrase => {
+      if (!termIndex[phrase]) {
+        termIndex[phrase] = [];
+      }
+      
+      if (!termIndex[phrase].includes(order.id)) {
+        termIndex[phrase].push(order.id);
+      }
+    });
+    
+    // Add specific metadata as terms
+    if (order.president) {
+      const presidentTerm = `president:${order.president.toLowerCase()}`;
+      if (!termIndex[presidentTerm]) {
+        termIndex[presidentTerm] = [];
+      }
+      termIndex[presidentTerm].push(order.id);
+    }
+    
+    if (order.impact_level) {
+      const impactTerm = `impact:${order.impact_level.toLowerCase()}`;
+      if (!termIndex[impactTerm]) {
+        termIndex[impactTerm] = [];
+      }
+      termIndex[impactTerm].push(order.id);
+    }
+    
+    // Add year-based terms
+    if (order.signing_date) {
+      const year = order.signing_date.substring(0, 4);
+      const yearTerm = `year:${year}`;
+      if (!termIndex[yearTerm]) {
+        termIndex[yearTerm] = [];
+      }
+      termIndex[yearTerm].push(order.id);
+    }
+  });
+  
+  return termIndex;
 }
 
 // Export statistics

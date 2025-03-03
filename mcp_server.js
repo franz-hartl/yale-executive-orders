@@ -21,8 +21,14 @@ const path = require('path');
 
 // Create Express server
 const app = express();
-app.use(cors());
-app.use(bodyParser.json());
+// Enhanced CORS configuration to allow external clients to access the server
+app.use(cors({
+  origin: '*', // Allow all origins
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  maxAge: 86400 // Cache preflight requests for 24 hours
+}));
+app.use(bodyParser.json({ limit: '5mb' })); // Increased limit for document analysis
 
 // Connect to SQLite database
 const db = new sqlite3.Database('./executive_orders.db', (err) => {
@@ -410,6 +416,253 @@ function getImpactAreaInfo(impactAreaName, callback) {
     });
   });
 }
+
+// Document Analysis Endpoints for External Clients
+
+// Extract key terms from document text
+app.post('/mcp/extract-terms', (req, res) => {
+  const { document_text } = req.body;
+  
+  if (!document_text) {
+    return res.status(400).json(formatResponse("Missing document_text parameter", null, false));
+  }
+  
+  // Simple term extraction algorithm
+  const extractKeyTerms = (text) => {
+    // Common stop words to filter out
+    const stopWords = new Set([
+      'a', 'an', 'the', 'and', 'or', 'but', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
+      'in', 'on', 'at', 'to', 'for', 'with', 'by', 'about', 'against', 'between', 'into', 'through',
+      'during', 'before', 'after', 'above', 'below', 'from', 'up', 'down', 'of', 'off', 'over', 'under',
+      'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any',
+      'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own',
+      'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', 'should', 'now',
+      'this', 'that', 'these', 'those', 'its', 'it', 'as', 'shall', 'may', 'would', 'could', 'which'
+    ]);
+    
+    // Extract words and clean them
+    const words = text.toLowerCase()
+      .replace(/[^\w\s]/g, ' ')  // Replace punctuation with spaces
+      .split(/\s+/)              // Split on whitespace
+      .filter(word => word.length > 2 && !stopWords.has(word)); // Filter out stop words and short words
+    
+    // Count word frequencies
+    const wordCount = {};
+    words.forEach(word => {
+      wordCount[word] = (wordCount[word] || 0) + 1;
+    });
+    
+    // Also extract multi-word phrases (bigrams and trigrams)
+    const phrases = [];
+    for (let i = 0; i < words.length - 1; i++) {
+      if (!stopWords.has(words[i]) && !stopWords.has(words[i+1])) {
+        phrases.push(`${words[i]} ${words[i+1]}`);
+      }
+      
+      if (i < words.length - 2 && !stopWords.has(words[i]) && !stopWords.has(words[i+2])) {
+        phrases.push(`${words[i]} ${words[i+1]} ${words[i+2]}`);
+      }
+    }
+    
+    // Count phrase frequencies
+    const phraseCount = {};
+    phrases.forEach(phrase => {
+      phraseCount[phrase] = (phraseCount[phrase] || 0) + 1;
+    });
+    
+    // Combine words and phrases, sort by frequency
+    const terms = [];
+    
+    // Add single words
+    Object.entries(wordCount)
+      .filter(([word, count]) => count > 1) // Only include words that appear more than once
+      .forEach(([word, count]) => {
+        terms.push({ term: word, score: count, type: 'word' });
+      });
+    
+    // Add phrases that appear more than once
+    Object.entries(phraseCount)
+      .filter(([phrase, count]) => count > 1)
+      .forEach(([phrase, count]) => {
+        terms.push({ term: phrase, score: count * 1.5, type: 'phrase' }); // Boost phrases
+      });
+    
+    // Sort by score (frequency) and take top results
+    return terms
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 40)
+      .map(item => item.term);
+  };
+  
+  try {
+    const terms = extractKeyTerms(document_text);
+    
+    res.json(formatResponse("Extracted terms from document", {
+      total: terms.length,
+      terms: terms
+    }));
+  } catch (error) {
+    console.error('Error extracting terms:', error);
+    res.status(500).json(formatResponse("Error processing document", null, false));
+  }
+});
+
+// Enhanced search endpoint with relevance scoring
+app.post('/mcp/search', (req, res) => {
+  const { query, filters = {}, limit = 10, offset = 0, terms = [] } = req.body;
+  
+  let sqlQuery = `
+    SELECT e.*, 
+           group_concat(DISTINCT c.name) as categories,
+           group_concat(DISTINCT ia.name) as impact_areas,
+           group_concat(DISTINCT uia.name) as university_impact_areas
+    FROM executive_orders e
+    LEFT JOIN order_categories oc ON e.id = oc.order_id
+    LEFT JOIN categories c ON oc.category_id = c.id
+    LEFT JOIN order_impact_areas oia ON e.id = oia.order_id
+    LEFT JOIN impact_areas ia ON oia.impact_area_id = ia.id
+    LEFT JOIN order_university_impact_areas ouia ON e.id = ouia.order_id
+    LEFT JOIN university_impact_areas uia ON ouia.university_impact_area_id = uia.id
+  `;
+  
+  const whereConditions = [];
+  const params = [];
+  
+  // Add full-text search if query is provided
+  if (query && query.trim() !== '') {
+    whereConditions.push(`(
+      executive_orders_fts MATCH ?
+      OR e.title LIKE ?
+      OR e.summary LIKE ?
+      OR e.full_text LIKE ?
+    )`);
+    params.push(query, `%${query}%`, `%${query}%`, `%${query}%`);
+  }
+  
+  // Add search for multiple terms if provided
+  if (terms && terms.length > 0) {
+    const termConditions = terms.map(term => {
+      params.push(`%${term}%`, `%${term}%`, `%${term}%`);
+      return `(e.title LIKE ? OR e.summary LIKE ? OR e.full_text LIKE ?)`;
+    });
+    
+    whereConditions.push(`(${termConditions.join(' OR ')})`);
+  }
+  
+  // Add filters for specific fields
+  if (filters.president) {
+    whereConditions.push('e.president = ?');
+    params.push(filters.president);
+  }
+  
+  if (filters.impact_level) {
+    whereConditions.push('e.impact_level = ?');
+    params.push(filters.impact_level);
+  }
+  
+  if (filters.signing_date_from) {
+    whereConditions.push('e.signing_date >= ?');
+    params.push(filters.signing_date_from);
+  }
+  
+  if (filters.signing_date_to) {
+    whereConditions.push('e.signing_date <= ?');
+    params.push(filters.signing_date_to);
+  }
+  
+  if (filters.category) {
+    whereConditions.push('c.name = ?');
+    params.push(filters.category);
+  }
+  
+  if (filters.impact_area) {
+    whereConditions.push('ia.name = ?');
+    params.push(filters.impact_area);
+  }
+  
+  if (filters.university_impact_area) {
+    whereConditions.push('uia.name = ?');
+    params.push(filters.university_impact_area);
+  }
+  
+  // Add WHERE clause if there are conditions
+  if (whereConditions.length > 0) {
+    sqlQuery += ' WHERE ' + whereConditions.join(' AND ');
+  }
+  
+  // Add GROUP BY, ORDER BY, LIMIT and OFFSET
+  sqlQuery += `
+    GROUP BY e.id
+    ORDER BY e.signing_date DESC
+    LIMIT ? OFFSET ?
+  `;
+  
+  params.push(limit, offset);
+  
+  // Execute the query
+  db.all(sqlQuery, params, (err, rows) => {
+    if (err) {
+      console.error('Error executing search query:', err);
+      return res.status(500).json(formatResponse("Error executing search", null, false));
+    }
+    
+    // Process the results and calculate relevance scores
+    const results = rows.map(row => {
+      // Calculate relevance score based on multiple factors
+      let relevanceScore = 1.0; // Base score
+      
+      // Boost score based on impact level
+      if (row.impact_level === 'Critical') relevanceScore *= 2.0;
+      else if (row.impact_level === 'High') relevanceScore *= 1.5;
+      else if (row.impact_level === 'Medium') relevanceScore *= 1.2;
+      
+      // Boost score based on recency (newer orders get higher scores)
+      const orderDate = new Date(row.signing_date);
+      const currentDate = new Date();
+      const yearsDiff = (currentDate - orderDate) / (1000 * 60 * 60 * 24 * 365);
+      const recencyBoost = Math.max(0.5, 1.0 - (yearsDiff * 0.1)); // Decrease score by 10% per year, minimum 0.5
+      relevanceScore *= recencyBoost;
+      
+      // Boost score based on Yale-specific metrics if available
+      if (row.yale_alert_level === 'High') relevanceScore *= 1.3;
+      if (row.core_impact && row.core_impact.length > 100) relevanceScore *= 1.2;
+      
+      // If terms were provided, boost score based on term matches
+      if (terms && terms.length > 0) {
+        const text = `${row.title} ${row.summary} ${row.full_text || ''}`.toLowerCase();
+        
+        const matchCount = terms.reduce((count, term) => {
+          const regex = new RegExp(term.toLowerCase(), 'g');
+          const matches = text.match(regex);
+          return count + (matches ? matches.length : 0);
+        }, 0);
+        
+        const termBoost = Math.min(3.0, 1.0 + (matchCount * 0.1)); // Cap at 3x boost
+        relevanceScore *= termBoost;
+      }
+      
+      return {
+        ...row,
+        categories: row.categories ? row.categories.split(',') : [],
+        impact_areas: row.impact_areas ? row.impact_areas.split(',') : [],
+        university_impact_areas: row.university_impact_areas ? row.university_impact_areas.split(',') : [],
+        relevance_score: parseFloat(relevanceScore.toFixed(2))
+      };
+    });
+    
+    // Sort by relevance score if terms were provided
+    if (terms && terms.length > 0) {
+      results.sort((a, b) => b.relevance_score - a.relevance_score);
+    }
+    
+    res.json(formatResponse("Search results", {
+      total: results.length,
+      limit,
+      offset,
+      results
+    }));
+  });
+});
 
 // Other API endpoints
 

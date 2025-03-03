@@ -75,7 +75,48 @@ Additional configuration options can be modified in the `mcp_server.js` file:
 
 The MCP server exposes the following endpoints:
 
-### GET /mcp/info
+### Document Analysis Endpoints
+
+#### POST /mcp/extract-terms
+
+Extract key terms from a document for analysis.
+
+**Request:**
+```json
+{
+  "document_text": "This document outlines compliance requirements for university research programs funded by federal grants, with specific attention to research security protocols and international collaborations."
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Extracted terms from document",
+  "data": {
+    "total": 8,
+    "terms": [
+      "compliance requirements",
+      "university research",
+      "research programs",
+      "federal grants",
+      "research security",
+      "security protocols",
+      "international collaborations",
+      "university"
+    ]
+  },
+  "metadata": {
+    "source": "Yale Executive Orders Database",
+    "timestamp": "2025-03-02T12:34:56.789Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+### General MCP Endpoints
+
+#### GET /mcp/info
 
 Returns information about the server's capabilities.
 
@@ -116,12 +157,13 @@ Returns information about the server's capabilities.
 
 ### POST /mcp/search
 
-Search for executive orders based on query and filters.
+Search for executive orders based on query, terms, and filters, with relevance scoring.
 
 **Request:**
 ```json
 {
   "query": "research funding",
+  "terms": ["research security", "international collaboration"],
   "filters": {
     "president": "Biden",
     "impact_level": "High",
@@ -156,7 +198,8 @@ Search for executive orders based on query and filters.
         "summary": "This executive order aims to increase federal funding for scientific research...",
         "categories": ["Education", "Science"],
         "impact_areas": ["Funding", "Policy"],
-        "university_impact_areas": ["Research Administration", "Research Funding"]
+        "university_impact_areas": ["Research Administration", "Research Funding"],
+        "relevance_score": 4.87
       },
       {
         "id": 1235,
@@ -168,7 +211,8 @@ Search for executive orders based on query and filters.
         "summary": "This executive order establishes policies to ensure scientific integrity...",
         "categories": ["Science", "Policy"],
         "impact_areas": ["Compliance", "Funding"],
-        "university_impact_areas": ["Research Administration"]
+        "university_impact_areas": ["Research Administration"],
+        "relevance_score": 3.62
       }
     ]
   },

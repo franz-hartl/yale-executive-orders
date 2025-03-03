@@ -1,0 +1,221 @@
+{
+  "name": "Yale Executive Orders API",
+  "version": "2.0.0",
+  "description": "API for accessing Yale Executive Orders data and enabling document analysis",
+  "baseUrl": "https://franzhartl.github.io/yale-executive-orders/data",
+  "endpoints": [
+    {
+      "name": "Extract Terms",
+      "path": "/mcp/extract-terms",
+      "method": "POST",
+      "description": "Extract key terms from a document for document analysis",
+      "requestBody": {
+        "document_text": "The full text of the document to analyze"
+      },
+      "response": {
+        "total": "Number of terms extracted",
+        "terms": ["Array of extracted terms"]
+      },
+      "exampleRequest": {
+        "document_text": "This document outlines compliance requirements for university research programs funded by federal grants, with specific attention to research security protocols and international collaborations."
+      },
+      "exampleResponse": {
+        "success": true,
+        "message": "Extracted terms from document",
+        "data": {
+          "total": 8,
+          "terms": [
+            "compliance requirements",
+            "university research",
+            "research programs",
+            "federal grants",
+            "research security",
+            "security protocols",
+            "international collaborations",
+            "university"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Search Executive Orders",
+      "path": "/mcp/search",
+      "method": "POST",
+      "description": "Search for executive orders using query terms or filters with relevance scoring",
+      "requestBody": {
+        "query": "Optional text query",
+        "terms": ["Optional array of terms to search for"],
+        "filters": {
+          "president": "Filter by president name",
+          "impact_level": "Filter by impact level",
+          "signing_date_from": "Filter by signing date (lower bound)",
+          "signing_date_to": "Filter by signing date (upper bound)",
+          "category": "Filter by category",
+          "impact_area": "Filter by impact area",
+          "university_impact_area": "Filter by university impact area"
+        },
+        "limit": "Maximum number of results to return (default: 10)",
+        "offset": "Offset for pagination (default: 0)"
+      },
+      "response": {
+        "total": "Total number of matching results",
+        "limit": "Limit used in the request",
+        "offset": "Offset used in the request",
+        "results": [
+          {
+            "id": "Executive order ID",
+            "order_number": "Official executive order number",
+            "title": "Executive order title",
+            "signing_date": "Date the order was signed",
+            "president": "President who signed the order",
+            "impact_level": "Impact level of the order",
+            "summary": "Summary of the order",
+            "categories": ["Categories the order belongs to"],
+            "impact_areas": ["Impact areas affected by the order"],
+            "university_impact_areas": ["University-specific impact areas"],
+            "relevance_score": "Calculated relevance score (higher is more relevant)"
+          }
+        ]
+      },
+      "exampleRequest": {
+        "terms": ["research security", "international collaboration"],
+        "filters": {
+          "president": "Biden",
+          "impact_level": "High"
+        },
+        "limit": 3
+      },
+      "exampleResponse": {
+        "success": true,
+        "message": "Search results",
+        "data": {
+          "total": 2,
+          "limit": 3,
+          "offset": 0,
+          "results": [
+            {
+              "id": 5432,
+              "order_number": "14110",
+              "title": "Executive Order on Enhancing Research Security",
+              "signing_date": "2022-06-15",
+              "president": "Biden",
+              "impact_level": "High",
+              "summary": "This order establishes new requirements for international research collaborations...",
+              "categories": ["Science", "Security"],
+              "impact_areas": ["Research", "International"],
+              "university_impact_areas": ["Research Administration", "International Programs"],
+              "relevance_score": 4.85
+            },
+            {
+              "id": 5433,
+              "order_number": "14087",
+              "title": "Executive Order on Protection of Sensitive Research",
+              "signing_date": "2022-03-22",
+              "president": "Biden",
+              "impact_level": "High",
+              "summary": "This order directs federal agencies to develop new security protocols for research collaborations...",
+              "categories": ["Science", "Security"],
+              "impact_areas": ["Research", "Compliance"],
+              "university_impact_areas": ["Research Administration"],
+              "relevance_score": 3.72
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Context",
+      "path": "/mcp/context",
+      "method": "POST",
+      "description": "Get detailed information about a specific executive order or other context item",
+      "requestBody": {
+        "context_type": "Type of context (executive_order, category, impact_area)",
+        "context_id": "ID of the context item",
+        "detail_level": "Level of detail to return (basic, standard, comprehensive)"
+      },
+      "response": {
+        "id": "Item ID",
+        "order_number": "Executive order number (for executive_order type)",
+        "title": "Title of the item",
+        "description": "Description of the item",
+        "additional_fields": "Additional fields based on context_type and detail_level"
+      },
+      "exampleRequest": {
+        "context_type": "executive_order",
+        "context_id": "14110",
+        "detail_level": "comprehensive"
+      },
+      "exampleResponse": {
+        "success": true,
+        "message": "Executive order details",
+        "data": {
+          "id": 5432,
+          "order_number": "14110",
+          "title": "Executive Order on Enhancing Research Security",
+          "signing_date": "2022-06-15",
+          "president": "Biden",
+          "impact_level": "High",
+          "summary": "This order establishes new requirements for international research collaborations...",
+          "full_text": "By the authority vested in me as President by the Constitution...",
+          "categories": ["Science", "Security"],
+          "impact_areas": ["Research", "International"],
+          "university_impact_areas": ["Research Administration", "International Programs"],
+          "yale_alert_level": "High",
+          "core_impact": "Significant implications for Yale's international research programs..."
+        }
+      }
+    }
+  ],
+  "dataFiles": [
+    {
+      "name": "search_index.json",
+      "description": "Term-to-EO mapping for fast client-side search",
+      "format": "{ \"term\": [\"eo_id1\", \"eo_id2\"], ... }"
+    },
+    {
+      "name": "processed_executive_orders.json",
+      "description": "Enhanced executive orders with additional metadata",
+      "format": "Array of EO objects"
+    },
+    {
+      "name": "executive_orders.json",
+      "description": "Full executive orders data",
+      "format": "Array of EO objects"
+    },
+    {
+      "name": "categories.json",
+      "description": "Categories for executive orders",
+      "format": "Array of category objects"
+    },
+    {
+      "name": "impact_areas.json",
+      "description": "Impact areas for executive orders",
+      "format": "Array of impact area objects"
+    },
+    {
+      "name": "university_impact_areas.json",
+      "description": "University-specific impact areas",
+      "format": "Array of university impact area objects"
+    }
+  ],
+  "documentAnalysis": {
+    "description": "Process for analyzing documents against executive orders",
+    "steps": [
+      "Extract key terms from document using /mcp/extract-terms",
+      "Search for relevant executive orders using /mcp/search with extracted terms",
+      "Retrieve detailed information for matching orders using /mcp/context",
+      "Compare document text against relevant executive orders",
+      "Generate analysis highlighting compliance issues and recommendations"
+    ],
+    "clientFlow": {
+      "description": "Flow for document analysis in a client application",
+      "steps": [
+        "Client collects document text from user",
+        "Client sends document text to /mcp/extract-terms",
+        "Client uses extracted terms to search with /mcp/search",
+        "Client retrieves full details of relevant orders with /mcp/context",
+        "Client presents analysis to user with recommendations"
+      ]
+    }
+  }
+}

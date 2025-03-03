@@ -559,9 +559,276 @@ if __name__ == "__main__":
         print("Order not found")
 ```
 
+## Document Analysis with Yale EO Data
+
+The Yale Executive Orders API now supports document analysis capabilities that allow clients (like Claude running in a terminal) to analyze documents against the executive orders database.
+
+### Document Analysis Flow
+
+The basic flow for document analysis follows these steps:
+
+1. Extract key terms from the document
+2. Use those terms to search for relevant executive orders
+3. Analyze the document against the matched executive orders
+4. Generate recommendations and compliance guidance
+
+### Client Implementation for Document Analysis
+
+Here's a complete example showing how to implement document analysis with the Yale EO data:
+
+```javascript
+// Document Analysis Client
+class DocumentAnalysisClient {
+  constructor(baseUrl = 'https://franzhartl.github.io/yale-executive-orders/data') {
+    this.baseUrl = baseUrl;
+    this.ordersCache = null;
+    this.searchIndexCache = null;
+  }
+  
+  // Load necessary data
+  async loadData() {
+    if (!this.ordersCache || !this.searchIndexCache) {
+      try {
+        // Load both processed orders and search index in parallel
+        const [ordersResponse, searchIndexResponse] = await Promise.all([
+          fetch(`${this.baseUrl}/processed_executive_orders.json`),
+          fetch(`${this.baseUrl}/search_index.json`)
+        ]);
+        
+        if (!ordersResponse.ok || !searchIndexResponse.ok) {
+          throw new Error('Failed to load data files');
+        }
+        
+        this.ordersCache = await ordersResponse.json();
+        this.searchIndexCache = await searchIndexResponse.json();
+        
+        console.log(`Loaded ${this.ordersCache.length} executive orders and search index`);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        throw error;
+      }
+    }
+    
+    return {
+      orders: this.ordersCache,
+      searchIndex: this.searchIndexCache
+    };
+  }
+  
+  // Extract key terms from document text
+  extractKeyTerms(documentText) {
+    // Implementation of key term extraction (simplified version)
+    const stopWords = new Set([
+      'a', 'an', 'the', 'and', 'or', 'but', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
+      'in', 'on', 'at', 'to', 'for', 'with', 'by', 'about', 'against', 'between', 'into', 'through'
+      // Add more stop words as needed
+    ]);
+    
+    // Clean and tokenize text
+    const words = documentText.toLowerCase()
+      .replace(/[^\w\s]/g, ' ')
+      .split(/\s+/)
+      .filter(word => word.length > 2 && !stopWords.has(word));
+    
+    // Count frequencies
+    const wordCount = {};
+    words.forEach(word => {
+      wordCount[word] = (wordCount[word] || 0) + 1;
+    });
+    
+    // Extract phrases (bigrams)
+    const phrases = [];
+    for (let i = 0; i < words.length - 1; i++) {
+      phrases.push(`${words[i]} ${words[i+1]}`);
+    }
+    
+    // Count phrase frequencies
+    const phraseCount = {};
+    phrases.forEach(phrase => {
+      phraseCount[phrase] = (phraseCount[phrase] || 0) + 1;
+    });
+    
+    // Combine and sort by frequency
+    const terms = [];
+    
+    // Add words that appear more than once
+    Object.entries(wordCount)
+      .filter(([_, count]) => count > 1)
+      .forEach(([word, count]) => terms.push({ term: word, score: count }));
+    
+    // Add phrases that appear more than once
+    Object.entries(phraseCount)
+      .filter(([_, count]) => count > 1)
+      .forEach(([phrase, count]) => terms.push({ term: phrase, score: count * 1.5 }));
+    
+    // Return top terms
+    return terms
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 20)
+      .map(item => item.term);
+  }
+  
+  // Find relevant orders based on extracted terms
+  findRelevantOrders(terms, maxResults = 5) {
+    const { orders, searchIndex } = this;
+    const relevantOrderIds = new Set();
+    
+    // Match terms against search index
+    terms.forEach(term => {
+      const normalizedTerm = term.toLowerCase();
+      const matchingIds = searchIndex[normalizedTerm] || [];
+      matchingIds.forEach(id => relevantOrderIds.add(id));
+    });
+    
+    // Get full order details
+    const relevantOrders = orders
+      .filter(order => relevantOrderIds.has(order.id))
+      .map(order => {
+        // Calculate relevance score
+        let relevanceScore = 1.0;
+        
+        // Count term matches
+        const orderText = `${order.title} ${order.summary} ${order.full_text || ''}`.toLowerCase();
+        const matchCount = terms.reduce((count, term) => {
+          return count + (orderText.includes(term.toLowerCase()) ? 1 : 0);
+        }, 0);
+        
+        // Boost score based on matches
+        relevanceScore *= (1 + (matchCount * 0.2));
+        
+        // Boost based on impact level
+        if (order.impact_level === 'Critical') relevanceScore *= 1.5;
+        else if (order.impact_level === 'High') relevanceScore *= 1.3;
+        
+        return {
+          ...order,
+          relevance_score: parseFloat(relevanceScore.toFixed(2))
+        };
+      })
+      .sort((a, b) => b.relevance_score - a.relevance_score)
+      .slice(0, maxResults);
+    
+    return relevantOrders;
+  }
+  
+  // Main analyze method
+  async analyzeDocument(documentText) {
+    // Load data if not already cached
+    await this.loadData();
+    
+    // Step 1: Extract key terms from document
+    const extractedTerms = this.extractKeyTerms(documentText);
+    console.log(`Extracted ${extractedTerms.length} key terms`);
+    
+    // Step 2: Find relevant executive orders
+    const relevantOrders = this.findRelevantOrders(extractedTerms);
+    console.log(`Found ${relevantOrders.length} relevant executive orders`);
+    
+    // Step 3: Format analysis result
+    return {
+      extracted_terms: extractedTerms,
+      relevant_orders: relevantOrders,
+      analysis_summary: {
+        total_analyzed: this.ordersCache.length,
+        matched_orders: relevantOrders.length,
+        top_terms: extractedTerms.slice(0, 5),
+        most_relevant_order: relevantOrders[0]?.title || "No relevant orders found"
+      }
+    };
+  }
+}
+
+// Example usage
+async function exampleAnalysis() {
+  const client = new DocumentAnalysisClient();
+  
+  const documentText = `
+    This research proposal outlines a collaboration between Yale University and international 
+    partners to study climate change impacts on coastal ecosystems. The project will receive 
+    funding from both federal grants and international sources, with data sharing protocols 
+    established for cross-border collaboration. Researchers will have access to sensitive 
+    environmental data requiring appropriate security measures.
+  `;
+  
+  const result = await client.analyzeDocument(documentText);
+  console.log('Analysis result:', JSON.stringify(result, null, 2));
+}
+
+exampleAnalysis().catch(console.error);
+```
+
+### Claude Terminal Client Implementation
+
+When using Claude in a terminal environment, you can implement document analysis as follows:
+
+```javascript
+// Function to prepare document analysis for Claude
+async function prepareDocumentAnalysisForClaude(documentText) {
+  const client = new DocumentAnalysisClient();
+  const analysis = await client.analyzeDocument(documentText);
+  
+  // Format data in a way that Claude can effectively use
+  let claudeContext = `# DOCUMENT ANALYSIS CONTEXT\n\n`;
+  
+  // Add extracted terms
+  claudeContext += `## EXTRACTED KEY TERMS\n\n`;
+  claudeContext += analysis.extracted_terms.join(', ') + '\n\n';
+  
+  // Add relevant executive orders
+  claudeContext += `## RELEVANT EXECUTIVE ORDERS\n\n`;
+  
+  analysis.relevant_orders.forEach((order, index) => {
+    claudeContext += `### EXECUTIVE ORDER ${index + 1}: ${order.order_number}\n`;
+    claudeContext += `Title: ${order.title}\n`;
+    claudeContext += `Signing Date: ${order.signing_date}\n`;
+    claudeContext += `President: ${order.president}\n`;
+    claudeContext += `Impact Level: ${order.impact_level}\n`;
+    claudeContext += `Relevance Score: ${order.relevance_score}\n\n`;
+    claudeContext += `Summary: ${order.summary}\n\n`;
+    
+    if (order.core_impact) {
+      claudeContext += `Core Impact: ${order.core_impact}\n\n`;
+    }
+    
+    if (order.yale_imperative) {
+      claudeContext += `Yale Imperative: ${order.yale_imperative}\n\n`;
+    }
+    
+    claudeContext += `Categories: ${order.categories.join(', ')}\n`;
+    claudeContext += `Impact Areas: ${order.impact_areas.join(', ')}\n\n`;
+    
+    // Add a separator between orders
+    claudeContext += `${'-'.repeat(40)}\n\n`;
+  });
+  
+  // Create an instruction for Claude
+  const instruction = `
+    I've analyzed a document against the Yale Executive Orders database.
+    Below are the extracted key terms and relevant executive orders.
+    
+    Please:
+    1. Analyze the document content against these executive orders
+    2. Identify potential compliance issues or requirements
+    3. Provide specific recommendations based on Yale's implementation guidance
+    4. Format your response as a structured analysis report
+    
+    Document to analyze:
+    
+    ${documentText}
+  `;
+  
+  return {
+    instruction,
+    context: claudeContext
+  };
+}
+```
+
 ## Additional Resources
 
 - For more information about the Yale Executive Orders project, see the main README.md
 - For server-side MCP implementation details, see the MCP_SERVER_DOCUMENTATION.md
+- For Model Context Protocol client guidance, see MODEL_CONTEXT_PROTOCOL_CLIENTS.md
+- For document analysis workflow details, see docs/document_analysis_flow.md
 - For technical details about the export process, examine the export_to_json.js script
 - API updates and changes will be documented in the GitHub repository
