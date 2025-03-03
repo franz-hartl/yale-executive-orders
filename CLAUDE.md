@@ -13,6 +13,7 @@
 - Preserve essential value while removing incidental complexity
 - Apply schema consistency throughout the pipeline
 - "Test-Driven Quality": Write tests that validate both correctness and design principles
+- "Stay Within Scope": Build only what is requested, maintain focus on the task at hand
 
 ## Commands
 - `npm run setup` - Initialize/update SQLite database
@@ -29,7 +30,7 @@
 - Use ES6+ features with CommonJS module system
 - Apply flat data structures that minimize nesting and complexity
 - "Write Simple Parts Connected by Clean Interfaces": Create modular, composable code
-- Error handling: Try/catch blocks with specific error messages
+- Error handling: Try/catch blocks with contextual error messages
 - Prefer async/await over callbacks when possible
 - Use consistent camelCase for variables and functions
 - Include JSDoc-style comments for functions
