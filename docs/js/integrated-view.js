@@ -182,16 +182,31 @@ const IntegratedView = (function() {
                 
                 // Agency guidance sources
                 if (si.federal_sources.agency_guidance) {
-                    hubSources = hubSources.concat(si.federal_sources.agency_guidance.map(src => ({
-                        name: src.agency_name,
-                        abbreviation: src.agency_name.split(' ').map(word => word[0]).join(''),
-                        title: src.title || `${src.agency_name} Guidance`,
-                        date: src.publication_date,
-                        content: src.summary,
-                        key_provisions: src.grant_impact,
-                        specific_requirements: src.research_implications,
-                        url: src.url
-                    })));
+                    hubSources = hubSources.concat(si.federal_sources.agency_guidance.map(src => {
+                        // Create more comprehensive content by combining elements
+                        const combinedContent = `
+                            <strong>Summary:</strong> ${src.summary || 'No summary available'}
+                            ${src.grant_impact ? `<p><strong>Grant Impact:</strong> ${src.grant_impact}</p>` : ''}
+                            ${src.compliance_guidance ? `<p><strong>Compliance Guidance:</strong> ${src.compliance_guidance}</p>` : ''}
+                        `;
+                        
+                        // Build a detailed requirements list
+                        const requirements = [];
+                        if (src.research_implications) requirements.push(src.research_implications);
+                        if (src.key_deadlines) requirements.push(`<strong>Key Deadlines:</strong> ${src.key_deadlines}`);
+                        if (src.changed_procedures) requirements.push(`<strong>Changed Procedures:</strong> ${src.changed_procedures}`);
+                        
+                        return {
+                            name: src.agency_name,
+                            abbreviation: src.agency_name.split(' ').map(word => word[0]).join(''),
+                            title: src.title || `${src.agency_name} Guidance`,
+                            date: src.publication_date,
+                            content: combinedContent,
+                            key_provisions: src.grant_impact,
+                            specific_requirements: requirements.join('<br><br>'),
+                            url: src.url
+                        };
+                    }));
                 }
             }
             
@@ -199,30 +214,56 @@ const IntegratedView = (function() {
             if (si.analysis_interpretation) {
                 // University associations
                 if (si.analysis_interpretation.university_associations) {
-                    hubSources = hubSources.concat(si.analysis_interpretation.university_associations.map(src => ({
-                        name: src.association_name,
-                        abbreviation: src.association_name.split(' ').map(word => word[0]).join(''),
-                        title: src.title || `${src.association_name} Analysis`,
-                        date: src.publication_date,
-                        content: src.summary,
-                        key_provisions: src.institution_perspective,
-                        specific_requirements: src.recommended_actions,
-                        url: src.url
-                    })));
+                    hubSources = hubSources.concat(si.analysis_interpretation.university_associations.map(src => {
+                        // Create more comprehensive content
+                        const combinedContent = `
+                            <strong>Summary:</strong> ${src.summary || 'No summary available'}
+                            ${src.institution_perspective ? `<p><strong>Institutional Impact:</strong> ${src.institution_perspective}</p>` : ''}
+                            ${src.sector_guidance ? `<p><strong>Sector Guidance:</strong> ${src.sector_guidance}</p>` : ''}
+                        `;
+                        
+                        // Format recommended actions 
+                        const formattedActions = src.recommended_actions ? 
+                            src.recommended_actions.replace(/•/g, '<br>•').replace(/\n/g, '<br>') : 
+                            'No specific recommended actions';
+                            
+                        return {
+                            name: src.association_name,
+                            abbreviation: src.association_name.split(' ').map(word => word[0]).join(''),
+                            title: src.title || `${src.association_name} Analysis`,
+                            date: src.publication_date,
+                            content: combinedContent,
+                            key_provisions: src.institution_perspective,
+                            specific_requirements: `<strong>Recommended Actions:</strong><br>${formattedActions}`,
+                            url: src.url
+                        };
+                    }));
                 }
                 
                 // Legal analysis
                 if (si.analysis_interpretation.legal_analysis) {
-                    hubSources = hubSources.concat(si.analysis_interpretation.legal_analysis.map(src => ({
-                        name: src.source || 'Legal Analysis',
-                        abbreviation: 'LA',
-                        title: 'Legal Analysis',
-                        date: src.analysis_date,
-                        content: src.challenge_status,
-                        key_provisions: src.enforcement_prediction,
-                        specific_requirements: src.yale_specific_notes,
-                        url: null
-                    })));
+                    hubSources = hubSources.concat(si.analysis_interpretation.legal_analysis.map(src => {
+                        // Create comprehensive legal analysis content
+                        const combinedContent = `
+                            <strong>Status:</strong> ${src.challenge_status || 'Status not specified'}
+                            ${src.legal_implications ? `<p><strong>Legal Implications:</strong> ${src.legal_implications}</p>` : ''}
+                            ${src.enforcement_prediction ? `<p><strong>Enforcement Prediction:</strong> ${src.enforcement_prediction}</p>` : ''}
+                            ${src.precedent_references ? `<p><strong>Precedent References:</strong> ${src.precedent_references}</p>` : ''}
+                        `;
+                        
+                        return {
+                            name: src.source || 'Yale Legal Analysis',
+                            abbreviation: 'YLA',
+                            title: 'Legal Analysis and Compliance Assessment',
+                            date: src.analysis_date,
+                            content: combinedContent,
+                            key_provisions: src.enforcement_prediction,
+                            specific_requirements: src.yale_specific_notes ? 
+                                `<strong>Yale-Specific Notes:</strong><br>${src.yale_specific_notes}` : 
+                                'No Yale-specific notes available',
+                            url: null
+                        };
+                    }));
                 }
             }
         }
@@ -315,7 +356,10 @@ const IntegratedView = (function() {
                     </div>
                     ${source.url ? `
                         <div class="unified-source-card__footer">
-                            <a href="${source.url}" target="_blank" class="yale-btn yale-btn--sm yale-btn--outline">
+                            <a href="${source.url.startsWith('http') ? source.url : 'https://' + source.url}" 
+                               target="_blank" 
+                               class="yale-btn yale-btn--sm yale-btn--outline"
+                               rel="noopener noreferrer">
                                 View Source <i class="fas fa-external-link-alt yale-ml-xs"></i>
                             </a>
                         </div>
@@ -562,15 +606,40 @@ const IntegratedView = (function() {
     function formatBulletPoints(text) {
         if (!text) return '';
         
+        // If text is already HTML formatted, return as is
+        if (text.includes('<p>') || text.includes('<br>') || text.includes('<li>')) {
+            return text;
+        }
+        
         // Check if the text already contains bullet points
         if (text.includes('•')) {
-            return text.replace(/•/g, '<br>•');
+            // Split by bullet points
+            const bulletItems = text.split('•').filter(item => item.trim());
+            
+            // If we have multiple items, format as a proper list
+            if (bulletItems.length > 1) {
+                return '<ul style="list-style-type: disc; padding-left: 20px;">' + 
+                       bulletItems.map(item => `<li>${item.trim()}</li>`).join('') + 
+                       '</ul>';
+            } else {
+                // Just add line breaks if only one bullet
+                return text.replace(/•/g, '<br>•');
+            }
         }
         
         // Check if the text is split by newlines
         if (text.includes('\n')) {
             const lines = text.split('\n').filter(line => line.trim());
-            return lines.map(line => `<p>• ${line.trim()}</p>`).join('');
+            
+            // If we have multiple lines, format as a list
+            if (lines.length > 1) {
+                return '<ul style="list-style-type: disc; padding-left: 20px;">' + 
+                       lines.map(line => `<li>${line.trim()}</li>`).join('') + 
+                       '</ul>';
+            } else {
+                // Single line, return with a bullet
+                return lines.map(line => `• ${line.trim()}`).join('');
+            }
         }
         
         // Return as is
