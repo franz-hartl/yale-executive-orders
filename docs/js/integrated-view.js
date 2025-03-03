@@ -627,7 +627,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Check if this click is on a table row
         if (event.target.closest('tr[data-order-id]')) {
             // Wait for modal to fully render
-            setTimeout(setupExpandCollapse, 800);
+            setTimeout(function() {
+                IntegratedView.init();
+            }, 800);
         }
     });
 });
