@@ -15,22 +15,28 @@ The Yale Executive Orders Analysis Platform is a comprehensive system designed t
 - [**Data Flow**](DATA_FLOW.md) - Complete data processing pipeline
 - [**Database Schema**](DATABASE_SCHEMA.md) - Comprehensive database schema reference
 - [**Decision Log**](DECISION_LOG.md) - Record of key architectural decisions
+- [**Testing Guide**](TESTING_GUIDE.md) - Comprehensive testing approach and plans
 
 ### Subsystems
 
 - [**Knowledge System**](KNOWLEDGE_README.md) - Fact-based knowledge representation
+- [**Extraction System**](EXTRACTION_README.md) - Knowledge extraction from executive orders
 - [**Conflict Handling**](CONFLICT_HANDLING_README.md) - Conflict detection and resolution
 - [**Template System**](TEMPLATE_SYSTEM_README.md) - Document generation
 - [**Intelligence Hub**](INTELLIGENCE_HUB_README.md) - Integrated intelligence presentation
 - [**Workflow Integration**](WORKFLOW_INTEGRATION_SUMMARY.md) - End-to-end process automation
 - [**AI Pipeline**](AI_PIPELINE_EXPLANATION.md) - AI integration for analysis generation
+- [**Source Management**](MODULAR_DATA_SOURCES.md) - Source integration and management
 
 ### Guides and Tutorials
 
+- [**Quick Start Guide**](README.md) - Get started with the system
 - [**Extension Guide**](EXTENSION_GUIDE.md) - How to extend and customize the system
 - [**GitHub Pages Deployment**](GITHUB_PAGES_INSTRUCTIONS.md) - How to deploy to GitHub Pages
 - [**API Reference**](API_README.md) - API details for integration
 - [**DB Migration Guide**](DB_MIGRATION_GUIDE.md) - How to update the database schema
+- [**Troubleshooting Guide**](DEBUG_README.md) - Common issues and solutions
+- [**Developer Onboarding**](DEVELOPER_ONBOARDING.md) - Guide for new developers
 
 ### Implementation Details
 
@@ -39,6 +45,7 @@ The Yale Executive Orders Analysis Platform is a comprehensive system designed t
 - [**Enhanced JSON Structure**](ENHANCED_JSON_STRUCTURE.md) - Details on the enhanced export format
 - [**Yale-Specific Approach**](YALE_SPECIFIC_APPROACH.md) - Yale institution-specific implementation
 - [**R1 Focus**](PRIVATE_R1_FOCUS.md) - Details on the private R1 institution focus
+- [**Frontend Architecture**](FRONTEND_CLEANUP_SUMMARY.md) - Client-side code architecture
 
 ### Phase Documentation
 
@@ -116,8 +123,9 @@ If you're developing or extending the system:
 
 1. Start with the [Architecture Overview](ARCHITECTURE.md) for a high-level understanding
 2. Review the [Project Structure](PROJECT_STRUCTURE.md) to locate key files
-3. Check the [Extension Guide](EXTENSION_GUIDE.md) for guidance on customization
-4. Refer to specific subsystem documentation as needed
+3. Read the [Testing Guide](TESTING_GUIDE.md) to understand the testing approach
+4. Check the [Extension Guide](EXTENSION_GUIDE.md) for guidance on customization
+5. Refer to specific subsystem documentation as needed
 
 ## Documentation Updates
 
@@ -128,5 +136,6 @@ This documentation hub is regularly updated as the system evolves. Recent docume
 - Documented key architectural decisions and rationales
 - Developed extension patterns documentation
 - Created detailed database schema reference
-- Established this central documentation entry point
-- Added subsystem-specific documentation for Knowledge, Conflict, Template, and Intelligence Hub components
+- Added subsystem-specific documentation for all major components
+- Added comprehensive testing guide
+- Expanded extraction system documentation

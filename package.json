@@ -1,21 +1,12 @@
 {
-  "name": "yale-executive-order-assistant",
-  "version": "1.2.0",
-  "description": "AI-powered system for analyzing executive orders and their impact on Yale University",
-  "main": "mcp_server.js",
+  "name": "yale-executive-orders",
+  "version": "1.0.0",
+  "description": "Knowledge extraction and analysis system for executive orders, with Yale-specific focus",
+  "main": "index.js",
   "scripts": {
-    "start": "node start_server.js",
-    "start:simple": "node start_server.js simple",
-    "start:full": "node start_server.js full",
-    "start:api": "node api_server.js",
-    "start:mcp": "node mcp_server.js",
-    "setup:db": "node sqlite_setup.js",
-    "setup:intelligence-hub": "node database_setup.js && node init_intelligence_hub.js && node export_to_json.js",
-    "fetch": "node fetch_orders.js",
-    "fetch:external": "node fetch_external_sources.js",
-    "fetch:external:test": "NODE_ENV=test node fetch_external_sources.js",
-    "export": "node export_to_json.js",
-    "export:test": "node export_to_json.js && node test_enhanced_export.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "test:nsf": "node test_nsf_fetch.js",
     "test:nih": "node test_nih_fetch.js",
     "test:integration": "node test_nih_integration.js",
@@ -23,38 +14,63 @@
     "test:export:structure": "node test_enhanced_export_structure.js",
     "test:intelligence-hub": "node test_intelligence_hub.js",
     "test:mcp": "node test_mcp_client.js",
-    "update": "node fetch_orders.js && node sqlite_setup.js",
-    "update:intelligence-hub": "node init_intelligence_hub.js && node export_to_json.js",
-    "deploy": "node export_to_json.js && ./update_and_deploy.sh",
-    "deploy:intelligence-hub": "node init_intelligence_hub.js && node export_to_json.js && ./update_and_deploy.sh",
+    "start": "node server.js",
+    "setup": "node database_setup.js",
+    "fetch": "node fetch_eo_data.js",
+    "analyze": "node analyze_new_orders.js",
+    "export": "node export_to_json.js",
+    "deploy": "node update_and_deploy.sh",
     "workflow": "node run_workflow.js",
-    "workflow:minimal": "node run_workflow.js --workflow minimal",
-    "workflow:standard": "node run_workflow.js --workflow standard",
-    "workflow:nocache": "node run_workflow.js --no-save",
-    "workflow:intelligence-hub": "node run_workflow.js --workflow intelligence-hub",
-    "mcp:client": "node mcp_llm_integration.js",
-    "mcp:static": "node static_mcp_client.js",
-    "mcp:setup": "node setup_static_mcp.js"
+    "docs:server": "cd docs && npx http-server",
+    "lint": "eslint ."
   },
+  "keywords": [
+    "executive-orders",
+    "knowledge-extraction",
+    "yale",
+    "policy-analysis",
+    "data-processing"
+  ],
+  "author": "Yale University",
+  "license": "MIT",
   "dependencies": {
-    "axios": "^1.8.1",
-    "body-parser": "^1.20.2",
-    "cheerio": "^1.0.0",
-    "cors": "^2.8.5",
-    "csv-parser": "^3.2.0",
-    "dotenv": "^16.4.7",
-    "express": "^4.18.2",
-    "jsdom": "^26.0.0",
-    "natural": "^8.0.1",
-    "openai": "^3.2.1",
-    "pdf-parse": "^1.1.1",
-    "pg": "^8.11.0",
-    "puppeteer": "^19.7.2",
-    "sqlite3": "^5.1.7"
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.10",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "node-fetch": "^2.6.1",
+    "sqlite3": "^5.0.2"
   },
-  "engines": {
-    "node": ">=16.0.0"
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "jest": "^27.2.0"
   },
-  "readme": "# Yale Executive Order Analysis Assistant\n\nThis project provides an AI-powered system for analyzing executive orders and their potential impacts on Yale University operations, compliance requirements, and academic activities.",
-  "private": true
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "extraction/**/*.js",
+      "knowledge/**/*.js",
+      "models/**/*.js",
+      "sources/**/*.js",
+      "templates/**/*.js",
+      "workflow/**/*.js",
+      "utils/**/*.js",
+      "!**/node_modules/**",
+      "!**/tests/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 80,
+        "branches": 70,
+        "functions": 80,
+        "lines": 80
+      }
+    },
+    "testMatch": ["**/__tests__/**/*.js", "**/?(*.)+(spec|test).js"],
+    "verbose": true
+  }
 }

@@ -6,35 +6,48 @@ This project implements a comprehensive knowledge extraction system for executiv
 
 The system extracts structured knowledge from executive orders and related documents, transforms it into standardized representations, and enhances it with Yale-specific categorization and context. The extracted knowledge can be used for analyzing policy impacts, tracking compliance requirements, and generating narratives for Yale stakeholders.
 
+## Key Features
+
+- **Multi-Source Data Integration**: Combines data from Federal Register, White House, and higher education policy sources
+- **Specialized Knowledge Extraction**: Extracts dates, requirements, impacts, entities, definitions, and authorities
+- **Yale-Specific Impact Mapping**: Maps extracted knowledge to Yale impact areas and stakeholders
+- **Intelligent Conflict Resolution**: Detects and resolves conflicts between different data sources
+- **Template-Based Document Generation**: Creates customized documents for different Yale departments
+- **Static Website Deployment**: Exports processed data to GitHub Pages for easy access
+- **Knowledge-Centric Architecture**: Uses structured fact-based knowledge representation
+
+## Documentation
+
+For comprehensive documentation, refer to the following resources:
+
+- [Documentation Hub](DOCUMENTATION.md) - Central entry point for all documentation
+- [Architecture Overview](ARCHITECTURE.md) - System architecture and design principles
+- [Data Flow](DATA_FLOW.md) - Complete data processing pipeline
+- [API Reference](API_README.md) - API details for integration
+- [Extension Guide](EXTENSION_GUIDE.md) - How to extend and customize the system
+
 ## Philosophy
 
 The Yale Executive Orders Knowledge Extraction System is built on these philosophical principles:
 
-1. **Knowledge as Structured Insight**: We believe that unstructured text becomes truly valuable when transformed into structured, interconnected knowledge that reveals patterns and implications not apparent in the raw text.
-
-2. **Context-Sensitive Understanding**: Executive orders must be understood within their specific institutional context. What matters to Yale University differs from what matters to other organizations.
-
-3. **Multi-Dimensional Analysis**: No single extraction approach captures all aspects of policy documents. By using multiple specialized extractors, we gain a richer understanding of the material.
-
-4. **Evidence-Based Confidence**: All extractions include confidence scores and evidence, making the system's reliability transparent and auditable.
-
-5. **Open Knowledge**: This project embraces openness, allowing anyone to extract, analyze, and share structured knowledge from executive orders.
+1. **Knowledge as Structured Insight**: Transforming unstructured text into interconnected knowledge
+2. **Context-Sensitive Understanding**: Understanding executive orders within institutional context
+3. **Multi-Dimensional Analysis**: Using multiple specialized extractors for comprehensive analysis
+4. **Evidence-Based Confidence**: Including confidence scores and evidence for transparency
+5. **Open Knowledge**: Embracing openness for extraction, analysis, and sharing
 
 ## Data Sources
 
 The system integrates data from multiple authoritative sources:
 
-1. **Federal Register API**: Official source for executive orders with full text and metadata.
-
-2. **White House Website**: Direct source for the most recent executive orders.
-
+1. **Federal Register API**: Official source for executive orders with full text and metadata
+2. **White House Website**: Direct source for the most recent executive orders
 3. **Higher Education Policy Sources**:
    - **Council on Governmental Relations (COGR)**: Research institution-focused analyses
    - **National Science Foundation (NSF)**: Implementation guidance for research grants
    - **National Institutes of Health (NIH)**: Policy notices for biomedical research
    - **American Council on Education (ACE)**: Higher education sector-wide analysis
-
-4. **Local Database**: SQLite database for cached and processed executive order data.
+4. **Local Database**: SQLite database for cached and processed executive order data
 
 ## Key Components
 
@@ -54,12 +67,21 @@ The system integrates data from multiple authoritative sources:
   - `DefinitionExtractor`: Extracts defined terms and their meanings
   - `AuthorityExtractor`: Extracts legal authorities cited in orders
 
-### Yale-Specific Capabilities
+### Sources Management
 
-- Maps extracted knowledge to Yale impact areas
-- Identifies relevant Yale stakeholders
-- Calculates Yale-specific relevance scores
-- Provides institution-specific context and impact assessment
+- `sources/source_manager.js`: Manages data sources and retrieval
+- `sources/source_registry.js`: Registers and provides access to data sources
+- Various source adapters for different data providers
+
+### Template System
+
+- `templates/template_manager.js`: Manages document templates
+- `templates/renderers/`: Specialized renderers for different output formats
+
+### Workflow Pipeline
+
+- `workflow/pipeline.js`: Defines the end-to-end processing pipeline
+- `workflow/controller.js`: Orchestrates the execution of pipeline steps
 
 ## Getting Started
 
@@ -80,7 +102,12 @@ The system integrates data from multiple authoritative sources:
    npm install
    ```
 
-## Usage Example
+3. Set up the database:
+   ```bash
+   node database_setup.js
+   ```
+
+### Basic Usage
 
 ```javascript
 const { KnowledgeExtractor } = require('./extraction/knowledge_extractor');
@@ -107,33 +134,13 @@ console.log(extractedKnowledge.yaleImpactAreas); // Yale impact areas
 
 See `tests/extractor_example.js` for a complete working example.
 
-## Knowledge Types
+### Common Tasks
 
-The system extracts and structures the following types of knowledge:
-
-1. **Dates**: Deadlines, effective dates, implementation milestones
-2. **Requirements**: Obligations, mandates, reporting requirements
-3. **Impacts**: Policy impacts on institutions and operations
-4. **Entities**: Government agencies, roles, departments
-5. **Definitions**: Defined terms and their meanings
-6. **Authorities**: Legal authorities, statutes, constitutional provisions
-
-## Yale Impact Areas
-
-The system maps extracted knowledge to Yale-specific impact areas:
-
-1. Research and Innovation
-2. Export Controls and Security
-3. International Programs
-4. Community and Belonging
-5. Campus Safety
-6. Workforce and Employment
-7. Healthcare Operations
-8. Financial and Physical Resources
-9. Governance and Legal
-10. Academic Programs
-11. Arts and Cultural Heritage
-12. Athletics and Recreation
+- **Initialize/update database**: `node database_setup.js`
+- **Generate summaries**: `node generate_plain_summaries.js`
+- **Export to JSON**: `node export_to_json.js`
+- **Test static site locally**: `cd docs && npx http-server`
+- **Update and deploy**: `node update_and_deploy.sh`
 
 ## Development
 
@@ -141,15 +148,15 @@ The system maps extracted knowledge to Yale-specific impact areas:
 
 ```
 yale-executive-orders/
-├── models/
-│   ├── knowledge_schema.js
-│   └── enhanced_knowledge_schema.js
-├── extraction/
-│   └── knowledge_extractor.js
-├── utils/
-│   └── logger.js
-└── tests/
-    └── extractor_example.js
+├── models/                # Data models and schemas
+├── extraction/            # Knowledge extraction system
+├── sources/               # Data source integrations
+├── templates/             # Document templates and renderers
+├── workflow/              # Pipeline and orchestration
+├── utils/                 # Utility functions
+├── knowledge/             # Knowledge management system
+├── tests/                 # Example and test scripts
+└── docs/                  # Static website
 ```
 
 ### Running the Example
@@ -158,35 +165,17 @@ yale-executive-orders/
 node tests/extractor_example.js
 ```
 
-## How the Extraction Works
-
-The extraction process follows these steps:
-
-1. **Initialize Extractors**: The `KnowledgeExtractor` initializes specialized extractors for different knowledge types.
-
-2. **Process Source Text**: Each extractor analyzes the executive order text using sophisticated pattern matching.
-
-3. **Extract Structured Knowledge**: Extractors identify dates, requirements, entities, definitions, and authorities.
-
-4. **Enhance with Yale Context**: The system maps extracted knowledge to Yale-specific impact areas and stakeholders.
-
-5. **Merge and Cross-Reference**: The orchestrator merges all extracted knowledge into a unified representation.
-
-6. **Calculate Confidence**: Each extraction includes confidence scores based on extraction quality.
-
-7. **Output Structured Knowledge**: The resulting knowledge is provided in a structured format for further use.
-
-## Future Enhancements
-
-- Integration with AI-powered extraction services
-- Expanded Yale-specific mapping capabilities
-- Cross-source knowledge integration
-- Narrative generation from extracted knowledge
-- Interactive visualization of extracted knowledge
-
 ## Contributing
 
-Contributions to this project are welcome. Please feel free to submit pull requests, open issues, or suggest enhancements.
+Contributions to this project are welcome. Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run tests to ensure code quality
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
 ## License
 
