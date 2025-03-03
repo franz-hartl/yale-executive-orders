@@ -1,5 +1,5 @@
 {
-  "date": "2025-03-03T13:51:04.568Z",
+  "date": "2025-03-03T19:03:19.230Z",
   "status": "using_sample",
   "urls_checked": [
     "https://grants.nih.gov/policy/index.htm",
@@ -14,34 +14,34 @@
       "url": "https://grants.nih.gov/policy/index.htm",
       "status": "success",
       "title": "Policy & Compliance | Grants & Funding",
-      "timestamp": "2025-03-03T13:51:04.852Z"
+      "timestamp": "2025-03-03T19:03:19.611Z"
     },
     {
       "url": "https://grants.nih.gov/grants/policy/nihgps/index.html",
       "status": "error",
       "message": "Request failed with status code 404",
-      "timestamp": "2025-03-03T13:51:05.083Z"
+      "timestamp": "2025-03-03T19:03:19.759Z"
     },
     {
       "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-012.html",
       "status": "success",
       "title": "NOT-OD-23-012: Reminder: FORMS-H Grant Application Forms & Instructions Must be Used for Due Dates On or After January 25, 2023 - New Grant Application Instructions Now Available",
-      "timestamp": "2025-03-03T13:51:05.151Z"
+      "timestamp": "2025-03-03T19:03:19.845Z"
     },
     {
       "url": "https://grants.nih.gov/policy/clinical-trials.htm",
       "status": "success",
       "title": "Clinical Trial Requirements for Grants and Contracts | Grants & Funding",
-      "timestamp": "2025-03-03T13:51:05.363Z"
+      "timestamp": "2025-03-03T19:03:20.122Z"
     },
     {
       "url": "https://grants.nih.gov/policy/data-sharing.htm",
       "status": "error",
       "message": "Request failed with status code 404",
-      "timestamp": "2025-03-03T13:51:05.536Z"
+      "timestamp": "2025-03-03T19:03:20.296Z"
     }
   ],
   "notices_count": 3,
-  "notices_path": "/Users/franzhartl/yale-executive-orders/external_sources/nih/nih-notices-sample-2025-03-03T13-51-05-537Z.json",
+  "notices_path": "/Users/franzhartl/yale-executive-orders/external_sources/nih/nih-notices-sample-2025-03-03T19-03-20-297Z.json",
   "is_sample": true
 }

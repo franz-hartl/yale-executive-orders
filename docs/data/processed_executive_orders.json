@@ -11137,7 +11137,7 @@
         "abbreviation": "NIH",
         "url": "https://grants.nih.gov/policy/index.htm",
         "reference_id": null,
-        "fetch_date": "2025-03-03T13:51:05.547Z",
+        "fetch_date": "2025-03-03T19:03:20.309Z",
         "data": {
           "implementation_references": [
             {
@@ -11159,7 +11159,7 @@
               "source_page": "https://grants.nih.gov/policy/data-sharing.htm"
             }
           ],
-          "extracted_date": "2025-03-03T13:51:05.537Z",
+          "extracted_date": "2025-03-03T19:03:20.297Z",
           "nih_relevant": true,
           "is_sample": true
         }
@@ -11385,7 +11385,7 @@
         "abbreviation": "NIH",
         "url": "https://grants.nih.gov/policy/index.htm",
         "reference_id": null,
-        "fetch_date": "2025-03-03T13:51:05.554Z",
+        "fetch_date": "2025-03-03T19:03:20.319Z",
         "data": {
           "implementation_references": [
             {
@@ -11407,7 +11407,7 @@
               "content_type": "paragraph"
             }
           ],
-          "extracted_date": "2025-03-03T13:51:05.537Z",
+          "extracted_date": "2025-03-03T19:03:20.297Z",
           "nih_relevant": true,
           "is_sample": true
         }
@@ -11622,7 +11622,7 @@
         "abbreviation": "NIH",
         "url": "https://grants.nih.gov/policy/index.htm",
         "reference_id": null,
-        "fetch_date": "2025-03-03T13:51:05.551Z",
+        "fetch_date": "2025-03-03T19:03:20.316Z",
         "data": {
           "implementation_references": [
             {
@@ -11635,7 +11635,7 @@
               "source_page": "https://grants.nih.gov/grants/guide/index.html"
             }
           ],
-          "extracted_date": "2025-03-03T13:51:05.537Z",
+          "extracted_date": "2025-03-03T19:03:20.297Z",
           "nih_relevant": true,
           "is_sample": true
         }

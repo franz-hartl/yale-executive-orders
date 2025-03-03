@@ -316,7 +316,7 @@
       "abbreviation": "ACE",
       "url": "https://www.acenet.edu/Policy-Advocacy/Pages/default.aspx",
       "description": "American Council on Education policy briefs and analysis of executive orders affecting higher education institutions.",
-      "last_updated": "2025-03-03T13:51:05.556Z",
+      "last_updated": "2025-03-03T19:03:20.320Z",
       "fetch_frequency": "monthly",
       "order_count": 0,
       "last_fetch": null
@@ -327,7 +327,7 @@
       "abbreviation": "COGR",
       "url": "https://www.cogr.edu/cogr-resources",
       "description": "The Council on Governmental Relations (COGR) maintains a tracker of executive orders relevant to research institutions. This source provides detailed analysis of EOs affecting higher education research.",
-      "last_updated": "2025-03-03T13:51:02.036Z",
+      "last_updated": "2025-03-03T19:03:13.990Z",
       "fetch_frequency": "monthly",
       "order_count": 0,
       "last_fetch": null
@@ -338,10 +338,10 @@
       "abbreviation": "NIH",
       "url": "https://grants.nih.gov/policy/index.htm",
       "description": "National Institutes of Health policy notices, which often contain information about how executive orders affect NIH grants and operations.",
-      "last_updated": "2025-03-03T13:51:05.538Z",
+      "last_updated": "2025-03-03T19:03:20.298Z",
       "fetch_frequency": "bi-weekly",
       "order_count": 3,
-      "last_fetch": "2025-03-03T13:51:05.554Z"
+      "last_fetch": "2025-03-03T19:03:20.319Z"
     },
     {
       "id": 2,
@@ -349,7 +349,7 @@
       "abbreviation": "NSF",
       "url": "https://www.nsf.gov/news/policies_and_procedures/",
       "description": "National Science Foundation pages detailing how executive orders are being implemented in grant procedures and requirements.",
-      "last_updated": "2025-03-03T13:51:04.565Z",
+      "last_updated": "2025-03-03T19:03:19.225Z",
       "fetch_frequency": "bi-weekly",
       "order_count": 2,
       "last_fetch": "2025-02-28T21:29:54.939Z"

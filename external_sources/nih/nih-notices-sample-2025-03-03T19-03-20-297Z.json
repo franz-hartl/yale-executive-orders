@@ -1,0 +1,93 @@
+[
+  {
+    "order_number": "EO 14028",
+    "title": "NIH Implementation of Executive Order on Improving the Nation's Cybersecurity",
+    "categories": [
+      "Healthcare",
+      "Research & Science Policy"
+    ],
+    "source_specific_data": {
+      "implementation_references": [
+        {
+          "notice_id": "NOT-OD-23-050",
+          "title": "Implementation of Executive Order 14028: Cybersecurity Requirements for NIH Grantees",
+          "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html",
+          "date": "2023",
+          "executive_order": "EO 14028",
+          "context": "This Notice informs the extramural community about cybersecurity requirements per Executive Order 14028 on \"Improving the Nation's Cybersecurity.\"",
+          "source_page": "https://grants.nih.gov/policy/index.htm"
+        },
+        {
+          "notice_id": "NOT-OD-23-075",
+          "title": "Reminder of Cybersecurity Requirements for NIH Data Management",
+          "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-075.html",
+          "date": "2023",
+          "executive_order": "EO 14028",
+          "context": "This Notice provides additional guidance on cybersecurity controls for biomedical research data in accordance with Executive Order 14028.",
+          "source_page": "https://grants.nih.gov/policy/data-sharing.htm"
+        }
+      ],
+      "extracted_date": "2025-03-03T19:03:20.297Z",
+      "nih_relevant": true,
+      "is_sample": true
+    }
+  },
+  {
+    "order_number": "EO 14081",
+    "title": "NIH Implementation of Executive Order on Advancing Biotechnology and Biomanufacturing",
+    "categories": [
+      "Healthcare",
+      "Research & Science Policy"
+    ],
+    "source_specific_data": {
+      "implementation_references": [
+        {
+          "notice_id": "NOT-OD-23-021",
+          "title": "Notice of Special Interest: Advancing Biotechnology and Biomanufacturing Initiative",
+          "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-021.html",
+          "date": "2023",
+          "executive_order": "EO 14081",
+          "context": "This Notice announces NIH's participation in the implementation of Executive Order 14081 on \"Advancing Biotechnology and Biomanufacturing Innovation for a Sustainable, Safe, and Secure American Bioeconomy.\"",
+          "source_page": "https://grants.nih.gov/grants/guide/index.html"
+        }
+      ],
+      "extracted_date": "2025-03-03T19:03:20.297Z",
+      "nih_relevant": true,
+      "is_sample": true
+    }
+  },
+  {
+    "order_number": "EO 14110",
+    "title": "NIH Implementation of Executive Order on Artificial Intelligence",
+    "categories": [
+      "Healthcare",
+      "Research & Science Policy",
+      "Technology"
+    ],
+    "source_specific_data": {
+      "implementation_references": [
+        {
+          "notice_id": "NOT-OD-24-002",
+          "title": "Implementation of the Executive Order on AI in Biomedical Research",
+          "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html",
+          "date": "2024",
+          "executive_order": "EO 14110",
+          "context": "This Notice provides information on how NIH is implementing Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence as it relates to biomedical research and data management.",
+          "source_page": "https://grants.nih.gov/policy/clinical-trials.htm"
+        },
+        {
+          "title": "NIH AI Policy Statement",
+          "url": "https://grants.nih.gov/policy/index.htm#ai",
+          "date": "January 15, 2024",
+          "executive_order": "EO 14110",
+          "context": "The National Institutes of Health is committed to ensuring the safe, secure, and trustworthy development and use of artificial intelligence in biomedical research as outlined in Executive Order 14110.",
+          "source_page": "https://grants.nih.gov/policy/index.htm",
+          "content_type": "paragraph"
+        }
+      ],
+      "extracted_date": "2025-03-03T19:03:20.297Z",
+      "nih_relevant": true,
+      "is_sample": true
+    }
+  }
+]
