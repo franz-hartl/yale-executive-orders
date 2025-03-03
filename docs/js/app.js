@@ -567,7 +567,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Loading Intelligence Hub data for order:', orderId);
                 window.IntelligenceHub.loadOrderIntelligence(orderId, order);
             } else {
-                console.error('Intelligence Hub module not available');
+                console.warn('Intelligence Hub module not available');
+            }
+            
+            // Load Integrated View data
+            if (window.IntegratedView && typeof window.IntegratedView.loadOrderData === 'function') {
+                console.log('Loading Integrated View data for order:', orderId);
+                window.IntegratedView.loadOrderData(orderId, order);
+            } else {
+                console.warn('Integrated View module not available');
             }
             
             // Show the detail view using Yale Modal if available
