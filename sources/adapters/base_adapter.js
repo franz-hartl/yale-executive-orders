@@ -25,6 +25,9 @@ class BaseAdapter {
     this.name = options.name || `${this.sourceType} Adapter`;
     this.description = options.description || `Adapter for ${this.sourceType}`;
     
+    // Create a logger
+    this.logger = logger.createNamedLogger(`${this.name}Adapter`);
+    
     // HTTP settings
     this.baseUrl = options.baseUrl || '';
     this.requestDelay = options.requestDelay || 1000;

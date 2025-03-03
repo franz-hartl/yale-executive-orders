@@ -9,7 +9,7 @@ const sourceManager = require('./source_manager');
 const logger = require('../utils/logger');
 
 // Create a logger
-const apiLogger = logger.createJobLogger('SourceAPI');
+const apiLogger = logger.createNamedLogger('SourceAPI');
 
 /**
  * Initializes the source API

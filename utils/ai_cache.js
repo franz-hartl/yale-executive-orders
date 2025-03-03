@@ -13,7 +13,7 @@ const logger = require('./logger');
 const config = require('../config');
 
 // Create a named logger for the AI cache
-const cacheLogger = logger.createJobLogger('AICache');
+const cacheLogger = logger.createNamedLogger('AICache');
 
 class AICache {
   constructor(options = {}) {

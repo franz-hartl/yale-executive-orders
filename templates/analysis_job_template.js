@@ -159,7 +159,7 @@ async function main() {
   });
   
   // Create job-specific logger
-  const jobLogger = logger.createJobLogger(JOB_NAME);
+  const jobLogger = logger.createNamedLogger(JOB_NAME);
   
   // Get database connection
   const db = getDbConnection();

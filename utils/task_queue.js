@@ -12,7 +12,7 @@ const { ensureDirectoryExists } = require('./common');
 const logger = require('./logger');
 
 // Create a named logger
-const queueLogger = logger.createJobLogger('TaskQueue');
+const queueLogger = logger.createNamedLogger('TaskQueue');
 
 // Task status constants
 const TASK_STATUS = {

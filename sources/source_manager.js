@@ -26,7 +26,7 @@ const {
 } = require('../models/source_schema');
 
 // Create a named logger
-const sourceManagerLogger = logger.createJobLogger('SourceManager');
+const sourceManagerLogger = logger.createNamedLogger('SourceManager');
 
 /**
  * Source Manager class for handling source data

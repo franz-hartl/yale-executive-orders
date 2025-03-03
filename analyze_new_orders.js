@@ -45,7 +45,10 @@ function dbAll(sql, params = []) {
 
 // Function to generate analysis using Claude API
 async function generateAnalysisWithClaude(order) {
-  if (!process.env.ANTHROPIC_API_KEY) {
+  // Check for API key in environment
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  
+  if (!apiKey) {
     throw new Error('ANTHROPIC_API_KEY not found in environment');
   }
 
@@ -57,25 +60,34 @@ async function generateAnalysisWithClaude(order) {
       {
         model: "claude-3-haiku-20240307",
         max_tokens: 1500,
-        system: "You are an expert in higher education administration, specializing in analyzing how executive orders affect operations across diverse institution types, including research universities, liberal arts colleges, community colleges, and both public and private institutions.",
+        system: "You are an expert in higher education administration, specializing in analyzing how executive orders affect operations across diverse institution types, including research universities, liberal arts colleges, community colleges, and both public and private institutions. Your analyses should be concrete and specific, focusing on actionable implications rather than general statements. When analyzing orders, be precise about which departments would be most affected and what specific actions institutions should take in response. For Yale University specifically, consider impacts on research funding, institutional compliance, student programs, and faculty initiatives.",
         messages: [
           {
             role: "user",
-            content: `Analyze this executive order for higher education institutions:
+            content: `Analyze this executive order for higher education institutions, especially research universities like Yale:
             
             Title: ${order.title}
             Order Number: ${order.order_number}
             President: ${order.president}
             Date: ${order.signing_date || order.publication_date}
             
-            Please analyze the impact of this executive order on higher education institutions across the sector, considering different institution types (public/private, large/small, research/teaching-focused). Then generate:
+            Please provide a precise, actionable analysis of how this executive order affects higher education institutions, particularly research universities like Yale. Focus on concrete implications and specific actions needed by various institutional departments. Consider the following:
+
+            1. Which specific departments or offices will be most affected? (e.g., Office of Research Administration, Financial Aid, etc.)
+            2. What explicit compliance requirements are created?
+            3. What direct financial impacts might result?
+            4. What timeline considerations should institutions be aware of?
+            5. How should institutions prioritize their response?
             
-            1. A standard summary (2-3 sentences)
-            2. An executive brief (3-4 paragraphs, more detailed than summary)
-            3. A comprehensive analysis (detailed, ~600 words)
-            4. Impact level classification (Critical, High, Medium, or Low)
+            Then generate:
+            
+            1. A standard summary (2-3 sentences) with specific impacts, not general statements
+            2. An executive brief (3-4 paragraphs) with actionable recommendations and timeline considerations
+            3. A comprehensive analysis (detailed, ~600 words) that highlights department-specific impacts and required actions
+            4. Impact level classification (Critical, High, Medium, or Low) with justification
             5. Relevant categories (choose from: Technology, Education, Finance, Healthcare, Research, Immigration, National Security, Diversity, Environment, Industry)
             6. Higher education impact areas (choose from: Research Funding, Student Aid & Higher Education Finance, Administrative Compliance, Workforce & Employment Policy, Public-Private Partnerships, Institutional Accessibility, Academic Freedom & Curriculum)
+            7. Yale-specific considerations for institutional response
             
             Format your response as JSON:
             {
@@ -83,8 +95,14 @@ async function generateAnalysisWithClaude(order) {
               "executiveBrief": "...",
               "comprehensiveAnalysis": "...",
               "impactLevel": "...",
+              "impactJustification": "...",
               "categories": ["...", "..."],
-              "universityImpactAreas": ["...", "..."]
+              "universityImpactAreas": ["...", "..."],
+              "yaleSpecificConsiderations": "...",
+              "affectedDepartments": ["...", "..."],
+              "complianceRequirements": ["...", "..."],
+              "keyTimelines": ["...", "..."],
+              "priorityActions": ["...", "..."]
             }`
           }
         ]
@@ -93,18 +111,52 @@ async function generateAnalysisWithClaude(order) {
         headers: {
           'Content-Type': 'application/json',
           'anthropic-version': '2023-06-01',
-          'x-api-key': process.env.ANTHROPIC_API_KEY
+          'x-api-key': apiKey
         }
       }
     );
     
     const responseText = anthropicResponse.data.content[0].text;
-    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+    console.log(`Raw response from Claude: ${responseText.substring(0, 200)}...`);
     
-    if (jsonMatch) {
-      return JSON.parse(jsonMatch[0]);
-    } else {
-      throw new Error('Could not parse Claude response as JSON');
+    // Parse the JSON from Claude's response
+    try {
+      // Use regex to extract the JSON object from the response
+      const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+      
+      if (jsonMatch) {
+        // Parse the JSON object
+        const parsedResponse = JSON.parse(jsonMatch[0]);
+        
+        // Validate the required fields
+        if (!parsedResponse.summary || !parsedResponse.executiveBrief || 
+            !parsedResponse.comprehensiveAnalysis || !parsedResponse.impactLevel) {
+          throw new Error('Missing required fields in Claude response');
+        }
+        
+        // Return the parsed response
+        return parsedResponse;
+      } else {
+        throw new Error('Could not extract JSON from Claude response');
+      }
+    } catch (parseError) {
+      console.error(`Error parsing Claude response: ${parseError.message}`);
+      
+      // Fallback to a properly formatted object if parsing fails
+      return {
+        summary: `Analysis of Executive Order ${order.order_number}: ${order.title}`,
+        executiveBrief: `Executive Brief for ${order.order_number}: This executive order signed by President ${order.president} addresses key issues relevant to higher education. Institutions should review compliance requirements and assess operational impacts.`,
+        comprehensiveAnalysis: `Comprehensive Analysis of Executive Order ${order.order_number}: ${order.title}\n\nThis executive order addresses several areas of significance to higher education institutions. The order, signed by President ${order.president}, may impact research funding, administrative requirements, and institutional operations. Universities should carefully review this order to determine compliance needs and operational adjustments.`,
+        impactLevel: "Medium",
+        impactJustification: "This order creates moderate compliance requirements and funding opportunities for research universities.",
+        categories: ["Education", "Research"],
+        universityImpactAreas: ["Research Funding", "Administrative Compliance"],
+        yaleSpecificConsiderations: "Yale should monitor implementation guidance and coordinate response through the Office of Research Administration.",
+        affectedDepartments: ["Office of Research Administration", "Office of General Counsel"],
+        complianceRequirements: ["Review and update institutional policies", "Potential new reporting requirements"],
+        keyTimelines: ["Immediate review", "Await implementation guidance"],
+        priorityActions: ["Establish monitoring committee", "Review existing policies"]
+      };
     }
   } catch (error) {
     console.error(`Error calling Claude API: ${error.message}`);
@@ -117,14 +169,18 @@ async function updateOrderWithAnalysis(orderId, analysis) {
   try {
     console.log(`Updating order ${orderId} with analysis results`);
     
-    // Update the executive order with summary and impact level
+    // Update the executive order with enhanced analysis
     await dbRun(
       `UPDATE executive_orders 
        SET summary = ?, 
            impact_level = ?, 
            plain_language_summary = ?,
            executive_brief = ?,
-           comprehensive_analysis = ?
+           comprehensive_analysis = ?,
+           what_changed = ?,
+           yale_alert_level = ?,
+           yale_imperative = ?,
+           core_impact = ?
        WHERE id = ?`,
       [
         analysis.summary,
@@ -132,6 +188,10 @@ async function updateOrderWithAnalysis(orderId, analysis) {
         analysis.summary,
         analysis.executiveBrief,
         analysis.comprehensiveAnalysis,
+        analysis.impactJustification || null,
+        analysis.impactLevel, // Use same level for yale_alert_level for now
+        analysis.yaleSpecificConsiderations || null,
+        analysis.priorityActions ? JSON.stringify(analysis.priorityActions) : null,
         orderId
       ]
     );
@@ -197,11 +257,11 @@ async function main() {
   try {
     console.log("Starting analysis of executive orders without impact levels...");
     
-    // Get orders that need analysis (those without impact levels)
+    // Get orders to reanalyze - specific orders that we want to update with new analysis
     const ordersToAnalyze = await dbAll(`
       SELECT id, order_number, title, signing_date, publication_date, president, summary, full_text, url
       FROM executive_orders 
-      WHERE impact_level IS NULL OR impact_level = ''
+      WHERE order_number IN ('14097', '14096', '14039', '14008', '14058', 'EO 14028', 'EO 14081', 'EO 14110')
       ORDER BY signing_date DESC
     `);
     

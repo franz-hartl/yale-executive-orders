@@ -21,7 +21,7 @@ logger.initLogger({
 });
 
 // Create a script-specific logger
-const extractionLogger = logger.createJobLogger('ExtractOrderInfo');
+const extractionLogger = logger.createNamedLogger('ExtractOrderInfo');
 
 /**
  * Initialize extractors

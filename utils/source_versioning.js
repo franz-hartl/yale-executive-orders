@@ -12,7 +12,7 @@ const path = require('path');
 const logger = require('./logger');
 
 // Create a named logger
-const versionLogger = logger.createJobLogger('SourceVersioning');
+const versionLogger = logger.createNamedLogger('SourceVersioning');
 
 /**
  * Generate a hash for content to detect changes

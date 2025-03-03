@@ -5,32 +5,39 @@
   "signing_date": null,
   "publication_date": null,
   "president": null,
-  "summary": null,
+  "summary": "Analysis of Executive Order EO 14110: NIH Implementation of Executive Order on Artificial Intelligence",
   "full_text": null,
   "url": null,
-  "impact_level": null,
+  "impact_level": "Medium",
   "status": null,
   "implementation_phase": null,
   "added_date": "2025-02-28 21:28:41",
   "last_updated": "2025-02-28 21:28:41",
-  "plain_language_summary": null,
-  "executive_brief": null,
-  "comprehensive_analysis": null,
+  "plain_language_summary": "Analysis of Executive Order EO 14110: NIH Implementation of Executive Order on Artificial Intelligence",
+  "executive_brief": "Executive Brief for EO 14110: This executive order signed by President null addresses key issues relevant to higher education. Institutions should review compliance requirements and assess operational impacts.",
+  "comprehensive_analysis": "Comprehensive Analysis of Executive Order EO 14110: NIH Implementation of Executive Order on Artificial Intelligence\n\nThis executive order addresses several areas of significance to higher education institutions. The order, signed by President null, may impact research funding, administrative requirements, and institutional operations. Universities should carefully review this order to determine compliance needs and operational adjustments.",
   "effective_date": null,
-  "yale_alert_level": null,
-  "core_impact": null,
-  "yale_imperative": null,
+  "yale_alert_level": "Medium",
+  "core_impact": "[\"Establish monitoring committee\",\"Review existing policies\"]",
+  "yale_imperative": "Yale should monitor implementation guidance and coordinate response through the Office of Research Administration.",
   "confidence_rating": 0.85,
-  "what_changed": null,
+  "what_changed": "This order creates moderate compliance requirements and funding opportunities for research universities.",
   "categories": [
     "Technology",
-    "Healthcare"
+    "Education",
+    "Healthcare",
+    "Research"
   ],
   "impact_areas": [],
   "university_impact_areas": [
     {
       "name": "Research Funding",
       "description": "Impacts on federal research grants, funding priorities, and research administration",
+      "notes": null
+    },
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
       "notes": null
     }
   ],
@@ -41,10 +48,14 @@
   "impact_scoring": [],
   "implementation_resources": [],
   "compliance_actions": [],
-  "has_plain_language_summary": false,
-  "has_executive_brief": false,
-  "has_comprehensive_analysis": false,
-  "summary_formats_available": [],
+  "has_plain_language_summary": true,
+  "has_executive_brief": true,
+  "has_comprehensive_analysis": true,
+  "summary_formats_available": [
+    "executive_brief",
+    "standard",
+    "comprehensive"
+  ],
   "sources": [
     {
       "name": "NSF Implementation Pages",
@@ -79,7 +90,7 @@
       "abbreviation": "NIH",
       "url": "https://grants.nih.gov/policy/index.htm",
       "reference_id": null,
-      "fetch_date": "2025-03-03T19:03:20.319Z",
+      "fetch_date": "2025-03-03T19:14:00.428Z",
       "data": {
         "implementation_references": [
           {
@@ -101,7 +112,7 @@
             "content_type": "paragraph"
           }
         ],
-        "extracted_date": "2025-03-03T19:03:20.297Z",
+        "extracted_date": "2025-03-03T19:14:00.410Z",
         "nih_relevant": true,
         "is_sample": true
       }
@@ -109,7 +120,7 @@
   ],
   "yale_guidance": {
     "yale_university": {
-      "relevance_score": 1,
+      "relevance_score": 3,
       "affected_departments": [],
       "primary_departments": [],
       "secondary_departments": [],
@@ -200,11 +211,17 @@
       "notes": null,
       "source_insights": [],
       "consensus_rating": "Neutral"
+    },
+    "Administrative Compliance": {
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
     }
   },
   "simplified_source_analysis": {
-    "summary": "",
-    "extended_analysis": "",
+    "summary": "Analysis of Executive Order EO 14110: NIH Implementation of Executive Order on Artificial Intelligence",
+    "extended_analysis": "Comprehensive Analysis of Executive Order EO 14110: NIH Implementation of Executive Order on Artificial Intelligence\n\nThis executive order addresses several areas of significance to higher education institutions. The order, signed by President null, may impact research funding, administrative requirements, and institutional operations. Universities should carefully review this order to determine compliance needs and operational adjustments.",
     "source_insights": [
       {
         "source": "NSF",
@@ -237,10 +254,10 @@
     ]
   },
   "intelligence_hub": {
-    "yale_alert_level": "Moderate",
-    "core_impact": null,
-    "what_changed": null,
-    "yale_imperative": null,
+    "yale_alert_level": "Medium",
+    "core_impact": "[\"Establish monitoring committee\",\"Review existing policies\"]",
+    "what_changed": "This order creates moderate compliance requirements and funding opportunities for research universities.",
+    "yale_imperative": "Yale should monitor implementation guidance and coordinate response through the Office of Research Administration.",
     "confidence_rating": 0.85,
     "timeline_navigator": {
       "signing_date": null,

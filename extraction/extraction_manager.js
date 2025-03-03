@@ -13,7 +13,7 @@ const sourceAPI = require('../sources/source_api');
 const { sleep } = require('../utils/common');
 
 // Create a logger for the extraction manager
-const extractionLogger = logger.createJobLogger('ExtractionManager');
+const extractionLogger = logger.createNamedLogger('ExtractionManager');
 
 /**
  * Extraction Manager class

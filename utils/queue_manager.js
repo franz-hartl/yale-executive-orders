@@ -12,7 +12,7 @@ const { getDbConnection } = require('./db');
 const logger = require('./logger');
 
 // Create a named logger
-const queueManagerLogger = logger.createJobLogger('QueueManager');
+const queueManagerLogger = logger.createNamedLogger('QueueManager');
 
 // Define queue types
 const QUEUE_TYPES = {

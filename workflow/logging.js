@@ -17,10 +17,7 @@ if (!fs.existsSync(logDir)) {
 }
 
 // Initialize the base logger with our configuration
-baseLogger.initLogger({
-  logLevel: config.logging.level.toUpperCase(),
-  logFile: config.logging.file
-});
+baseLogger.setLogLevel(config.logging.level.toUpperCase());
 
 /**
  * Format a workflow event for logging

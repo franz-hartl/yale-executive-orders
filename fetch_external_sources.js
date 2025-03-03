@@ -164,7 +164,14 @@ async function fetchCOGRTracker() {
     console.log('Fetching COGR resources page:', cogrResourcesUrl);
     
     try {
-      const response = await axios.get(cogrResourcesUrl);
+      const response = await axios.get(cogrResourcesUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; Yale Executive Orders Analysis Project; +https://github.com/yale/executive-orders-analysis)',
+          'Accept': 'text/html,application/xhtml+xml,application/xml',
+          'Accept-Language': 'en-US,en;q=0.9'
+        },
+        timeout: 15000
+      });
       const $ = cheerio.load(response.data);
       
       // Look for links containing "Executive Order Tracker" and ".pdf" with broader matching
@@ -416,7 +423,55 @@ async function fetchCOGRTracker() {
         );
       }
       
-      // Future implementation will parse the extracted text to identify executive orders
+      // Parse the extracted text if available to identify executive orders
+      if (fetchLog.textExtracted && fetchLog.textPath) {
+        try {
+          console.log(`Extracting executive order references from ${fetchLog.textPath}`);
+          const pdfText = await fs.readFile(fetchLog.textPath, 'utf-8');
+          
+          // Extract executive order references from the text using regex
+          const eoReferences = [];
+          
+          // Match "Executive Order {number}" or "EO {number}" patterns
+          const eoPattern = /(?:Executive\s+Order|EO)\s+(1[0-9]{4})/gi;
+          let match;
+          
+          while ((match = eoPattern.exec(pdfText)) !== null) {
+            const eoNumber = match[1];
+            const contextStart = Math.max(0, match.index - 100);
+            const contextEnd = Math.min(pdfText.length, match.index + 300);
+            const context = pdfText.substring(contextStart, contextEnd)
+              .replace(/[\r\n]+/g, ' ')
+              .trim();
+            
+            eoReferences.push({
+              order_number: `EO ${eoNumber}`,
+              title: `COGR Analysis of Executive Order ${eoNumber}`,
+              source_specific_data: {
+                reference_context: context,
+                pdf_source: fetchLog.pdfPath,
+                extracted_date: new Date().toISOString(),
+                cogr_relevant: true
+              },
+              categories: ["Research & Science Policy"]
+            });
+            
+            console.log(`Found EO reference in COGR document: EO ${eoNumber}`);
+          }
+          
+          // Remove duplicates based on order_number
+          const uniqueReferences = eoReferences.filter((ref, index, self) => 
+            index === self.findIndex(r => r.order_number === ref.order_number)
+          );
+          
+          console.log(`Extracted ${uniqueReferences.length} unique EO references from COGR document`);
+          return uniqueReferences;
+        } catch (error) {
+          console.error(`Error extracting EO references from COGR text: ${error.message}`);
+          return [];
+        }
+      }
+      
       return [];
       
     } catch (fetchError) {
@@ -479,13 +534,11 @@ async function fetchNSFImplementation() {
       results: []
     };
     
-    // Check if we need to use sample data directly (for testing)
-    const useSampleData = process.env.NODE_ENV === 'test' || !!process.env.USE_SAMPLE_DATA;
+    // Force real data fetching for NSF
+    const useSampleData = false;
     
-    if (useSampleData) {
-      console.log('Using sample NSF data (test environment)');
-      return await createSampleNSFData(nsfDir, source.id, fetchLog);
-    }
+    // We need real data from NSF for the analysis
+    console.log('Fetching real NSF implementation data...');
     
     // Parse each source URL
     const implementationItems = [];
@@ -496,10 +549,11 @@ async function fetchNSFImplementation() {
         
         const response = await axios.get(url, {
           headers: {
-            'User-Agent': 'Mozilla/5.0 (compatible; Yale EO Analysis Tool/1.0)',
-            'Accept': 'text/html,application/xhtml+xml'
+            'User-Agent': 'Mozilla/5.0 (compatible; Yale Executive Orders Analysis Project; +https://github.com/yale/executive-orders-analysis)',
+            'Accept': 'text/html,application/xhtml+xml,application/xml',
+            'Accept-Language': 'en-US,en;q=0.9'
           },
-          timeout: 10000
+          timeout: 15000
         });
         
         if (response.status === 200) {
@@ -740,10 +794,15 @@ async function fetchNIHPolicyNotices() {
     // Step 1: Fetch NIH policy pages
     const nihSourceUrls = [
       'https://grants.nih.gov/policy/index.htm',
-      'https://grants.nih.gov/grants/policy/nihgps/index.html',
-      'https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-012.html', // Example of a notice page
+      'https://grants.nih.gov/grants/guide/index.html',
+      'https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html', // AI EO implementation
+      'https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-189.html', // Cybersecurity-related
       'https://grants.nih.gov/policy/clinical-trials.htm',
-      'https://grants.nih.gov/policy/data-sharing.htm'
+      'https://grants.nih.gov/grants/policy/data-management-sharing.htm',
+      'https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-021.html', // Biotech EO implementation
+      'https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html', // Cybersecurity implementation
+      'https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-075.html', // Cybersecurity data
+      'https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-100.html'  // Recent notice
     ];
     
     const fetchLog = {
@@ -754,13 +813,11 @@ async function fetchNIHPolicyNotices() {
       results: []
     };
     
-    // Check if we need to use sample data directly (for testing)
-    const useSampleData = process.env.NODE_ENV === 'test' || !!process.env.USE_SAMPLE_DATA;
+    // Force real data fetching mode
+    const useSampleData = false;
     
-    if (useSampleData) {
-      console.log('Using sample NIH data (test environment)');
-      return await createSampleNIHData(nihDir, source.id, fetchLog);
-    }
+    // We want real data only - not using samples anymore
+    console.log('Fetching real NIH data...');
     
     // Parse each source URL to find notices with EO references
     const noticeItems = [];
@@ -771,8 +828,9 @@ async function fetchNIHPolicyNotices() {
         
         const response = await axios.get(url, {
           headers: {
-            'User-Agent': 'Mozilla/5.0 (compatible; Yale EO Analysis Tool/1.0)',
-            'Accept': 'text/html,application/xhtml+xml'
+            'User-Agent': 'Mozilla/5.0 (compatible; Yale Executive Orders Analysis Project; +https://github.com/yale/executive-orders-analysis)',
+            'Accept': 'text/html,application/xhtml+xml,application/xml',
+            'Accept-Language': 'en-US,en;q=0.9'
           },
           timeout: 15000
         });
@@ -800,15 +858,24 @@ async function fetchNIHPolicyNotices() {
             const noticePattern = /NOT-[A-Z]{2}-\d{2}-\d{3}/i;
             const noticeMatch = href.match(noticePattern) || linkText.match(noticePattern) || parentText.match(noticePattern);
             
-            // Look for executive order references
-            const eoPattern = /\b(executive\s+order|EO|E\.O\.)\s+(\d{5,}|\d{4,})/i;
+            // Look for executive order references - broader pattern to catch more references
+            const eoPattern = /\b(executive\s+order|EO|E\.O\.)\s*(\d{4,}|\s+on|\s+\w+)/i;
             const eoMatch = (linkText + ' ' + parentText).match(eoPattern);
             
-            // Check if the link is to a notice and contains EO references,
-            // or if the link text contains notice information
+            // Also check if the link text or parent text contains "Executive Order" without a number
+            const hasEOKeyword = (linkText + ' ' + parentText).toLowerCase().includes('executive order');
+            
+            // Check if the link is to a notice and EITHER:
+            // 1. Contains EO references
+            // 2. Link text/parent text mentions "executive order"
+            // 3. Contains policy keywords that might indicate EO-related content
+            const policyKeywords = ['implementation', 'compliance', 'policy', 'guidance', 'federal'];
+            const hasPolicyKeyword = policyKeywords.some(keyword => 
+              (linkText + ' ' + parentText).toLowerCase().includes(keyword)
+            );
+            
             if ((noticeMatch || href.includes('notice-files')) && 
-                (eoMatch || linkText.toLowerCase().includes('executive order') || 
-                 parentText.toLowerCase().includes('executive order'))) {
+                (eoMatch || hasEOKeyword || hasPolicyKeyword)) {
               
               // Get the notice ID if available
               const noticeId = noticeMatch ? noticeMatch[0] : null;
@@ -1008,9 +1075,29 @@ async function fetchNIHPolicyNotices() {
       console.log('NIH policy notices fetch complete');
       return databaseItems;
     } else {
-      // If no notices found with proper order numbers, create sample data for testing
-      console.log('No properly formatted NIH notices found, creating sample data for testing');
-      return await createSampleNIHData(nihDir, source.id, fetchLog);
+      // Try to extract any information we found even if it doesn't precisely match EO patterns
+      console.log('No formatted NIH notices found with direct EO references, trying alternative extraction approach');
+      
+      // If we found any notices at all, extract what we can
+      if (noticeItems.length > 0) {
+        // Create a generic item for these notices
+        const genericItem = {
+          order_number: null, // We don't know the specific EO
+          title: "NIH Policy Notices and Implementation Guidelines",
+          categories: ["Healthcare", "Research & Science Policy"],
+          source_specific_data: {
+            implementation_references: noticeItems,
+            extracted_date: new Date().toISOString(),
+            nih_relevant: true,
+            raw_extracted: true
+          }
+        };
+        
+        return [genericItem];
+      } else {
+        console.log('No NIH notice data found at all, please check URLs and connectivity');
+        return [];
+      }
     }
     
   } catch (err) {
