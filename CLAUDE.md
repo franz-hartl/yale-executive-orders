@@ -12,13 +12,18 @@
 - Make maintenance-focused decisions
 - Preserve essential value while removing incidental complexity
 - Apply schema consistency throughout the pipeline
+- "Test-Driven Quality": Write tests that validate both correctness and design principles
 
 ## Commands
-- `node database_setup.js` - Initialize/update SQLite database
-- `node generate_plain_summaries.js` - Generate summaries for executive orders
-- `node export_to_json.js` - Export DB data to static JSON files 
-- `cd docs && npx http-server` - Test static site locally
-- `node update_and_deploy.sh` - Update data and deploy to GitHub Pages
+- `npm run setup` - Initialize/update SQLite database
+- `npm run export` - Export DB data to static JSON files 
+- `npm run docs:server` - Test static site locally
+- `npm run test` - Run all Jest tests
+- `npm test -- -t "pattern"` - Run tests matching pattern
+- `npm test -- path/to/test.js` - Run specific test file
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:coverage` - Generate test coverage report
+- `npm run lint` - Run ESLint on codebase
 
 ## Code Style Guidelines
 - Use ES6+ features with CommonJS module system
@@ -30,7 +35,9 @@
 - Include JSDoc-style comments for functions
 - "Make It Clear": Prioritize readable, self-documenting code
 - Keep code modular with single-responsibility functions
+- Write tests for all new functionality with meaningful assertions
+- Use jest.mock() for mocking dependencies in tests
+- Follow AAA pattern in tests: Arrange, Act, Assert
 - Leverage established libraries: sqlite3, axios, cheerio
-- Remove institution-specific conditionals in favor of universal approaches
 - "Design for Simplicity": Choose simple approaches over clever complexity
 - Prioritize maintainability and simplicity in all design decisions
