@@ -1,0 +1,52 @@
+[
+  {
+    "id": 8,
+    "name": "Diversity",
+    "description": "Initiatives related to diversity, equity, inclusion, and civil rights"
+  },
+  {
+    "id": 2,
+    "name": "Education",
+    "description": "Orders specifically addressing educational institutions, pedagogy, and academic programs"
+  },
+  {
+    "id": 9,
+    "name": "Environment",
+    "description": "Climate policy, environmental regulations, and sustainability initiatives"
+  },
+  {
+    "id": 3,
+    "name": "Finance",
+    "description": "Orders affecting financial regulations, funding mechanisms, and economic policy"
+  },
+  {
+    "id": 4,
+    "name": "Healthcare",
+    "description": "Healthcare policy, medical research, and public health directives"
+  },
+  {
+    "id": 6,
+    "name": "Immigration",
+    "description": "Immigration policies affecting international students, scholars, and academic mobility"
+  },
+  {
+    "id": 10,
+    "name": "Industry",
+    "description": "Business relations, economic development, and industry partnerships"
+  },
+  {
+    "id": 7,
+    "name": "National Security",
+    "description": "Security policies, export controls, and sensitive research protections"
+  },
+  {
+    "id": 5,
+    "name": "Research",
+    "description": "Scientific research priorities, research security, and innovation policy"
+  },
+  {
+    "id": 1,
+    "name": "Technology",
+    "description": "Executive orders related to technology policy, digital infrastructure, and tech regulation"
+  }
+]

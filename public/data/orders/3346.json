@@ -1,40 +1,74 @@
 {
   "id": 3346,
   "order_number": "EO 14028",
-  "title": "NSF Implementation of Executive Order on Improving the Nation's Cybersecurity",
+  "title": "COGR Analysis of Executive Order 14028",
   "signing_date": null,
   "publication_date": null,
   "president": null,
-  "summary": null,
+  "summary": "Analysis of Executive Order EO 14028: COGR Analysis of Executive Order 14028",
   "full_text": null,
   "url": null,
-  "impact_level": null,
+  "impact_level": "Medium",
   "status": null,
   "implementation_phase": null,
   "added_date": "2025-02-28 21:28:41",
   "last_updated": "2025-02-28 21:28:41",
-  "plain_language_summary": null,
-  "executive_brief": null,
-  "comprehensive_analysis": null,
-  "categories": [],
+  "plain_language_summary": "Analysis of Executive Order EO 14028: COGR Analysis of Executive Order 14028",
+  "executive_brief": "Executive Brief for EO 14028: This executive order signed by President null addresses key issues relevant to higher education. Institutions should review compliance requirements and assess operational impacts.",
+  "comprehensive_analysis": "Comprehensive Analysis of Executive Order EO 14028: COGR Analysis of Executive Order 14028\n\nThis executive order addresses several areas of significance to higher education institutions. The order, signed by President null, may impact research funding, administrative requirements, and institutional operations. Universities should carefully review this order to determine compliance needs and operational adjustments.",
+  "effective_date": null,
+  "yale_alert_level": "Medium",
+  "core_impact": "[\"Establish monitoring committee\",\"Review existing policies\"]",
+  "yale_imperative": "Yale should monitor implementation guidance and coordinate response through the Office of Research Administration.",
+  "confidence_rating": 0.85,
+  "what_changed": "This order creates moderate compliance requirements and funding opportunities for research universities.",
+  "categories": [
+    "Education",
+    "Healthcare",
+    "Research"
+  ],
   "impact_areas": [],
   "university_impact_areas": [
     {
       "name": "Research Funding",
       "description": "Impacts on federal research grants, funding priorities, and research administration",
       "notes": null
+    },
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
     }
   ],
+  "yale_impact_areas": [],
+  "yale_stakeholders": [],
   "differentiated_impacts": {},
   "compliance_timelines": {},
   "impact_scoring": [],
   "implementation_resources": [],
   "compliance_actions": [],
-  "has_plain_language_summary": false,
-  "has_executive_brief": false,
-  "has_comprehensive_analysis": false,
-  "summary_formats_available": [],
+  "has_plain_language_summary": true,
+  "has_executive_brief": true,
+  "has_comprehensive_analysis": true,
+  "summary_formats_available": [
+    "executive_brief",
+    "standard",
+    "comprehensive"
+  ],
   "sources": [
+    {
+      "name": "COGR Executive Order Tracker",
+      "abbreviation": "COGR",
+      "url": "https://www.cogr.edu/cogr-resources",
+      "reference_id": null,
+      "fetch_date": "2025-03-03T19:28:30.180Z",
+      "data": {
+        "reference_context": "Sample COGR Executive Order Tracker COGR Executive Order Tracker - Sample For Testing Executive Order 14028: Improving the Nation's Cybersecurity Executive Order 14107: AI Executive Order",
+        "pdf_source": "/Users/franzhartl/yale-executive-orders/external_sources/cogr/cogr-tracker-2025-03-03T19-28-30-175Z.pdf",
+        "extracted_date": "2025-03-03T19:28:30.177Z",
+        "cogr_relevant": true
+      }
+    },
     {
       "name": "NSF Implementation Pages",
       "abbreviation": "NSF",
@@ -55,11 +89,43 @@
         "nsf_relevant": true,
         "is_sample": true
       }
+    },
+    {
+      "name": "NIH Policy Notices",
+      "abbreviation": "NIH",
+      "url": "https://grants.nih.gov/policy/index.htm",
+      "reference_id": null,
+      "fetch_date": "2025-03-03T19:14:00.419Z",
+      "data": {
+        "implementation_references": [
+          {
+            "notice_id": "NOT-OD-23-050",
+            "title": "Implementation of Executive Order 14028: Cybersecurity Requirements for NIH Grantees",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html",
+            "date": "2023",
+            "executive_order": "EO 14028",
+            "context": "This Notice informs the extramural community about cybersecurity requirements per Executive Order 14028 on \"Improving the Nation's Cybersecurity.\"",
+            "source_page": "https://grants.nih.gov/policy/index.htm"
+          },
+          {
+            "notice_id": "NOT-OD-23-075",
+            "title": "Reminder of Cybersecurity Requirements for NIH Data Management",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-075.html",
+            "date": "2023",
+            "executive_order": "EO 14028",
+            "context": "This Notice provides additional guidance on cybersecurity controls for biomedical research data in accordance with Executive Order 14028.",
+            "source_page": "https://grants.nih.gov/policy/data-sharing.htm"
+          }
+        ],
+        "extracted_date": "2025-03-03T19:14:00.410Z",
+        "nih_relevant": true,
+        "is_sample": true
+      }
     }
   ],
   "yale_guidance": {
     "yale_university": {
-      "relevance_score": 1,
+      "relevance_score": 3,
       "affected_departments": [],
       "primary_departments": [],
       "secondary_departments": [],
@@ -72,6 +138,16 @@
             "source": "NSF",
             "content": "NSF has updated its cybersecurity requirements for grantees in accordance with Executive Order 14028.",
             "url": "https://www.nsf.gov/bfa/dias/policy/cybersecurity.jsp"
+          },
+          {
+            "source": "NIH",
+            "content": "This Notice informs the extramural community about cybersecurity requirements per Executive Order 14028 on \"Improving the Nation's Cybersecurity.\"",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html"
+          },
+          {
+            "source": "NIH",
+            "content": "This Notice provides additional guidance on cybersecurity controls for biomedical research data in accordance with Executive Order 14028.",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-075.html"
           }
         ],
         "implementation_references": [
@@ -81,6 +157,20 @@
             "source": "NSF",
             "date": null,
             "description": "NSF has updated its cybersecurity requirements for grantees in accordance with Executive Order 14028."
+          },
+          {
+            "title": "Implementation of Executive Order 14028: Cybersecurity Requirements for NIH Grantees",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html",
+            "source": "NIH",
+            "date": "2023",
+            "description": "This Notice informs the extramural community about cybersecurity requirements per Executive Order 14028 on \"Improving the Nation's Cybersecurity.\""
+          },
+          {
+            "title": "Reminder of Cybersecurity Requirements for NIH Data Management",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-075.html",
+            "source": "NIH",
+            "date": "2023",
+            "description": "This Notice provides additional guidance on cybersecurity controls for biomedical research data in accordance with Executive Order 14028."
           }
         ],
         "resource_links": [
@@ -88,6 +178,16 @@
             "title": "Cybersecurity Requirements for NSF Grantees",
             "url": "https://www.nsf.gov/bfa/dias/policy/cybersecurity.jsp",
             "source": "NSF"
+          },
+          {
+            "title": "Implementation of Executive Order 14028: Cybersecurity Requirements for NIH Grantees",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html",
+            "source": "NIH"
+          },
+          {
+            "title": "Reminder of Cybersecurity Requirements for NIH Data Management",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-075.html",
+            "source": "NIH"
           }
         ]
       }
@@ -99,11 +199,17 @@
       "notes": null,
       "source_insights": [],
       "consensus_rating": "Neutral"
+    },
+    "Administrative Compliance": {
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
     }
   },
   "simplified_source_analysis": {
-    "summary": "",
-    "extended_analysis": "",
+    "summary": "Analysis of Executive Order EO 14028: COGR Analysis of Executive Order 14028",
+    "extended_analysis": "Comprehensive Analysis of Executive Order EO 14028: COGR Analysis of Executive Order 14028\n\nThis executive order addresses several areas of significance to higher education institutions. The order, signed by President null, may impact research funding, administrative requirements, and institutional operations. Universities should carefully review this order to determine compliance needs and operational adjustments.",
     "source_insights": [
       {
         "source": "NSF",
@@ -111,7 +217,57 @@
         "title": "Cybersecurity Requirements for NSF Grantees",
         "text": "NSF has updated its cybersecurity requirements for grantees in accordance with Executive Order 14028.",
         "url": "https://www.nsf.gov/bfa/dias/policy/cybersecurity.jsp"
+      },
+      {
+        "source": "NIH",
+        "name": "NIH Policy Notices",
+        "title": "Implementation of Executive Order 14028: Cybersecurity Requirements for NIH Grantees",
+        "text": "This Notice informs the extramural community about cybersecurity requirements per Executive Order 14028 on \"Improving the Nation's Cybersecurity.\"",
+        "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html"
+      },
+      {
+        "source": "NIH",
+        "name": "NIH Policy Notices",
+        "title": "Reminder of Cybersecurity Requirements for NIH Data Management",
+        "text": "This Notice provides additional guidance on cybersecurity controls for biomedical research data in accordance with Executive Order 14028.",
+        "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-075.html"
       }
     ]
+  },
+  "intelligence_hub": {
+    "yale_alert_level": "Medium",
+    "core_impact": "[\"Establish monitoring committee\",\"Review existing policies\"]",
+    "what_changed": "This order creates moderate compliance requirements and funding opportunities for research universities.",
+    "yale_imperative": "Yale should monitor implementation guidance and coordinate response through the Office of Research Administration.",
+    "confidence_rating": 0.85,
+    "timeline_navigator": {
+      "signing_date": null,
+      "effective_date": null,
+      "implementation_deadlines": [],
+      "yale_decision_points": [],
+      "events": []
+    },
+    "source_intelligence": {
+      "federal_sources": {
+        "federal_register": [],
+        "agency_guidance": []
+      },
+      "analysis_interpretation": {
+        "university_associations": [],
+        "legal_analysis": []
+      }
+    },
+    "yale_response": {
+      "framework": [],
+      "action_requirements": [],
+      "decision_support": {
+        "options": []
+      }
+    },
+    "intelligence_network": {
+      "predecessor_policies": [],
+      "related_orders": [],
+      "external_impact": []
+    }
   }
 }

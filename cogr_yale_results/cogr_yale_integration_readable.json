@@ -1,0 +1,124 @@
+{
+  "result_count": 5,
+  "timestamp": "2025-03-03T11:59:30.211Z",
+  "results": [
+    {
+      "id": 14028,
+      "title": "Executive Order 14028: Improving the Nation's Cybersecurity",
+      "order_number": "14028",
+      "signing_date": "2021-05-12",
+      "yale_impact_areas": [
+        "Research Security & Export Control",
+        "Financial & Operations",
+        "Research & Innovation",
+        "Campus Safety & Student Affairs",
+        "Governance & Legal"
+      ],
+      "yale_stakeholders": [
+        "Provost's Office",
+        "Office of Research Administration",
+        "Graduate School of Arts and Sciences",
+        "Yale School of Medicine",
+        "Yale University Art Gallery",
+        "Yale Library System",
+        "Office of General Counsel",
+        "Yale College Dean's Office",
+        "Yale Center for International and Professional Experience",
+        "Office of International Students and Scholars"
+      ]
+    },
+    {
+      "id": 14107,
+      "title": "Executive Order 14107: Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence",
+      "order_number": "14107",
+      "signing_date": "2023-10-30",
+      "yale_impact_areas": [
+        "Research & Innovation",
+        "Research Security & Export Control",
+        "Governance & Legal"
+      ],
+      "yale_stakeholders": [
+        "Provost's Office",
+        "Office of Research Administration",
+        "Graduate School of Arts and Sciences",
+        "Yale School of Medicine",
+        "Office of General Counsel",
+        "Yale College Dean's Office",
+        "Yale Center for International and Professional Experience",
+        "Office of International Students and Scholars"
+      ]
+    },
+    {
+      "id": 14035,
+      "title": "Executive Order 14035: Diversity, Equity, Inclusion, and Accessibility in the Federal Workforce",
+      "order_number": "14035",
+      "signing_date": "2021-06-25",
+      "yale_impact_areas": [
+        "Community & Belonging",
+        "Governance & Legal"
+      ],
+      "yale_stakeholders": [
+        "Provost's Office",
+        "Yale University Art Gallery",
+        "Yale Investments Office",
+        "Office of General Counsel",
+        "Yale Library System",
+        "Yale College Dean's Office",
+        "Graduate School of Arts and Sciences",
+        "Yale Center for International and Professional Experience",
+        "Office of International Students and Scholars"
+      ]
+    },
+    {
+      "id": 14042,
+      "title": "Executive Order 14042: Ensuring Adequate COVID Safety Protocols for Federal Contractors",
+      "order_number": "14042",
+      "signing_date": "2021-09-09",
+      "yale_impact_areas": [
+        "Healthcare & Public Health",
+        "Governance & Legal",
+        "Research & Innovation"
+      ],
+      "yale_stakeholders": [
+        "Provost's Office",
+        "Office of Research Administration",
+        "Yale College Dean's Office",
+        "Graduate School of Arts and Sciences",
+        "Yale School of Medicine",
+        "Yale University Art Gallery",
+        "Yale Center for International and Professional Experience",
+        "Office of International Students and Scholars",
+        "Yale Investments Office",
+        "Office of General Counsel",
+        "Athletics Department",
+        "Yale Library System"
+      ]
+    },
+    {
+      "id": 14110,
+      "title": "Executive Order 14110: Reforming Federal Funding of Research to Advance Science and Promote Security",
+      "order_number": "14110",
+      "signing_date": "2024-01-04",
+      "yale_impact_areas": [
+        "Research & Innovation",
+        "Research Security & Export Control",
+        "Financial & Operations",
+        "Governance & Legal",
+        "International & Immigration",
+        "Campus Safety & Student Affairs"
+      ],
+      "yale_stakeholders": [
+        "Provost's Office",
+        "Office of Research Administration",
+        "Graduate School of Arts and Sciences",
+        "Yale School of Medicine",
+        "Office of General Counsel",
+        "Yale University Art Gallery",
+        "Yale Library System",
+        "Yale College Dean's Office",
+        "Yale Center for International and Professional Experience",
+        "Office of International Students and Scholars"
+      ]
+    }
+  ]
+}

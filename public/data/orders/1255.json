@@ -36,6 +36,8 @@
       "notes": null
     }
   ],
+  "yale_impact_areas": [],
+  "yale_stakeholders": [],
   "differentiated_impacts": {},
   "compliance_timelines": {},
   "impact_scoring": [],
@@ -97,10 +99,10 @@
         "federal_register": [],
         "agency_guidance": [
           {
-            "id": 14,
+            "id": 20,
             "order_id": 1255,
             "agency_name": "NIH",
-            "publication_date": "2025-02-20",
+            "publication_date": "2025-02-17",
             "title": "NIH Implementation Strategy for Executive Order",
             "summary": "The National Institutes of Health outlines its implementation strategy for complying with the executive order's research security provisions.",
             "url": "https://www.nih.gov/implementation-guidance",
@@ -111,10 +113,10 @@
             "changed_procedures": "New research security committee review process implemented for certain grants."
           },
           {
-            "id": 13,
+            "id": 19,
             "order_id": 1255,
             "agency_name": "NSF",
-            "publication_date": "2025-02-01",
+            "publication_date": "2025-02-10",
             "title": "Guidance on Implementing EO Requirements",
             "summary": "The National Science Foundation provides guidance on implementing the new executive order requirements for research grants and cooperative agreements.",
             "url": "https://www.nsf.gov/guidance",
@@ -129,10 +131,10 @@
       "analysis_interpretation": {
         "university_associations": [
           {
-            "id": 13,
+            "id": 19,
             "order_id": 1255,
             "association_name": "COGR",
-            "publication_date": "2025-03-01",
+            "publication_date": "2025-02-23",
             "title": "COGR Analysis of Research Security Executive Order",
             "summary": "The Council on Governmental Relations provides analysis of the executive order's impact on research institutions.",
             "url": "https://www.cogr.edu/analysis",
@@ -141,10 +143,10 @@
             "recommended_actions": "• Inventory all international research collaborations\n• Update security protocols and training\n• Engage with federal sponsors for clarification\n• Develop compliance certification process"
           },
           {
-            "id": 14,
+            "id": 20,
             "order_id": 1255,
             "association_name": "ACE",
-            "publication_date": "2025-02-25",
+            "publication_date": "2025-02-12",
             "title": "American Council on Education Response to Executive Order",
             "summary": "ACE evaluates the impact of the executive order on higher education institutions and provides sector-wide guidance.",
             "url": "https://www.acenet.edu/response",
@@ -155,10 +157,10 @@
         ],
         "legal_analysis": [
           {
-            "id": 7,
+            "id": 10,
             "order_id": 1255,
             "source": "Yale General Counsel",
-            "analysis_date": "2025-02-22",
+            "analysis_date": "2025-02-28",
             "challenge_status": "No Current Challenges",
             "enforcement_prediction": "Enforcement likely to begin after the initial 90-day implementation period, with focus on documentation compliance first.",
             "precedent_references": "Similar to EO 13556 (2010) regarding classified information, but with broader scope for research institutions.",
@@ -171,7 +173,7 @@
     "yale_response": {
       "framework": [
         {
-          "id": 25,
+          "id": 37,
           "order_id": 1255,
           "yale_department_id": 4,
           "impact_intensity": 8,
@@ -182,7 +184,7 @@
           "department_name": "Office of Research Administration"
         },
         {
-          "id": 26,
+          "id": 38,
           "order_id": 1255,
           "yale_department_id": 3,
           "impact_intensity": 7,
@@ -193,7 +195,7 @@
           "department_name": "General Counsel"
         },
         {
-          "id": 27,
+          "id": 39,
           "order_id": 1255,
           "yale_department_id": 15,
           "impact_intensity": 9,
@@ -204,7 +206,7 @@
           "department_name": "Office of Sponsored Projects"
         },
         {
-          "id": 28,
+          "id": 40,
           "order_id": 1255,
           "yale_department_id": 8,
           "impact_intensity": 8,

@@ -1,9 +1,9 @@
 {
   "topicName": "Yale University Executive Order Analysis",
   "topicDescription": "Analysis of executive orders and their impact on Yale University",
-  "orderCount": 84,
+  "orderCount": 85,
   "version": "2.0.0",
-  "lastUpdated": "2025-03-03T19:06:58.830Z",
+  "lastUpdated": "2025-03-03T19:36:20.206Z",
   "isStaticVersion": true,
   "notes": "Streamlined version focused exclusively on Yale University organizational structure and impact areas",
   "primaryFocus": "Yale University",
@@ -134,7 +134,7 @@
       "abbreviation": "ACE",
       "url": "https://www.acenet.edu/Policy-Advocacy/Pages/default.aspx",
       "description": "American Council on Education policy briefs and analysis of executive orders affecting higher education institutions.",
-      "lastUpdated": "2025-03-03T19:03:20.320Z",
+      "lastUpdated": "2025-03-03T19:28:32.840Z",
       "fetchFrequency": "monthly",
       "lastFetch": null,
       "orderCount": 0
@@ -144,19 +144,19 @@
       "abbreviation": "COGR",
       "url": "https://www.cogr.edu/cogr-resources",
       "description": "The Council on Governmental Relations (COGR) maintains a tracker of executive orders relevant to research institutions. This source provides detailed analysis of EOs affecting higher education research.",
-      "lastUpdated": "2025-03-03T19:03:13.990Z",
+      "lastUpdated": "2025-03-03T19:28:30.175Z",
       "fetchFrequency": "monthly",
-      "lastFetch": null,
-      "orderCount": 0
+      "lastFetch": "2025-03-03T19:28:30.181Z",
+      "orderCount": 2
     },
     {
       "name": "NIH Policy Notices",
       "abbreviation": "NIH",
       "url": "https://grants.nih.gov/policy/index.htm",
       "description": "National Institutes of Health policy notices, which often contain information about how executive orders affect NIH grants and operations.",
-      "lastUpdated": "2025-03-03T19:03:20.298Z",
+      "lastUpdated": "2025-03-03T19:28:32.835Z",
       "fetchFrequency": "bi-weekly",
-      "lastFetch": "2025-03-03T19:03:20.319Z",
+      "lastFetch": "2025-03-03T19:14:00.428Z",
       "orderCount": 3
     },
     {
@@ -164,7 +164,7 @@
       "abbreviation": "NSF",
       "url": "https://www.nsf.gov/news/policies_and_procedures/",
       "description": "National Science Foundation pages detailing how executive orders are being implemented in grant procedures and requirements.",
-      "lastUpdated": "2025-03-03T19:03:19.225Z",
+      "lastUpdated": "2025-03-03T19:28:31.644Z",
       "fetchFrequency": "bi-weekly",
       "lastFetch": "2025-02-28T21:29:54.939Z",
       "orderCount": 2

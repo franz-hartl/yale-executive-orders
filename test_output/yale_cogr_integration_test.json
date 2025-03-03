@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1001,
+    "title": "Executive Order 14028: Improving the Nation's Cybersecurity",
+    "order_number": "14028",
+    "signing_date": "2023-05-12",
+    "publication_date": "2023-05-15",
+    "summary": "Enhances cybersecurity across federal networks and critical infrastructure with new standards and reporting requirements.",
+    "categories": [
+      "Research",
+      "Technology",
+      "Security"
+    ],
+    "universityImpactAreas": [
+      "Research Funding",
+      "Administrative Compliance"
+    ],
+    "yale_impact_areas": [
+      {
+        "id": 2,
+        "name": "Research Security & Export Control",
+        "description": "Impacts on research security requirements, export controls, and foreign research collaborations",
+        "relevance": "Identified based on EO content: executive order 14028: improving the nation's cybe..."
+      },
+      {
+        "id": 8,
+        "name": "Financial & Operations",
+        "description": "Impacts on Yale's financial operations, endowment management, facilities, and IT infrastructure",
+        "relevance": "Identified based on EO content: executive order 14028: improving the nation's cybe..."
+      },
+      {
+        "id": 1,
+        "name": "Research & Innovation",
+        "description": "Impacts on federal research grants, funding priorities, and innovative research initiatives at Yale",
+        "relevance": "Identified based on EO content: executive order 14028: improving the nation's cybe..."
+      },
+      {
+        "id": 9,
+        "name": "Governance & Legal",
+        "description": "Impacts on Yale's governance structure, legal compliance, and university-wide policies",
+        "relevance": "Identified based on EO content: executive order 14028: improving the nation's cybe..."
+      }
+    ],
+    "yale_stakeholders": [
+      {
+        "id": 1,
+        "name": "Provost's Office",
+        "description": "Central academic administration responsible for university-wide academic policies",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Governance & Legal"
+      },
+      {
+        "id": 2,
+        "name": "Office of Research Administration",
+        "description": "Oversees research compliance, funding, and administration",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Governance & Legal"
+      },
+      {
+        "id": 4,
+        "name": "Graduate School of Arts and Sciences",
+        "description": "Administration for Yale's graduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Governance & Legal"
+      },
+      {
+        "id": 5,
+        "name": "Yale School of Medicine",
+        "description": "Medical school administration and healthcare operations",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Governance & Legal"
+      },
+      {
+        "id": 6,
+        "name": "Yale University Art Gallery",
+        "description": "Management of Yale's art collections and exhibitions",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Governance & Legal"
+      },
+      {
+        "id": 12,
+        "name": "Yale Library System",
+        "description": "Management of Yale's libraries and collections",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Governance & Legal"
+      },
+      {
+        "id": 10,
+        "name": "Office of General Counsel",
+        "description": "Legal oversight for university operations and compliance",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Governance & Legal"
+      },
+      {
+        "id": 3,
+        "name": "Yale College Dean's Office",
+        "description": "Administration for Yale's undergraduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Governance & Legal"
+      },
+      {
+        "id": 7,
+        "name": "Yale Center for International and Professional Experience",
+        "description": "Oversees study abroad and international opportunities",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Governance & Legal"
+      },
+      {
+        "id": 8,
+        "name": "Office of International Students and Scholars",
+        "description": "Support for international students and visiting faculty",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Governance & Legal"
+      }
+    ]
+  },
+  {
+    "id": 1002,
+    "title": "Executive Order 14107: Artificial Intelligence Executive Order",
+    "order_number": "14107",
+    "signing_date": "2023-10-30",
+    "publication_date": "2023-11-02",
+    "summary": "Establishes guidance for responsible development and deployment of artificial intelligence systems across sectors.",
+    "categories": [
+      "Research",
+      "Technology",
+      "Innovation"
+    ],
+    "universityImpactAreas": [
+      "Research Funding",
+      "Administrative Compliance"
+    ],
+    "yale_impact_areas": [
+      {
+        "id": 1,
+        "name": "Research & Innovation",
+        "description": "Impacts on federal research grants, funding priorities, and innovative research initiatives at Yale",
+        "relevance": "Identified based on EO content: executive order 14107: artificial intelligence exe..."
+      },
+      {
+        "id": 2,
+        "name": "Research Security & Export Control",
+        "description": "Impacts on research security requirements, export controls, and foreign research collaborations",
+        "relevance": "Identified based on EO content: executive order 14107: artificial intelligence exe..."
+      },
+      {
+        "id": 9,
+        "name": "Governance & Legal",
+        "description": "Impacts on Yale's governance structure, legal compliance, and university-wide policies",
+        "relevance": "Identified based on EO content: executive order 14107: artificial intelligence exe..."
+      }
+    ],
+    "yale_stakeholders": [
+      {
+        "id": 1,
+        "name": "Provost's Office",
+        "description": "Central academic administration responsible for university-wide academic policies",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 2,
+        "name": "Office of Research Administration",
+        "description": "Oversees research compliance, funding, and administration",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 4,
+        "name": "Graduate School of Arts and Sciences",
+        "description": "Administration for Yale's graduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 5,
+        "name": "Yale School of Medicine",
+        "description": "Medical school administration and healthcare operations",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 10,
+        "name": "Office of General Counsel",
+        "description": "Legal oversight for university operations and compliance",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 3,
+        "name": "Yale College Dean's Office",
+        "description": "Administration for Yale's undergraduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 7,
+        "name": "Yale Center for International and Professional Experience",
+        "description": "Oversees study abroad and international opportunities",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 8,
+        "name": "Office of International Students and Scholars",
+        "description": "Support for international students and visiting faculty",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      }
+    ]
+  }
+]

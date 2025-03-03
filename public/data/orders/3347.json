@@ -1,39 +1,61 @@
 {
   "id": 3347,
   "order_number": "EO 14110",
-  "title": "NSF Implementation of Executive Order on Safe, Secure, and Trustworthy Artificial Intelligence",
+  "title": "NIH Implementation of Executive Order on Artificial Intelligence",
   "signing_date": null,
   "publication_date": null,
   "president": null,
-  "summary": null,
+  "summary": "Analysis of Executive Order EO 14110: NIH Implementation of Executive Order on Artificial Intelligence",
   "full_text": null,
   "url": null,
-  "impact_level": null,
+  "impact_level": "Medium",
   "status": null,
   "implementation_phase": null,
   "added_date": "2025-02-28 21:28:41",
   "last_updated": "2025-02-28 21:28:41",
-  "plain_language_summary": null,
-  "executive_brief": null,
-  "comprehensive_analysis": null,
-  "categories": [],
+  "plain_language_summary": "Analysis of Executive Order EO 14110: NIH Implementation of Executive Order on Artificial Intelligence",
+  "executive_brief": "Executive Brief for EO 14110: This executive order signed by President null addresses key issues relevant to higher education. Institutions should review compliance requirements and assess operational impacts.",
+  "comprehensive_analysis": "Comprehensive Analysis of Executive Order EO 14110: NIH Implementation of Executive Order on Artificial Intelligence\n\nThis executive order addresses several areas of significance to higher education institutions. The order, signed by President null, may impact research funding, administrative requirements, and institutional operations. Universities should carefully review this order to determine compliance needs and operational adjustments.",
+  "effective_date": null,
+  "yale_alert_level": "Medium",
+  "core_impact": "[\"Establish monitoring committee\",\"Review existing policies\"]",
+  "yale_imperative": "Yale should monitor implementation guidance and coordinate response through the Office of Research Administration.",
+  "confidence_rating": 0.85,
+  "what_changed": "This order creates moderate compliance requirements and funding opportunities for research universities.",
+  "categories": [
+    "Technology",
+    "Education",
+    "Healthcare",
+    "Research"
+  ],
   "impact_areas": [],
   "university_impact_areas": [
     {
       "name": "Research Funding",
       "description": "Impacts on federal research grants, funding priorities, and research administration",
       "notes": null
+    },
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
     }
   ],
+  "yale_impact_areas": [],
+  "yale_stakeholders": [],
   "differentiated_impacts": {},
   "compliance_timelines": {},
   "impact_scoring": [],
   "implementation_resources": [],
   "compliance_actions": [],
-  "has_plain_language_summary": false,
-  "has_executive_brief": false,
-  "has_comprehensive_analysis": false,
-  "summary_formats_available": [],
+  "has_plain_language_summary": true,
+  "has_executive_brief": true,
+  "has_comprehensive_analysis": true,
+  "summary_formats_available": [
+    "executive_brief",
+    "standard",
+    "comprehensive"
+  ],
   "sources": [
     {
       "name": "NSF Implementation Pages",
@@ -62,11 +84,43 @@
         "nsf_relevant": true,
         "is_sample": true
       }
+    },
+    {
+      "name": "NIH Policy Notices",
+      "abbreviation": "NIH",
+      "url": "https://grants.nih.gov/policy/index.htm",
+      "reference_id": null,
+      "fetch_date": "2025-03-03T19:14:00.428Z",
+      "data": {
+        "implementation_references": [
+          {
+            "notice_id": "NOT-OD-24-002",
+            "title": "Implementation of the Executive Order on AI in Biomedical Research",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html",
+            "date": "2024",
+            "executive_order": "EO 14110",
+            "context": "This Notice provides information on how NIH is implementing Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence as it relates to biomedical research and data management.",
+            "source_page": "https://grants.nih.gov/policy/clinical-trials.htm"
+          },
+          {
+            "title": "NIH AI Policy Statement",
+            "url": "https://grants.nih.gov/policy/index.htm#ai",
+            "date": "January 15, 2024",
+            "executive_order": "EO 14110",
+            "context": "The National Institutes of Health is committed to ensuring the safe, secure, and trustworthy development and use of artificial intelligence in biomedical research as outlined in Executive Order 14110.",
+            "source_page": "https://grants.nih.gov/policy/index.htm",
+            "content_type": "paragraph"
+          }
+        ],
+        "extracted_date": "2025-03-03T19:14:00.410Z",
+        "nih_relevant": true,
+        "is_sample": true
+      }
     }
   ],
   "yale_guidance": {
     "yale_university": {
-      "relevance_score": 1,
+      "relevance_score": 3,
       "affected_departments": [],
       "primary_departments": [],
       "secondary_departments": [],
@@ -84,6 +138,16 @@
             "source": "NSF",
             "content": "NSF Director Sethuraman Panchanathan highlights how the agency is aligning resources to support the objectives of Executive Order 14110 on Safe, Secure, and Trustworthy AI.",
             "url": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697"
+          },
+          {
+            "source": "NIH",
+            "content": "This Notice provides information on how NIH is implementing Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence as it relates to biomedical research and data management.",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html"
+          },
+          {
+            "source": "NIH",
+            "content": "The National Institutes of Health is committed to ensuring the safe, secure, and trustworthy development and use of artificial intelligence in biomedical research as outlined in Executive Order 14110.",
+            "url": "https://grants.nih.gov/policy/index.htm#ai"
           }
         ],
         "implementation_references": [
@@ -100,6 +164,20 @@
             "source": "NSF",
             "date": null,
             "description": "NSF Director Sethuraman Panchanathan highlights how the agency is aligning resources to support the objectives of Executive Order 14110 on Safe, Secure, and Trustworthy AI."
+          },
+          {
+            "title": "Implementation of the Executive Order on AI in Biomedical Research",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html",
+            "source": "NIH",
+            "date": "2024",
+            "description": "This Notice provides information on how NIH is implementing Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence as it relates to biomedical research and data management."
+          },
+          {
+            "title": "NIH AI Policy Statement",
+            "url": "https://grants.nih.gov/policy/index.htm#ai",
+            "source": "NIH",
+            "date": "January 15, 2024",
+            "description": "The National Institutes of Health is committed to ensuring the safe, secure, and trustworthy development and use of artificial intelligence in biomedical research as outlined in Executive Order 14110."
           }
         ],
         "resource_links": [
@@ -112,6 +190,16 @@
             "title": "Implementation of AI Executive Order",
             "url": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697",
             "source": "NSF"
+          },
+          {
+            "title": "Implementation of the Executive Order on AI in Biomedical Research",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html",
+            "source": "NIH"
+          },
+          {
+            "title": "NIH AI Policy Statement",
+            "url": "https://grants.nih.gov/policy/index.htm#ai",
+            "source": "NIH"
           }
         ]
       }
@@ -123,11 +211,17 @@
       "notes": null,
       "source_insights": [],
       "consensus_rating": "Neutral"
+    },
+    "Administrative Compliance": {
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
     }
   },
   "simplified_source_analysis": {
-    "summary": "",
-    "extended_analysis": "",
+    "summary": "Analysis of Executive Order EO 14110: NIH Implementation of Executive Order on Artificial Intelligence",
+    "extended_analysis": "Comprehensive Analysis of Executive Order EO 14110: NIH Implementation of Executive Order on Artificial Intelligence\n\nThis executive order addresses several areas of significance to higher education institutions. The order, signed by President null, may impact research funding, administrative requirements, and institutional operations. Universities should carefully review this order to determine compliance needs and operational adjustments.",
     "source_insights": [
       {
         "source": "NSF",
@@ -142,7 +236,57 @@
         "title": "Implementation of AI Executive Order",
         "text": "NSF Director Sethuraman Panchanathan highlights how the agency is aligning resources to support the objectives of Executive Order 14110 on Safe, Secure, and Trustworthy AI.",
         "url": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697"
+      },
+      {
+        "source": "NIH",
+        "name": "NIH Policy Notices",
+        "title": "Implementation of the Executive Order on AI in Biomedical Research",
+        "text": "This Notice provides information on how NIH is implementing Executive Order 14110 on Safe, Secure, and Trustworthy Artificial Intelligence as it relates to biomedical research and data management.",
+        "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html"
+      },
+      {
+        "source": "NIH",
+        "name": "NIH Policy Notices",
+        "title": "NIH AI Policy Statement",
+        "text": "The National Institutes of Health is committed to ensuring the safe, secure, and trustworthy development and use of artificial intelligence in biomedical research as outlined in Executive Order 14110.",
+        "url": "https://grants.nih.gov/policy/index.htm#ai"
       }
     ]
+  },
+  "intelligence_hub": {
+    "yale_alert_level": "Medium",
+    "core_impact": "[\"Establish monitoring committee\",\"Review existing policies\"]",
+    "what_changed": "This order creates moderate compliance requirements and funding opportunities for research universities.",
+    "yale_imperative": "Yale should monitor implementation guidance and coordinate response through the Office of Research Administration.",
+    "confidence_rating": 0.85,
+    "timeline_navigator": {
+      "signing_date": null,
+      "effective_date": null,
+      "implementation_deadlines": [],
+      "yale_decision_points": [],
+      "events": []
+    },
+    "source_intelligence": {
+      "federal_sources": {
+        "federal_register": [],
+        "agency_guidance": []
+      },
+      "analysis_interpretation": {
+        "university_associations": [],
+        "legal_analysis": []
+      }
+    },
+    "yale_response": {
+      "framework": [],
+      "action_requirements": [],
+      "decision_support": {
+        "options": []
+      }
+    },
+    "intelligence_network": {
+      "predecessor_policies": [],
+      "related_orders": [],
+      "external_impact": []
+    }
   }
 }

@@ -1,0 +1,56 @@
+{
+  "running": false,
+  "completed": false,
+  "steps": {
+    "fetch": {
+      "name": "fetch",
+      "required": true,
+      "status": "completed",
+      "startTime": "2025-03-03T19:13:35.581Z",
+      "endTime": "2025-03-03T19:13:38.093Z",
+      "duration": 2512
+    },
+    "process": {
+      "name": "process",
+      "required": true,
+      "status": "completed",
+      "startTime": "2025-03-03T19:13:38.097Z",
+      "endTime": "2025-03-03T19:13:39.099Z",
+      "duration": 1002
+    },
+    "analyze": {
+      "name": "analyze",
+      "required": true,
+      "status": "failed",
+      "startTime": "2025-03-03T19:13:39.100Z",
+      "endTime": "2025-03-03T19:13:39.107Z",
+      "duration": 7,
+      "error": "logger.createJobLogger is not a function"
+    },
+    "export": {
+      "name": "export",
+      "required": true,
+      "status": "pending",
+      "startTime": null,
+      "endTime": null,
+      "duration": null
+    },
+    "deploy": {
+      "name": "deploy",
+      "required": false,
+      "status": "pending",
+      "startTime": null,
+      "endTime": null,
+      "duration": null
+    }
+  },
+  "lastRun": "2025-03-03T19:13:35.581Z",
+  "currentStep": "analyze",
+  "errors": [
+    {
+      "step": "analyze",
+      "message": "logger.createJobLogger is not a function",
+      "timestamp": "2025-03-03T19:13:39.107Z"
+    }
+  ]
+}

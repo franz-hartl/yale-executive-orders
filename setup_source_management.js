@@ -18,7 +18,7 @@ logger.initLogger({
 });
 
 // Create a script-specific logger
-const setupLogger = logger.createJobLogger('SourceManagementSetup');
+const setupLogger = logger.createNamedLogger('SourceManagementSetup');
 
 /**
  * Set up the source data management system

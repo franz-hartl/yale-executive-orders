@@ -58,7 +58,7 @@ logger.initLogger({
 });
 
 // Create job-specific logger
-const jobLogger = logger.createJobLogger(JOB_NAME);
+const jobLogger = logger.createNamedLogger(JOB_NAME);
 
 // =============================================================================
 // ANALYSIS FUNCTION - USING CLAUDE AI

@@ -1,0 +1,601 @@
+[
+  {
+    "id": 14028,
+    "title": "Executive Order 14028: Improving the Nation's Cybersecurity",
+    "order_number": "14028",
+    "signing_date": "2021-05-12",
+    "publication_date": "2021-05-15",
+    "summary": "Enhances cybersecurity across federal networks and critical infrastructure with new standards and reporting requirements.",
+    "categories": [
+      "Research",
+      "Technology",
+      "Security"
+    ],
+    "universityImpactAreas": [
+      "Research Funding",
+      "Administrative Compliance"
+    ],
+    "source": "COGR",
+    "analysis_links": [
+      {
+        "url": "https://www.cogr.edu/resources/cybersecurity-brief",
+        "text": "COGR Cybersecurity Analysis"
+      }
+    ],
+    "yale_impact_areas": [
+      {
+        "id": 2,
+        "name": "Research Security & Export Control",
+        "description": "Impacts on research security requirements, export controls, and foreign research collaborations",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 8,
+        "name": "Financial & Operations",
+        "description": "Impacts on Yale's financial operations, endowment management, facilities, and IT infrastructure",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 1,
+        "name": "Research & Innovation",
+        "description": "Impacts on federal research grants, funding priorities, and innovative research initiatives at Yale",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 5,
+        "name": "Campus Safety & Student Affairs",
+        "description": "Impacts on Yale's campus safety, student life, residential colleges, and campus activities",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 9,
+        "name": "Governance & Legal",
+        "description": "Impacts on Yale's governance structure, legal compliance, and university-wide policies",
+        "relevance": "Identified based on EO content and policies"
+      }
+    ],
+    "yale_stakeholders": [
+      {
+        "id": 1,
+        "name": "Provost's Office",
+        "description": "Central academic administration responsible for university-wide academic policies",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Campus Safety & Student Affairs, Governance & Legal"
+      },
+      {
+        "id": 2,
+        "name": "Office of Research Administration",
+        "description": "Oversees research compliance, funding, and administration",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Campus Safety & Student Affairs, Governance & Legal"
+      },
+      {
+        "id": 4,
+        "name": "Graduate School of Arts and Sciences",
+        "description": "Administration for Yale's graduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Campus Safety & Student Affairs, Governance & Legal"
+      },
+      {
+        "id": 5,
+        "name": "Yale School of Medicine",
+        "description": "Medical school administration and healthcare operations",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Campus Safety & Student Affairs, Governance & Legal"
+      },
+      {
+        "id": 6,
+        "name": "Yale University Art Gallery",
+        "description": "Management of Yale's art collections and exhibitions",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Campus Safety & Student Affairs, Governance & Legal"
+      },
+      {
+        "id": 12,
+        "name": "Yale Library System",
+        "description": "Management of Yale's libraries and collections",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Campus Safety & Student Affairs, Governance & Legal"
+      },
+      {
+        "id": 10,
+        "name": "Office of General Counsel",
+        "description": "Legal oversight for university operations and compliance",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Campus Safety & Student Affairs, Governance & Legal"
+      },
+      {
+        "id": 3,
+        "name": "Yale College Dean's Office",
+        "description": "Administration for Yale's undergraduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Campus Safety & Student Affairs, Governance & Legal"
+      },
+      {
+        "id": 7,
+        "name": "Yale Center for International and Professional Experience",
+        "description": "Oversees study abroad and international opportunities",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Campus Safety & Student Affairs, Governance & Legal"
+      },
+      {
+        "id": 8,
+        "name": "Office of International Students and Scholars",
+        "description": "Support for international students and visiting faculty",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research Security & Export Control, Financial & Operations, Research & Innovation, Campus Safety & Student Affairs, Governance & Legal"
+      }
+    ]
+  },
+  {
+    "id": 14107,
+    "title": "Executive Order 14107: Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence",
+    "order_number": "14107",
+    "signing_date": "2023-10-30",
+    "publication_date": "2023-11-02",
+    "summary": "Establishes guidance for responsible development and deployment of artificial intelligence systems, including guidelines for research institutions.",
+    "categories": [
+      "Research",
+      "Technology",
+      "Innovation"
+    ],
+    "universityImpactAreas": [
+      "Research Funding",
+      "Administrative Compliance"
+    ],
+    "source": "COGR",
+    "analysis_links": [
+      {
+        "url": "https://www.cogr.edu/resources/ai-brief",
+        "text": "COGR AI Executive Order Analysis"
+      }
+    ],
+    "yale_impact_areas": [
+      {
+        "id": 1,
+        "name": "Research & Innovation",
+        "description": "Impacts on federal research grants, funding priorities, and innovative research initiatives at Yale",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 2,
+        "name": "Research Security & Export Control",
+        "description": "Impacts on research security requirements, export controls, and foreign research collaborations",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 9,
+        "name": "Governance & Legal",
+        "description": "Impacts on Yale's governance structure, legal compliance, and university-wide policies",
+        "relevance": "Identified based on EO content and policies"
+      }
+    ],
+    "yale_stakeholders": [
+      {
+        "id": 1,
+        "name": "Provost's Office",
+        "description": "Central academic administration responsible for university-wide academic policies",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 2,
+        "name": "Office of Research Administration",
+        "description": "Oversees research compliance, funding, and administration",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 4,
+        "name": "Graduate School of Arts and Sciences",
+        "description": "Administration for Yale's graduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 5,
+        "name": "Yale School of Medicine",
+        "description": "Medical school administration and healthcare operations",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 10,
+        "name": "Office of General Counsel",
+        "description": "Legal oversight for university operations and compliance",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 3,
+        "name": "Yale College Dean's Office",
+        "description": "Administration for Yale's undergraduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 7,
+        "name": "Yale Center for International and Professional Experience",
+        "description": "Oversees study abroad and international opportunities",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      },
+      {
+        "id": 8,
+        "name": "Office of International Students and Scholars",
+        "description": "Support for international students and visiting faculty",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Governance & Legal"
+      }
+    ]
+  },
+  {
+    "id": 14035,
+    "title": "Executive Order 14035: Diversity, Equity, Inclusion, and Accessibility in the Federal Workforce",
+    "order_number": "14035",
+    "signing_date": "2021-06-25",
+    "publication_date": "2021-06-28",
+    "summary": "Establishes a government-wide initiative to promote diversity, equity, inclusion, and accessibility in the Federal workforce.",
+    "categories": [
+      "Workforce",
+      "DEI",
+      "Federal Employment"
+    ],
+    "universityImpactAreas": [
+      "Administrative Compliance",
+      "Campus Climate"
+    ],
+    "source": "COGR",
+    "analysis_links": [
+      {
+        "url": "https://www.cogr.edu/resources/dei-brief",
+        "text": "COGR DEI Workforce Analysis"
+      }
+    ],
+    "yale_impact_areas": [
+      {
+        "id": 4,
+        "name": "Community & Belonging",
+        "description": "Impacts on Yale's community building, belonging initiatives, and educational equity",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 9,
+        "name": "Governance & Legal",
+        "description": "Impacts on Yale's governance structure, legal compliance, and university-wide policies",
+        "relevance": "Identified based on EO content and policies"
+      }
+    ],
+    "yale_stakeholders": [
+      {
+        "id": 1,
+        "name": "Provost's Office",
+        "description": "Central academic administration responsible for university-wide academic policies",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Community & Belonging, Governance & Legal"
+      },
+      {
+        "id": 6,
+        "name": "Yale University Art Gallery",
+        "description": "Management of Yale's art collections and exhibitions",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Community & Belonging, Governance & Legal"
+      },
+      {
+        "id": 9,
+        "name": "Yale Investments Office",
+        "description": "Management of Yale's endowment and investments",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Community & Belonging, Governance & Legal"
+      },
+      {
+        "id": 10,
+        "name": "Office of General Counsel",
+        "description": "Legal oversight for university operations and compliance",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Community & Belonging, Governance & Legal"
+      },
+      {
+        "id": 12,
+        "name": "Yale Library System",
+        "description": "Management of Yale's libraries and collections",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Community & Belonging, Governance & Legal"
+      },
+      {
+        "id": 3,
+        "name": "Yale College Dean's Office",
+        "description": "Administration for Yale's undergraduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Community & Belonging, Governance & Legal"
+      },
+      {
+        "id": 4,
+        "name": "Graduate School of Arts and Sciences",
+        "description": "Administration for Yale's graduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Community & Belonging, Governance & Legal"
+      },
+      {
+        "id": 7,
+        "name": "Yale Center for International and Professional Experience",
+        "description": "Oversees study abroad and international opportunities",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Community & Belonging, Governance & Legal"
+      },
+      {
+        "id": 8,
+        "name": "Office of International Students and Scholars",
+        "description": "Support for international students and visiting faculty",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Community & Belonging, Governance & Legal"
+      }
+    ]
+  },
+  {
+    "id": 14042,
+    "title": "Executive Order 14042: Ensuring Adequate COVID Safety Protocols for Federal Contractors",
+    "order_number": "14042",
+    "signing_date": "2021-09-09",
+    "publication_date": "2021-09-12",
+    "summary": "Requires federal contractors and subcontractors to comply with COVID-19 workplace safety protocols.",
+    "categories": [
+      "Healthcare",
+      "Federal Contractors",
+      "Workplace Safety"
+    ],
+    "universityImpactAreas": [
+      "Administrative Compliance",
+      "Research Funding",
+      "Campus Operations"
+    ],
+    "source": "COGR",
+    "analysis_links": [
+      {
+        "url": "https://www.cogr.edu/resources/covid-contractor-brief",
+        "text": "COGR Federal Contractor COVID-19 Requirements"
+      }
+    ],
+    "yale_impact_areas": [
+      {
+        "id": 7,
+        "name": "Healthcare & Public Health",
+        "description": "Impacts on Yale School of Medicine, Yale Health, public health initiatives, and clinical operations",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 9,
+        "name": "Governance & Legal",
+        "description": "Impacts on Yale's governance structure, legal compliance, and university-wide policies",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 1,
+        "name": "Research & Innovation",
+        "description": "Impacts on federal research grants, funding priorities, and innovative research initiatives at Yale",
+        "relevance": "Identified based on EO content and policies"
+      }
+    ],
+    "yale_stakeholders": [
+      {
+        "id": 1,
+        "name": "Provost's Office",
+        "description": "Central academic administration responsible for university-wide academic policies",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Healthcare & Public Health, Governance & Legal, Research & Innovation"
+      },
+      {
+        "id": 2,
+        "name": "Office of Research Administration",
+        "description": "Oversees research compliance, funding, and administration",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Healthcare & Public Health, Governance & Legal, Research & Innovation"
+      },
+      {
+        "id": 3,
+        "name": "Yale College Dean's Office",
+        "description": "Administration for Yale's undergraduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Healthcare & Public Health, Governance & Legal, Research & Innovation"
+      },
+      {
+        "id": 4,
+        "name": "Graduate School of Arts and Sciences",
+        "description": "Administration for Yale's graduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Healthcare & Public Health, Governance & Legal, Research & Innovation"
+      },
+      {
+        "id": 5,
+        "name": "Yale School of Medicine",
+        "description": "Medical school administration and healthcare operations",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Healthcare & Public Health, Governance & Legal, Research & Innovation"
+      },
+      {
+        "id": 6,
+        "name": "Yale University Art Gallery",
+        "description": "Management of Yale's art collections and exhibitions",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Healthcare & Public Health, Governance & Legal, Research & Innovation"
+      },
+      {
+        "id": 7,
+        "name": "Yale Center for International and Professional Experience",
+        "description": "Oversees study abroad and international opportunities",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Healthcare & Public Health, Governance & Legal, Research & Innovation"
+      },
+      {
+        "id": 8,
+        "name": "Office of International Students and Scholars",
+        "description": "Support for international students and visiting faculty",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Healthcare & Public Health, Governance & Legal, Research & Innovation"
+      },
+      {
+        "id": 9,
+        "name": "Yale Investments Office",
+        "description": "Management of Yale's endowment and investments",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Healthcare & Public Health, Governance & Legal, Research & Innovation"
+      },
+      {
+        "id": 10,
+        "name": "Office of General Counsel",
+        "description": "Legal oversight for university operations and compliance",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Healthcare & Public Health, Governance & Legal, Research & Innovation"
+      },
+      {
+        "id": 11,
+        "name": "Athletics Department",
+        "description": "Administration of Yale's athletic programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Healthcare & Public Health, Governance & Legal, Research & Innovation"
+      },
+      {
+        "id": 12,
+        "name": "Yale Library System",
+        "description": "Management of Yale's libraries and collections",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Healthcare & Public Health, Governance & Legal, Research & Innovation"
+      }
+    ]
+  },
+  {
+    "id": 14110,
+    "title": "Executive Order 14110: Reforming Federal Funding of Research to Advance Science and Promote Security",
+    "order_number": "14110",
+    "signing_date": "2024-01-04",
+    "publication_date": "2024-01-07",
+    "summary": "Strengthens research security while reducing administrative burden on federally funded research institutions.",
+    "categories": [
+      "Research Security",
+      "Administrative Reform",
+      "International Collaboration"
+    ],
+    "universityImpactAreas": [
+      "Research Funding",
+      "International Programs",
+      "Administrative Compliance"
+    ],
+    "source": "COGR",
+    "analysis_links": [
+      {
+        "url": "https://www.cogr.edu/resources/research-security-brief",
+        "text": "COGR Research Security Analysis"
+      }
+    ],
+    "yale_impact_areas": [
+      {
+        "id": 1,
+        "name": "Research & Innovation",
+        "description": "Impacts on federal research grants, funding priorities, and innovative research initiatives at Yale",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 2,
+        "name": "Research Security & Export Control",
+        "description": "Impacts on research security requirements, export controls, and foreign research collaborations",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 8,
+        "name": "Financial & Operations",
+        "description": "Impacts on Yale's financial operations, endowment management, facilities, and IT infrastructure",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 9,
+        "name": "Governance & Legal",
+        "description": "Impacts on Yale's governance structure, legal compliance, and university-wide policies",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 3,
+        "name": "International & Immigration",
+        "description": "Impacts on Yale's international students, scholar mobility, visa regulations, and global initiatives",
+        "relevance": "Identified based on EO content and policies"
+      },
+      {
+        "id": 5,
+        "name": "Campus Safety & Student Affairs",
+        "description": "Impacts on Yale's campus safety, student life, residential colleges, and campus activities",
+        "relevance": "Identified based on EO content and policies"
+      }
+    ],
+    "yale_stakeholders": [
+      {
+        "id": 1,
+        "name": "Provost's Office",
+        "description": "Central academic administration responsible for university-wide academic policies",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Financial & Operations, Governance & Legal, International & Immigration, Campus Safety & Student Affairs"
+      },
+      {
+        "id": 2,
+        "name": "Office of Research Administration",
+        "description": "Oversees research compliance, funding, and administration",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Financial & Operations, Governance & Legal, International & Immigration, Campus Safety & Student Affairs"
+      },
+      {
+        "id": 4,
+        "name": "Graduate School of Arts and Sciences",
+        "description": "Administration for Yale's graduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Financial & Operations, Governance & Legal, International & Immigration, Campus Safety & Student Affairs"
+      },
+      {
+        "id": 5,
+        "name": "Yale School of Medicine",
+        "description": "Medical school administration and healthcare operations",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Financial & Operations, Governance & Legal, International & Immigration, Campus Safety & Student Affairs"
+      },
+      {
+        "id": 10,
+        "name": "Office of General Counsel",
+        "description": "Legal oversight for university operations and compliance",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Financial & Operations, Governance & Legal, International & Immigration, Campus Safety & Student Affairs"
+      },
+      {
+        "id": 6,
+        "name": "Yale University Art Gallery",
+        "description": "Management of Yale's art collections and exhibitions",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Financial & Operations, Governance & Legal, International & Immigration, Campus Safety & Student Affairs"
+      },
+      {
+        "id": 12,
+        "name": "Yale Library System",
+        "description": "Management of Yale's libraries and collections",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Financial & Operations, Governance & Legal, International & Immigration, Campus Safety & Student Affairs"
+      },
+      {
+        "id": 3,
+        "name": "Yale College Dean's Office",
+        "description": "Administration for Yale's undergraduate programs",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Financial & Operations, Governance & Legal, International & Immigration, Campus Safety & Student Affairs"
+      },
+      {
+        "id": 7,
+        "name": "Yale Center for International and Professional Experience",
+        "description": "Oversees study abroad and international opportunities",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Financial & Operations, Governance & Legal, International & Immigration, Campus Safety & Student Affairs"
+      },
+      {
+        "id": 8,
+        "name": "Office of International Students and Scholars",
+        "description": "Support for international students and visiting faculty",
+        "priority": "Medium",
+        "notes": "Automatically identified as stakeholder based on Yale impact areas: Research & Innovation, Research Security & Export Control, Financial & Operations, Governance & Legal, International & Immigration, Campus Safety & Student Affairs"
+      }
+    ]
+  }
+]

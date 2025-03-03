@@ -17,7 +17,7 @@ logger.initLogger({
   logFile: path.join(process.cwd(), 'logs', 'analyze_orders_queue.log')
 });
 
-const scriptLogger = logger.createJobLogger('AnalyzeOrdersQueue');
+const scriptLogger = logger.createNamedLogger('AnalyzeOrdersQueue');
 
 /**
  * Main function to run the order analysis

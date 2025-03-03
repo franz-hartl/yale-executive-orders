@@ -1,0 +1,32 @@
+[
+  {
+    "id": 3,
+    "name": "Administrative Compliance",
+    "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration"
+  },
+  {
+    "id": 5,
+    "name": "Public-Private Partnerships",
+    "description": "Changes affecting university-industry collaborations, tech transfer, and economic development initiatives"
+  },
+  {
+    "id": 1,
+    "name": "Research Funding",
+    "description": "Impacts on federal research grants, funding priorities, and research administration"
+  },
+  {
+    "id": 136,
+    "name": "Research Funding & Science Policy",
+    "description": "Impact on federal research grants, funding priorities, research security, and national science initiatives across all institution types"
+  },
+  {
+    "id": 2,
+    "name": "Student Aid & Higher Education Finance",
+    "description": "Changes to student financial aid, federal student loans, and university funding mechanisms"
+  },
+  {
+    "id": 4,
+    "name": "Workforce & Employment Policy",
+    "description": "Impacts on faculty, staff employment, labor relations, and workforce diversity"
+  }
+]

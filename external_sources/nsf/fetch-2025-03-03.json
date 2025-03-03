@@ -1,5 +1,5 @@
 {
-  "date": "2025-03-03T19:03:13.993Z",
+  "date": "2025-03-03T19:28:30.182Z",
   "status": "success",
   "urls_checked": [
     "https://www.nsf.gov/bfa/dias/policy/pappg.jsp",
@@ -13,29 +13,29 @@
       "url": "https://www.nsf.gov/bfa/dias/policy/pappg.jsp",
       "status": "error",
       "message": "Request failed with status code 404",
-      "timestamp": "2025-03-03T19:03:14.987Z"
+      "timestamp": "2025-03-03T19:28:31.043Z"
     },
     {
       "url": "https://www.nsf.gov/news/news_summ.jsp?cntn_id=296697",
       "status": "success",
       "title": "News | NSF - National Science FoundationLock",
-      "timestamp": "2025-03-03T19:03:16.021Z"
+      "timestamp": "2025-03-03T19:28:31.188Z"
     },
     {
       "url": "https://beta.nsf.gov/policies",
       "status": "success",
       "title": "Web Policies - Policies | NSF - National Science FoundationLock",
-      "timestamp": "2025-03-03T19:03:17.787Z"
+      "timestamp": "2025-03-03T19:28:31.422Z"
     },
     {
       "url": "https://www.nsf.gov/od/odi/compliance_resources.jsp",
       "status": "success",
       "title": "Office of Civil Rights (OD/OCR) | NSF - National Science FoundationLock",
-      "timestamp": "2025-03-03T19:03:19.218Z"
+      "timestamp": "2025-03-03T19:28:31.638Z"
     }
   ],
   "implementations_count": 6,
-  "implementations_path": "/Users/franzhartl/yale-executive-orders/external_sources/nsf/nsf-implementations-2025-03-03T19-03-19-224Z.json",
+  "implementations_path": "/Users/franzhartl/yale-executive-orders/external_sources/nsf/nsf-implementations-2025-03-03T19-28-31-644Z.json",
   "database_items": [
     {
       "order_number": null,
@@ -85,7 +85,7 @@
             "source_page": "https://www.nsf.gov/od/odi/compliance_resources.jsp"
           }
         ],
-        "extracted_date": "2025-03-03T19:03:19.225Z",
+        "extracted_date": "2025-03-03T19:28:31.644Z",
         "nsf_relevant": true
       }
     }

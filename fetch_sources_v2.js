@@ -22,7 +22,7 @@ logger.initLogger({
 });
 
 // Create a script-specific logger
-const fetchLogger = logger.createJobLogger('FetchSourcesV2');
+const fetchLogger = logger.createNamedLogger('FetchSourcesV2');
 
 /**
  * Creates and configures the Federal Register adapter

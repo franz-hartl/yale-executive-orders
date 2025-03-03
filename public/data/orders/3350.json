@@ -1,0 +1,129 @@
+{
+  "id": 3350,
+  "order_number": "14097",
+  "title": "Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence",
+  "signing_date": "2023-10-30",
+  "publication_date": "2023-11-01",
+  "president": "Biden",
+  "summary": "Analysis of Executive Order 14097: Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence",
+  "full_text": "Establishes new standards for AI safety and security while protecting Americans' privacy, advancing equity, and protecting workers' rights.",
+  "url": "https://www.whitehouse.gov/briefing-room/presidential-actions/2023/10/30/executive-order-on-the-safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence/",
+  "impact_level": "Medium",
+  "status": "Active",
+  "implementation_phase": null,
+  "added_date": "2025-03-03 19:02:01",
+  "last_updated": "2025-03-03 19:02:01",
+  "plain_language_summary": "Analysis of Executive Order 14097: Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence",
+  "executive_brief": "Executive Brief for 14097: This executive order signed by President Biden addresses key issues relevant to higher education. Institutions should review compliance requirements and assess operational impacts.",
+  "comprehensive_analysis": "Comprehensive Analysis of Executive Order 14097: Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence\n\nThis executive order addresses several areas of significance to higher education institutions. The order, signed by President Biden, may impact research funding, administrative requirements, and institutional operations. Universities should carefully review this order to determine compliance needs and operational adjustments.",
+  "effective_date": null,
+  "yale_alert_level": "Medium",
+  "core_impact": "[\"Establish monitoring committee\",\"Review existing policies\"]",
+  "yale_imperative": "Yale should monitor implementation guidance and coordinate response through the Office of Research Administration.",
+  "confidence_rating": 0.85,
+  "what_changed": "This order creates moderate compliance requirements and funding opportunities for research universities.",
+  "categories": [
+    "Education",
+    "Research"
+  ],
+  "impact_areas": [],
+  "university_impact_areas": [
+    {
+      "name": "Research Funding",
+      "description": "Impacts on federal research grants, funding priorities, and research administration",
+      "notes": null
+    },
+    {
+      "name": "Administrative Compliance",
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null
+    }
+  ],
+  "yale_impact_areas": [],
+  "yale_stakeholders": [],
+  "differentiated_impacts": {},
+  "compliance_timelines": {},
+  "impact_scoring": [],
+  "implementation_resources": [],
+  "compliance_actions": [],
+  "has_plain_language_summary": true,
+  "has_executive_brief": true,
+  "has_comprehensive_analysis": true,
+  "summary_formats_available": [
+    "executive_brief",
+    "standard",
+    "comprehensive"
+  ],
+  "sources": [],
+  "yale_guidance": {
+    "yale_university": {
+      "relevance_score": 3,
+      "affected_departments": [],
+      "primary_departments": [],
+      "secondary_departments": [],
+      "action_items": [],
+      "compliance_actions": [],
+      "impact_areas": [],
+      "source_insights": {
+        "key_takeaways": [],
+        "implementation_references": [],
+        "resource_links": []
+      }
+    }
+  },
+  "simplified_impact_analysis": {
+    "Research Funding": {
+      "description": "Impacts on federal research grants, funding priorities, and research administration",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
+    },
+    "Administrative Compliance": {
+      "description": "Compliance requirements, reporting mandates, and regulatory changes affecting university administration",
+      "notes": null,
+      "source_insights": [],
+      "consensus_rating": "Neutral"
+    }
+  },
+  "simplified_source_analysis": {
+    "summary": "Analysis of Executive Order 14097: Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence",
+    "extended_analysis": "Comprehensive Analysis of Executive Order 14097: Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence\n\nThis executive order addresses several areas of significance to higher education institutions. The order, signed by President Biden, may impact research funding, administrative requirements, and institutional operations. Universities should carefully review this order to determine compliance needs and operational adjustments.",
+    "source_insights": []
+  },
+  "intelligence_hub": {
+    "yale_alert_level": "Medium",
+    "core_impact": "[\"Establish monitoring committee\",\"Review existing policies\"]",
+    "what_changed": "This order creates moderate compliance requirements and funding opportunities for research universities.",
+    "yale_imperative": "Yale should monitor implementation guidance and coordinate response through the Office of Research Administration.",
+    "confidence_rating": 0.85,
+    "timeline_navigator": {
+      "signing_date": "2023-10-30",
+      "effective_date": null,
+      "implementation_deadlines": [],
+      "yale_decision_points": [],
+      "events": []
+    },
+    "source_intelligence": {
+      "federal_sources": {
+        "federal_register": [],
+        "agency_guidance": []
+      },
+      "analysis_interpretation": {
+        "university_associations": [],
+        "legal_analysis": []
+      }
+    },
+    "yale_response": {
+      "framework": [],
+      "action_requirements": [],
+      "decision_support": {
+        "options": []
+      }
+    },
+    "intelligence_network": {
+      "predecessor_policies": [],
+      "related_orders": [],
+      "external_impact": []
+    }
+  }
+}

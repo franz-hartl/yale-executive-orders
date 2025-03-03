@@ -1,12 +1,12 @@
 {
-  "date": "2025-03-03T19:03:13.990Z",
+  "date": "2025-03-03T19:28:30.175Z",
   "status": "success",
   "pdfUrl": "sample://cogr.edu/sample-tracker.pdf",
-  "pdfPath": "/Users/franzhartl/yale-executive-orders/external_sources/cogr/cogr-tracker-2025-03-03T19-03-13-990Z.pdf",
+  "pdfPath": "/Users/franzhartl/yale-executive-orders/external_sources/cogr/cogr-tracker-2025-03-03T19-28-30-175Z.pdf",
   "linkText": "COGR Executive Order Tracker (Sample)",
   "message": "Successfully downloaded COGR Executive Order Tracker PDF",
   "textExtracted": true,
-  "textPath": "/Users/franzhartl/yale-executive-orders/external_sources/cogr/cogr-tracker-2025-03-03T19-03-13-990Z.txt",
+  "textPath": "/Users/franzhartl/yale-executive-orders/external_sources/cogr/cogr-tracker-2025-03-03T19-28-30-175Z.txt",
   "pageCount": 1,
   "metadata": {
     "Title": "COGR Executive Order Tracker (Sample)"

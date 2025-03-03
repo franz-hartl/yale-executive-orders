@@ -1,47 +1,206 @@
 {
-  "date": "2025-03-03T19:03:19.230Z",
-  "status": "using_sample",
+  "date": "2025-03-03T19:28:31.647Z",
+  "status": "success",
   "urls_checked": [
     "https://grants.nih.gov/policy/index.htm",
-    "https://grants.nih.gov/grants/policy/nihgps/index.html",
-    "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-012.html",
+    "https://grants.nih.gov/grants/guide/index.html",
+    "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html",
+    "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-189.html",
     "https://grants.nih.gov/policy/clinical-trials.htm",
-    "https://grants.nih.gov/policy/data-sharing.htm"
+    "https://grants.nih.gov/grants/policy/data-management-sharing.htm",
+    "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-021.html",
+    "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html",
+    "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-075.html",
+    "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-100.html"
   ],
-  "message": "Using sample NIH notices data for testing",
+  "message": "Successfully extracted 12 notice references",
   "results": [
     {
       "url": "https://grants.nih.gov/policy/index.htm",
       "status": "success",
       "title": "Policy & Compliance | Grants & Funding",
-      "timestamp": "2025-03-03T19:03:19.611Z"
+      "timestamp": "2025-03-03T19:28:31.926Z"
     },
     {
-      "url": "https://grants.nih.gov/grants/policy/nihgps/index.html",
-      "status": "error",
-      "message": "Request failed with status code 404",
-      "timestamp": "2025-03-03T19:03:19.759Z"
-    },
-    {
-      "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-012.html",
+      "url": "https://grants.nih.gov/grants/guide/index.html",
       "status": "success",
-      "title": "NOT-OD-23-012: Reminder: FORMS-H Grant Application Forms & Instructions Must be Used for Due Dates On or After January 25, 2023 - New Grant Application Instructions Now Available",
-      "timestamp": "2025-03-03T19:03:19.845Z"
+      "title": "Redirector",
+      "timestamp": "2025-03-03T19:28:31.971Z"
+    },
+    {
+      "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-002.html",
+      "status": "success",
+      "title": "NOT-OD-24-002: Request for Information: Developing Consent Language for Research Using Digital Health Technologies",
+      "timestamp": "2025-03-03T19:28:32.073Z"
+    },
+    {
+      "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-189.html",
+      "status": "success",
+      "title": "NOT-OD-22-189: Implementation Details for the NIH Data Management and Sharing Policy",
+      "timestamp": "2025-03-03T19:28:32.141Z"
     },
     {
       "url": "https://grants.nih.gov/policy/clinical-trials.htm",
       "status": "success",
       "title": "Clinical Trial Requirements for Grants and Contracts | Grants & Funding",
-      "timestamp": "2025-03-03T19:03:20.122Z"
+      "timestamp": "2025-03-03T19:28:32.393Z"
     },
     {
-      "url": "https://grants.nih.gov/policy/data-sharing.htm",
+      "url": "https://grants.nih.gov/grants/policy/data-management-sharing.htm",
       "status": "error",
       "message": "Request failed with status code 404",
-      "timestamp": "2025-03-03T19:03:20.296Z"
+      "timestamp": "2025-03-03T19:28:32.584Z"
+    },
+    {
+      "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-021.html",
+      "status": "success",
+      "title": "NOT-OD-23-021: Human Subjects Research: Policies, Inclusion, & Clinical Trials  Free 2-Day Virtual Event with NIH & HHS Experts  December 6-7, 2022",
+      "timestamp": "2025-03-03T19:28:32.641Z"
+    },
+    {
+      "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html",
+      "status": "success",
+      "title": "NOT-OD-23-050: NIH Operates Under a Continuing Resolution",
+      "timestamp": "2025-03-03T19:28:32.704Z"
+    },
+    {
+      "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-075.html",
+      "status": "success",
+      "title": "NOT-OD-23-075: Office of Research Infrastructure Programs (ORIP) implementation of NIH Policy on Acceptance for Review of Applications Requesting $500,000 or More in Direct Costs in Any One Budget Year",
+      "timestamp": "2025-03-03T19:28:32.765Z"
+    },
+    {
+      "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-100.html",
+      "status": "success",
+      "title": "NOT-OD-23-100: The National Institutes of Health (NIH) Sexual & Gender Minority Research Office Request for Nominations for 2023 SGM Research Investigator Awards Program",
+      "timestamp": "2025-03-03T19:28:32.831Z"
     }
   ],
-  "notices_count": 3,
-  "notices_path": "/Users/franzhartl/yale-executive-orders/external_sources/nih/nih-notices-sample-2025-03-03T19-03-20-297Z.json",
-  "is_sample": true
+  "notices_count": 12,
+  "notices_path": "/Users/franzhartl/yale-executive-orders/external_sources/nih/nih-notices-2025-03-03T19-28-32-833Z.json",
+  "database_items": [
+    {
+      "order_number": null,
+      "title": "NIH Implementation of unknown",
+      "source_specific_data": {
+        "implementation_references": [
+          {
+            "notice_id": "NOT-OD-23-053",
+            "title": "NOT-OD-23-053",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-053.html",
+            "date": "2023",
+            "executive_order": null,
+            "context": "- Reminder: NIH Policy for Data Management and Sharing effective on January 25, 2023.",
+            "source_page": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-189.html"
+          },
+          {
+            "notice_id": "NOT-OD-21-013",
+            "title": "NOT-OD-21-013",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-21-013.html",
+            "date": "2021",
+            "executive_order": null,
+            "context": "- Final NIH Policy for Data Management and Sharing",
+            "source_page": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-189.html"
+          },
+          {
+            "notice_id": "NOT-OD-21-014",
+            "title": "NOT-OD-21-014",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-21-014.html",
+            "date": "2021",
+            "executive_order": null,
+            "context": "Supplemental Information to the NIH Policy for Data Management and Sharing: Elements of an NIH Data Management and Sharing Plan",
+            "source_page": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-189.html"
+          },
+          {
+            "notice_id": "NOT-OD-21-015",
+            "title": "NOT-OD-21-015",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-21-015.html",
+            "date": "2021",
+            "executive_order": null,
+            "context": "Supplemental Information to the NIH Policy for Data Management and Sharing: Allowable Costs for Data Management and Sharing",
+            "source_page": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-189.html"
+          },
+          {
+            "notice_id": "NOT-OD-21-016",
+            "title": "NOT-OD-21-016",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-21-016.html",
+            "date": "2021",
+            "executive_order": null,
+            "context": "Supplemental Information to the NIH Policy for Data Management and Sharing: Selecting a Repository for Data Resulting from NIH-Supported Research",
+            "source_page": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-189.html"
+          },
+          {
+            "notice_id": "NOT-OD-22-198",
+            "title": "NOT-OD-22-198",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-198.html",
+            "date": "2022",
+            "executive_order": null,
+            "context": "Implementation Changes for Genomic Data Sharing Plans Included with Applications Due on or after January 25, 2023",
+            "source_page": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-189.html"
+          },
+          {
+            "notice_id": "NOT-OD-22-076",
+            "title": "NOT-OD-22-076",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-076.html#:~:text=The%20Consolidated%20Appropriations%20Act%2C%202021%2C%20restricts%20the%20amount%20of%20direct,Executive%20Level%20II%20is%20%24203%2C700.",
+            "date": "2022",
+            "executive_order": null,
+            "context": "- Guidance on Salary Limitation for Grants and Cooperative Agreements",
+            "source_page": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html"
+          },
+          {
+            "notice_id": "NOT-OD-22-105",
+            "title": "NOT-OD-22-015",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-105.html",
+            "date": "2022",
+            "executive_order": null,
+            "context": "Continuing the procedures identified under  and consistent with NIH practices during the CRs of FYs 2006 - 2022, NIH Institutes and/or Centers may, at their discretion, issue non-competing research grant awards at a level below that indicated on the most recent Notice of Award. Upward adjustments to awarded levels will be considered after FY 2023 appropriations are enacted, but NIH expects institutions to monitor their expenditures carefully during this period. All legislative mandates that were in effect in FY 2022 (see NOT-OD-22-117) remain in effect under this CR, as well as the salary limitation set at Executive Level II of the Federal Pay Scale (see NOT-OD-22-076) and the Ruth L. Kirschstein National Research Service Award predoctoral and postdoctoral stipend levels and tuition/fees as described in NOT-OD-22-132.",
+            "source_page": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html"
+          },
+          {
+            "notice_id": "NOT-OD-22-015",
+            "title": "2006 - 2022",
+            "url": "https://grants.nih.gov/policy/nih-funding-strategies.htm",
+            "date": "2022",
+            "executive_order": null,
+            "context": "Continuing the procedures identified under NOT-OD-22-015 and consistent with NIH practices during the CRs of FYs , NIH Institutes and/or Centers may, at their discretion, issue non-competing research grant awards at a level below that indicated on the most recent Notice of Award. Upward adjustments to awarded levels will be considered after FY 2023 appropriations are enacted, but NIH expects institutions to monitor their expenditures carefully during this period. All legislative mandates that were in effect in FY 2022 (see NOT-OD-22-117) remain in effect under this CR, as well as the salary limitation set at Executive Level II of the Federal Pay Scale (see NOT-OD-22-076) and the Ruth L. Kirschstein National Research Service Award predoctoral and postdoctoral stipend levels and tuition/fees as described in NOT-OD-22-132.",
+            "source_page": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html"
+          },
+          {
+            "notice_id": "NOT-OD-22-117",
+            "title": "NOT-OD-22-117",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-117.html",
+            "date": "2022",
+            "executive_order": null,
+            "context": "Continuing the procedures identified under NOT-OD-22-015 and consistent with NIH practices during the CRs of FYs 2006 - 2022, NIH Institutes and/or Centers may, at their discretion, issue non-competing research grant awards at a level below that indicated on the most recent Notice of Award. Upward adjustments to awarded levels will be considered after FY 2023 appropriations are enacted, but NIH expects institutions to monitor their expenditures carefully during this period. All legislative mandates that were in effect in FY 2022 (see ) remain in effect under this CR, as well as the salary limitation set at Executive Level II of the Federal Pay Scale (see NOT-OD-22-076) and the Ruth L. Kirschstein National Research Service Award predoctoral and postdoctoral stipend levels and tuition/fees as described in NOT-OD-22-132.",
+            "source_page": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html"
+          },
+          {
+            "notice_id": "NOT-OD-22-076",
+            "title": "NOT-OD-22-076",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-076.html",
+            "date": "2022",
+            "executive_order": null,
+            "context": "Continuing the procedures identified under NOT-OD-22-015 and consistent with NIH practices during the CRs of FYs 2006 - 2022, NIH Institutes and/or Centers may, at their discretion, issue non-competing research grant awards at a level below that indicated on the most recent Notice of Award. Upward adjustments to awarded levels will be considered after FY 2023 appropriations are enacted, but NIH expects institutions to monitor their expenditures carefully during this period. All legislative mandates that were in effect in FY 2022 (see NOT-OD-22-117) remain in effect under this CR, as well as the salary limitation set at Executive Level II of the Federal Pay Scale (see ) and the Ruth L. Kirschstein National Research Service Award predoctoral and postdoctoral stipend levels and tuition/fees as described in NOT-OD-22-132.",
+            "source_page": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html"
+          },
+          {
+            "notice_id": "NOT-OD-22-132",
+            "title": "NOT-OD-22-132",
+            "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-22-132.html",
+            "date": "2022",
+            "executive_order": null,
+            "context": "Continuing the procedures identified under NOT-OD-22-015 and consistent with NIH practices during the CRs of FYs 2006 - 2022, NIH Institutes and/or Centers may, at their discretion, issue non-competing research grant awards at a level below that indicated on the most recent Notice of Award. Upward adjustments to awarded levels will be considered after FY 2023 appropriations are enacted, but NIH expects institutions to monitor their expenditures carefully during this period. All legislative mandates that were in effect in FY 2022 (see NOT-OD-22-117) remain in effect under this CR, as well as the salary limitation set at Executive Level II of the Federal Pay Scale (see NOT-OD-22-076) and the Ruth L. Kirschstein National Research Service Award predoctoral and postdoctoral stipend levels and tuition/fees as described in .",
+            "source_page": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-050.html"
+          }
+        ],
+        "extracted_date": "2025-03-03T19:28:32.835Z",
+        "nih_relevant": true
+      },
+      "categories": [
+        "Healthcare",
+        "Research & Science Policy"
+      ]
+    }
+  ],
+  "database_items_count": 1
 }
