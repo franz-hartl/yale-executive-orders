@@ -210,6 +210,15 @@ class COGRSource extends BaseSource {
         // All COGR items relate to research
         order.categories = ['Research'];
         order.universityImpactAreas = ['Research Funding', 'Administrative Compliance'];
+        order.yaleImpactAreas = [
+          { id: 1, name: 'Research & Innovation' },
+          { id: 2, name: 'Research Security & Export Control' },
+          { id: 8, name: 'Financial & Operations' }
+        ];
+        order.yaleStakeholders = [
+          { id: 2, name: 'Office of Research Administration' },
+          { id: 10, name: 'Office of General Counsel' }
+        ];
         
         // Add president if missing
         if (!order.president) {

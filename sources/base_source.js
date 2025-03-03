@@ -104,6 +104,10 @@ class BaseSource {
       full_text: order.full_text || order.body || '',
       url: order.url || order.html_url || '',
       source: this.name,
+      categories: order.categories || [],
+      universityImpactAreas: order.universityImpactAreas || [],
+      yaleImpactAreas: order.yaleImpactAreas || [],
+      yaleStakeholders: order.yaleStakeholders || [],
       metadata: {}
     };
     

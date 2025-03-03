@@ -214,6 +214,14 @@ class NSFSource extends BaseSource {
         impl.president = determinePresident(impl);
         impl.categories = ['Research'];
         impl.universityImpactAreas = ['Research Funding', 'Administrative Compliance'];
+        impl.yaleImpactAreas = [
+          { id: 1, name: 'Research & Innovation' },
+          { id: 2, name: 'Research Security & Export Control' }
+        ];
+        impl.yaleStakeholders = [
+          { id: 2, name: 'Office of Research Administration' },
+          { id: 4, name: 'Graduate School of Arts and Sciences' }
+        ];
         
         // Add delay between requests
         if (i < implementations.length - 1) {

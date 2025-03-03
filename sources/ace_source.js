@@ -231,6 +231,15 @@ class ACESource extends BaseSource {
         analysis.president = determinePresident(analysis);
         analysis.categories = ['Education'];
         analysis.universityImpactAreas = ['Administrative Compliance', 'Institutional Accessibility'];
+        analysis.yaleImpactAreas = [
+          { id: 3, name: 'International & Immigration' },
+          { id: 9, name: 'Governance & Legal' },
+          { id: 10, name: 'Academic Programs' }
+        ];
+        analysis.yaleStakeholders = [
+          { id: 1, name: 'Provost\'s Office' },
+          { id: 10, name: 'Office of General Counsel' }
+        ];
         
         // If we have exec brief but no comprehensive analysis, use the brief
         if (analysis.executive_brief && !analysis.comprehensive_analysis) {

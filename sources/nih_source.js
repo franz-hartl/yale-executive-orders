@@ -217,6 +217,14 @@ class NIHSource extends BaseSource {
         notice.president = determinePresident(notice);
         notice.categories = ['Healthcare', 'Research'];
         notice.universityImpactAreas = ['Research Funding', 'Administrative Compliance'];
+        notice.yaleImpactAreas = [
+          { id: 1, name: 'Research & Innovation' },
+          { id: 7, name: 'Healthcare & Public Health' }
+        ];
+        notice.yaleStakeholders = [
+          { id: 2, name: 'Office of Research Administration' },
+          { id: 5, name: 'Yale School of Medicine' }
+        ];
         
         // Add delay between requests
         if (i < notices.length - 1) {
