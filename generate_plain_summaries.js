@@ -138,9 +138,9 @@ async function generateMultiLevelSummaries(order) {
   console.log(`Generating multi-level summaries for ${order.order_number}: ${order.title}`);
   
   try {
-    // Create a streamlined prompt for Claude with essential information
+    // Create a streamlined prompt for Claude with essential information and Yale taxonomy
     const prompt = `
-      Create three different levels of summaries for this executive order specifically for Yale University administrators. Focus on the implications, requirements, and implementation steps that are most relevant to Yale's unique institutional context:
+      Create three different levels of summaries for this executive order specifically for Yale University administrators. Focus on the implications, requirements, and implementation steps that are most relevant to Yale's unique institutional context using Yale's specialized taxonomy:
 
       EXECUTIVE ORDER INFORMATION:
       Title: ${order.title}
@@ -150,6 +150,18 @@ async function generateMultiLevelSummaries(order) {
       Impact Level: ${order.impact_level || 'Unknown'}
       Categories: ${order.categories.join(', ')}
       University Impact Areas: ${order.university_impact_areas.join(', ')}
+      
+      YALE UNIVERSITY TAXONOMY:
+      Classify the impacts according to Yale's specific taxonomy categories:
+      1. Research & Innovation: Federal grants, funding priorities, research initiatives
+      2. Research Security & Export Control: Security requirements, export controls, foreign research collaborations
+      3. International & Immigration: International students, scholar mobility, visa regulations
+      4. DEI (Diversity, Equity & Inclusion): Diversity initiatives, equal opportunity programs, inclusion efforts
+      5. Campus Safety & Student Affairs: Campus safety, student life, residential colleges
+      6. Faculty & Workforce: Faculty administration, employment policies, workforce management
+      7. Healthcare & Public Health: Yale School of Medicine, Yale Health, public health initiatives
+      8. Financial & Operations: Financial operations, endowment management, facilities, IT
+      9. Governance & Legal: Governance structure, legal compliance, university policies
       
       YALE UNIVERSITY STRUCTURE:
       Yale has a specific organizational structure that should be referenced in your analysis:
@@ -174,16 +186,19 @@ async function generateMultiLevelSummaries(order) {
       - Significant international programs and global presence
       - Historic legacy as one of America's oldest institutions
       - $41.4 billion endowment with specialized investment approach
+      - $1.3B annual research expenditures with robust compliance framework
       
       Original Summary: ${order.summary || 'Not available'}
       
       Additional Text: ${order.full_text || ''}
       
-      FORMAT YOUR RESPONSE EXCLUSIVELY FOR YALE UNIVERSITY, directly referencing Yale's departments:
+      FORMAT YOUR RESPONSE EXCLUSIVELY FOR YALE UNIVERSITY:
+      - Structure your analysis according to Yale's taxonomy categories (listed above)
       - Be specific to Yale's organizational units, not generic institution types
       - Identify primary Yale departments responsible for implementation
       - Highlight specific considerations unique to Yale's structure and operations
       - Clearly indicate which Yale departments should take action
+      - Provide actionable recommendations for Yale administrators
       
       Format your response as JSON with this structure:
       {
@@ -346,16 +361,7 @@ async function generateMultiLevelSummaries(order) {
       {
         model: "claude-3-opus-20240229",
         max_tokens: 3500,
-        system: "You are an expert in private R1 research university administration with specialized expertise in policy domains relevant to research-intensive private universities. You have deep expertise in how federal policies specifically affect private research universities with very high research activity, substantial endowments, and significant international presence.
-        
-Your primary role is to translate complex executive orders into clear, actionable summaries for private R1 university administrators, focusing specifically on the implications, requirements, and implementation steps for these institutions. While you may briefly mention other institution types for context, your analysis should always prioritize and emphasize the private R1 university perspective.
-
-You have particular expertise in:
-1. Research Funding & Security - Understanding complex research security requirements, export controls, and international collaboration oversight that affect major research universities
-2. Advanced Research Programs - Analyzing impacts on specialized research initiatives, major laboratory operations, and high-priority research areas
-3. International Collaboration - Evaluating effects on global academic partnerships, scholar mobility, and international research networks
-4. Endowment Management - Assessing implications for large endowment investment policies, reporting requirements, and financial regulations
-5. Graduate Education - Understanding impacts on doctoral programs, postdoctoral researchers, and research training grants",
+        system: "You are an expert in Yale University administration with specialized expertise in policy domains relevant to Yale's operations. You have deep expertise in how federal policies specifically affect Yale University, with its very high research activity, substantial endowment, significant international presence, distinctive undergraduate education model, arts and cultural collections, and medical enterprise.\n\nYour primary role is to translate complex executive orders into clear, actionable summaries for Yale administrators, focusing specifically on the implications, requirements, and implementation steps for Yale University. Your analysis should always prioritize and emphasize the Yale-specific perspective, organizational structure, and institutional context.\n\nYou have particular expertise in Yale's specific taxonomy categories:\n1. Research & Innovation - Federal grants, funding priorities, research initiatives\n2. Research Security & Export Control - Security requirements, export controls, foreign research collaborations\n3. International & Immigration - International students, scholar mobility, visa regulations\n4. DEI (Diversity, Equity & Inclusion) - Diversity initiatives, equal opportunity programs, inclusion efforts\n5. Campus Safety & Student Affairs - Campus safety, student life, residential colleges\n6. Faculty & Workforce - Faculty administration, employment policies, workforce management\n7. Healthcare & Public Health - Yale School of Medicine, Yale Health, public health initiatives\n8. Financial & Operations - Financial operations, endowment management, facilities, IT\n9. Governance & Legal - Governance structure, legal compliance, university-wide policies",
         messages: [
           {
             role: "user",

@@ -148,8 +148,11 @@ async function createTables() {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT UNIQUE,
         description TEXT,
+        primary_yale_department_id INTEGER,
+        secondary_yale_department_ids TEXT,
         related_r1_area_id INTEGER NULL,
-        FOREIGN KEY (related_r1_area_id) REFERENCES university_impact_areas(id)
+        FOREIGN KEY (related_r1_area_id) REFERENCES university_impact_areas(id),
+        FOREIGN KEY (primary_yale_department_id) REFERENCES yale_departments(id)
       )
     `);
     
