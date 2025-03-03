@@ -17,6 +17,7 @@ The system extracts structured knowledge from executive orders and related docum
 - **Knowledge-Centric Architecture**: Uses structured fact-based knowledge representation
 - **AI Response Caching**: Filesystem-based caching to reduce API costs and improve performance
 - **Text Chunking**: Handles long documents by splitting into chunks with context preservation
+- **Task Queue System**: Background processing for large batches of orders with resource management
 
 ## Documentation
 

@@ -206,35 +206,179 @@ class AnalyzeStep extends PipelineStep {
     try {
       this.logger.info('Starting analysis generation');
       
-      // In reality, we would call the generate_plain_summaries.js script
-      /* 
-      const generateSummaries = require('../generate_plain_summaries');
-      const result = await generateSummaries.generateForNewOrders();
-      */
-      
-      // Simulate analysis using Claude
+      // Determine whether to use queued processing based on order count
       const newOrders = context.processResults?.newOrders || 0;
       this.logger.info(`Generating analysis for ${newOrders} new orders`);
       
-      // Simulate Claude API processing time
-      // This would take longer in reality
-      await this.sleep(2000); 
-      
-      // Update context with analysis results
-      return {
-        ...context,
-        analysisResults: {
-          success: true,
-          ordersAnalyzed: newOrders,
-          summaryTypes: config.analysis.summaryTypes,
-          tokensUsed: Math.floor(newOrders * 12500) // Approximate token usage
-        },
-        analysisTimestamp: new Date().toISOString()
-      };
+      // Use the task queue system for larger batches, direct processing for smaller ones
+      if (newOrders > 5) {
+        this.logger.info(`Using task queue for ${newOrders} orders`);
+        return await this.executeWithTaskQueue(context);
+      } else {
+        this.logger.info(`Using direct processing for ${newOrders} orders`);
+        return await this.executeDirectly(context);
+      }
     } catch (error) {
       this.logger.error('Analysis step failed', error);
       throw error;
     }
+  }
+  
+  /**
+   * Execute analysis using the task queue system
+   * @param {Object} context Pipeline context
+   * @returns {Object} Updated context
+   */
+  async executeWithTaskQueue(context) {
+    // Load the queue manager
+    const queueManager = require('../utils/queue_manager');
+    await queueManager.initialize();
+    
+    // Get orders from the database that need analysis
+    const db = require('../utils/db').getDbConnection();
+    const ordersToAnalyze = await db.all(`
+      SELECT id, order_number, title, signing_date, publication_date, president, full_text
+      FROM executive_orders 
+      WHERE impact_level IS NULL OR impact_level = ''
+      ORDER BY signing_date DESC
+    `);
+    
+    this.logger.info(`Found ${ordersToAnalyze.length} orders to analyze in the database`);
+    
+    if (ordersToAnalyze.length === 0) {
+      return {
+        ...context,
+        analysisResults: {
+          success: true,
+          ordersAnalyzed: 0,
+          summaryTypes: config.analysis.summaryTypes,
+          tokensUsed: 0
+        },
+        analysisTimestamp: new Date().toISOString()
+      };
+    }
+    
+    // Queue the orders in batches of 10
+    const batchSize = 10;
+    const batches = [];
+    
+    for (let i = 0; i < ordersToAnalyze.length; i += batchSize) {
+      batches.push(ordersToAnalyze.slice(i, i + batchSize));
+    }
+    
+    this.logger.info(`Split into ${batches.length} batches of up to ${batchSize} orders each`);
+    
+    // Create a unique batch ID for this analysis run
+    const analysisRunId = `pipeline_${Date.now()}`;
+    
+    // Queue each batch
+    let totalTasksQueued = 0;
+    
+    for (let i = 0; i < batches.length; i++) {
+      const batch = batches[i];
+      const batchId = `${analysisRunId}_${i}`;
+      
+      const taskIds = queueManager.queueBatchAnalysis(batch, {
+        batchId,
+        priority: batches.length - i // Higher priority for earlier batches
+      });
+      
+      totalTasksQueued += taskIds.length;
+      this.logger.info(`Queued batch ${i+1} with ${taskIds.length} tasks`);
+      
+      // Short delay between batches to prevent potential contention
+      if (i < batches.length - 1) {
+        await this.sleep(500);
+      }
+    }
+    
+    this.logger.info(`Successfully queued ${totalTasksQueued} orders for analysis`);
+    
+    // The tasks will be processed in the background, so we don't wait for them to complete
+    // Instead, we return the context with information about the queued tasks
+    
+    return {
+      ...context,
+      analysisResults: {
+        success: true,
+        ordersAnalyzed: 0, // We don't know yet how many will succeed
+        ordersQueued: totalTasksQueued,
+        queuedAnalysisRunId: analysisRunId,
+        summaryTypes: config.analysis.summaryTypes,
+        backgroundProcessing: true
+      },
+      analysisTimestamp: new Date().toISOString()
+    };
+  }
+  
+  /**
+   * Execute analysis directly without task queue
+   * @param {Object} context Pipeline context
+   * @returns {Object} Updated context
+   */
+  async executeDirectly(context) {
+    // Load analysis utilities
+    const { generateAnalysisWithClaude } = require('../utils/analysis');
+    
+    // Get orders from the database that need analysis
+    const db = require('../utils/db').getDbConnection();
+    const ordersToAnalyze = await db.all(`
+      SELECT id, order_number, title, signing_date, publication_date, president, full_text
+      FROM executive_orders 
+      WHERE impact_level IS NULL OR impact_level = ''
+      ORDER BY signing_date DESC
+      LIMIT 5
+    `);
+    
+    this.logger.info(`Found ${ordersToAnalyze.length} orders to analyze directly`);
+    
+    if (ordersToAnalyze.length === 0) {
+      return {
+        ...context,
+        analysisResults: {
+          success: true,
+          ordersAnalyzed: 0,
+          summaryTypes: config.analysis.summaryTypes,
+          tokensUsed: 0
+        },
+        analysisTimestamp: new Date().toISOString()
+      };
+    }
+    
+    // Process each order directly
+    let successCount = 0;
+    let totalTokens = 0;
+    
+    for (const order of ordersToAnalyze) {
+      try {
+        this.logger.info(`Analyzing order ${order.order_number} - ${order.title}`);
+        
+        // Generate analysis
+        const analysis = await generateAnalysisWithClaude(order);
+        
+        // Update order in database (would use a real implementation)
+        // await updateOrderWithAnalysis(db, order.id, analysis);
+        
+        successCount++;
+        totalTokens += 12500; // Approximate token usage
+        
+        this.logger.info(`Successfully analyzed order ${order.order_number}`);
+      } catch (error) {
+        this.logger.error(`Error analyzing order ${order.order_number}: ${error.message}`, error);
+      }
+    }
+    
+    return {
+      ...context,
+      analysisResults: {
+        success: true,
+        ordersAnalyzed: successCount,
+        summaryTypes: config.analysis.summaryTypes,
+        tokensUsed: totalTokens,
+        backgroundProcessing: false
+      },
+      analysisTimestamp: new Date().toISOString()
+    };
   }
 }
 
