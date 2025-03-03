@@ -119,6 +119,21 @@
                                     Filter by specific university functional areas affected
                                 </span>
                             </div>
+                            
+                            <!-- Yale Impact Area dropdown -->
+                            <div class="yale-form-group">
+                                <label for="filter-yale-area" class="yale-form-label">
+                                    <span class="yale-badge yale-badge--primary yale-mr-xs yale-text-xs">Yale</span>
+                                    Yale Impact Area
+                                </label>
+                                <select id="filter-yale-area" class="yale-select" aria-describedby="yale-area-description">
+                                    <option value="">All Yale Impact Areas</option>
+                                    <!-- Options populated by JavaScript -->
+                                </select>
+                                <span id="yale-area-description" class="sr-only">
+                                    Filter by Yale-specific impact areas
+                                </span>
+                            </div>
                         </div>
                         
                         <!-- Clear filters button -->
@@ -170,6 +185,10 @@
                                 </th>
                                 <th scope="col">Categories</th>
                                 <th scope="col">University Impact Areas</th>
+                                <th scope="col">
+                                    <span class="yale-badge yale-badge--primary yale-mr-xs yale-text-xs">Yale</span>
+                                    Yale Impact
+                                </th>
                             </tr>
                         </thead>
                         <tbody id="eo-table-body">
@@ -280,6 +299,24 @@
                     <div class="yale-mt-md">
                         <h3 class="yale-text-xs yale-text-uppercase yale-text-yale-blue yale-text-semibold yale-mb-xs">University Impact Areas</h3>
                         <div id="detail-university-impact-areas" class="yale-tag-group"></div>
+                    </div>
+                    
+                    <!-- Yale-Specific Impact Areas - New Section -->
+                    <div class="yale-mt-lg yale-border-t yale-pt-md">
+                        <div class="yale-flex yale-items-center yale-mb-xs">
+                            <span class="yale-badge yale-badge--primary yale-mr-xs">Yale</span>
+                            <h3 class="yale-text-xs yale-text-uppercase yale-text-yale-blue yale-text-semibold">Yale-Specific Impact Areas</h3>
+                        </div>
+                        <div id="detail-yale-impact-areas" class="yale-tag-group"></div>
+                    </div>
+                    
+                    <!-- Yale Stakeholders - New Section -->
+                    <div class="yale-mt-md">
+                        <div class="yale-flex yale-items-center yale-mb-xs">
+                            <span class="yale-badge yale-badge--primary yale-mr-xs">Yale</span>
+                            <h3 class="yale-text-xs yale-text-uppercase yale-text-yale-blue yale-text-semibold">Yale Stakeholders</h3>
+                        </div>
+                        <div id="detail-yale-stakeholders" class="yale-tag-group"></div>
                     </div>
                 </div>
                 

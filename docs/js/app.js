@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterCategory = document.getElementById('filter-category');
     const filterImpactLevel = document.getElementById('filter-impact-level');
     const filterUniversityArea = document.getElementById('filter-university-area');
+    const filterYaleArea = document.getElementById('filter-yale-area');
     const clearFiltersBtn = document.getElementById('clear-filters-btn');
     
     // Table elements
@@ -48,6 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Detail view elements
     const detailView = document.getElementById('detail-view');
     const closeDetailBtn = document.getElementById('close-detail-btn');
+    const detailYaleImpactAreas = document.getElementById('detail-yale-impact-areas');
+    const detailYaleStakeholders = document.getElementById('detail-yale-stakeholders');
     const closeDetailBtnBottom = document.getElementById('close-detail-btn-bottom');
     const detailTitle = document.getElementById('detail-title');
     const detailOrderNumber = document.getElementById('detail-order-number');
@@ -157,6 +160,9 @@ document.addEventListener('DOMContentLoaded', () => {
         filterCategory.addEventListener('change', applyFilters);
         filterImpactLevel.addEventListener('change', applyFilters);
         filterUniversityArea.addEventListener('change', applyFilters);
+        if (filterYaleArea) {
+            filterYaleArea.addEventListener('change', applyFilters);
+        }
         clearFiltersBtn.addEventListener('click', clearFilters);
         
         // Mobile filter toggle
@@ -478,7 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Fetch metadata (categories, impact areas)
+    // Fetch metadata (categories, impact areas, yale-specific data)
     async function getMetadata() {
         try {
             const response = await fetch('data/metadata.json');
@@ -487,6 +493,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             metadata = await response.json();
+            
+            // Also load Yale-specific impact areas if needed
+            try {
+                const yaleResponse = await fetch('data/yale_impact_areas.json');
+                if (yaleResponse.ok) {
+                    const yaleImpactAreas = await yaleResponse.json();
+                    metadata.yaleImpactAreas = yaleImpactAreas;
+                    console.log('Loaded Yale impact areas:', yaleImpactAreas.length);
+                }
+            } catch (yaleError) {
+                console.warn('Error loading Yale impact areas:', yaleError);
+                // Non-fatal error, continue without Yale data
+            }
             
         } catch (error) {
             console.error('Error getting metadata:', error);
@@ -637,6 +656,61 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } else {
             detailUniversityImpactAreas.innerHTML = '<em>No university impact areas available</em>';
+        }
+        
+        // Add Yale-specific impact areas
+        if (detailYaleImpactAreas) {
+            detailYaleImpactAreas.innerHTML = '';
+            if (order.yale_impact_areas && order.yale_impact_areas.length > 0) {
+                order.yale_impact_areas.forEach(area => {
+                    const tag = document.createElement('span');
+                    tag.classList.add('yale-tag', 'yale-tag--primary');
+                    tag.textContent = area.name;
+                    
+                    // Add tooltip with description if available
+                    if (area.description || area.relevance) {
+                        tag.title = area.description ? `${area.description}` : '';
+                        if (area.relevance) {
+                            tag.title += area.title ? `\n\nRelevance: ${area.relevance}` : `Relevance: ${area.relevance}`;
+                        }
+                        tag.classList.add('yale-tooltip');
+                    }
+                    
+                    detailYaleImpactAreas.appendChild(tag);
+                });
+            } else {
+                detailYaleImpactAreas.innerHTML = '<em>No Yale-specific impact areas available</em>';
+            }
+        }
+        
+        // Add Yale stakeholders
+        if (detailYaleStakeholders) {
+            detailYaleStakeholders.innerHTML = '';
+            if (order.yale_stakeholders && order.yale_stakeholders.length > 0) {
+                order.yale_stakeholders.forEach(stakeholder => {
+                    const tag = document.createElement('span');
+                    
+                    // Apply special styling based on priority
+                    const priorityClass = stakeholder.priority === 'High' ? 'yale-tag--warning' :
+                                         stakeholder.priority === 'Medium' ? 'yale-tag--primary' : 'yale-tag--secondary';
+                    
+                    tag.classList.add('yale-tag', priorityClass);
+                    tag.textContent = stakeholder.name;
+                    
+                    // Add tooltip with description if available
+                    if (stakeholder.description || stakeholder.notes) {
+                        tag.title = stakeholder.description || '';
+                        if (stakeholder.notes) {
+                            tag.title += tag.title ? `\n\n${stakeholder.notes}` : stakeholder.notes;
+                        }
+                        tag.classList.add('yale-tooltip');
+                    }
+                    
+                    detailYaleStakeholders.appendChild(tag);
+                });
+            } else {
+                detailYaleStakeholders.innerHTML = '<em>No Yale stakeholders available</em>';
+            }
         }
     }
     
@@ -847,6 +921,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 filterUniversityArea.appendChild(option);
             });
         }
+        
+        // Add Yale impact area options if available
+        if (filterYaleArea && metadata.yaleImpactAreas && metadata.yaleImpactAreas.length > 0) {
+            metadata.yaleImpactAreas.forEach(area => {
+                const option = document.createElement('option');
+                option.value = area.name;
+                option.textContent = area.name;
+                filterYaleArea.appendChild(option);
+            });
+        }
     }
     
     // Apply all filters and re-render the table
@@ -855,6 +939,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const categoryFilter = filterCategory.value;
         const impactLevelFilter = filterImpactLevel.value;
         const universityAreaFilter = filterUniversityArea.value;
+        const yaleAreaFilter = filterYaleArea ? filterYaleArea.value : '';
         
         // Start with all orders and apply each filter
         filteredOrders = allExecutiveOrders.filter(order => {
@@ -906,7 +991,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     return false;
                  }));
             
-            return searchMatch && categoryMatch && impactLevelMatch && universityAreaMatch;
+            // Yale impact area filter
+            const yaleAreaMatch = yaleAreaFilter === '' || 
+                (order.yale_impact_areas && 
+                 order.yale_impact_areas.some(area => {
+                    if (typeof area === 'string') {
+                        return area === yaleAreaFilter;
+                    } else if (area && area.name) {
+                        return area.name === yaleAreaFilter;
+                    }
+                    return false;
+                 }));
+            
+            return searchMatch && categoryMatch && impactLevelMatch && universityAreaMatch && yaleAreaMatch;
         });
         
         // Reset to first page when filters change
@@ -922,6 +1019,9 @@ document.addEventListener('DOMContentLoaded', () => {
         filterCategory.value = '';
         filterImpactLevel.value = '';
         filterUniversityArea.value = '';
+        if (filterYaleArea) {
+            filterYaleArea.value = '';
+        }
         
         // Reset filteredOrders to all orders
         filteredOrders = [...allExecutiveOrders];
@@ -1019,12 +1119,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 </td>
                 <td class="yale-py-md yale-px-md">
                     <div class="yale-tag-group">
-                        ${createTagsHTML(order.categories)}
+                        ${order.categories && order.categories.length > 0
+                            ? order.categories.map(cat => `<span class="yale-tag">${cat}</span>`).join('')
+                            : '<span class="yale-text-muted yale-text-sm">None</span>'
+                        }
                     </div>
                 </td>
                 <td class="yale-py-md yale-px-md">
                     <div class="yale-tag-group">
-                        ${createUniversityImpactAreasHTML(order.university_impact_areas)}
+                        ${order.university_impact_areas && order.university_impact_areas.length > 0
+                            ? order.university_impact_areas.map(area => {
+                                const areaName = typeof area === 'string' ? area : (area.name || '');
+                                return areaName ? `<span class="yale-tag">${areaName}</span>` : '';
+                              }).join('')
+                            : '<span class="yale-text-muted yale-text-sm">None</span>'
+                        }
+                    </div>
+                </td>
+                <td class="yale-py-md yale-px-md">
+                    <div class="yale-tag-group">
+                        ${order.yale_impact_areas && order.yale_impact_areas.length > 0
+                            ? order.yale_impact_areas.slice(0, 2).map(area => {
+                                const areaName = typeof area === 'string' ? area : (area.name || '');
+                                return areaName ? `<span class="yale-tag yale-tag--primary">${areaName}</span>` : '';
+                              }).join('') + 
+                              (order.yale_impact_areas.length > 2 
+                                ? `<span class="yale-tag yale-tag--secondary">+${order.yale_impact_areas.length - 2} more</span>` 
+                                : '')
+                            : '<span class="yale-text-muted yale-text-sm">None</span>'
+                        }
                     </div>
                 </td>
             `;
