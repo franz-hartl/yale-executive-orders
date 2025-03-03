@@ -116,6 +116,18 @@ async function exportYaleImpactAreas() {
 async function exportYaleStakeholders() {
   try {
     const yaleStakeholders = await dbAll('SELECT * FROM yale_stakeholders ORDER BY name');
+    
+    // Convert array fields from JSON string
+    yaleStakeholders.forEach(stakeholder => {
+      if (stakeholder.relevant_impact_areas) {
+        try {
+          stakeholder.relevant_impact_areas = JSON.parse(stakeholder.relevant_impact_areas);
+        } catch (e) {
+          stakeholder.relevant_impact_areas = [];
+        }
+      }
+    });
+    
     const outputPath = path.join(outputDir, 'yale_stakeholders.json');
     await fs.writeFile(outputPath, JSON.stringify(yaleStakeholders, null, 2));
     console.log(`Exported ${yaleStakeholders.length} Yale stakeholders to ${outputPath}`);
@@ -126,6 +138,74 @@ async function exportYaleStakeholders() {
     if (err.message.includes('no such table')) {
       console.log('Yale stakeholders table not available yet - skipping export');
       return [];
+    }
+    throw err;
+  }
+}
+
+// Export Yale impact mappings for executive orders
+async function exportYaleOrderMappings() {
+  try {
+    // Yale impact mappings for executive orders
+    const yaleOrderImpacts = await dbAll(`
+      SELECT oia.order_id, oia.yale_impact_area_id, oia.yale_specific_notes, oia.yale_impact_rating,
+             ya.name as area_name, ya.description as area_description
+      FROM order_yale_impact_areas oia
+      JOIN yale_impact_areas ya ON oia.yale_impact_area_id = ya.id
+    `);
+    
+    // Group by order ID
+    const yaleOrderImpactsByOrder = {};
+    yaleOrderImpacts.forEach(impact => {
+      if (!yaleOrderImpactsByOrder[impact.order_id]) {
+        yaleOrderImpactsByOrder[impact.order_id] = [];
+      }
+      yaleOrderImpactsByOrder[impact.order_id].push({
+        id: impact.yale_impact_area_id,
+        name: impact.area_name,
+        description: impact.area_description,
+        specific_notes: impact.yale_specific_notes,
+        impact_rating: impact.yale_impact_rating
+      });
+    });
+    
+    // Yale stakeholder mappings for executive orders
+    const yaleOrderStakeholders = await dbAll(`
+      SELECT os.order_id, os.yale_stakeholder_id, os.priority_level, os.action_required,
+             os.stakeholder_notes, ys.name as stakeholder_name, ys.description as stakeholder_description
+      FROM order_yale_stakeholders os
+      JOIN yale_stakeholders ys ON os.yale_stakeholder_id = ys.id
+    `);
+    
+    // Group by order ID
+    const yaleOrderStakeholdersByOrder = {};
+    yaleOrderStakeholders.forEach(stakeholder => {
+      if (!yaleOrderStakeholdersByOrder[stakeholder.order_id]) {
+        yaleOrderStakeholdersByOrder[stakeholder.order_id] = [];
+      }
+      yaleOrderStakeholdersByOrder[stakeholder.order_id].push({
+        id: stakeholder.yale_stakeholder_id,
+        name: stakeholder.stakeholder_name,
+        description: stakeholder.stakeholder_description,
+        priority: stakeholder.priority_level,
+        action_required: !!stakeholder.action_required,
+        notes: stakeholder.stakeholder_notes
+      });
+    });
+    
+    return {
+      yaleOrderImpactsByOrder,
+      yaleOrderStakeholdersByOrder
+    };
+  } catch (err) {
+    console.error('Error exporting Yale order mappings:', err);
+    // If the tables don't exist yet, this is non-fatal
+    if (err.message.includes('no such table')) {
+      console.log('Yale order mapping tables not available yet - skipping export');
+      return {
+        yaleOrderImpactsByOrder: {},
+        yaleOrderStakeholdersByOrder: {}
+      };
     }
     throw err;
   }
@@ -480,7 +560,7 @@ function generateCombinedAnalysis(order, sources) {
 }
 
 // Export executive orders with all related data
-async function exportExecutiveOrders() {
+async function exportExecutiveOrders(yaleOrderImpactsByOrder = {}, yaleOrderStakeholdersByOrder = {}) {
   try {
     // Get all executive orders
     const orders = await dbAll(`
@@ -514,6 +594,12 @@ async function exportExecutiveOrders() {
         JOIN order_university_impact_areas ouia ON uia.id = ouia.university_impact_area_id
         WHERE ouia.order_id = ?
       `, [order.id]);
+      
+      // Get Yale impact areas from our mappings
+      const yaleImpactAreas = yaleOrderImpactsByOrder[order.id] || [];
+      
+      // Get Yale stakeholders from our mappings
+      const yaleStakeholders = yaleOrderStakeholdersByOrder[order.id] || [];
       
       // Get compliance actions if any
       const complianceActions = await dbAll(`
@@ -787,6 +873,8 @@ async function exportExecutiveOrders() {
           description: uia.description,
           notes: uia.notes
         })),
+        yale_impact_areas: yaleImpactAreas,
+        yale_stakeholders: yaleStakeholders,
         differentiated_impacts: formattedImpacts,
         compliance_timelines: formattedTimelines,
         impact_scoring: formattedScoring,
@@ -1271,10 +1359,14 @@ async function exportAll() {
     const yaleImpactAreas = await exportYaleImpactAreas();
     const yaleStakeholders = await exportYaleStakeholders();
     
+    // Get Yale order mappings for enrichment
+    const { yaleOrderImpactsByOrder, yaleOrderStakeholdersByOrder } = await exportYaleOrderMappings();
+    
     // Update metadata to include Yale-specific information
     await exportMetadata(categories, impactAreas, universityImpactAreas);
     
-    await exportExecutiveOrders();
+    // Pass the Yale data to the executive orders export function
+    await exportExecutiveOrders(yaleOrderImpactsByOrder, yaleOrderStakeholdersByOrder);
     await exportStatistics();
     await exportSystemInfo();
     

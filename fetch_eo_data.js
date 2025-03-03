@@ -16,6 +16,11 @@ const FederalRegisterSource = require('./sources/federal_register_source');
 const WhiteHouseSource = require('./sources/whitehouse_source');
 const LocalFileSource = require('./sources/local_file_source');
 
+// Import Yale-specific data for enrichment
+const fs = require('fs').promises;
+const yaleImpactAreasPath = path.join(__dirname, 'yale_specific_data', 'yale_impact_areas.json');
+const yaleStakeholdersPath = path.join(__dirname, 'yale_specific_data', 'yale_stakeholders.json');
+
 // Set up logging
 logger.initLogger({
   logLevel: 'INFO',
@@ -80,6 +85,113 @@ async function main() {
       } else {
         mainLogger.warn(`Source ${source.name}: Failed - ${result.error}`);
       }
+    }
+    
+    // Enrich with Yale-specific impact areas
+    try {
+      mainLogger.info('Enriching orders with Yale-specific impact areas');
+      
+      // Load Yale impact areas and stakeholders
+      const yaleImpactAreasData = await fs.readFile(yaleImpactAreasPath, 'utf8');
+      const yaleImpactAreas = JSON.parse(yaleImpactAreasData);
+      
+      const yaleStakeholdersData = await fs.readFile(yaleStakeholdersPath, 'utf8');
+      const yaleStakeholders = JSON.parse(yaleStakeholdersData);
+      
+      // Map of general policy areas to Yale impact areas for basic mapping
+      const policyToYaleAreaMap = {
+        'education': [1, 10], // Research & Innovation, Academic Programs
+        'immigration': [3], // International & Immigration
+        'foreign policy': [2, 3], // Research Security, International & Immigration
+        'healthcare': [7], // Healthcare & Public Health
+        'diversity': [4], // Community & Belonging
+        'finance': [8], // Financial & Operations
+        'research': [1, 2], // Research & Innovation, Research Security
+        'employment': [6], // Faculty & Workforce
+        'student': [5, 12], // Campus Safety & Student Affairs, Athletics & Student Activities
+        'safety': [5], // Campus Safety & Student Affairs
+        'compliance': [9], // Governance & Legal
+        'culture': [11], // Arts & Cultural Heritage
+        'sports': [12], // Athletics & Student Activities
+        'legal': [9], // Governance & Legal
+        'technology': [1] // Research & Innovation
+      };
+      
+      // For each order, add Yale impact areas based on policy tags
+      for (const order of fetchResults.orders) {
+        if (!order.yaleImpactAreas) {
+          order.yaleImpactAreas = [];
+          
+          // Use policy tags to suggest Yale impact areas
+          if (order.policyTags && Array.isArray(order.policyTags)) {
+            const relevantYaleAreaIds = new Set();
+            
+            // Map policy tags to Yale impact areas
+            for (const tag of order.policyTags) {
+              // Check each policy keyword
+              for (const [keyword, areaIds] of Object.entries(policyToYaleAreaMap)) {
+                if (tag.toLowerCase().includes(keyword)) {
+                  areaIds.forEach(id => relevantYaleAreaIds.add(id));
+                }
+              }
+            }
+            
+            // Add suggested Yale impact areas
+            for (const areaId of relevantYaleAreaIds) {
+              const yaleArea = yaleImpactAreas.find(area => area.id === areaId);
+              if (yaleArea) {
+                order.yaleImpactAreas.push({
+                  id: yaleArea.id,
+                  name: yaleArea.name,
+                  relevance: "Suggested based on policy tags"
+                });
+              }
+            }
+          }
+          
+          // If no Yale impact areas were found, add a default one
+          if (order.yaleImpactAreas.length === 0) {
+            order.yaleImpactAreas.push({
+              id: 9, // Governance & Legal as fallback
+              name: "Governance & Legal",
+              relevance: "Default assignment pending detailed analysis"
+            });
+          }
+        }
+        
+        // Add relevant Yale stakeholders based on impact areas
+        if (!order.yaleStakeholders) {
+          order.yaleStakeholders = [];
+          
+          // For each Yale impact area, find relevant stakeholders
+          const relevantStakeholderIds = new Set();
+          for (const impactArea of order.yaleImpactAreas) {
+            for (const stakeholder of yaleStakeholders) {
+              if (stakeholder.relevant_impact_areas.includes(impactArea.id)) {
+                relevantStakeholderIds.add(stakeholder.id);
+              }
+            }
+          }
+          
+          // Add suggested Yale stakeholders
+          for (const stakeholderId of relevantStakeholderIds) {
+            const stakeholder = yaleStakeholders.find(s => s.id === stakeholderId);
+            if (stakeholder) {
+              order.yaleStakeholders.push({
+                id: stakeholder.id,
+                name: stakeholder.name,
+                description: stakeholder.description,
+                priority: "Medium" // Default priority
+              });
+            }
+          }
+        }
+      }
+      
+      mainLogger.info(`Added Yale-specific impact areas to ${fetchResults.orders.length} orders`);
+    } catch (error) {
+      mainLogger.warn(`Error enriching with Yale impact areas: ${error.message}`);
+      // Continue with the process even if Yale enrichment fails
     }
     
     // Save results

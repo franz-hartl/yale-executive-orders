@@ -189,8 +189,8 @@ ${simplifiedHtml}`
         'https://api.anthropic.com/v1/messages',
         {
           model: "claude-3-opus-20240229",  // Using Opus for deeper analysis
-          max_tokens: 1000,
-          system: "You are an expert in government policy analysis, specializing in executive orders across all policy domains.",
+          max_tokens: 1500,
+          system: "You are an expert in government policy analysis, specializing in executive orders across all policy domains, with particular knowledge of how executive orders impact Yale University and higher education institutions.",
           messages: [
             {
               role: "user",
@@ -201,13 +201,30 @@ ${simplifiedHtml}`
 4. Affected sectors 
 5. Determine the president who issued this order
 
+Yale University Specific Analysis:
+6. Identify which Yale-specific impact areas are relevant (select from the list below):
+   - Research & Innovation: Federal grants, funding priorities, research initiatives
+   - Research Security & Export Control: Security requirements, export controls, foreign collaborations
+   - International & Immigration: International students, scholar mobility, visa regulations
+   - Community & Belonging: Community building, belonging initiatives, educational equity
+   - Campus Safety & Student Affairs: Campus safety, student life, residential colleges
+   - Faculty & Workforce: Faculty administration, employment policies, workforce management
+   - Healthcare & Public Health: Yale School of Medicine, Yale Health, public health initiatives
+   - Financial & Operations: Financial operations, endowment management, facilities, IT
+   - Governance & Legal: Governance structure, legal compliance, university policies
+   - Academic Programs: Academic programming, curriculum, and teaching across schools
+   - Arts & Cultural Heritage: Yale's museums, collections, performances, and cultural programming
+   - Athletics & Student Activities: Yale's sports programs and extracurricular activities
+
+7. For each identified Yale impact area, provide a brief explanation of why it's relevant
+
 Executive Order Title: ${order.title}
 Executive Order Number: ${order.number || 'Unknown'}
 Date: ${order.date || 'Unknown'}
 Full Text:
 ${truncatedText}
 
-Return the information in JSON format with these fields: summary, impact, policyTags, affectedSectors, president`
+Return the information in JSON format with these fields: summary, impact, policyTags, affectedSectors, president, yaleImpactAreas (as an array of objects with "name" and "relevance" properties)`
             }
           ]
         },
@@ -226,6 +243,31 @@ Return the information in JSON format with these fields: summary, impact, policy
       const jsonMatch = responseText.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         const enrichment = JSON.parse(jsonMatch[0]);
+        
+        // Map Yale impact areas to their numeric IDs for database integration
+        const yaleImpactAreaMapping = {
+          "Research & Innovation": 1,
+          "Research Security & Export Control": 2,
+          "International & Immigration": 3,
+          "Community & Belonging": 4,
+          "Campus Safety & Student Affairs": 5,
+          "Faculty & Workforce": 6,
+          "Healthcare & Public Health": 7,
+          "Financial & Operations": 8,
+          "Governance & Legal": 9,
+          "Academic Programs": 10,
+          "Arts & Cultural Heritage": 11,
+          "Athletics & Student Activities": 12
+        };
+        
+        // Convert Yale impact areas to include IDs for easier database integration
+        if (enrichment.yaleImpactAreas && Array.isArray(enrichment.yaleImpactAreas)) {
+          enrichment.yaleImpactAreasWithIds = enrichment.yaleImpactAreas.map(area => ({
+            ...area,
+            id: yaleImpactAreaMapping[area.name] || null
+          }));
+        }
+        
         return { ...order, ...enrichment };
       }
       
