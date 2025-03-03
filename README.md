@@ -155,7 +155,8 @@ yale-executive-orders/
 ├── workflow/              # Pipeline and orchestration
 ├── utils/                 # Utility functions
 ├── knowledge/             # Knowledge management system
-├── tests/                 # Example and test scripts
+├── tests/                 # Test suites and examples
+│   └── __tests__/         # Jest unit tests
 └── docs/                  # Static website
 ```
 
