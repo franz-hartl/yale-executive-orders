@@ -54,6 +54,9 @@ jobs:
           cd repo
           # Use npm install instead of npm ci to update the package-lock.json
           npm install
+          
+          # Rebuild sqlite3 for the current environment
+          npm rebuild sqlite3
       
       - name: Build site
         run: |
