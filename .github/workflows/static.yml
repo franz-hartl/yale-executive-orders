@@ -29,8 +29,9 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      # Use GitHub's checkout action for the initial checkout
       - name: Checkout
-        uses: ./.github/actions/checkout
+        uses: actions/checkout@v4
       
       # Using a custom node setup script instead of the GitHub action
       - name: Setup Node
