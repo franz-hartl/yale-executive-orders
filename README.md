@@ -202,16 +202,21 @@ For detailed information, see:
 
    Then open http://localhost:8080 in your browser.
 
-## Private R1 University Impact Areas
+## Yale-Specific Impact Taxonomy
 
-Executive orders are classified according to their impact on specific private research university domains:
+Executive orders are classified according to their impact on Yale University's specific organizational structure and priorities:
 
-- **Research Funding & Security**: Federal grants, research security requirements, export controls
-- **Advanced Research Programs**: National lab partnerships, strategic initiatives, computing resources
-- **International Collaboration**: Visa regulations, global partnerships, scholar mobility
-- **Endowment Management**: Investment policy, reporting requirements, financial regulations
-- **Graduate Education**: Funding mechanisms, postdoctoral regulations, fellowship compliance
-- **Public-Private Partnerships**: University-industry collaboration, technology transfer, innovation districts
+- **Research & Innovation**: Federal grants, funding priorities, research initiatives
+- **Research Security & Export Control**: Security requirements, export controls, foreign research collaborations
+- **International & Immigration**: International students, scholar mobility, visa regulations
+- **DEI (Diversity, Equity & Inclusion)**: Diversity initiatives, equal opportunity programs, inclusion efforts
+- **Campus Safety & Student Affairs**: Campus safety, student life, residential colleges
+- **Faculty & Workforce**: Faculty administration, employment policies, workforce management
+- **Healthcare & Public Health**: Yale School of Medicine, Yale Health, public health initiatives
+- **Financial & Operations**: Financial operations, endowment management, facilities, IT
+- **Governance & Legal**: Governance structure, legal compliance, university policies
+
+This taxonomy maps directly to Yale's organizational units, ensuring that analysis is immediately relevant and actionable for Yale administrators. For more details on the Yale-specific approach, see [Yale-Specific Approach](YALE_SPECIFIC_APPROACH.md).
 
 ## Documentation Resources
 
@@ -226,6 +231,7 @@ For comprehensive documentation about specific subsystems:
 - [Template System](TEMPLATE_SYSTEM_README.md) - Document generation system
 - [Intelligence Hub](INTELLIGENCE_HUB_README.md) - Integrated intelligence presentation
 - [Workflow Integration](WORKFLOW_INTEGRATION_SUMMARY.md) - End-to-end process automation
+- [Yale-Specific Approach](YALE_SPECIFIC_APPROACH.md) - Yale-specific taxonomy and implementation
 
 ## Why This Project Matters
 
