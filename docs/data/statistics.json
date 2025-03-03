@@ -6,7 +6,7 @@
     },
     {
       "impact_level": "High",
-      "count": 17
+      "count": 18
     },
     {
       "impact_level": "Medium",
@@ -18,17 +18,17 @@
     },
     {
       "impact_level": null,
-      "count": 9
+      "count": 8
     }
   ],
   "universityImpactAreas": [
     {
       "name": "Administrative Compliance",
-      "count": 63
+      "count": 64
     },
     {
       "name": "Research Funding",
-      "count": 34
+      "count": 35
     },
     {
       "name": "Workforce & Employment Policy",
@@ -36,7 +36,7 @@
     },
     {
       "name": "Public-Private Partnerships",
-      "count": 6
+      "count": 7
     },
     {
       "name": "Student Aid & Higher Education Finance",
@@ -48,11 +48,11 @@
   "categories": [
     {
       "name": "Education",
-      "count": 31
+      "count": 32
     },
     {
       "name": "Technology",
-      "count": 22
+      "count": 23
     },
     {
       "name": "National Security",
@@ -64,7 +64,7 @@
     },
     {
       "name": "Research",
-      "count": 11
+      "count": 12
     },
     {
       "name": "Healthcare",
@@ -72,7 +72,7 @@
     },
     {
       "name": "Finance",
-      "count": 9
+      "count": 10
     },
     {
       "name": "Environment",
