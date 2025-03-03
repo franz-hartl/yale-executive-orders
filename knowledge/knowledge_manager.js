@@ -1,502 +1,375 @@
 /**
- * knowledge_manager.js
+ * KnowledgeManager - Manages the storage and retrieval of knowledge facts
  * 
- * Core knowledge management functionality for storing, retrieving,
- * and relating facts about executive orders.
- * Following "Essential Simplicity" design philosophy.
+ * This class provides a high-level API for working with the knowledge database.
+ * It handles database operations, transactions, and knowledge relationships.
  */
 
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
 const Fact = require('./fact');
-const knowledgeSchema = require('../models/knowledge_schema');
+const { getDb, query, run, get, all, exec } = require('../utils/database');
+
+// Ensure Fact is properly imported
+const FactClass = Fact.Fact || Fact;
 
 class KnowledgeManager {
   /**
-   * Create a new KnowledgeManager instance
+   * Constructor for KnowledgeManager
    * 
-   * @param {Object} options Configuration options
-   * @param {string} [options.dbPath='executive_orders.db'] Path to the SQLite database
+   * @param {object} options - Configuration options
    */
-  constructor({ dbPath = 'executive_orders.db' } = {}) {
-    this.dbPath = dbPath;
+  constructor(options = {}) {
+    this.options = {
+      dbPath: ':memory:',
+      ...options
+    };
+    
     this.db = null;
     this.initialized = false;
   }
   
   /**
    * Initialize the knowledge manager
-   * Ensures tables exist and prepares the database connection
+   * 
+   * @returns {Promise<void>} Promise that resolves when initialized
    */
   async initialize() {
-    if (this.initialized) return;
-    
-    try {
-      // Open database connection directly with sqlite3
-      this.db = new sqlite3.Database(this.dbPath, (err) => {
-        if (err) {
-          throw new Error(`Failed to open database: ${err.message}`);
-        }
-      });
-      
-      // Promisify database methods
-      this.db.runAsync = function(sql, params = []) {
-        return new Promise((resolve, reject) => {
-          this.run(sql, params, function(err) {
-            if (err) reject(err);
-            else resolve(this); // 'this' contains lastID, changes
-          });
-        });
-      };
-      
-      this.db.getAsync = function(sql, params = []) {
-        return new Promise((resolve, reject) => {
-          this.get(sql, params, function(err, row) {
-            if (err) reject(err);
-            else resolve(row);
-          });
-        });
-      };
-      
-      this.db.allAsync = function(sql, params = []) {
-        return new Promise((resolve, reject) => {
-          this.all(sql, params, function(err, rows) {
-            if (err) reject(err);
-            else resolve(rows);
-          });
-        });
-      };
-      
-      this.db.execAsync = function(sql) {
-        return new Promise((resolve, reject) => {
-          this.exec(sql, function(err) {
-            if (err) reject(err);
-            else resolve();
-          });
-        });
-      };
-      
-      // Check if knowledge tables exist, create them if not
-      await this._ensureTablesExist();
-      
-      this.initialized = true;
-      console.log('Knowledge manager initialized successfully');
-    } catch (error) {
-      console.error('Failed to initialize knowledge manager:', error);
-      throw error;
+    if (this.initialized) {
+      return;
     }
-  }
-  
-  /**
-   * Ensure all required knowledge tables exist
-   * @private
-   */
-  async _ensureTablesExist() {
-    console.log('Checking knowledge tables...');
     
-    // Get list of existing tables
-    const existingTables = await this.db.allAsync(
-      "SELECT name FROM sqlite_master WHERE type='table';"
-    );
-    const tableNames = existingTables.map(t => t.name);
+    // Get database connection
+    this.db = await getDb(this.options.dbPath);
     
-    // Create missing tables
-    for (const [tableName, columns] of Object.entries(knowledgeSchema.tables)) {
-      if (!tableNames.includes(tableName)) {
-        console.log(`Creating table: ${tableName}`);
-        
-        // Extract regular columns (non-foreign keys)
-        const regularColumns = Object.entries(columns)
-          .filter(([key]) => key !== 'foreign_keys')
-          .map(([key, value]) => `${key} ${value}`)
-          .join(', ');
-        
-        // Extract foreign key constraints
-        const foreignKeys = columns.foreign_keys ? 
-          columns.foreign_keys.map(fk => 
-            `FOREIGN KEY (${fk.column}) REFERENCES ${fk.references}${fk.onDelete ? ` ON DELETE ${fk.onDelete}` : ''}`
-          ).join(', ') : '';
-        
-        // Build and execute create table statement
-        const createTableSQL = `
-          CREATE TABLE ${tableName} (
-            ${regularColumns}${foreignKeys ? ', ' + foreignKeys : ''}
-          );
-        `;
-        
-        await this.db.execAsync(createTableSQL);
-      }
-    }
+    // Create tables if they don't exist
+    await this._ensureTablesExist();
+    
+    this.initialized = true;
   }
   
   /**
    * Store a fact in the database
    * 
-   * @param {Fact} fact Fact to store
-   * @returns {Fact} Stored fact with ID
+   * @param {Fact} fact - The fact to store
+   * @returns {Promise<Fact>} The stored fact with ID
    */
   async storeFact(fact) {
-    if (!this.initialized) await this.initialize();
+    await this._ensureInitialized();
     
     try {
-      // Begin transaction
-      await this.db.execAsync('BEGIN TRANSACTION');
-      
-      // Store the fact
-      const factData = fact.toDbObject();
-      const result = await this.db.runAsync(
-        `INSERT INTO knowledge_facts 
-         (order_id, fact_type, fact_value, confidence) 
-         VALUES (?, ?, ?, ?)`,
-        [factData.order_id, factData.fact_type, factData.fact_value, factData.confidence]
+      // Insert fact
+      const factDb = fact.toDbObject();
+      const result = await run(
+        `INSERT INTO facts (type, content, source_id, source_name, source_type, confidence, created_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [
+          factDb.type,
+          factDb.content,
+          factDb.source_id,
+          factDb.source_name,
+          factDb.source_type,
+          factDb.confidence,
+          factDb.created_at
+        ]
       );
       
-      // Set the ID from the insert operation
+      // Set the ID
       fact.id = result.lastID;
       
-      // Store sources if any
-      for (const source of fact.getSourcesForDb()) {
-        await this.db.runAsync(
-          `INSERT INTO knowledge_sources
-           (fact_id, source_id, source_context, extraction_date, extraction_method, extraction_metadata)
-           VALUES (?, ?, ?, ?, ?, ?)`,
-          [source.fact_id, source.source_id, source.source_context, 
-           source.extraction_date, source.extraction_method, source.extraction_metadata]
-        );
-      }
-      
       // Store relationships if any
-      for (const rel of fact.getRelationshipsForDb()) {
-        await this.db.runAsync(
-          `INSERT INTO knowledge_relationships
-           (fact_id, related_fact_id, relationship_type, description, confidence)
-           VALUES (?, ?, ?, ?, ?)`,
-          [rel.fact_id, rel.related_fact_id, rel.relationship_type, 
-           rel.description, rel.confidence]
-        );
+      if (fact.relationships && fact.relationships.length > 0) {
+        await this._storeRelationships(fact);
       }
-      
-      // Commit transaction
-      await this.db.execAsync('COMMIT');
       
       return fact;
     } catch (error) {
-      // Rollback on error
-      await this.db.execAsync('ROLLBACK');
-      console.error('Error storing fact:', error);
-      throw error;
+      throw new Error(`Failed to store fact: ${error.message}`);
     }
   }
   
   /**
-   * Retrieves facts for a specific executive order
+   * Update an existing fact
    * 
-   * @param {Object} options Query options
-   * @param {number} options.orderId Executive order ID
-   * @param {string} [options.factType=null] Optional fact type filter
-   * @param {number} [options.minConfidence=0.0] Minimum confidence threshold
-   * @returns {Promise<Fact[]>} Array of facts
+   * @param {Fact} fact - The fact to update
+   * @returns {Promise<Fact>} The updated fact
    */
-  async getFactsForOrder({ orderId, factType = null, minConfidence = 0.0 }) {
-    if (!this.initialized) await this.initialize();
+  async updateFact(fact) {
+    await this._ensureInitialized();
+    
+    if (!fact.id) {
+      throw new Error('Cannot update fact without ID');
+    }
     
     try {
-      let query = `
-        SELECT * FROM knowledge_facts 
-        WHERE order_id = ? AND confidence >= ?
-      `;
-      const params = [orderId, minConfidence];
+      // Update fact
+      const factDb = fact.toDbObject();
+      await run(
+        `UPDATE facts 
+         SET type = ?, content = ?, source_id = ?, source_name = ?, source_type = ?, confidence = ?, updated_at = ? 
+         WHERE id = ?`,
+        [
+          factDb.type,
+          factDb.content,
+          factDb.source_id,
+          factDb.source_name,
+          factDb.source_type,
+          factDb.confidence,
+          new Date().toISOString(),
+          fact.id
+        ]
+      );
       
-      if (factType) {
-        query += ` AND fact_type = ?`;
-        params.push(factType);
-      }
+      // Update relationships
+      await this._updateRelationships(fact);
       
-      // Get the facts
-      const factRecords = await this.db.allAsync(query, params);
-      const facts = factRecords.map(record => Fact.fromDbRecord(record));
-      
-      // Load sources for each fact
-      for (const fact of facts) {
-        const sources = await this.db.allAsync(
-          `SELECT * FROM knowledge_sources WHERE fact_id = ?`,
-          [fact.id]
-        );
-        
-        fact.sources = sources.map(s => ({
-          sourceId: s.source_id,
-          sourceContext: s.source_context,
-          extractionDate: s.extraction_date,
-          extractionMethod: s.extraction_method,
-          metadata: s.extraction_metadata ? JSON.parse(s.extraction_metadata) : null
-        }));
-      }
-      
-      // Load relationships for each fact
-      for (const fact of facts) {
-        const relationships = await this.db.allAsync(
-          `SELECT * FROM knowledge_relationships WHERE fact_id = ?`,
-          [fact.id]
-        );
-        
-        fact.relationships = relationships.map(r => ({
-          relatedFactId: r.related_fact_id,
-          type: r.relationship_type,
-          description: r.description,
-          confidence: r.confidence
-        }));
-      }
-      
-      return facts;
+      return fact;
     } catch (error) {
-      console.error('Error retrieving facts:', error);
-      throw error;
+      throw new Error(`Failed to update fact: ${error.message}`);
     }
   }
   
   /**
-   * Retrieves a specific fact by ID
+   * Get facts for a specific order
    * 
-   * @param {number} factId Fact ID
+   * @param {string} orderId - The order ID
+   * @param {object} options - Query options
+   * @returns {Promise<Fact[]>} Array of facts
+   */
+  async getFactsForOrder(orderId, options = {}) {
+    await this._ensureInitialized();
+    
+    try {
+      const query = `
+        SELECT * FROM facts 
+        WHERE source_id = ? 
+        ${options.types ? 'AND type IN (?)' : ''}
+        ${options.minConfidence ? 'AND confidence >= ?' : ''}
+        ORDER BY created_at DESC
+      `;
+      
+      const params = [orderId];
+      
+      if (options.types) {
+        params.push(options.types.join(','));
+      }
+      
+      if (options.minConfidence) {
+        params.push(options.minConfidence);
+      }
+      
+      const records = await all(query, params);
+      
+      return records.map(record => FactClass.fromDbRecord(record));
+    } catch (error) {
+      throw new Error(`Failed to get facts for order: ${error.message}`);
+    }
+  }
+  
+  /**
+   * Get a fact by ID
+   * 
+   * @param {number} factId - The fact ID
    * @returns {Promise<Fact|null>} The fact or null if not found
    */
   async getFactById(factId) {
-    if (!this.initialized) await this.initialize();
+    await this._ensureInitialized();
     
     try {
-      const record = await this.db.getAsync(
-        'SELECT * FROM knowledge_facts WHERE id = ?',
-        [factId]
-      );
+      const record = await get('SELECT * FROM facts WHERE id = ?', [factId]);
       
-      if (!record) return null;
-      
-      const fact = Fact.fromDbRecord(record);
-      
-      // Load sources
-      const sources = await this.db.allAsync(
-        `SELECT * FROM knowledge_sources WHERE fact_id = ?`,
-        [fact.id]
-      );
-      
-      fact.sources = sources.map(s => ({
-        sourceId: s.source_id,
-        sourceContext: s.source_context,
-        extractionDate: s.extraction_date,
-        extractionMethod: s.extraction_method,
-        metadata: s.extraction_metadata ? JSON.parse(s.extraction_metadata) : null
-      }));
-      
-      // Load relationships
-      const relationships = await this.db.allAsync(
-        `SELECT * FROM knowledge_relationships WHERE fact_id = ?`,
-        [fact.id]
-      );
-      
-      fact.relationships = relationships.map(r => ({
-        relatedFactId: r.related_fact_id,
-        type: r.relationship_type,
-        description: r.description,
-        confidence: r.confidence
-      }));
-      
-      return fact;
-    } catch (error) {
-      console.error('Error retrieving fact by ID:', error);
-      throw error;
-    }
-  }
-  
-  /**
-   * Updates an existing fact
-   * 
-   * @param {Fact} fact Fact to update
-   * @returns {Promise<Fact>} Updated fact
-   */
-  async updateFact(fact) {
-    if (!this.initialized) await this.initialize();
-    if (!fact.id) throw new Error('Cannot update fact without ID');
-    
-    try {
-      // Begin transaction
-      await this.db.execAsync('BEGIN TRANSACTION');
-      
-      // Update fact
-      const factData = fact.toDbObject();
-      await this.db.runAsync(
-        `UPDATE knowledge_facts 
-         SET fact_type = ?, fact_value = ?, confidence = ?, updated_at = CURRENT_TIMESTAMP
-         WHERE id = ?`,
-        [factData.fact_type, factData.fact_value, factData.confidence, fact.id]
-      );
-      
-      // Delete existing sources and relationships (will be re-added)
-      await this.db.runAsync('DELETE FROM knowledge_sources WHERE fact_id = ?', [fact.id]);
-      await this.db.runAsync('DELETE FROM knowledge_relationships WHERE fact_id = ?', [fact.id]);
-      
-      // Re-add sources
-      for (const source of fact.getSourcesForDb()) {
-        await this.db.runAsync(
-          `INSERT INTO knowledge_sources
-           (fact_id, source_id, source_context, extraction_date, extraction_method, extraction_metadata)
-           VALUES (?, ?, ?, ?, ?, ?)`,
-          [source.fact_id, source.source_id, source.source_context, 
-           source.extraction_date, source.extraction_method, source.extraction_metadata]
-        );
+      if (!record) {
+        return null;
       }
       
-      // Re-add relationships
-      for (const rel of fact.getRelationshipsForDb()) {
-        await this.db.runAsync(
-          `INSERT INTO knowledge_relationships
-           (fact_id, related_fact_id, relationship_type, description, confidence)
-           VALUES (?, ?, ?, ?, ?)`,
-          [rel.fact_id, rel.related_fact_id, rel.relationship_type, 
-           rel.description, rel.confidence]
-        );
-      }
-      
-      // Commit transaction
-      await this.db.execAsync('COMMIT');
-      
-      return fact;
+      return FactClass.fromDbRecord(record);
     } catch (error) {
-      // Rollback on error
-      await this.db.execAsync('ROLLBACK');
-      console.error('Error updating fact:', error);
-      throw error;
+      throw new Error(`Failed to get fact by ID: ${error.message}`);
     }
   }
   
   /**
-   * Add Yale-specific impact assessment to a fact
+   * Search for facts
    * 
-   * @param {Object} options Impact information
-   * @param {number} options.factId ID of the fact
-   * @param {number} [options.departmentId=null] Yale department ID (null for university-wide)
-   * @param {string} options.impactLevel Impact level (e.g., 'High', 'Medium', 'Low')
-   * @param {string} options.description Description of the Yale-specific impact
-   * @param {string} [options.analyst=null] Who created this assessment
-   * @returns {Promise<number>} ID of the created impact assessment
+   * @param {object} options - Search options
+   * @param {string} options.query - Search query
+   * @param {string[]} options.types - Fact types to include
+   * @param {number} options.minConfidence - Minimum confidence score
+   * @param {string} options.sourceId - Filter by source ID
+   * @param {number} options.limit - Maximum number of results
+   * @returns {Promise<Fact[]>} Matching facts
    */
-  async addYaleImpact({ factId, departmentId = null, impactLevel, description, analyst = null }) {
-    if (!this.initialized) await this.initialize();
+  async searchFacts(options = {}) {
+    await this._ensureInitialized();
     
     try {
-      const result = await this.db.runAsync(
-        `INSERT INTO knowledge_yale_impacts
-         (fact_id, yale_department_id, impact_level, impact_description, analyst)
-         VALUES (?, ?, ?, ?, ?)`,
-        [factId, departmentId, impactLevel, description, analyst]
-      );
+      let query = 'SELECT * FROM facts WHERE 1=1';
+      const params = [];
       
-      return result.lastID;
-    } catch (error) {
-      console.error('Error adding Yale impact:', error);
-      throw error;
-    }
-  }
-  
-  /**
-   * Search for facts across all executive orders
-   * 
-   * @param {Object} options Search options
-   * @param {string} [options.factType=null] Optional fact type filter
-   * @param {string} [options.searchText=null] Text to search for in fact values
-   * @param {number} [options.minConfidence=0.0] Minimum confidence threshold
-   * @param {number} [options.limit=100] Maximum results to return
-   * @returns {Promise<Fact[]>} Array of matching facts
-   */
-  async searchFacts({ factType = null, searchText = null, minConfidence = 0.0, limit = 100 }) {
-    if (!this.initialized) await this.initialize();
-    
-    try {
-      let query = `
-        SELECT * FROM knowledge_facts 
-        WHERE confidence >= ?
-      `;
-      const params = [minConfidence];
-      
-      if (factType) {
-        query += ` AND fact_type = ?`;
-        params.push(factType);
+      if (options.query) {
+        query += ' AND content LIKE ?';
+        params.push(`%${options.query}%`);
       }
       
-      if (searchText) {
-        query += ` AND fact_value LIKE ?`;
-        params.push(`%${searchText}%`);
+      if (options.types && options.types.length > 0) {
+        query += ` AND type IN (${options.types.map(() => '?').join(',')})`;
+        params.push(...options.types);
       }
       
-      query += ` ORDER BY created_at DESC LIMIT ?`;
-      params.push(limit);
+      if (options.minConfidence) {
+        query += ' AND confidence >= ?';
+        params.push(options.minConfidence);
+      }
       
-      const factRecords = await this.db.allAsync(query, params);
-      return factRecords.map(record => Fact.fromDbRecord(record));
+      if (options.sourceId) {
+        query += ' AND source_id = ?';
+        params.push(options.sourceId);
+      }
+      
+      query += ' ORDER BY confidence DESC, created_at DESC';
+      
+      if (options.limit) {
+        query += ' LIMIT ?';
+        params.push(options.limit);
+      }
+      
+      const records = await all(query, params);
+      
+      return records.map(record => FactClass.fromDbRecord(record));
     } catch (error) {
-      console.error('Error searching facts:', error);
-      throw error;
+      throw new Error(`Failed to search facts: ${error.message}`);
     }
   }
   
   /**
-   * Find contradictory facts for a given executive order
+   * Find contradictions between facts
    * 
-   * @param {number} orderId Executive order ID
-   * @returns {Promise<Array>} Array of fact pairs that contradict each other
+   * @param {object} options - Options for contradiction detection
+   * @param {string} options.orderId - The order ID to check
+   * @param {string[]} options.types - Fact types to check
+   * @returns {Promise<object[]>} Contradictions found
    */
-  async findContradictions(orderId) {
-    if (!this.initialized) await this.initialize();
+  async findContradictions(options = {}) {
+    await this._ensureInitialized();
     
     try {
-      // Get all explicit contradiction relationships
-      const contradictions = await this.db.allAsync(`
-        SELECT r.*, f1.fact_type as fact1_type, f1.fact_value as fact1_value,
-               f2.fact_type as fact2_type, f2.fact_value as fact2_value
-        FROM knowledge_relationships r
-        JOIN knowledge_facts f1 ON r.fact_id = f1.id
-        JOIN knowledge_facts f2 ON r.related_fact_id = f2.id
-        WHERE f1.order_id = ? 
-        AND r.relationship_type = '${knowledgeSchema.relationshipTypes.CONTRADICTS}'
-      `, [orderId]);
-      
-      return contradictions.map(c => ({
-        fact1: {
-          id: c.fact_id,
-          type: c.fact1_type,
-          value: JSON.parse(c.fact1_value)
-        },
-        fact2: {
-          id: c.related_fact_id,
-          type: c.fact2_type,
-          value: JSON.parse(c.fact2_value)
-        },
-        confidence: c.confidence,
-        description: c.description
-      }));
-    } catch (error) {
-      console.error('Error finding contradictions:', error);
-      throw error;
-    }
-  }
-  
-  /**
-   * Close the database connection
-   */
-  async close() {
-    if (this.db) {
-      return new Promise((resolve, reject) => {
-        this.db.close(err => {
-          if (err) {
-            reject(err);
-          } else {
-            this.db = null;
-            this.initialized = false;
-            resolve();
-          }
-        });
+      const facts = await this.getFactsForOrder(options.orderId, {
+        types: options.types
       });
+      
+      const contradictions = [];
+      
+      // Check each fact against other facts of the same type
+      for (let i = 0; i < facts.length; i++) {
+        for (let j = i + 1; j < facts.length; j++) {
+          const contradiction = facts[i].contradicts(facts[j]);
+          
+          if (contradiction) {
+            contradictions.push({
+              ...contradiction,
+              facts: [facts[i], facts[j]]
+            });
+          }
+        }
+      }
+      
+      return contradictions;
+    } catch (error) {
+      throw new Error(`Failed to find contradictions: ${error.message}`);
     }
+  }
+  
+  /**
+   * Ensure the manager is initialized
+   * 
+   * @private
+   * @returns {Promise<void>}
+   */
+  async _ensureInitialized() {
+    if (!this.initialized) {
+      await this.initialize();
+    }
+  }
+  
+  /**
+   * Ensure database tables exist
+   * 
+   * @private
+   * @returns {Promise<void>}
+   */
+  async _ensureTablesExist() {
+    const createTablesQuery = `
+      CREATE TABLE IF NOT EXISTS facts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        type TEXT NOT NULL,
+        content TEXT NOT NULL,
+        source_id TEXT NOT NULL,
+        source_name TEXT NOT NULL,
+        source_type TEXT NOT NULL,
+        confidence REAL DEFAULT 0.5,
+        created_at TEXT NOT NULL,
+        updated_at TEXT
+      );
+      
+      CREATE TABLE IF NOT EXISTS fact_relationships (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        source_fact_id INTEGER NOT NULL,
+        target_fact_id INTEGER NOT NULL,
+        relationship_type TEXT NOT NULL,
+        metadata TEXT,
+        created_at TEXT NOT NULL,
+        FOREIGN KEY (source_fact_id) REFERENCES facts(id) ON DELETE CASCADE,
+        FOREIGN KEY (target_fact_id) REFERENCES facts(id) ON DELETE CASCADE
+      );
+      
+      CREATE INDEX IF NOT EXISTS idx_facts_type ON facts(type);
+      CREATE INDEX IF NOT EXISTS idx_facts_source_id ON facts(source_id);
+      CREATE INDEX IF NOT EXISTS idx_fact_relationships_source ON fact_relationships(source_fact_id);
+      CREATE INDEX IF NOT EXISTS idx_fact_relationships_target ON fact_relationships(target_fact_id);
+    `;
+    
+    await exec(createTablesQuery);
+  }
+  
+  /**
+   * Store relationships for a fact
+   * 
+   * @private
+   * @param {Fact} fact - The fact with relationships
+   * @returns {Promise<void>}
+   */
+  async _storeRelationships(fact) {
+    for (const relationship of fact.relationships) {
+      await run(
+        `INSERT INTO fact_relationships
+         (source_fact_id, target_fact_id, relationship_type, metadata, created_at)
+         VALUES (?, ?, ?, ?, ?)`,
+        [
+          fact.id,
+          relationship.targetId,
+          relationship.type,
+          JSON.stringify(relationship.metadata || {}),
+          new Date().toISOString()
+        ]
+      );
+    }
+  }
+  
+  /**
+   * Update relationships for a fact
+   * 
+   * @private
+   * @param {Fact} fact - The fact with relationships
+   * @returns {Promise<void>}
+   */
+  async _updateRelationships(fact) {
+    // Delete existing relationships
+    await run(
+      'DELETE FROM fact_relationships WHERE source_fact_id = ?',
+      [fact.id]
+    );
+    
+    // Store new relationships
+    await this._storeRelationships(fact);
   }
 }
 
-module.exports = KnowledgeManager;
+module.exports = { KnowledgeManager };
