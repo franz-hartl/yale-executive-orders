@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligence Hub Test Page</title>
+    <link rel="icon" href="https://www.yale.edu/sites/default/files/favicon.ico" type="image/x-icon">
+    
+    <!-- External CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Application CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/intelligence-hub.css">
+    
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .yale-header {
+            margin-bottom: 2rem;
+        }
+        
+        .test-controls {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+        }
+        
+        .test-output {
+            min-height: 400px;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="yale-header">
+            <h1 class="yale-h1">Intelligence Hub Test Page</h1>
+            <p class="yale-text-lg">Use this page to test the Intelligence Hub components</p>
+        </header>
+        
+        <div class="test-controls">
+            <h2 class="yale-h3 mb-4">Test Controls</h2>
+            <div class="yale-grid yale-grid-cols-1 yale-md-grid-cols-2 yale-gap-md">
+                <div>
+                    <label for="test-component" class="yale-form-label">Component to Test</label>
+                    <select id="test-component" class="yale-select">
+                        <option value="all">All Components</option>
+                        <option value="order-snapshot">Order Snapshot</option>
+                        <option value="key-intelligence">Key Intelligence</option>
+                        <option value="timeline-navigator">Timeline Navigator</option>
+                        <option value="source-intelligence">Source Intelligence Matrix</option>
+                        <option value="yale-response">Yale Response Framework</option>
+                        <option value="intelligence-network">Intelligence Network</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="test-data" class="yale-form-label">Test Data</label>
+                    <select id="test-data" class="yale-select">
+                        <option value="example">Example Data</option>
+                        <option value="minimal">Minimal Data</option>
+                        <option value="real">Load Real Data</option>
+                    </select>
+                </div>
+            </div>
+            <div class="yale-mt-md">
+                <button id="run-test" class="yale-btn yale-btn--primary">Run Test</button>
+                <button id="clear-test" class="yale-btn yale-btn--outline">Clear Output</button>
+            </div>
+        </div>
+        
+        <div class="test-output" id="test-output">
+            <div class="yale-text-center yale-text-muted yale-py-xl">
+                <p>Test output will appear here</p>
+                <p class="yale-text-sm">Select a component and test data, then click "Run Test"</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Example test data
+        const exampleData = {
+            id: 1234,
+            order_number: "14110",
+            title: "Addressing the Risks and Harnessing the Benefits of Artificial Intelligence",
+            signing_date: "2025-01-30",
+            president: "Sanders",
+            summary: "Establishes new standards for AI safety and security in academic institutions. Requires universities receiving federal funding to implement responsible AI practices in research and teaching. Establishes an AI Safety Council with representatives from top research universities.",
+            url: "https://www.whitehouse.gov/briefing-room/presidential-actions/2025/01/30/executive-order-on-the-safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence/",
+            impact_level: "High",
+            status: "Active",
+            categories: ["Technology", "Education", "Research"],
+            impact_areas: ["Research", "Compliance", "Policy"],
+            university_impact_areas: [
+                { name: "Research Funding", description: "Impact on research funding" },
+                { name: "Administrative Compliance", description: "Impact on administrative compliance" }
+            ],
+            intelligence_hub: {
+                yale_alert_level: "Critical",
+                core_impact: "This executive order requires Yale to implement comprehensive AI safety protocols for all AI systems used in research and teaching activities.",
+                what_changed: "• New reporting requirements for AI systems used in federally funded research\n• Increased security protocols for AI training data\n• Modified compliance timeline with extended deadlines",
+                yale_imperative: "Complete AI safety assessment by 2025-03-30",
+                confidence_rating: 0.92,
+                timeline_navigator: {
+                    signing_date: "2025-01-30",
+                    effective_date: "2025-03-01",
+                    implementation_deadlines: [
+                        {
+                            event_date: "2025-04-30",
+                            event_type: "Implementation Deadline",
+                            event_description: "Complete AI safety assessments",
+                            status: "Pending"
+                        },
+                        {
+                            event_date: "2025-06-30",
+                            event_type: "Implementation Deadline",
+                            event_description: "Implement AI safety protocols",
+                            status: "Not Started"
+                        }
+                    ],
+                    yale_decision_points: [
+                        {
+                            event_date: "2025-03-15",
+                            event_type: "Yale Decision Point",
+                            event_description: "Determine AI safety assessment approach",
+                            status: "Completed"
+                        },
+                        {
+                            event_date: "2025-05-15",
+                            event_type: "Yale Decision Point",
+                            event_description: "Select AI monitoring tools",
+                            status: "Pending"
+                        }
+                    ],
+                    events: [
+                        {
+                            event_date: "2025-02-15",
+                            event_type: "Agency Guidance",
+                            event_description: "NSF releases initial guidance",
+                            is_deadline: false,
+                            is_yale_decision_point: false,
+                            status: "Completed"
+                        }
+                    ]
+                },
+                source_intelligence: {
+                    federal_sources: {
+                        federal_register: [
+                            {
+                                source_type: "Federal Register",
+                                source_name: "Federal Register",
+                                publication_date: "2025-01-31",
+                                title: "Executive Order 14110",
+                                content: "The President of the United States issued Executive Order 14110 establishing new requirements for AI safety and security in academic institutions.",
+                                url: "https://www.federalregister.gov/documents/2025/01/30/2025-12345/addressing-the-risks-and-harnessing-the-benefits-of-artificial-intelligence",
+                                key_provisions: "• Section 1: Establishes AI Safety Council\n• Section 2: Creates reporting requirements\n• Section 3: Sets implementation timelines",
+                                specific_requirements: "• Universities must complete AI safety assessments\n• Research using generative AI requires additional oversight\n• Federal funding recipients must implement monitoring protocols"
+                            }
+                        ],
+                        agency_guidance: [
+                            {
+                                agency_name: "NSF",
+                                publication_date: "2025-02-15",
+                                title: "Guidance on Implementing EO 14110 Requirements",
+                                summary: "The National Science Foundation provides guidance on implementing the new executive order requirements for AI safety in research grants.",
+                                url: "https://www.nsf.gov/ai-guidance",
+                                grant_impact: "All NSF grants involving AI will require enhanced safety protocols and additional certifications.",
+                                compliance_guidance: "Grantees must update AI policies by the compliance deadline and submit certification of compliance.",
+                                research_implications: "Research involving large language models will need additional documentation and security reviews.",
+                                key_deadlines: "Certification of compliance due within 180 days of EO effective date."
+                            },
+                            {
+                                agency_name: "NIH",
+                                publication_date: "2025-02-28",
+                                title: "NIH Implementation Strategy for EO 14110",
+                                summary: "The National Institutes of Health outlines its implementation strategy for complying with the AI safety provisions.",
+                                url: "https://www.nih.gov/ai-implementation-guidance",
+                                grant_impact: "NIH grants now require enhanced disclosure of all AI systems used in research.",
+                                compliance_guidance: "Institutions must update their AI policies and security protocols.",
+                                research_implications: "Clinical trials using AI may face additional security reviews.",
+                                key_deadlines: "Updated disclosure forms due with next progress report after March 1, 2025."
+                            }
+                        ]
+                    },
+                    analysis_interpretation: {
+                        university_associations: [
+                            {
+                                association_name: "COGR",
+                                publication_date: "2025-02-20",
+                                title: "COGR Analysis of AI Safety Executive Order",
+                                summary: "The Council on Governmental Relations provides analysis of the executive order's impact on research institutions.",
+                                url: "https://www.cogr.edu/ai-analysis",
+                                institution_perspective: "Research institutions face significant administrative burden in implementing the AI safety requirements.",
+                                sector_guidance: "COGR recommends institutions immediately review their AI policies and establish implementation committees.",
+                                recommended_actions: "• Inventory all AI systems used in research\n• Update AI ethics training\n• Engage with federal sponsors for clarification\n• Develop compliance certification process"
+                            }
+                        ],
+                        legal_analysis: [
+                            {
+                                source: "Yale General Counsel",
+                                analysis_date: "2025-02-25",
+                                challenge_status: "No Current Challenges",
+                                enforcement_prediction: "Enforcement likely to begin after the initial 90-day implementation period, with focus on documentation compliance first.",
+                                legal_implications: "Compliance requirements can be met through policy updates and procedural changes.",
+                                yale_specific_notes: "Yale should focus on inventorying AI systems and implementing the required documentation processes."
+                            }
+                        ]
+                    }
+                },
+                yale_response: {
+                    framework: [
+                        {
+                            department_name: "Office of Research Administration",
+                            impact_intensity: 8,
+                            resource_requirements: "High - requires additional staff time and potential system updates",
+                            coordination_needs: "Coordination with IT and academic departments required"
+                        },
+                        {
+                            department_name: "Information Technology Services",
+                            impact_intensity: 7,
+                            resource_requirements: "Moderate - requires AI monitoring infrastructure",
+                            coordination_needs: "Coordination with Research Administration needed"
+                        },
+                        {
+                            department_name: "Office of Research Integrity",
+                            impact_intensity: 9,
+                            resource_requirements: "High - requires policy development and training",
+                            coordination_needs: "Coordination with departments using AI systems"
+                        }
+                    ],
+                    action_requirements: [
+                        {
+                            title: "Complete AI Inventory",
+                            description: "Create comprehensive inventory of AI systems used in research and teaching",
+                            priority_level: "Critical",
+                            department_name: "Office of Research Administration",
+                            deadline: "2025-03-15",
+                            status: "In Progress"
+                        },
+                        {
+                            title: "Update AI Policy",
+                            description: "Revise university AI policy to incorporate new federal requirements",
+                            priority_level: "Critical",
+                            department_name: "Office of Research Integrity",
+                            deadline: "2025-04-01",
+                            status: "Not Started"
+                        },
+                        {
+                            title: "Implement AI Monitoring",
+                            description: "Deploy tools to monitor AI system usage",
+                            priority_level: "Required",
+                            department_name: "Information Technology Services",
+                            deadline: "2025-05-01",
+                            status: "Not Started"
+                        }
+                    ],
+                    decision_support: {
+                        options: [
+                            {
+                                department: "Office of Research Administration",
+                                options: "Option 1: Centralized AI oversight approach\nOption 2: Distributed model with departmental AI officers\nOption 3: Hybrid approach with central policy and distributed implementation",
+                                strategy: "Recommend hybrid approach with central policy development and distributed implementation"
+                            }
+                        ]
+                    }
+                },
+                intelligence_network: {
+                    predecessor_policies: [
+                        {
+                            related_order_id: 1100,
+                            order_number: "13960",
+                            title: "Promoting the Use of Trustworthy Artificial Intelligence in the Federal Government",
+                            description: "Established initial AI governance framework that this order expands upon"
+                        }
+                    ],
+                    related_orders: [
+                        {
+                            related_order_id: 1200,
+                            order_number: "14093",
+                            title: "Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence",
+                            description: "Complements this order with focus on commercial AI applications"
+                        }
+                    ],
+                    external_impact: [
+                        {
+                            related_order_id: 1300,
+                            order_number: "14035",
+                            title: "Preventing and Combating Discrimination on the Basis of Gender Identity or Sexual Orientation",
+                            yale_implications: "Affects how AI systems must be designed to prevent algorithmic bias"
+                        }
+                    ]
+                }
+            }
+        };
+        
+        // Minimal test data
+        const minimalData = {
+            id: 5678,
+            order_number: "14111",
+            title: "Promoting Research Security in Higher Education",
+            signing_date: "2025-02-15",
+            president: "Sanders",
+            summary: "Enhances research security requirements for universities receiving federal funding.",
+            url: "https://example.com",
+            impact_level: "High",
+            status: "Active",
+            categories: ["Research", "National Security"],
+            intelligence_hub: {
+                yale_alert_level: "High",
+                core_impact: "This order affects Yale's international research collaborations.",
+                timeline_navigator: {
+                    signing_date: "2025-02-15",
+                    effective_date: "2025-03-15"
+                }
+            }
+        };
+        
+        // DOM elements
+        const testComponentSelect = document.getElementById('test-component');
+        const testDataSelect = document.getElementById('test-data');
+        const runTestButton = document.getElementById('run-test');
+        const clearTestButton = document.getElementById('clear-test');
+        const testOutput = document.getElementById('test-output');
+        
+        // Test functions
+        async function runTest() {
+            const component = testComponentSelect.value;
+            const dataType = testDataSelect.value;
+            
+            // Clear output
+            testOutput.innerHTML = '<div class="yale-loading"><p class="yale-loading__text">Loading test...</p></div>';
+            
+            // Get test data
+            let testData;
+            if (dataType === 'example') {
+                testData = exampleData;
+            } else if (dataType === 'minimal') {
+                testData = minimalData;
+            } else if (dataType === 'real') {
+                try {
+                    const response = await fetch('data/orders/1221.json');
+                    if (!response.ok) {
+                        throw new Error(`Status: ${response.status}`);
+                    }
+                    testData = await response.json();
+                } catch (error) {
+                    testOutput.innerHTML = `
+                        <div class="yale-alert yale-alert--error">
+                            <div class="yale-alert__icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <div class="yale-alert__content">
+                                <h3 class="yale-alert__title">Error Loading Data</h3>
+                                <p class="yale-alert__message">
+                                    Failed to load real data. Make sure the data file exists. Using example data instead.
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                    testData = exampleData;
+                }
+            }
+            
+            // Create mock Intelligence Hub functions if not available
+            if (!window.IntelligenceHub) {
+                window.IntelligenceHub = {
+                    renderOrderSnapshot: function() {
+                        return `<div class="order-snapshot">Order Snapshot component not available</div>`;
+                    },
+                    renderKeyIntelligence: function() {
+                        return `<div class="key-intelligence">Key Intelligence component not available</div>`;
+                    },
+                    renderTimelineNavigator: function() {
+                        return `<div class="timeline-navigator">Timeline Navigator component not available</div>`;
+                    },
+                    renderSourceIntelligence: function() {
+                        return `<div class="source-intelligence">Source Intelligence component not available</div>`;
+                    },
+                    renderYaleResponse: function() {
+                        return `<div class="yale-response">Yale Response component not available</div>`;
+                    },
+                    renderIntelligenceNetwork: function() {
+                        return `<div class="intelligence-network">Intelligence Network component not available</div>`;
+                    }
+                };
+            }
+            
+            // Mock the currentOrder and currentHub variables
+            window.currentOrder = testData;
+            window.currentHub = testData.intelligence_hub;
+            
+            // Render the selected component
+            let output = '';
+            
+            if (component === 'all') {
+                output = `
+                    <div class="yale-mb-md">
+                        <h3 class="yale-h3 yale-mb-sm">Order Snapshot</h3>
+                        ${window.IntelligenceHub.renderOrderSnapshot ? window.IntelligenceHub.renderOrderSnapshot() : 'Component not available'}
+                    </div>
+                    
+                    <div class="yale-grid yale-grid-cols-1 yale-md-grid-cols-2 yale-gap-md yale-mb-md">
+                        <div>
+                            <h3 class="yale-h3 yale-mb-sm">Key Intelligence</h3>
+                            ${window.IntelligenceHub.renderKeyIntelligence ? window.IntelligenceHub.renderKeyIntelligence() : 'Component not available'}
+                        </div>
+                        <div>
+                            <h3 class="yale-h3 yale-mb-sm">Timeline Navigator</h3>
+                            ${window.IntelligenceHub.renderTimelineNavigator ? window.IntelligenceHub.renderTimelineNavigator() : 'Component not available'}
+                        </div>
+                    </div>
+                    
+                    <div class="yale-mb-md">
+                        <h3 class="yale-h3 yale-mb-sm">Source Intelligence Matrix</h3>
+                        ${window.IntelligenceHub.renderSourceIntelligence ? window.IntelligenceHub.renderSourceIntelligence() : 'Component not available'}
+                    </div>
+                    
+                    <div class="yale-mb-md">
+                        <h3 class="yale-h3 yale-mb-sm">Yale Response Framework</h3>
+                        ${window.IntelligenceHub.renderYaleResponse ? window.IntelligenceHub.renderYaleResponse() : 'Component not available'}
+                    </div>
+                    
+                    <div class="yale-mb-md">
+                        <h3 class="yale-h3 yale-mb-sm">Intelligence Network</h3>
+                        ${window.IntelligenceHub.renderIntelligenceNetwork ? window.IntelligenceHub.renderIntelligenceNetwork() : 'Component not available'}
+                    </div>
+                `;
+            } else if (component === 'order-snapshot') {
+                output = window.IntelligenceHub.renderOrderSnapshot ? window.IntelligenceHub.renderOrderSnapshot() : 'Component not available';
+            } else if (component === 'key-intelligence') {
+                output = window.IntelligenceHub.renderKeyIntelligence ? window.IntelligenceHub.renderKeyIntelligence() : 'Component not available';
+            } else if (component === 'timeline-navigator') {
+                output = window.IntelligenceHub.renderTimelineNavigator ? window.IntelligenceHub.renderTimelineNavigator() : 'Component not available';
+            } else if (component === 'source-intelligence') {
+                output = window.IntelligenceHub.renderSourceIntelligence ? window.IntelligenceHub.renderSourceIntelligence() : 'Component not available';
+            } else if (component === 'yale-response') {
+                output = window.IntelligenceHub.renderYaleResponse ? window.IntelligenceHub.renderYaleResponse() : 'Component not available';
+            } else if (component === 'intelligence-network') {
+                output = window.IntelligenceHub.renderIntelligenceNetwork ? window.IntelligenceHub.renderIntelligenceNetwork() : 'Component not available';
+            }
+            
+            // Set output
+            testOutput.innerHTML = output;
+            
+            // Initialize interactive components
+            if (window.IntelligenceHub && window.IntelligenceHub.initializeInteractiveComponents) {
+                window.IntelligenceHub.initializeInteractiveComponents();
+            }
+        }
+        
+        function clearTest() {
+            testOutput.innerHTML = `
+                <div class="yale-text-center yale-text-muted yale-py-xl">
+                    <p>Test output will appear here</p>
+                    <p class="yale-text-sm">Select a component and test data, then click "Run Test"</p>
+                </div>
+            `;
+        }
+        
+        // Event listeners
+        runTestButton.addEventListener('click', runTest);
+        clearTestButton.addEventListener('click', clearTest);
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the Intelligence Hub if available
+            if (window.IntelligenceHub && window.IntelligenceHub.init) {
+                window.IntelligenceHub.init();
+            }
+        });
+    </script>
+</body>
+</html>

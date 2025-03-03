@@ -1,0 +1,162 @@
+/**
+ * Yale Component Library - Base Styles
+ * Typography and base element styling based on Yale News website
+ */
+
+/* Import Open Sans font with Yale-specific weights */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+/* Base Elements - Matching Yale News website */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--background-primary);
+  color: var(--black);
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography - Matching Yale News styling */
+h1, h2, h3, h4, h5, h6,
+.yale-h1, .yale-h2, .yale-h3, .yale-h4, .yale-h5, .yale-h6 {
+  font-family: 'Open Sans', sans-serif;
+  color: var(--yale-blue);
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: var(--space-lg);
+  line-height: 1.2;
+}
+
+/* Yale News typography sizing */
+h1, .yale-h1 { font-size: 2.5rem; margin-bottom: var(--space-md); }
+h2, .yale-h2 { font-size: 2rem; margin-bottom: var(--space-md); }
+h3, .yale-h3 { font-size: 1.5rem; margin-bottom: var(--space-sm); }
+h4, .yale-h4 { font-size: 1.25rem; margin-bottom: var(--space-sm); }
+h5, .yale-h5 { font-size: 1.125rem; margin-bottom: var(--space-xs); }
+h6, .yale-h6 { font-size: 1rem; margin-bottom: var(--space-xs); }
+
+/* Mobile typography adjustments */
+@media (max-width: 599px) {
+  h1, .yale-h1 { font-size: 2rem; }
+  h2, .yale-h2 { font-size: 1.75rem; }
+  h3, .yale-h3 { font-size: 1.25rem; }
+}
+
+/* Paragraphs */
+p {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+  line-height: 1.6;
+}
+
+/* Links - Matching Yale News */
+a, .yale-link {
+  color: var(--yale-blue);
+  text-decoration: none;
+  transition: color var(--transition-standard);
+}
+
+a:hover, .yale-link:hover {
+  text-decoration: underline;
+  color: var(--yale-accent-blue);
+}
+
+a:focus, .yale-link:focus {
+  outline: none;
+  text-decoration: underline;
+}
+
+/* Content Container - Matching Yale News */
+.yale-container {
+  width: 100%;
+  padding: 0 var(--space-md);
+  margin: 0 auto;
+}
+
+@media (min-width: 1070px) {
+  .yale-container {
+    padding: 0 var(--space-xl);
+  }
+}
+
+/* Text utility classes */
+.yale-text-sm { font-size: 0.875rem; }
+.yale-text-xs { font-size: 0.75rem; }
+.yale-text-lg { font-size: 1.125rem; }
+.yale-text-xl { font-size: 1.25rem; }
+.yale-text-2xl { font-size: 1.5rem; }
+
+.yale-text-regular { font-weight: 400; }
+.yale-text-semibold { font-weight: 600; }
+.yale-text-bold { font-weight: 700; }
+
+.yale-text-primary { color: var(--black); }
+.yale-text-secondary { color: var(--medium-gray); }
+.yale-text-muted { color: var(--dark-gray); }
+.yale-text-yale-blue { color: var(--yale-blue); }
+
+/* List styles */
+ul.yale-list,
+ol.yale-list {
+  padding-left: 1.5rem;
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+}
+
+ul.yale-list li,
+ol.yale-list li {
+  margin-bottom: var(--space-sm);
+  line-height: 1.6;
+}
+
+/* Yale-specific vertical rhythm */
+.yale-vertical-rhythm > * + * {
+  margin-top: var(--space-lg);
+}
+
+/* Accessibility Helpers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Visible only on focus - for skip links */
+.sr-only-focusable:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip link styling */
+.yale-skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--yale-blue);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.2s ease;
+}
+
+.yale-skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--yale-accent-blue);
+}

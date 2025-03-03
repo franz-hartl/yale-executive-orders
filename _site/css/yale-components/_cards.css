@@ -1,0 +1,155 @@
+/**
+ * Yale Component Library - Cards
+ * Card components for content containers
+ */
+
+/* Card Base */
+.yale-card {
+  background-color: white;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+
+/* Card Sections */
+.yale-card__header {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.yale-card__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--yale-blue);
+}
+
+.yale-card__subtitle {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.yale-card__body {
+  padding: var(--space-md);
+}
+
+.yale-card__footer {
+  padding: var(--space-md);
+  border-top: 1px solid var(--border-light);
+  background-color: var(--background-secondary);
+}
+
+/* Card Variants */
+.yale-card--flat {
+  box-shadow: none;
+}
+
+.yale-card--bordered {
+  border-width: 2px;
+  border-color: var(--yale-blue);
+}
+
+.yale-card--elevated {
+  box-shadow: var(--card-depth);
+}
+
+/* Filter Card - Yale News style */
+.yale-filter-card {
+  background-color: white;
+  border: 1px solid var(--border-light);
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  border-top: 3px solid var(--yale-blue);
+  margin-bottom: var(--space-lg);
+}
+
+.yale-filter-card__header {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-lg);
+  background-color: var(--light-blue);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.yale-filter-card__title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--yale-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.yale-filter-card__body {
+  padding: var(--space-lg) var(--space-lg);
+}
+
+.yale-filter-card__footer {
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid var(--border-light);
+  background-color: var(--light-blue);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Stats Card */
+.yale-stat-card {
+  background-color: white;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-base);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--card-shadow);
+}
+
+.yale-stat-card__title {
+  color: var(--yale-blue);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+  font-weight: 600;
+}
+
+.yale-stat-card__value {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-xs);
+}
+
+.yale-stat-card__subtitle {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Interactive Card - For clickable cards */
+.yale-card--interactive {
+  transition: transform var(--transition-standard), box-shadow var(--transition-standard);
+  cursor: pointer;
+}
+
+.yale-card--interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive card padding */
+@media (min-width: 768px) {
+  .yale-card__header,
+  .yale-card__body,
+  .yale-card__footer,
+  .yale-filter-card__body,
+  .yale-filter-card__footer,
+  .yale-stat-card {
+    padding: var(--space-lg);
+  }
+}

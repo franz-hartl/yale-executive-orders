@@ -1,0 +1,196 @@
+/**
+ * Yale Component Library - Buttons
+ * Button styles matching Yale News website
+ */
+
+/* Button Base - Yale News styling */
+.yale-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 0; /* Yale News uses square buttons */
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: all var(--transition-standard);
+  min-height: 44px; /* For accessibility */
+  font-size: 1rem;
+  line-height: 1.2;
+  text-decoration: none;
+  border: 2px solid transparent;
+  letter-spacing: 0.02em;
+}
+
+.yale-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Primary Button - Yale Blue */
+.yale-btn--primary {
+  background-color: var(--yale-blue);
+  color: white;
+  border-color: var(--yale-blue);
+}
+
+.yale-btn--primary:hover:not(:disabled) {
+  background-color: var(--yale-accent-blue);
+  border-color: var(--yale-accent-blue);
+  text-decoration: none;
+}
+
+.yale-btn--primary:focus {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Secondary Button - Light Blue */
+.yale-btn--secondary {
+  background-color: var(--light-blue);
+  color: var(--yale-blue);
+  border-color: var(--yale-blue);
+}
+
+.yale-btn--secondary:hover:not(:disabled) {
+  background-color: white;
+  color: var(--yale-accent-blue);
+  border-color: var(--yale-accent-blue);
+  text-decoration: none;
+}
+
+.yale-btn--secondary:focus {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Outline Button - Yale News style */
+.yale-btn--outline {
+  background-color: transparent;
+  color: var(--yale-blue);
+  border-color: var(--yale-blue);
+}
+
+.yale-btn--outline:hover:not(:disabled) {
+  background-color: var(--hover-overlay);
+  color: var(--yale-accent-blue);
+  border-color: var(--yale-accent-blue);
+  text-decoration: none;
+}
+
+.yale-btn--outline:focus {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Text Button - No background or border */
+.yale-btn--text {
+  background-color: transparent;
+  color: var(--yale-blue);
+  border-color: transparent;
+  padding: 0.5rem;
+  min-height: 36px;
+  font-weight: 600;
+}
+
+.yale-btn--text:hover:not(:disabled) {
+  color: var(--yale-accent-blue);
+  text-decoration: underline;
+}
+
+.yale-btn--text:focus {
+  outline: none;
+  text-decoration: underline;
+}
+
+/* Button Sizes */
+.yale-btn--xs {
+  font-size: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  min-height: 32px;
+}
+
+.yale-btn--sm {
+  font-size: 0.875rem;
+  padding: 0.625rem 1rem;
+  min-height: 36px;
+}
+
+.yale-btn--lg {
+  font-size: 1.125rem;
+  padding: 1rem 2rem;
+  min-height: 52px;
+}
+
+/* Button with Icon */
+.yale-btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yale-btn__icon--left {
+  margin-right: 0.75rem;
+}
+
+.yale-btn__icon--right {
+  margin-left: 0.75rem;
+}
+
+/* Icon-only Button */
+.yale-btn--icon-only {
+  padding: 0.5rem;
+  width: 44px;
+  height: 44px;
+}
+
+.yale-btn--icon-only.yale-btn--sm {
+  width: 36px;
+  height: 36px;
+}
+
+.yale-btn--icon-only.yale-btn--lg {
+  width: 52px;
+  height: 52px;
+}
+
+/* Button Group */
+.yale-btn-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.yale-btn-group .yale-btn {
+  border-radius: 0;
+}
+
+.yale-btn-group .yale-btn:not(:last-child) {
+  border-right-width: 0;
+}
+
+/* Close Button */
+.yale-btn--close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--yale-blue);
+  transition: all var(--transition-standard);
+  border: none;
+  min-height: auto;
+  font-size: 1rem;
+  padding: 0;
+}
+
+.yale-btn--close:hover:not(:disabled) {
+  color: var(--yale-accent-blue);
+}
+
+.yale-btn--close:focus {
+  outline: none;
+  color: var(--yale-accent-blue);
+}

@@ -1,0 +1,200 @@
+/**
+ * Yale Component Library - Layout
+ * Layout systems including containers, grids, and spacing utilities
+ */
+
+/* Container */
+.yale-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+/* Container sizes */
+.yale-container-sm {
+  max-width: 640px;
+}
+
+.yale-container-md {
+  max-width: 768px;
+}
+
+.yale-container-lg {
+  max-width: 1024px;
+}
+
+.yale-container-xl {
+  max-width: 1280px;
+}
+
+/* Flex layouts */
+.yale-flex {
+  display: flex;
+}
+
+.yale-flex-col {
+  flex-direction: column;
+}
+
+.yale-items-start {
+  align-items: flex-start;
+}
+
+.yale-items-center {
+  align-items: center;
+}
+
+.yale-items-end {
+  align-items: flex-end;
+}
+
+.yale-justify-start {
+  justify-content: flex-start;
+}
+
+.yale-justify-center {
+  justify-content: center;
+}
+
+.yale-justify-end {
+  justify-content: flex-end;
+}
+
+.yale-justify-between {
+  justify-content: space-between;
+}
+
+.yale-flex-wrap {
+  flex-wrap: wrap;
+}
+
+/* Grid layouts */
+.yale-grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+/* Grid columns - Mobile first */
+.yale-grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+.yale-grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+/* Responsive grid columns */
+@media (min-width: 640px) {
+  .yale-sm-grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .yale-sm-grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .yale-sm-grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 768px) {
+  .yale-md-grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .yale-md-grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .yale-md-grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .yale-lg-grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .yale-lg-grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .yale-lg-grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .yale-lg-grid-cols-5 { grid-template-columns: repeat(5, 1fr); }
+  .yale-lg-grid-cols-6 { grid-template-columns: repeat(6, 1fr); }
+}
+
+/* Gap utilities */
+.yale-gap-xs { gap: var(--space-xs); }
+.yale-gap-sm { gap: var(--space-sm); }
+.yale-gap-md { gap: var(--space-md); }
+.yale-gap-lg { gap: var(--space-lg); }
+.yale-gap-xl { gap: var(--space-xl); }
+
+/* Margin utilities */
+.yale-m-0 { margin: 0; }
+.yale-m-xs { margin: var(--space-xs); }
+.yale-m-sm { margin: var(--space-sm); }
+.yale-m-md { margin: var(--space-md); }
+.yale-m-lg { margin: var(--space-lg); }
+.yale-m-xl { margin: var(--space-xl); }
+
+.yale-mx-auto { margin-left: auto; margin-right: auto; }
+.yale-my-0 { margin-top: 0; margin-bottom: 0; }
+.yale-my-xs { margin-top: var(--space-xs); margin-bottom: var(--space-xs); }
+.yale-my-sm { margin-top: var(--space-sm); margin-bottom: var(--space-sm); }
+.yale-my-md { margin-top: var(--space-md); margin-bottom: var(--space-md); }
+.yale-my-lg { margin-top: var(--space-lg); margin-bottom: var(--space-lg); }
+.yale-my-xl { margin-top: var(--space-xl); margin-bottom: var(--space-xl); }
+
+.yale-mt-0 { margin-top: 0; }
+.yale-mt-xs { margin-top: var(--space-xs); }
+.yale-mt-sm { margin-top: var(--space-sm); }
+.yale-mt-md { margin-top: var(--space-md); }
+.yale-mt-lg { margin-top: var(--space-lg); }
+.yale-mt-xl { margin-top: var(--space-xl); }
+
+.yale-mb-0 { margin-bottom: 0; }
+.yale-mb-xs { margin-bottom: var(--space-xs); }
+.yale-mb-sm { margin-bottom: var(--space-sm); }
+.yale-mb-md { margin-bottom: var(--space-md); }
+.yale-mb-lg { margin-bottom: var(--space-lg); }
+.yale-mb-xl { margin-bottom: var(--space-xl); }
+
+/* Padding utilities */
+.yale-p-0 { padding: 0; }
+.yale-p-xs { padding: var(--space-xs); }
+.yale-p-sm { padding: var(--space-sm); }
+.yale-p-md { padding: var(--space-md); }
+.yale-p-lg { padding: var(--space-lg); }
+.yale-p-xl { padding: var(--space-xl); }
+
+.yale-px-0 { padding-left: 0; padding-right: 0; }
+.yale-px-xs { padding-left: var(--space-xs); padding-right: var(--space-xs); }
+.yale-px-sm { padding-left: var(--space-sm); padding-right: var(--space-sm); }
+.yale-px-md { padding-left: var(--space-md); padding-right: var(--space-md); }
+.yale-px-lg { padding-left: var(--space-lg); padding-right: var(--space-lg); }
+.yale-px-xl { padding-left: var(--space-xl); padding-right: var(--space-xl); }
+
+.yale-py-0 { padding-top: 0; padding-bottom: 0; }
+.yale-py-xs { padding-top: var(--space-xs); padding-bottom: var(--space-xs); }
+.yale-py-sm { padding-top: var(--space-sm); padding-bottom: var(--space-sm); }
+.yale-py-md { padding-top: var(--space-md); padding-bottom: var(--space-md); }
+.yale-py-lg { padding-top: var(--space-lg); padding-bottom: var(--space-lg); }
+.yale-py-xl { padding-top: var(--space-xl); padding-bottom: var(--space-xl); }
+
+/* Section spacing */
+.yale-section {
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .yale-section {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+  }
+}
+
+/* Responsive display utilities */
+@media (max-width: 639px) {
+  .yale-hidden-sm-down { display: none !important; }
+}
+
+@media (min-width: 640px) {
+  .yale-hidden-sm-up { display: none !important; }
+}
+
+@media (max-width: 767px) {
+  .yale-hidden-md-down { display: none !important; }
+}
+
+@media (min-width: 768px) {
+  .yale-hidden-md-up { display: none !important; }
+}
+
+@media (max-width: 1023px) {
+  .yale-hidden-lg-down { display: none !important; }
+}
+
+@media (min-width: 1024px) {
+  .yale-hidden-lg-up { display: none !important; }
+}

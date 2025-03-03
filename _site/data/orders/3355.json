@@ -1,0 +1,112 @@
+{
+  "id": 3355,
+  "order_number": "EO 14107",
+  "title": "COGR Analysis of Executive Order 14107",
+  "signing_date": null,
+  "publication_date": null,
+  "president": null,
+  "summary": null,
+  "full_text": null,
+  "url": null,
+  "impact_level": null,
+  "status": null,
+  "implementation_phase": null,
+  "added_date": "2025-03-03 19:27:56",
+  "last_updated": "2025-03-03 19:27:56",
+  "plain_language_summary": null,
+  "executive_brief": null,
+  "comprehensive_analysis": null,
+  "effective_date": null,
+  "yale_alert_level": null,
+  "core_impact": null,
+  "yale_imperative": null,
+  "confidence_rating": 0.85,
+  "what_changed": null,
+  "categories": [],
+  "impact_areas": [],
+  "university_impact_areas": [],
+  "yale_impact_areas": [],
+  "yale_stakeholders": [],
+  "differentiated_impacts": {},
+  "compliance_timelines": {},
+  "impact_scoring": [],
+  "implementation_resources": [],
+  "compliance_actions": [],
+  "has_plain_language_summary": false,
+  "has_executive_brief": false,
+  "has_comprehensive_analysis": false,
+  "summary_formats_available": [],
+  "sources": [
+    {
+      "name": "COGR Executive Order Tracker",
+      "abbreviation": "COGR",
+      "url": "https://www.cogr.edu/cogr-resources",
+      "reference_id": null,
+      "fetch_date": "2025-03-03T19:28:30.181Z",
+      "data": {
+        "reference_context": "Order Tracker - Sample For Testing Executive Order 14028: Improving the Nation's Cybersecurity Executive Order 14107: AI Executive Order",
+        "pdf_source": "/Users/franzhartl/yale-executive-orders/external_sources/cogr/cogr-tracker-2025-03-03T19-28-30-175Z.pdf",
+        "extracted_date": "2025-03-03T19:28:30.177Z",
+        "cogr_relevant": true
+      }
+    }
+  ],
+  "yale_guidance": {
+    "yale_university": {
+      "relevance_score": 1,
+      "affected_departments": [],
+      "primary_departments": [],
+      "secondary_departments": [],
+      "action_items": [],
+      "compliance_actions": [],
+      "impact_areas": [],
+      "source_insights": {
+        "key_takeaways": [],
+        "implementation_references": [],
+        "resource_links": []
+      }
+    }
+  },
+  "simplified_impact_analysis": {},
+  "simplified_source_analysis": {
+    "summary": "",
+    "extended_analysis": "",
+    "source_insights": []
+  },
+  "intelligence_hub": {
+    "yale_alert_level": "Moderate",
+    "core_impact": null,
+    "what_changed": null,
+    "yale_imperative": null,
+    "confidence_rating": 0.85,
+    "timeline_navigator": {
+      "signing_date": null,
+      "effective_date": null,
+      "implementation_deadlines": [],
+      "yale_decision_points": [],
+      "events": []
+    },
+    "source_intelligence": {
+      "federal_sources": {
+        "federal_register": [],
+        "agency_guidance": []
+      },
+      "analysis_interpretation": {
+        "university_associations": [],
+        "legal_analysis": []
+      }
+    },
+    "yale_response": {
+      "framework": [],
+      "action_requirements": [],
+      "decision_support": {
+        "options": []
+      }
+    },
+    "intelligence_network": {
+      "predecessor_policies": [],
+      "related_orders": [],
+      "external_impact": []
+    }
+  }
+}

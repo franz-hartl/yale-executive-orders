@@ -1,0 +1,127 @@
+{
+  "impactLevels": [
+    {
+      "impact_level": "Critical",
+      "count": 1
+    },
+    {
+      "impact_level": "High",
+      "count": 17
+    },
+    {
+      "impact_level": "Medium",
+      "count": 34
+    },
+    {
+      "impact_level": "Low",
+      "count": 23
+    },
+    {
+      "impact_level": null,
+      "count": 2
+    }
+  ],
+  "universityImpactAreas": [
+    {
+      "name": "Administrative Compliance",
+      "count": 63
+    },
+    {
+      "name": "Research Funding",
+      "count": 34
+    },
+    {
+      "name": "Workforce & Employment Policy",
+      "count": 15
+    },
+    {
+      "name": "Public-Private Partnerships",
+      "count": 6
+    },
+    {
+      "name": "Student Aid & Higher Education Finance",
+      "count": 4
+    }
+  ],
+  "yaleImpactAreas": [],
+  "yaleStakeholders": [],
+  "categories": [
+    {
+      "name": "Education",
+      "count": 31
+    },
+    {
+      "name": "Technology",
+      "count": 21
+    },
+    {
+      "name": "National Security",
+      "count": 13
+    },
+    {
+      "name": "Immigration",
+      "count": 13
+    },
+    {
+      "name": "Research",
+      "count": 11
+    },
+    {
+      "name": "Finance",
+      "count": 9
+    },
+    {
+      "name": "Healthcare",
+      "count": 8
+    },
+    {
+      "name": "Environment",
+      "count": 4
+    },
+    {
+      "name": "Diversity",
+      "count": 3
+    }
+  ],
+  "timeline": [
+    {
+      "month": "2025-01",
+      "count": 38
+    },
+    {
+      "month": "2025-02",
+      "count": 37
+    }
+  ],
+  "externalSources": [
+    {
+      "name": "NSF Implementation Pages",
+      "url": "https://www.nsf.gov/news/policies_and_procedures/",
+      "order_count": 2,
+      "last_fetch_date": "2025-02-28T21:29:54.939Z"
+    },
+    {
+      "name": "COGR Executive Order Tracker",
+      "url": "https://www.cogr.edu/cogr-resources",
+      "order_count": 0,
+      "last_fetch_date": null
+    },
+    {
+      "name": "NIH Policy Notices",
+      "url": "https://grants.nih.gov/policy/index.htm",
+      "order_count": 0,
+      "last_fetch_date": null
+    },
+    {
+      "name": "ACE Policy Briefs",
+      "url": "https://www.acenet.edu/Policy-Advocacy/Pages/default.aspx",
+      "order_count": 0,
+      "last_fetch_date": null
+    }
+  ],
+  "sourceIntegration": {
+    "orders_with_external_sources": 2,
+    "active_source_count": 1,
+    "latest_source_update": "2025-02-28T21:29:54.939Z"
+  }
+}

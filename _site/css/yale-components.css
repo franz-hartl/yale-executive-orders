@@ -1,0 +1,20 @@
+/**
+ * Yale Component Library
+ * A comprehensive UI component system based on Yale design principles
+ * Using Open Sans instead of Yale's proprietary font
+ */
+
+/* Import all component modules */
+@import 'yale-components/_variables.css';
+@import 'yale-components/_base.css';
+@import 'yale-components/_layout.css';
+@import 'yale-components/_buttons.css';
+@import 'yale-components/_cards.css';
+@import 'yale-components/_forms.css';
+@import 'yale-components/_tables.css';
+@import 'yale-components/_badges.css';
+@import 'yale-components/_tabs.css';
+@import 'yale-components/_accordion.css';
+@import 'yale-components/_modal.css';
+@import 'yale-components/_notifications.css';
+@import 'yale-components/_accessibility.css';

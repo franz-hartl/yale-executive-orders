@@ -1,0 +1,42 @@
+[
+  {
+    "id": 2,
+    "name": "Compliance",
+    "description": "Regulatory compliance and legal requirements"
+  },
+  {
+    "id": 6,
+    "name": "Economic Development",
+    "description": "Business growth and economic initiatives"
+  },
+  {
+    "id": 3,
+    "name": "Funding",
+    "description": "Financial impacts and funding mechanisms"
+  },
+  {
+    "id": 8,
+    "name": "Operational",
+    "description": "Day-to-day operations and administrative functions"
+  },
+  {
+    "id": 4,
+    "name": "Policy",
+    "description": "Policy development and governance implications"
+  },
+  {
+    "id": 7,
+    "name": "Regulatory",
+    "description": "Regulatory framework and oversight"
+  },
+  {
+    "id": 1,
+    "name": "Research",
+    "description": "Impacts on research activities and scholarly work"
+  },
+  {
+    "id": 5,
+    "name": "Student Aid",
+    "description": "Financial assistance and support for students"
+  }
+]

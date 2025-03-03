@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detailed analysis of Presidential Executive Orders and their specific impacts on higher education institutions.">
+    <title>Executive Order Analysis | Higher Education Executive Order Tracker</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📜</text></svg>">
+    <!-- Accessibility enhancement -->
+    <script>
+        // Add focus outline script - ensures focus visibility for keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                document.body.classList.add('user-is-tabbing');
+            }
+        });
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('user-is-tabbing');
+        });
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Accessibility styles */
+        .user-is-tabbing :focus {
+            outline: 2px solid #2563eb !important;
+            outline-offset: 2px !important;
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        :root {
+            /* Yale Official Colors */
+            --yale-blue: #00356B; /* Official Yale Blue (PMS 648C equivalent) */
+            --yale-blue-light: #286DC0; /* Higher intensity blue (PMS 660 equivalent) */
+            --yale-blue-dark: #0A3161; /* Lower intensity blue (PMS 654 equivalent) */
+            --yale-gray: #A6A6A6; /* Yale's Warm Gray (PMS Warm Gray 7 equivalent) */
+            
+            /* Core Color Palette - Using Yale colors with light mode */
+            --bg-primary: #FFFFFF; /* White background - Yale's primary background color */
+            --bg-secondary: #F5F7FA; /* Light gray/blue background for secondary elements */
+            --bg-tertiary: #EDF2F7; /* Slightly darker background for tertiary elements */
+            --accent-blue-primary: var(--yale-blue);
+            --accent-blue-secondary: var(--yale-blue-light);
+            --accent-amber-primary: #BD5319; /* Yale's complementary accent color */
+            --accent-amber-secondary: #F8C23E; /* Brighter yellow for contrast */
+            
+            /* Status Colors - WCAG 2.1 compliant with good contrast ratio */
+            --status-green: #2E7D32; /* 4.5:1 contrast ratio against light backgrounds */
+            --status-amber: #BD5319; /* Yale's complementary accent color */
+            --status-red: #C62828; /* 4.5:1 contrast ratio against light backgrounds */
+            --status-low: rgba(46, 125, 50, 0.95);
+            --status-medium: rgba(189, 83, 25, 0.95); /* Using Yale complementary */
+            --status-high: rgba(198, 40, 40, 0.95);
+            --status-critical: rgba(198, 40, 40, 1);
+            
+            /* Text Colors - Enhanced for WCAG 2.1 AA compliance (4.5:1 min contrast ratio) */
+            --text-primary: #212121; /* Dark gray - nearly black (15.6:1 contrast with white) */
+            --text-secondary: #4A5568; /* Medium gray (7.8:1 contrast with white) */
+            --text-muted: #718096; /* Light gray (4.6:1 contrast with white) */
+            --text-highlight: var(--yale-blue); /* Using Yale Blue for highlighted text */
+            
+            /* Border and Shadow - Adjusted for light mode */
+            --border-light: #E2E8F0; /* Light gray border */
+            --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Lighter shadow for light mode */
+            --card-depth: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06); /* Subtle depth for cards */
+            
+            /* Interaction - Enhanced for accessibility */
+            --hover-overlay: rgba(0, 53, 107, 0.05); /* Yale blue hover with slight transparency */
+            --active-overlay: rgba(0, 53, 107, 0.1); /* Yale blue active with slight transparency */
+            --focus-ring: 0 0 0 3px rgba(40, 109, 192, 0.5); /* Yale blue light with transparency for focus */
+            
+            /* Animation */
+            --transition-standard: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-enter: 300ms cubic-bezier(0.0, 0, 0.2, 1);
+            --transition-exit: 250ms cubic-bezier(0.4, 0, 1, 1);
+        }
+        
+        body {
+            font-family: "Open Sans", system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            letter-spacing: 0.01em;
+        }
+        
+        /* Table of contents */
+        .toc {
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            border-left: 2px solid var(--border-light);
+            transition: all var(--transition-standard);
+        }
+        
+        .toc-link:hover {
+            color: var(--accent-blue-primary);
+            border-left-color: var(--accent-blue-secondary);
+            background-color: var(--hover-overlay);
+        }
+        
+        .toc-link.active {
+            color: var(--accent-blue-primary);
+            border-left-color: var(--accent-blue-primary);
+            font-weight: 600;
+            background-color: var(--bg-tertiary);
+        }
+        
+        /* Analysis section styles */
+        .analysis-section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-light);
+            scroll-margin-top: 2rem;
+        }
+        
+        .analysis-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-header {
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        /* Print styles */
+        @media print {
+            .toc {
+                display: none;
+            }
+            
+            .analysis-section {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            
+            .no-print {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+            }
+            
+            h2 {
+                font-size: 16pt;
+            }
+            
+            h3 {
+                font-size: 14pt;
+            }
+            
+            .breadcrumb {
+                display: none;
+            }
+        }
+        
+        /* For WCAG 2.1 keyboard focus - ensures focus indicators are visible */
+        *:focus-visible {
+            outline: 3px solid var(--yale-blue-light);
+            outline-offset: 2px;
+        }
+        
+        /* Impact badges */
+        .impact-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            padding: 0.35rem 0.8rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: 0.02em;
+            min-height: 36px;
+        }
+        
+        .impact-critical {
+            background-color: var(--status-critical);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .impact-high {
+            background-color: var(--status-high);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .impact-medium {
+            background-color: var(--status-medium);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .impact-low {
+            background-color: var(--status-low);
+            color: white;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="app-container max-w-6xl mx-auto px-4">
+        <!-- Header: Clean, modern design -->
+        <header class="header pt-5 pb-5 mb-6 bg-white border-b border-gray-200">
+            <div class="w-full max-w-6xl mx-auto">
+                <!-- Top content with logo and title -->
+                <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-0">
+                    <!-- Left side: Logo and title -->
+                    <div class="flex-shrink-0 md:w-3/5">
+                        <div class="flex items-center mb-2">
+                            <a href="../index.html" class="flex items-center">
+                                <div class="w-8 h-8 rounded-sm mr-3 bg-accent-blue-primary flex items-center justify-center">
+                                    <i class="fas fa-file-alt text-white text-sm"></i>
+                                </div>
+                                <h1 class="text-xl md:text-2xl font-semibold tracking-tight text-accent-blue-primary">Higher Education Executive Order Tracker</h1>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Right side: Description -->
+                    <div class="md:w-2/5 mt-3 md:mt-1">
+                        <p class="text-text-secondary text-sm">
+                            A specialized tool for analyzing Presidential Executive Orders and their potential impacts on higher education institutions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb mb-6" aria-label="Breadcrumb">
+            <ol class="flex flex-wrap items-center space-x-2 text-sm text-gray-600">
+                <li>
+                    <a href="../index.html" class="hover:text-blue-700 transition-colors">
+                        <i class="fas fa-home"></i>
+                        <span class="ml-1">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <i class="fas fa-chevron-right text-gray-400 mx-1"></i>
+                </li>
+                <li>
+                    <span class="text-blue-700 font-medium" id="breadcrumb-title">Executive Order Analysis</span>
+                </li>
+            </ol>
+        </nav>
+        
+        <!-- Main content: Two-column layout -->
+        <div class="flex flex-col lg:flex-row gap-8 mb-12">
+            <!-- Left sidebar with key info and TOC -->
+            <div class="w-full lg:w-1/4 mb-6 lg:mb-0">
+                <div class="sticky top-8 space-y-6">
+                    <!-- Key info card -->
+                    <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm" id="key-info">
+                        <h2 class="text-lg font-semibold text-blue-800 mb-3">Key Information</h2>
+                        
+                        <div class="mb-4">
+                            <div class="text-sm text-gray-500 mb-1">Order Number</div>
+                            <div class="font-medium text-lg" id="order-number"></div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="text-sm text-gray-500 mb-1">Date Issued</div>
+                            <div class="font-medium" id="signing-date"></div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="text-sm text-gray-500 mb-1">Administration</div>
+                            <div class="font-medium" id="president"></div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="text-sm text-gray-500 mb-1">Priority Level</div>
+                            <div id="impact-level"></div>
+                        </div>
+                        
+                        <div class="mt-5">
+                            <a href="#" id="original-source" target="_blank" class="block w-full py-2 px-4 bg-blue-700 hover:bg-blue-800 text-white text-center rounded-md transition-colors font-medium">
+                                <i class="fas fa-external-link-alt mr-2"></i>View Original Source
+                            </a>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <button id="print-analysis" class="block w-full py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-800 text-center rounded-md transition-colors font-medium">
+                                <i class="fas fa-print mr-2"></i>Print Analysis
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Table of contents -->
+                    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
+                        <h2 class="text-lg font-semibold text-blue-800 mb-3">Contents</h2>
+                        <nav class="toc">
+                            <a href="#overview" class="toc-link active">Overview</a>
+                            <a href="#executive-brief" class="toc-link">Executive Brief</a>
+                            <a href="#standard-analysis" class="toc-link">Standard Analysis</a>
+                            <a href="#comprehensive-analysis" class="toc-link">Comprehensive Analysis</a>
+                            <a href="#impact-areas" class="toc-link">University Impact Areas</a>
+                            <a href="#action-plan" class="toc-link">Action Plan</a>
+                        </nav>
+                    </div>
+                    
+                    <!-- Categories -->
+                    <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                        <h2 class="text-lg font-semibold text-blue-800 mb-3">Categories</h2>
+                        <div id="categories" class="flex flex-wrap gap-2"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main content area -->
+            <div class="w-full lg:w-3/4">
+                <!-- Document title -->
+                <div class="mb-8 pb-4 border-b border-gray-300">
+                    <h1 id="document-title" class="text-2xl md:text-3xl font-semibold text-blue-900 mb-3"></h1>
+                    <p id="document-subtitle" class="text-gray-600 text-lg"></p>
+                </div>
+                
+                <!-- Overview section -->
+                <section id="overview" class="analysis-section">
+                    <div class="section-header">
+                        <h2 class="text-xl font-semibold text-blue-800">Overview</h2>
+                    </div>
+                    <div id="overview-content" class="prose max-w-none"></div>
+                </section>
+                
+                <!-- Executive Brief section -->
+                <section id="executive-brief" class="analysis-section">
+                    <div class="section-header">
+                        <h2 class="text-xl font-semibold text-blue-800">Executive Brief</h2>
+                        <p class="text-gray-600">Quick, actionable intelligence for university leadership</p>
+                    </div>
+                    <div id="executive-brief-content" class="prose max-w-none">
+                        <!-- Content loaded dynamically -->
+                        <div class="py-12 flex justify-center items-center text-gray-500">
+                            <div class="text-center">
+                                <i class="fas fa-spinner fa-spin text-blue-700 text-3xl mb-4"></i>
+                                <p>Loading executive brief...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Standard Analysis section -->
+                <section id="standard-analysis" class="analysis-section">
+                    <div class="section-header">
+                        <h2 class="text-xl font-semibold text-blue-800">Standard Analysis</h2>
+                        <p class="text-gray-600">Structured breakdown of key impacts on higher education</p>
+                    </div>
+                    <div id="standard-analysis-content" class="prose max-w-none">
+                        <!-- Content loaded dynamically -->
+                        <div class="py-12 flex justify-center items-center text-gray-500">
+                            <div class="text-center">
+                                <i class="fas fa-spinner fa-spin text-blue-700 text-3xl mb-4"></i>
+                                <p>Loading standard analysis...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Comprehensive Analysis section -->
+                <section id="comprehensive-analysis" class="analysis-section">
+                    <div class="section-header">
+                        <h2 class="text-xl font-semibold text-blue-800">Comprehensive Analysis</h2>
+                        <p class="text-gray-600">In-depth assessment with strategic considerations</p>
+                    </div>
+                    <div id="comprehensive-analysis-content" class="prose max-w-none">
+                        <!-- Content loaded dynamically -->
+                        <div class="py-12 flex justify-center items-center text-gray-500">
+                            <div class="text-center">
+                                <i class="fas fa-spinner fa-spin text-blue-700 text-3xl mb-4"></i>
+                                <p>Loading comprehensive analysis...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- University Impact Areas -->
+                <section id="impact-areas" class="analysis-section">
+                    <div class="section-header">
+                        <h2 class="text-xl font-semibold text-blue-800">University Impact Areas</h2>
+                        <p class="text-gray-600">Specific domains affected within higher education</p>
+                    </div>
+                    <div id="university-impact-areas" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Content loaded dynamically -->
+                    </div>
+                </section>
+                
+                <!-- Action Plan -->
+                <section id="action-plan" class="analysis-section">
+                    <div class="section-header">
+                        <h2 class="text-xl font-semibold text-blue-800">Action Plan</h2>
+                        <p class="text-gray-600">Recommended next steps for implementation</p>
+                    </div>
+                    <div id="action-plan-content" class="prose max-w-none">
+                        <!-- This will be populated from the comprehensive analysis -->
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                            <p class="text-blue-700 font-medium">Recommended actions based on comprehensive analysis.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer mt-8 py-6 border-t border-gray-200">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="flex items-center text-xs uppercase tracking-wider">
+                        <div class="w-2 h-2 rounded-full bg-accent-blue-secondary mr-2"></div>
+                        <span id="system-info">EXECUTIVE ORDER ANALYSIS SYSTEM | STATIC DEPLOYMENT</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center text-xs">
+                        <span class="text-text-muted">POWERED BY</span>
+                        <i class="fas fa-brain text-accent-amber-secondary mx-2"></i>
+                        <span class="text-text-secondary">CLAUDE INTELLIGENCE ENGINE</span>
+                    </div>
+                    <a href="https://github.com/franz-hartl/yale-executive-orders" class="flex items-center text-xs" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github text-accent-blue-secondary mr-1"></i>
+                        <span class="text-accent-blue-secondary">REPOSITORY</span>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check for path-based routing first (e.g., /analysis/14042/some-title)
+            let orderId = null;
+            
+            // Try to extract order ID from the path
+            const pathMatch = window.location.pathname.match(/\/analysis\/(\d+)\//);
+            if (pathMatch && pathMatch[1]) {
+                orderId = pathMatch[1];
+            } else {
+                // Fall back to query parameter
+                const params = new URLSearchParams(window.location.search);
+                orderId = params.get('id');
+            }
+            
+            if (!orderId) {
+                // If no order ID provided, redirect to main page
+                window.location.href = '../index.html';
+                return;
+            }
+            
+            // Load the executive order data
+            loadExecutiveOrderData(orderId);
+            
+            // Add event listener for TOC links
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Update active state
+                    document.querySelectorAll('.toc-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
+            
+            // Add event listener for the print button
+            document.getElementById('print-analysis').addEventListener('click', () => {
+                window.print();
+            });
+            
+            // Set up intersection observer for TOC highlighting
+            setupScrollSpy();
+        });
+        
+        // Load executive order data
+        async function loadExecutiveOrderData(orderId) {
+            try {
+                // Fetch the executive orders data
+                const response = await fetch('../data/executive_orders.json');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch executive orders data');
+                }
+                
+                const allExecutiveOrders = await response.json();
+                
+                // Find the specific order
+                const order = allExecutiveOrders.find(o => o.id === parseInt(orderId, 10) || o.id === orderId);
+                
+                if (!order) {
+                    throw new Error('Executive order not found');
+                }
+                
+                // Update page title with order name
+                document.title = `${order.title} | Executive Order Analysis`;
+                
+                // Update URL with order slug if not already present
+                const slug = createSlug(order.title);
+                const currentUrl = new URL(window.location.href);
+                
+                // Only update URL if it doesn't already have the right format
+                if (!currentUrl.pathname.includes('/analysis/') && history.pushState) {
+                    const newUrl = `${currentUrl.origin}/analysis/${order.order_number}/${slug}?id=${orderId}`;
+                    window.history.pushState({ path: newUrl }, '', newUrl);
+                }
+                
+                // Update page content with order details
+                populateOrderDetails(order);
+                
+                // Load the various analysis types
+                await Promise.all([
+                    fetchExecutiveBrief(orderId),
+                    fetchStandardAnalysis(orderId),
+                    fetchComprehensiveAnalysis(orderId)
+                ]);
+                
+            } catch (error) {
+                console.error('Error loading executive order data:', error);
+                displayErrorMessage('Failed to load executive order data. Please try again later.');
+            }
+        }
+        
+        // Create a URL-friendly slug from a string
+        function createSlug(text) {
+            return text
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .trim();
+        }
+        
+        // Populate the page with order details
+        function populateOrderDetails(order) {
+            // Update breadcrumb and title
+            document.getElementById('breadcrumb-title').textContent = order.order_number;
+            document.getElementById('document-title').textContent = order.title;
+            document.getElementById('document-subtitle').textContent = `Executive Order ${order.order_number}`;
+            
+            // Update sidebar info
+            document.getElementById('order-number').textContent = order.order_number || 'N/A';
+            
+            // Format date
+            const signingDate = order.signing_date ? 
+                new Date(order.signing_date).toLocaleDateString('en-US', {
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric'
+                }) : 'N/A';
+            
+            document.getElementById('signing-date').textContent = signingDate;
+            document.getElementById('president').textContent = order.president || 'N/A';
+            
+            // Set impact level badge
+            const impactLevel = document.getElementById('impact-level');
+            let impactBadgeClass = 'impact-medium';
+            
+            if (order.impact_level === 'Critical') {
+                impactBadgeClass = 'impact-critical';
+            } else if (order.impact_level === 'High') {
+                impactBadgeClass = 'impact-high';
+            } else if (order.impact_level === 'Low') {
+                impactBadgeClass = 'impact-low';
+            }
+            
+            impactLevel.innerHTML = `<span class="impact-badge ${impactBadgeClass}">${order.impact_level || 'Unknown'}</span>`;
+            
+            // Set original source URL
+            const originalSourceLink = document.getElementById('original-source');
+            if (order.url) {
+                originalSourceLink.href = order.url;
+            } else {
+                originalSourceLink.parentElement.classList.add('hidden');
+            }
+            
+            // Set categories
+            const categoriesContainer = document.getElementById('categories');
+            if (order.categories && order.categories.length > 0) {
+                order.categories.forEach(category => {
+                    const tag = document.createElement('span');
+                    tag.className = 'px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full';
+                    tag.textContent = category;
+                    categoriesContainer.appendChild(tag);
+                });
+            } else {
+                categoriesContainer.innerHTML = '<p class="text-gray-500">No categories specified</p>';
+            }
+            
+            // Set overview content
+            const overviewContent = document.getElementById('overview-content');
+            overviewContent.innerHTML = `
+                <p class="text-lg">${order.summary || 'No summary available.'}</p>
+            `;
+            
+            // Set university impact areas
+            populateUniversityImpactAreas(order);
+        }
+        
+        // Populate university impact areas
+        function populateUniversityImpactAreas(order) {
+            const container = document.getElementById('university-impact-areas');
+            container.innerHTML = '';
+            
+            if (order.university_impact_areas && order.university_impact_areas.length > 0) {
+                order.university_impact_areas.forEach(area => {
+                    // Get area name (handle both string and object formats)
+                    const areaName = typeof area === 'string' ? area : area.name;
+                    const areaDescription = typeof area === 'object' && area.description ? area.description : '';
+                    const areaNotes = typeof area === 'object' && area.notes ? area.notes : '';
+                    
+                    // Create university impact area card
+                    const card = document.createElement('div');
+                    card.className = 'border border-gray-200 rounded-lg p-4 bg-indigo-50';
+                    
+                    // Determine icon based on area name
+                    let iconClass = 'fas fa-university';
+                    if (areaName === 'Research Funding') {
+                        iconClass = 'fas fa-flask';
+                    } else if (areaName === 'Student Aid & Higher Education Finance') {
+                        iconClass = 'fas fa-graduation-cap';
+                    } else if (areaName === 'Administrative Compliance') {
+                        iconClass = 'fas fa-clipboard-check';
+                    } else if (areaName === 'Workforce & Employment Policy') {
+                        iconClass = 'fas fa-users';
+                    } else if (areaName === 'Public-Private Partnerships') {
+                        iconClass = 'fas fa-handshake';
+                    }
+                    
+                    card.innerHTML = `
+                        <div class="flex items-center mb-2">
+                            <i class="${iconClass} text-[#00356B] mr-2"></i>
+                            <h5 class="font-medium">${areaName}</h5>
+                        </div>
+                        <p class="text-sm text-gray-700">
+                            This executive order will impact ${areaName.toLowerCase()} at higher education institutions. 
+                        </p>
+                        ${areaDescription ? `<p class="text-xs text-gray-500 mt-2">${areaDescription}</p>` : ''}
+                        ${areaNotes ? `<p class="text-xs italic text-gray-600 mt-2 border-t border-gray-100 pt-2">${areaNotes}</p>` : ''}
+                    `;
+                    
+                    container.appendChild(card);
+                });
+            } else {
+                container.innerHTML = '<p class="text-gray-500 col-span-2">No specific university impact areas identified for this executive order.</p>';
+            }
+        }
+        
+        // Fetch and display the executive brief
+        async function fetchExecutiveBrief(orderId) {
+            try {
+                const executiveBriefContent = document.getElementById('executive-brief-content');
+                executiveBriefContent.innerHTML = `
+                    <div class="flex justify-center items-center py-8">
+                        <div class="flex flex-col items-center" aria-live="polite">
+                            <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
+                            <p class="text-gray-500">Loading executive brief...</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Fetch the executive brief HTML file
+                const response = await fetch(`../data/executive_briefs/${orderId}.html`);
+                
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        // No brief available
+                        executiveBriefContent.innerHTML = `
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+                                <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
+                                <h3 class="text-lg font-medium text-gray-800 mb-2">No Executive Brief Available</h3>
+                                <p class="text-gray-500">An executive brief has not been generated for this executive order yet.</p>
+                            </div>
+                        `;
+                        return;
+                    }
+                    throw new Error(`Status: ${response.status}`);
+                }
+                
+                const htmlContent = await response.text();
+                
+                // Display the executive brief
+                executiveBriefContent.innerHTML = htmlContent;
+                
+            } catch (error) {
+                console.error('Error fetching executive brief:', error);
+                document.getElementById('executive-brief-content').innerHTML = `
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center" role="alert">
+                        <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
+                        <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Brief</h3>
+                        <p class="text-red-500">There was an error loading the executive brief. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Fetch and display the standard analysis
+        async function fetchStandardAnalysis(orderId) {
+            try {
+                const standardAnalysisContent = document.getElementById('standard-analysis-content');
+                standardAnalysisContent.innerHTML = `
+                    <div class="flex justify-center items-center py-8">
+                        <div class="flex flex-col items-center" aria-live="polite">
+                            <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
+                            <p class="text-gray-500">Loading standard analysis...</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Fetch the standard analysis HTML file
+                const response = await fetch(`../data/summaries/${orderId}.html`);
+                
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        // No summary available
+                        standardAnalysisContent.innerHTML = `
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+                                <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
+                                <h3 class="text-lg font-medium text-gray-800 mb-2">No Standard Analysis Available</h3>
+                                <p class="text-gray-500">A standard analysis has not been generated for this executive order yet.</p>
+                            </div>
+                        `;
+                        return;
+                    }
+                    throw new Error(`Status: ${response.status}`);
+                }
+                
+                const htmlContent = await response.text();
+                
+                // Display the standard analysis
+                standardAnalysisContent.innerHTML = htmlContent;
+                
+            } catch (error) {
+                console.error('Error fetching standard analysis:', error);
+                document.getElementById('standard-analysis-content').innerHTML = `
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center" role="alert">
+                        <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
+                        <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Analysis</h3>
+                        <p class="text-red-500">There was an error loading the standard analysis. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Fetch and display the comprehensive analysis
+        async function fetchComprehensiveAnalysis(orderId) {
+            try {
+                const comprehensiveAnalysisContent = document.getElementById('comprehensive-analysis-content');
+                const actionPlanContent = document.getElementById('action-plan-content');
+                
+                comprehensiveAnalysisContent.innerHTML = `
+                    <div class="flex justify-center items-center py-8">
+                        <div class="flex flex-col items-center" aria-live="polite">
+                            <i class="fas fa-spinner fa-spin text-blue-700 text-2xl mb-3" aria-hidden="true"></i>
+                            <p class="text-gray-500">Loading comprehensive analysis...</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Fetch the comprehensive analysis HTML file
+                const response = await fetch(`../data/comprehensive_analyses/${orderId}.html`);
+                
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        // No analysis available
+                        comprehensiveAnalysisContent.innerHTML = `
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+                                <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
+                                <h3 class="text-lg font-medium text-gray-800 mb-2">No Comprehensive Analysis Available</h3>
+                                <p class="text-gray-500">A comprehensive analysis has not been generated for this executive order yet.</p>
+                            </div>
+                        `;
+                        
+                        // Also update action plan section
+                        actionPlanContent.innerHTML = `
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+                                <i class="fas fa-file-alt text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
+                                <h3 class="text-lg font-medium text-gray-800 mb-2">No Action Plan Available</h3>
+                                <p class="text-gray-500">An action plan has not been generated for this executive order yet.</p>
+                            </div>
+                        `;
+                        return;
+                    }
+                    throw new Error(`Status: ${response.status}`);
+                }
+                
+                const htmlContent = await response.text();
+                
+                // Display the comprehensive analysis
+                comprehensiveAnalysisContent.innerHTML = htmlContent;
+                
+                // Extract action plan content from the comprehensive analysis
+                extractActionPlan(htmlContent, actionPlanContent);
+                
+            } catch (error) {
+                console.error('Error fetching comprehensive analysis:', error);
+                document.getElementById('comprehensive-analysis-content').innerHTML = `
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center" role="alert">
+                        <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
+                        <h3 class="text-lg font-medium text-red-800 mb-2">Error Loading Analysis</h3>
+                        <p class="text-red-500">There was an error loading the comprehensive analysis. Please try again later.</p>
+                    </div>
+                `;
+                
+                // Update action plan section with error
+                document.getElementById('action-plan-content').innerHTML = `
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+                        <i class="fas fa-exclamation-circle text-gray-400 text-4xl mb-4" aria-hidden="true"></i>
+                        <h3 class="text-lg font-medium text-gray-800 mb-2">Action Plan Not Available</h3>
+                        <p class="text-gray-500">Could not load the action plan due to an error.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Extract action plan from comprehensive analysis
+        function extractActionPlan(comprehensiveHtml, actionPlanContainer) {
+            // Create a temporary DOM element to parse the HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = comprehensiveHtml;
+            
+            // Try to find the action plan section in the comprehensive analysis
+            const actionPlanSection = tempDiv.querySelector('.action-plan');
+            
+            if (actionPlanSection) {
+                // Found the action plan section, use it
+                actionPlanContainer.innerHTML = actionPlanSection.innerHTML;
+            } else {
+                // Action plan section not found in expected format
+                // Use a default message
+                actionPlanContainer.innerHTML = `
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                        <p class="text-blue-700 font-medium">Action plan is included in the comprehensive analysis above.</p>
+                    </div>
+                    <p>Please refer to the comprehensive analysis section for detailed implementation steps and recommendations.</p>
+                `;
+            }
+        }
+        
+        // Display an error message on the page
+        function displayErrorMessage(message) {
+            const container = document.querySelector('.app-container');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'bg-red-50 border border-red-200 rounded-lg p-6 my-8 text-center';
+            errorDiv.innerHTML = `
+                <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
+                <h3 class="text-lg font-medium text-red-800 mb-2">Error</h3>
+                <p class="text-red-500">${message}</p>
+                <div class="mt-4">
+                    <a href="../index.html" class="px-4 py-2 bg-blue-700 text-white rounded-md inline-block">
+                        Return to Home
+                    </a>
+                </div>
+            `;
+            
+            container.innerHTML = '';
+            container.appendChild(errorDiv);
+        }
+        
+        // Set up intersection observer for TOC highlighting
+        function setupScrollSpy() {
+            const sections = document.querySelectorAll('.analysis-section');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -80% 0px',
+                threshold: 0
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Find the corresponding TOC link
+                        const id = entry.target.getAttribute('id');
+                        const link = document.querySelector(`.toc-link[href="#${id}"]`);
+                        
+                        // Update active state
+                        if (link) {
+                            tocLinks.forEach(l => l.classList.remove('active'));
+                            link.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all sections
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+    </script>
+</body>
+</html>

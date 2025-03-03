@@ -1,0 +1,189 @@
+/**
+ * Yale Component Library - Tabs
+ * Tab navigation and content components
+ */
+
+/* Tab Container */
+.yale-tabs {
+  width: 100%;
+}
+
+/* Tab Navigation */
+.yale-tabs__nav {
+  display: flex;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--border-light);
+  -ms-overflow-style: none;  /* IE/Edge hide scrollbar */
+  scrollbar-width: none;  /* Firefox hide scrollbar */
+}
+
+.yale-tabs__nav::-webkit-scrollbar {
+  display: none; /* Chrome/Safari hide scrollbar */
+}
+
+/* Tab Button */
+.yale-tab-button {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--transition-standard);
+  min-height: 44px;
+  white-space: nowrap;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.yale-tab-button:hover {
+  color: var(--text-primary);
+}
+
+.yale-tab-button:focus {
+  outline: none;
+  box-shadow: inset 0 -3px 0 var(--yale-blue-light);
+}
+
+.yale-tab-button--active {
+  color: var(--yale-blue);
+  border-bottom-color: var(--yale-blue);
+  font-weight: 700;
+  background-color: rgba(0, 53, 107, 0.04);
+}
+
+/* Tab Button with Icon */
+.yale-tab-button__icon {
+  margin-right: 0.5rem;
+}
+
+/* Tab Content */
+.yale-tab-content {
+  padding: var(--space-md) 0;
+}
+
+.yale-tab-content--hidden {
+  display: none;
+}
+
+/* Tab Content Animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.yale-tab-content--animate {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Tab Sizes */
+.yale-tabs--sm .yale-tab-button {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  min-height: 36px;
+}
+
+.yale-tabs--lg .yale-tab-button {
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  min-height: 52px;
+}
+
+/* Tab Variants */
+.yale-tabs--pill .yale-tabs__nav {
+  border-bottom: none;
+  padding: 0.25rem;
+  background-color: var(--background-tertiary);
+  border-radius: 9999px;
+}
+
+.yale-tabs--pill .yale-tab-button {
+  border-radius: 9999px;
+  border-bottom: none;
+}
+
+.yale-tabs--pill .yale-tab-button--active {
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.yale-tabs--button .yale-tabs__nav {
+  border-bottom: none;
+  padding: 0.25rem;
+  background-color: var(--background-tertiary);
+  border-radius: var(--radius-base);
+}
+
+.yale-tabs--button .yale-tab-button {
+  border-radius: var(--radius-base);
+  border-bottom: none;
+}
+
+.yale-tabs--button .yale-tab-button--active {
+  background-color: var(--yale-blue);
+  color: white;
+}
+
+/* Vertical Tabs */
+.yale-tabs--vertical {
+  display: flex;
+  flex-direction: row;
+}
+
+.yale-tabs--vertical .yale-tabs__nav {
+  flex-direction: column;
+  border-bottom: none;
+  border-right: 1px solid var(--border-light);
+  min-width: 200px;
+}
+
+.yale-tabs--vertical .yale-tab-button {
+  text-align: left;
+  border-bottom: none;
+  border-right: 2px solid transparent;
+  justify-content: flex-start;
+}
+
+.yale-tabs--vertical .yale-tab-button--active {
+  border-right-color: var(--yale-blue);
+}
+
+.yale-tabs--vertical .yale-tab-content {
+  padding: 0 var(--space-md);
+}
+
+/* Mobile Tabs (under 768px) */
+@media (max-width: 767px) {
+  .yale-tab-button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  .yale-tabs--vertical {
+    flex-direction: column;
+  }
+  
+  .yale-tabs--vertical .yale-tabs__nav {
+    flex-direction: row;
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+    min-width: unset;
+  }
+  
+  .yale-tabs--vertical .yale-tab-button {
+    border-right: none;
+    border-bottom: 2px solid transparent;
+  }
+  
+  .yale-tabs--vertical .yale-tab-button--active {
+    border-right-color: transparent;
+    border-bottom-color: var(--yale-blue);
+  }
+  
+  .yale-tabs--vertical .yale-tab-content {
+    padding: var(--space-md) 0;
+  }
+}

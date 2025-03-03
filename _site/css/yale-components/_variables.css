@@ -1,0 +1,65 @@
+/**
+ * Yale Component Library - Variables
+ * Core design tokens matching official Yale University guidelines
+ */
+
+:root {
+  /* Primary Yale Colors - Based on official Yale Brand Identity */
+  --yale-blue: #00356b; /* Official Yale Blue - text, links, and accents */
+  --white: rgb(255, 255, 255); /* Background and text on dark backgrounds */
+  --black: rgb(0, 0, 0); /* Used for body text */
+  
+  /* Secondary Colors - Official Yale palette */
+  --light-blue: #f1f6fb; /* Used for backgrounds and highlights */
+  --yale-accent-blue: #286dc0; /* Official Yale accent blue for interactive elements */
+  --yale-gold: #FFD100; /* Official Yale gold - used for accents and highlights */
+  --medium-gray: #767676; /* Used for secondary text */
+  --dark-gray: #4a4a4a; /* Used for tertiary text */
+  
+  /* Transparency Variants */
+  --yale-accent-blue-transparent: rgba(40, 109, 192, 0.2); /* Used for hover states */
+  --yale-blue-transparent: rgba(0, 53, 107, 0.8); /* Used for overlays */
+  
+  /* Aliases for backward compatibility */
+  --background-primary: var(--white);
+  --background-secondary: var(--light-blue);
+  --background-tertiary: rgb(243, 247, 250); /* Slightly darker than light blue */
+  
+  --text-primary: var(--black);
+  --text-secondary: var(--medium-gray);
+  --text-muted: var(--dark-gray);
+  
+  /* Status Colors */
+  --status-green: #2E7D32;
+  --status-amber: #F59E0B;
+  --status-red: #DC2626;
+  
+  /* Border/Shadow */
+  --border-light: #E2E8F0;
+  --card-shadow: none; /* Yale News doesn't use shadows */
+  --card-depth: none; /* Yale News doesn't use shadows */
+  
+  /* Interaction */
+  --hover-overlay: var(--yale-accent-blue-transparent);
+  --active-overlay: var(--yale-blue-transparent);
+  --focus-ring: 0 0 0 2px rgba(30, 56, 102, 0.4);
+  
+  /* Spacing System - Directly from Yale News */
+  --space-xs: 0.75rem;    /* 12px */
+  --space-sm: 1rem;       /* 16px */
+  --space-md: 1.25rem;    /* 20px */
+  --space-lg: 2.5rem;     /* 40px */
+  --space-xl: 7.5rem;     /* 120px */
+  --space-2xl: 9.375rem;  /* 150px */
+  
+  /* Animation */
+  --transition-standard: 200ms ease-in-out;
+  --transition-enter: 200ms ease-out;
+  --transition-exit: 150ms ease-in;
+  
+  /* Border Radius - Yale News uses no rounded corners */
+  --radius-sm: 0;
+  --radius-base: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+}

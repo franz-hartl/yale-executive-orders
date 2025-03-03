@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "name": "Research & Innovation",
+    "description": "Impacts on federal research grants, funding priorities, and innovative research initiatives at Yale",
+    "related_r1_area_id": null,
+    "primary_yale_department_id": 4,
+    "secondary_yale_department_ids": "[2,3,11]",
+    "related_r1_area_name": null
+  },
+  {
+    "id": 2,
+    "name": "Research Security & Export Control",
+    "description": "Impacts on research security requirements, export controls, and foreign research collaborations",
+    "related_r1_area_id": null,
+    "primary_yale_department_id": 2,
+    "secondary_yale_department_ids": "[4,10]",
+    "related_r1_area_name": null
+  },
+  {
+    "id": 3,
+    "name": "International & Immigration",
+    "description": "Impacts on Yale's international students, scholar mobility, visa regulations, and global initiatives",
+    "related_r1_area_id": null,
+    "primary_yale_department_id": 8,
+    "secondary_yale_department_ids": "[7,10]",
+    "related_r1_area_name": null
+  },
+  {
+    "id": 4,
+    "name": "Community & Belonging",
+    "description": "Impacts on Yale's community building, belonging initiatives, and educational equity",
+    "related_r1_area_id": null,
+    "primary_yale_department_id": 1,
+    "secondary_yale_department_ids": "[3,4]",
+    "related_r1_area_name": null
+  },
+  {
+    "id": 5,
+    "name": "Campus Safety & Student Affairs",
+    "description": "Impacts on Yale's campus safety, student life, residential colleges, and campus activities",
+    "related_r1_area_id": null,
+    "primary_yale_department_id": 3,
+    "secondary_yale_department_ids": "[7,11]",
+    "related_r1_area_name": null
+  },
+  {
+    "id": 6,
+    "name": "Faculty & Workforce",
+    "description": "Impacts on faculty administration, employment policies, and workforce management at Yale",
+    "related_r1_area_id": null,
+    "primary_yale_department_id": 1,
+    "secondary_yale_department_ids": "[10]",
+    "related_r1_area_name": null
+  },
+  {
+    "id": 7,
+    "name": "Healthcare & Public Health",
+    "description": "Impacts on Yale School of Medicine, Yale Health, public health initiatives, and clinical operations",
+    "related_r1_area_id": null,
+    "primary_yale_department_id": 5,
+    "secondary_yale_department_ids": "[2,10]",
+    "related_r1_area_name": null
+  },
+  {
+    "id": 8,
+    "name": "Financial & Operations",
+    "description": "Impacts on Yale's financial operations, endowment management, facilities, and IT infrastructure",
+    "related_r1_area_id": null,
+    "primary_yale_department_id": 9,
+    "secondary_yale_department_ids": "[1,10]",
+    "related_r1_area_name": null
+  },
+  {
+    "id": 9,
+    "name": "Governance & Legal",
+    "description": "Impacts on Yale's governance structure, legal compliance, and university-wide policies",
+    "related_r1_area_id": null,
+    "primary_yale_department_id": 10,
+    "secondary_yale_department_ids": "[1]",
+    "related_r1_area_name": null
+  },
+  {
+    "id": 10,
+    "name": "Academic Programs",
+    "description": "Impacts on Yale's academic programming, curriculum, and teaching across schools and departments",
+    "related_r1_area_id": null,
+    "primary_yale_department_id": 1,
+    "secondary_yale_department_ids": "[3,4,5]",
+    "related_r1_area_name": null
+  },
+  {
+    "id": 11,
+    "name": "Arts & Cultural Heritage",
+    "description": "Impact on Yale's museums, collections, performances, and cultural programming",
+    "related_r1_area_id": null,
+    "primary_yale_department_id": 12,
+    "secondary_yale_department_ids": "[6]",
+    "related_r1_area_name": null
+  },
+  {
+    "id": 12,
+    "name": "Athletics & Student Activities",
+    "description": "Impact on Yale's sports programs and extracurricular activities",
+    "related_r1_area_id": null,
+    "primary_yale_department_id": 11,
+    "secondary_yale_department_ids": "[3]",
+    "related_r1_area_name": null
+  }
+]

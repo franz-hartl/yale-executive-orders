@@ -1,0 +1,350 @@
+/**
+ * Yale Executive Orders Tracker - Main Stylesheet
+ *
+ * This file contains styles for the Executive Order Tracker application.
+ * It integrates the Yale Component Library with application-specific styles.
+ */
+
+/* Import Yale Component Library */
+@import 'yale-components.css';
+
+/* =========================================================================
+   APPLICATION-SPECIFIC STYLES
+   ========================================================================= */
+
+/* App Container */
+.app-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0.5rem;
+}
+
+/* Mobile helper classes */
+.yale-hidden {
+  display: none !important;
+}
+
+/* System Info Bar - Yale News style */
+.system-info-bar {
+  background-color: var(--light-blue);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2.5rem;
+  border-radius: 0;
+  border-left: 3px solid var(--yale-blue);
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Yale Header - styled per Yale News website */
+.yale-header {
+  border-bottom: 1px solid #e2e8f0;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  position: relative;
+  background-color: white;
+}
+
+.yale-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+  color: var(--yale-blue);
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .yale-header h1 {
+    font-size: 2.5rem;
+  }
+}
+
+.yale-header__description {
+  font-size: 1.125rem;
+  color: var(--medium-gray);
+  max-width: 42rem;
+  line-height: 1.5;
+}
+
+/* Yale News-style Status Indicator */
+.yale-status-indicator {
+  display: flex;
+  align-items: center;
+  background-color: var(--yale-blue);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0;
+  margin-left: auto;
+  margin-right: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  max-width: 100%;
+  overflow: hidden;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.yale-spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: yale-spin 1s linear infinite;
+  margin-right: 0.75rem;
+}
+
+.yale-spinner--sm {
+  width: 0.875rem;
+  height: 0.875rem;
+  border-width: 2px;
+}
+
+.yale-status-message {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes yale-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Loading Indicator (deprecated) */
+.yale-loading--overlay {
+  display: none; /* Hide by default now that we have a better solution */
+}
+
+/* Yale style footer - based on Yale.edu */
+.yale-footer {
+  background-color: var(--yale-blue);
+  color: white;
+  padding: 3rem 0;
+  margin-top: 4rem;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.yale-footer a {
+  color: white;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.yale-footer a:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
+.yale-footer p {
+  margin: 0;
+  margin-bottom: 0.75rem;
+  font-size: 0.9375rem;
+}
+
+.yale-footer__logo {
+  margin-bottom: 1.5rem;
+}
+
+.yale-footer__heading {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.yale-footer__links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 2rem;
+}
+
+.yale-footer__links li {
+  margin-bottom: 0.75rem;
+}
+
+.yale-footer__link {
+  font-size: 0.875rem;
+  display: inline-block;
+}
+
+.yale-footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2rem;
+  margin-top: 2rem;
+}
+
+.yale-opacity-70 {
+  opacity: 0.7;
+}
+
+@media (min-width: 768px) {
+  .yale-footer__nav {
+    display: flex;
+    gap: 4rem;
+  }
+}
+
+/* Pagination Styles */
+.yale-pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  font-family: var(--font-sans);
+}
+
+@media (min-width: 768px) {
+  .yale-pagination {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.yale-pagination__info {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.yale-pagination__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.yale-pagination__ellipsis {
+  color: var(--color-text-secondary);
+  margin: 0 0.25rem;
+}
+
+.yale-btn--active {
+  background-color: var(--color-accent-blue-primary);
+  color: white;
+  border-color: var(--color-accent-blue-primary);
+}
+
+.yale-btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Data Table Customizations */
+.data-table .sort-header {
+  cursor: pointer;
+}
+
+.data-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.impact-badge {
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Detail View Customizations */
+.detail-view .modal-content {
+  max-width: 1000px;
+}
+
+.detail-metadata {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .detail-metadata {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Legacy Classes (for backward compatibility) */
+.btn-primary {
+  @extend .yale-btn;
+  @extend .yale-btn--primary;
+}
+
+.btn-secondary {
+  @extend .yale-btn;
+  @extend .yale-btn--secondary;
+}
+
+.btn-outline {
+  @extend .yale-btn;
+  @extend .yale-btn--outline;
+}
+
+.card {
+  @extend .yale-card;
+}
+
+.impact-critical {
+  @extend .yale-badge;
+  @extend .yale-badge--critical;
+}
+
+.impact-high {
+  @extend .yale-badge;
+  @extend .yale-badge--high;
+}
+
+.impact-medium {
+  @extend .yale-badge;
+  @extend .yale-badge--medium;
+}
+
+.impact-low {
+  @extend .yale-badge;
+  @extend .yale-badge--low;
+}
+
+.tag {
+  @extend .yale-tag;
+}
+
+.modal-backdrop {
+  @extend .yale-modal__backdrop;
+}
+
+.modal-content {
+  @extend .yale-modal__content;
+}
+
+.modal-header {
+  @extend .yale-modal__header;
+}
+
+.modal-body {
+  @extend .yale-modal__body;
+}
+
+.modal-footer {
+  @extend .yale-modal__footer;
+}
+
+.tab-button {
+  @extend .yale-tab-button;
+}
+
+.tab-button.active {
+  @extend .yale-tab-button--active;
+}
+
+.tab-content {
+  @extend .yale-tab-content;
+}
+
+.tab-content.hidden {
+  @extend .yale-tab-content--hidden;
+}
+
+.sr-only {
+  @extend .sr-only;
+}
